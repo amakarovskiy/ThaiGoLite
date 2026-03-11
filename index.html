@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>ThaiGo Lite — Аренда байков на Пхукете</title>
+  <meta name="description" content="Аренда байков и скутеров на Пхукете. От 200 бат/сутки. Доставка по всему острову. WhatsApp бронирование." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <img src="https://thaigo.rent/wp-content/themes/wordpress-theme/img/logo.svg" alt="ThaiGo" class="header-logo" height="26" />
+      <span class="header-title">ThaiGo <span class="accent">Lite</span></span>
+      <a href="https://wa.me/66822545737" target="_blank" rel="noopener" class="header-wa-btn" aria-label="WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </header>
+
+    <!-- ══════ TAB 1: ГЛАВНАЯ ══════ -->
+    <main id="page-home" class="page page--active">
+      <!-- Hero -->
+      <section class="hero">
+        <h1 class="hero-h1">Аренда байков<br>на Пхукете</h1>
+        <p class="hero-sub">Без залога паспорта. Доставка по острову.<br>От 200 &#3647;/сутки. Договор и страховка.</p>
+        <div class="hero-cta">
+          <a href="https://wa.me/66822545737?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%B0%D1%80%D0%B5%D0%BD%D0%B4%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D0%B1%D0%B0%D0%B9%D0%BA" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp</a>
+          <a href="https://t.me/ThaiGoSale1" target="_blank" rel="noopener" class="btn btn-tg">Telegram</a>
+        </div>
+      </section>
+
+      <!-- Почему мы -->
+      <section class="section">
+        <h2 class="section-title">Почему ThaiGo</h2>
+        <div class="why-grid">
+          <div class="why-item"><span class="why-icon">&#128274;</span><span class="why-text">Без залога паспорта</span></div>
+          <div class="why-item"><span class="why-icon">&#128666;</span><span class="why-text">Доставка в отель</span></div>
+          <div class="why-item"><span class="why-icon">&#3647;</span><span class="why-text">От 200 &#3647;/сутки</span></div>
+          <div class="why-item"><span class="why-icon">&#127760;</span><span class="why-text">24/7 на русском</span></div>
+          <div class="why-item"><span class="why-icon">&#128295;</span><span class="why-text">Замена при поломке</span></div>
+          <div class="why-item"><span class="why-icon">&#128196;</span><span class="why-text">Договор + страховка</span></div>
+        </div>
+      </section>
+
+      <!-- Популярные байки -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Популярные байки</h2>
+          <button class="section-link" data-goto="bikes">Все &rarr;</button>
+        </div>
+        <div class="popular-scroll" id="popularScroll"></div>
+      </section>
+
+      <!-- Районы доставки -->
+      <section class="section">
+        <h2 class="section-title">Доставка по Пхукету</h2>
+        <div class="districts-wrap">
+          <span class="district-chip">Патонг</span>
+          <span class="district-chip">Карон</span>
+          <span class="district-chip">Ката</span>
+          <span class="district-chip">Камала</span>
+          <span class="district-chip">Бангтао</span>
+          <span class="district-chip">Сурин</span>
+          <span class="district-chip">Раваи</span>
+          <span class="district-chip">Чалонг</span>
+          <span class="district-chip">Пхукет-таун</span>
+          <span class="district-chip">Най Харн</span>
+          <span class="district-chip">Аэропорт</span>
+          <span class="district-chip">Най Янг</span>
+        </div>
+        <p class="districts-note">Бесплатно от 3 дней аренды в Карон, Ката, Патонг</p>
+      </section>
+    </main>
+
+    <!-- ══════ TAB 2: БАЙКИ ══════ -->
+    <main id="page-bikes" class="page">
+      <div class="bike-filters" id="bikeFilters">
+        <button class="filter-chip filter-chip--active" data-cat="all">Все</button>
+        <button class="filter-chip" data-cat="scooter">Скутеры</button>
+        <button class="filter-chip" data-cat="maxi">Макси</button>
+        <button class="filter-chip" data-cat="moto">Мотоциклы</button>
+        <button class="filter-chip" data-cat="car">Авто</button>
+      </div>
+      <div class="bike-grid" id="bikeGrid"></div>
+    </main>
+
+    <!-- ══════ TAB 3: МАРШРУТЫ ══════ -->
+    <main id="page-routes" class="page">
+      <!-- Субтабы: Места / Мой маршрут -->
+      <div class="route-subtabs">
+        <button class="route-subtab route-subtab--active" data-subtab="places">Места</button>
+        <button class="route-subtab" data-subtab="myroute">Маршрут <span class="route-badge" id="routeBadge" style="display:none">0</span></button>
+      </div>
+
+      <!-- Подтаб: Места -->
+      <div id="subtab-places" class="subtab subtab--active">
+        <div class="place-filters" id="placeFilters">
+          <button class="filter-chip filter-chip--active" data-cat="top">Топ</button>
+          <button class="filter-chip" data-cat="all">Все</button>
+          <button class="filter-chip" data-cat="beach">Пляжи</button>
+          <button class="filter-chip" data-cat="view">Смотровые</button>
+          <button class="filter-chip" data-cat="temple">Храмы</button>
+          <button class="filter-chip" data-cat="nature">Природа</button>
+          <button class="filter-chip" data-cat="market">Рынки</button>
+          <button class="filter-chip" data-cat="food">Еда</button>
+          <button class="filter-chip" data-cat="photo">Фото</button>
+        </div>
+        <div class="place-search">
+          <input type="text" id="placeSearch" class="search-input" placeholder="Поиск места..." />
+        </div>
+        <div class="place-list" id="placeList"></div>
+      </div>
+
+      <!-- Подтаб: Мой маршрут -->
+      <div id="subtab-myroute" class="subtab">
+        <div class="route-panel">
+          <div class="route-header">
+            <span>Маршрут <span class="route-count" id="routeCount">0</span>/12</span>
+            <button class="route-clear-btn" id="routeClear">Сбросить</button>
+          </div>
+          <div class="route-stops" id="routeStops">
+            <div class="route-empty" id="routeEmpty">Выбери 2+ места чтобы построить маршрут</div>
+          </div>
+          <div class="route-stats" id="routeStats" style="display:none">
+            <div class="stat-box"><div class="stat-val" id="statKm">0</div><div class="stat-label">км</div></div>
+            <div class="stat-box"><div class="stat-val" id="statTime">0</div><div class="stat-label">в пути</div></div>
+            <div class="stat-box"><div class="stat-val" id="statFuel">0</div><div class="stat-label">&#3647; бензин</div></div>
+          </div>
+          <div class="cost-row" id="costRow" style="display:none">
+            <span class="cost-taxi">Такси: ~<span id="costTaxi">0</span> &#3647;</span>
+            <span class="cost-arrow">&rarr;</span>
+            <span class="cost-bike">Байк: ~200 &#3647;/день</span>
+          </div>
+          <div class="route-cta-block" id="routeCtaBlock" style="display:none">
+            <a class="btn btn-wa btn-full" id="routeWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-tg btn-full" id="routeTg" href="#" target="_blank" rel="noopener">Telegram</a>
+          </div>
+          <div class="route-rent-cta" id="routeRentCta" style="display:none">
+            <div><strong>Для маршрута нужен байк</strong><br><small>от 200 &#3647; в день</small></div>
+            <button class="btn btn-primary btn-sm" data-goto="bikes">Арендовать</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ══════ TAB 4: КОНТАКТЫ ══════ -->
+    <main id="page-contacts" class="page">
+      <div class="contacts-page">
+        <h2 class="page-title">Контакты</h2>
+
+        <div class="contact-card">
+          <div class="contact-row"><span class="contact-icon">&#128222;</span><a href="tel:+66822545737">+66 82 254 5737</a></div>
+          <div class="contact-row"><span class="contact-icon">&#128172;</span><a href="https://wa.me/66822545737" target="_blank" rel="noopener">WhatsApp</a></div>
+          <div class="contact-row"><span class="contact-icon">&#9992;</span><a href="https://t.me/ThaiGoSale1" target="_blank" rel="noopener">Telegram</a></div>
+          <div class="contact-row"><span class="contact-icon">&#127760;</span><a href="https://thaigo.rent" target="_blank" rel="noopener">thaigo.rent</a></div>
+          <div class="contact-row"><span class="contact-icon">&#128205;</span>Kata, Phuket, Thailand</div>
+          <div class="contact-row"><span class="contact-icon">&#128336;</span>Ежедневно 8:00–20:00</div>
+        </div>
+
+        <section class="section">
+          <h3 class="section-title">Районы доставки</h3>
+          <div class="delivery-grid">
+            <div class="delivery-item"><strong>Карон, Ката</strong><br><small>Бесплатно от 3 дней</small></div>
+            <div class="delivery-item"><strong>Патонг</strong><br><small>Бесплатно от 3 дней</small></div>
+            <div class="delivery-item"><strong>Камала, Сурин</strong><br><small>300 &#3647; или бесплатно от 7 дней</small></div>
+            <div class="delivery-item"><strong>Бангтао</strong><br><small>300 &#3647; или бесплатно от 7 дней</small></div>
+            <div class="delivery-item"><strong>Раваи, Най Харн</strong><br><small>300 &#3647; или бесплатно от 7 дней</small></div>
+            <div class="delivery-item"><strong>Чалонг, Пхукет-таун</strong><br><small>300 &#3647;</small></div>
+            <div class="delivery-item"><strong>Аэропорт, Най Янг</strong><br><small>500 &#3647;</small></div>
+            <div class="delivery-item"><strong>Другой район</strong><br><small>Уточняйте</small></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h3 class="section-title">FAQ</h3>
+          <details class="faq-item"><summary>Сколько стоит аренда байка?</summary><p>Honda Scoopy от 200 &#3647;/день, Honda Click от 250 &#3647;/день, PCX/NMAX от 300 &#3647;/день. Чем дольше срок — тем дешевле.</p></details>
+          <details class="faq-item"><summary>Какие документы нужны?</summary><p>Загранпаспорт и международные права (категория А). Залог от 2000 &#3647; или копия паспорта.</p></details>
+          <details class="faq-item"><summary>Есть ли страховка?</summary><p>Да, каждый байк застрахован. Аренда оформляется договором по законам Таиланда.</p></details>
+          <details class="faq-item"><summary>Безопасно ли ездить?</summary><p>Движение левостороннее. Шлем обязателен (штраф 500 &#3647;). Не превышайте 60 км/ч в городе.</p></details>
+          <details class="faq-item"><summary>Сколько стоит бензин?</summary><p>~43 &#3647;/литр. Расход скутера — 2 л/100 км. Маршрут 50 км обойдётся в ~45 &#3647; бензина.</p></details>
+          <details class="faq-item"><summary>Как пользоваться планировщиком?</summary><p>Откройте вкладку «Маршруты», добавьте места, получите расчёт км, времени и бензина.</p></details>
+        </section>
+
+        <div class="contacts-footer">
+          <p>ThaiGo Rent — аренда байков на Пхукете. Офис в Кате.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- BOOKING SHEET (для байков) -->
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="booking-sheet" id="bookingSheet">
+      <div class="sheet-handle"><div class="sheet-pill"></div></div>
+      <div class="sheet-body">
+        <div class="sheet-bike-header">
+          <div class="sheet-bike-img" id="sheetBikeImg"></div>
+          <div>
+            <h3 class="sheet-bike-name" id="sheetBikeName"></h3>
+            <span class="sheet-bike-cc" id="sheetBikeCc"></span>
+          </div>
+        </div>
+        <div class="sheet-features" id="sheetFeatures"></div>
+        <div class="sheet-pricing">
+          <h4 class="sheet-pricing-title">Тарифы</h4>
+          <table class="sheet-price-table" id="sheetPriceTable">
+            <tr><th>1–2 дня</th><th>3–6 дней</th><th>7–13</th><th>14–29</th><th>30 дн</th></tr>
+            <tr><td id="sheetP1"></td><td id="sheetP3"></td><td id="sheetP7"></td><td id="sheetP14"></td><td id="sheetPM"></td></tr>
+          </table>
+        </div>
+        <div class="sheet-calc">
+          <label class="sheet-calc-label">Дней аренды: <strong id="sheetDays">3</strong></label>
+          <input type="range" id="sheetDaySlider" min="1" max="30" value="3" class="sheet-slider" />
+          <div class="sheet-total">Итого: <strong id="sheetTotal">0 &#3647;</strong></div>
+        </div>
+        <div class="sheet-actions">
+          <a class="btn btn-wa btn-full" id="sheetWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn-tg btn-full" id="sheetTg" href="#" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLACE SHEET (для мест) -->
+    <div class="place-sheet" id="placeSheet">
+      <div class="sheet-handle"><div class="sheet-pill"></div></div>
+      <div class="sheet-body">
+        <div class="place-sheet-header">
+          <span class="place-sheet-icon" id="placeSheetIcon"></span>
+          <div>
+            <h3 class="place-sheet-name" id="placeSheetName"></h3>
+            <span class="place-sheet-km" id="placeSheetKm"></span>
+          </div>
+        </div>
+        <p class="place-sheet-desc" id="placeSheetDesc"></p>
+        <p class="place-sheet-tips" id="placeSheetTips"></p>
+        <button class="btn btn-primary btn-full" id="placeSheetAdd">+ В маршрут</button>
+      </div>
+    </div>
+
+    <!-- TOASTS -->
+    <div id="toasts"></div>
+
+    <!-- BOTTOM TAB BAR -->
+    <nav class="tab-bar" id="tabBar">
+      <button class="tab tab--active" data-tab="home">
+        <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="tab-label">Главная</span>
+      </button>
+      <button class="tab tab--accent" data-tab="bikes">
+        <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+        <span class="tab-label">Байки</span>
+      </button>
+      <button class="tab" data-tab="routes">
+        <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><path d="M12 8v14"/><circle cx="12" cy="19" r="3"/></svg>
+        <span class="tab-label">Маршруты</span>
+      </button>
+      <button class="tab" data-tab="contacts">
+        <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        <span class="tab-label">Контакты</span>
+      </button>
+    </nav>
+
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

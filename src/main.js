@@ -1,4 +1,4 @@
-// ThaiGo Lite — Main app logic
+// ThaiGo Lite — Main app logic with i18n
 import './styles/reset.css';
 import './styles/tokens.css';
 import './styles/app.css';
@@ -7,6 +7,26 @@ import './components/booking-sheet.css';
 import { BIKES, BIKE_CATEGORIES } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
 import { calcStats, formatTime, TAXI_RATE_PER_KM } from './utils/stats.js';
+import { LANGS, detectLang, saveLang, T } from './data/i18n.js';
+
+// ══════════════════════════════════════════════
+// i18n helper
+// ══════════════════════════════════════════════
+let lang = detectLang();
+
+function t(key) {
+  const entry = T[key];
+  if (!entry) return key;
+  return entry[lang] || entry.en || key;
+}
+
+function tpl(key, vars) {
+  let s = t(key);
+  for (const [k, v] of Object.entries(vars)) {
+    s = s.replace('${' + k + '}', v);
+  }
+  return s;
+}
 
 // ══════════════════════════════════════════════
 // State
@@ -15,8 +35,8 @@ let currentTab = 'home';
 let bikeFilter = 'all';
 let placeFilter = 'top';
 let placeSearch = '';
-let route = [];         // array of place objects
-let sheetBike = null;   // currently open bike in sheet
+let route = [];
+let sheetBike = null;
 let sheetDays = 3;
 
 // ══════════════════════════════════════════════
@@ -26,12 +46,10 @@ const $ = id => document.getElementById(id);
 const pages = document.querySelectorAll('.page');
 const tabs = document.querySelectorAll('.tab-bar .tab');
 
-// Bike page
 const bikeGrid = $('bikeGrid');
 const bikeFiltersEl = $('bikeFilters');
 const popularScroll = $('popularScroll');
 
-// Route page
 const placeList = $('placeList');
 const placeFiltersEl = $('placeFilters');
 const placeSearchInput = $('placeSearch');
@@ -44,7 +62,6 @@ const costRow = $('costRow');
 const routeCtaBlock = $('routeCtaBlock');
 const routeRentCta = $('routeRentCta');
 
-// Booking sheet
 const sheetOverlay = $('sheetOverlay');
 const bookingSheet = $('bookingSheet');
 const sheetBikeImg = $('sheetBikeImg');
@@ -62,7 +79,6 @@ const sheetTotal = $('sheetTotal');
 const sheetWa = $('sheetWa');
 const sheetTg = $('sheetTg');
 
-// Place sheet
 const placeSheet = $('placeSheet');
 const placeSheetIcon = $('placeSheetIcon');
 const placeSheetName = $('placeSheetName');
@@ -70,6 +86,212 @@ const placeSheetKm = $('placeSheetKm');
 const placeSheetDesc = $('placeSheetDesc');
 const placeSheetTips = $('placeSheetTips');
 const placeSheetAdd = $('placeSheetAdd');
+
+// ══════════════════════════════════════════════
+// Language Switcher
+// ══════════════════════════════════════════════
+const langBtn = $('langBtn');
+const langFlag = $('langFlag');
+const langCodeEl = $('langCode');
+const langDropdown = $('langDropdown');
+
+function renderLangSwitcher() {
+  const current = LANGS.find(l => l.code === lang) || LANGS[1];
+  langFlag.textContent = current.flag;
+  langCodeEl.textContent = current.label;
+
+  langDropdown.innerHTML = LANGS.map(l => `
+    <button class="lang-option ${l.code === lang ? 'active' : ''}" data-lang="${l.code}">
+      <span class="lang-flag">${l.flag}</span>
+      <span>${l.name}</span>
+      ${l.code === lang ? '<span class="lang-check">\u2713</span>' : ''}
+    </button>
+  `).join('');
+
+  langDropdown.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      lang = opt.dataset.lang;
+      saveLang(lang);
+      langDropdown.classList.remove('open');
+      document.documentElement.lang = lang;
+      applyTranslations();
+    });
+  });
+}
+
+langBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  langDropdown.classList.toggle('open');
+});
+
+document.addEventListener('click', () => {
+  langDropdown.classList.remove('open');
+});
+
+langDropdown.addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+
+// ══════════════════════════════════════════════
+// Apply all translations
+// ══════════════════════════════════════════════
+function applyTranslations() {
+  renderLangSwitcher();
+
+  // Hero
+  document.querySelector('.hero-h1').innerHTML = t('heroTitle');
+  document.querySelector('.hero-sub').innerHTML = t('heroSub');
+
+  // Why ThaiGo
+  const whyTitle = document.querySelector('#page-home .section-title');
+  if (whyTitle) whyTitle.textContent = t('whyTitle');
+  const whyTexts = document.querySelectorAll('.why-text');
+  const whyKeys = ['whyNoDeposit', 'whyDelivery', 'whyPrice', 'whySupport', 'whyReplace', 'whyContract'];
+  whyTexts.forEach((el, i) => { if (whyKeys[i]) el.textContent = t(whyKeys[i]); });
+
+  // Popular bikes section
+  const popHeader = document.querySelector('#page-home .section-header .section-title');
+  if (popHeader) popHeader.textContent = t('popularTitle');
+  const viewAllBtn = document.querySelector('#page-home .section-link');
+  if (viewAllBtn) viewAllBtn.innerHTML = t('viewAll');
+
+  // Delivery section
+  const delivTitle = document.querySelectorAll('#page-home .section-title');
+  if (delivTitle[2]) delivTitle[2].textContent = t('deliveryTitle');
+  const districtChips = document.querySelectorAll('.district-chip');
+  const districtNames = T.districts[lang] || T.districts.en;
+  districtChips.forEach((el, i) => { if (districtNames[i]) el.textContent = districtNames[i]; });
+  const distNote = document.querySelector('.districts-note');
+  if (distNote) distNote.textContent = t('deliveryNote');
+
+  // Tab bar
+  const tabLabels = document.querySelectorAll('.tab .tab-label');
+  const tabKeys = ['tabHome', 'tabBikes', 'tabRoutes', 'tabContacts'];
+  tabLabels.forEach((el, i) => { if (tabKeys[i]) el.textContent = t(tabKeys[i]); });
+
+  // Bike filters
+  const bikeFilterChips = bikeFiltersEl.querySelectorAll('.filter-chip');
+  const bikeFilterKeys = ['filterAll', 'filterScooter', 'filterMaxi', 'filterMoto', 'filterCar'];
+  bikeFilterChips.forEach((el, i) => { if (bikeFilterKeys[i]) el.textContent = t(bikeFilterKeys[i]); });
+
+  // Place filters
+  const placeFilterChips = placeFiltersEl.querySelectorAll('.filter-chip');
+  const placeFilterKeys = ['placeTop', 'filterAll', 'placeBeach', 'placeView', 'placeTemple', 'placeNature', 'placeMarket', 'placeFood', 'placePhoto'];
+  placeFilterChips.forEach((el, i) => { if (placeFilterKeys[i]) el.textContent = t(placeFilterKeys[i]); });
+
+  // Search placeholder
+  placeSearchInput.placeholder = t('placeSearchPlaceholder');
+
+  // Route subtabs
+  const subtabs = document.querySelectorAll('.route-subtab');
+  if (subtabs[0]) {
+    subtabs[0].textContent = t('subtabPlaces');
+  }
+  if (subtabs[1]) {
+    subtabs[1].innerHTML = `${t('subtabRoute')} <span class="route-badge" id="routeBadge" style="${route.length ? '' : 'display:none'}">${route.length}</span>`;
+  }
+
+  // Route panel
+  const routeHeader = document.querySelector('.route-header span');
+  if (routeHeader) routeHeader.innerHTML = `${t('routeLabel')} <span class="route-count" id="routeCount">${route.length}</span>/12`;
+  $('routeClear').textContent = t('routeReset');
+  routeEmpty.textContent = t('routeEmpty');
+
+  // Stat labels
+  const statLabels = document.querySelectorAll('.stat-label');
+  const statLabelKeys = ['statKm', 'statEnRoute', 'statFuel'];
+  statLabels.forEach((el, i) => { if (statLabelKeys[i]) el.textContent = t(statLabelKeys[i]); });
+
+  // Cost bike label
+  const costBike = document.querySelector('.cost-bike');
+  if (costBike) costBike.textContent = t('costBikeLabel');
+
+  // Route rent CTA
+  const rentCtaStrong = routeRentCta.querySelector('strong');
+  const rentCtaSmall = routeRentCta.querySelector('small');
+  if (rentCtaStrong) rentCtaStrong.textContent = t('routeNeedBike');
+  if (rentCtaSmall) rentCtaSmall.textContent = t('routeNeedBikePrice');
+  const rentBtn = routeRentCta.querySelector('.btn');
+  if (rentBtn) rentBtn.textContent = t('routeRentBtn');
+
+  // Contacts page
+  const contactsTitle = document.querySelector('.contacts-page .page-title');
+  if (contactsTitle) contactsTitle.textContent = t('contactsTitle');
+  const contactHours = document.querySelectorAll('.contact-row');
+  if (contactHours[5]) {
+    const icon = contactHours[5].querySelector('.contact-icon');
+    contactHours[5].textContent = '';
+    if (icon) contactHours[5].appendChild(icon);
+    contactHours[5].appendChild(document.createTextNode(t('contactHours')));
+  }
+
+  // Delivery areas in contacts
+  renderDeliveryAreas();
+
+  // FAQ
+  renderFAQ();
+
+  // Footer
+  const footer = document.querySelector('.contacts-footer p');
+  if (footer) footer.textContent = t('contactsFooter');
+
+  // Booking sheet headers
+  const pricingTitle = document.querySelector('.sheet-pricing-title');
+  if (pricingTitle) pricingTitle.textContent = t('sheetTariffs');
+  const ths = document.querySelectorAll('.sheet-price-table th');
+  const thKeys = ['sheetDays12', 'sheetDays36', 'sheetDays713', 'sheetDays1429', 'sheetDays30'];
+  ths.forEach((el, i) => { if (thKeys[i]) el.textContent = t(thKeys[i]); });
+  const calcLabel = document.querySelector('.sheet-calc-label');
+  if (calcLabel) calcLabel.innerHTML = `${t('sheetRentalDays')} <strong id="sheetDays">${sheetDays}</strong>`;
+  const totalLabel = document.querySelector('.sheet-total');
+  if (totalLabel && sheetBike) {
+    updateSheetCalc();
+  }
+
+  // Re-render dynamic content
+  renderBikes();
+  renderPopular();
+  renderPlaces();
+  updateRoute();
+}
+
+function renderDeliveryAreas() {
+  const grid = document.querySelector('.contacts-page .delivery-grid');
+  if (!grid) return;
+  const areas = T.deliveryAreas[lang] || T.deliveryAreas.en;
+  grid.innerHTML = areas.map(a =>
+    `<div class="delivery-item"><strong>${a.name}</strong><br><small>${a.note}</small></div>`
+  ).join('');
+  const areaTitle = document.querySelector('.contacts-page .section-title');
+  // delivery areas title is the first section-title in contacts after the main title
+  const titles = document.querySelectorAll('.contacts-page .section-title');
+  if (titles[0]) titles[0].textContent = t('deliveryAreasTitle');
+  if (titles[1]) titles[1].textContent = t('faqTitle');
+}
+
+function renderFAQ() {
+  const faqContainer = document.querySelector('.contacts-page .section:last-of-type');
+  if (!faqContainer) return;
+  const faqItems = T.faq[lang] || T.faq.en;
+  // Keep the title, replace items
+  const title = faqContainer.querySelector('.section-title');
+  faqContainer.innerHTML = '';
+  if (title) {
+    title.textContent = t('faqTitle');
+    faqContainer.appendChild(title);
+  } else {
+    const h3 = document.createElement('h3');
+    h3.className = 'section-title';
+    h3.textContent = t('faqTitle');
+    faqContainer.appendChild(h3);
+  }
+  faqItems.forEach(item => {
+    const details = document.createElement('details');
+    details.className = 'faq-item';
+    details.innerHTML = `<summary>${item.q}</summary><p>${item.a}</p>`;
+    faqContainer.appendChild(details);
+  });
+}
 
 // ══════════════════════════════════════════════
 // Tab switching
@@ -88,7 +310,6 @@ tabs.forEach(t => {
   t.addEventListener('click', () => switchTab(t.dataset.tab));
 });
 
-// "Все →" link on home page
 document.querySelectorAll('[data-goto]').forEach(el => {
   el.addEventListener('click', () => switchTab(el.dataset.goto));
 });
@@ -109,7 +330,7 @@ document.querySelectorAll('.route-subtab').forEach(btn => {
 // ══════════════════════════════════════════════
 // Emoji map for bike categories
 // ══════════════════════════════════════════════
-const BIKE_EMOJI = { scooter: '🛵', maxi: '🏍', moto: '🏍', car: '🚗' };
+const BIKE_EMOJI = { scooter: '\u{1F6F5}', maxi: '\u{1F3CD}', moto: '\u{1F3CD}', car: '\u{1F697}' };
 
 // ══════════════════════════════════════════════
 // Render bike catalog
@@ -121,13 +342,13 @@ function renderBikes() {
 
   bikeGrid.innerHTML = filtered.map(b => `
     <div class="bike-card" data-bike="${b.id}">
-      <div class="bike-card-img cat-${b.category}">${BIKE_EMOJI[b.category] || '🛵'}</div>
+      <div class="bike-card-img cat-${b.category}">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
       <div class="bike-card-body">
         <div class="bike-card-name">${b.name}</div>
         <div class="bike-card-cc">${b.cc} cc</div>
         <div class="bike-card-footer">
-          <span class="bike-card-price">от ${b.prices.day7} &#3647;</span>
-          <button class="bike-card-btn">Взять</button>
+          <span class="bike-card-price">${t('priceFrom')} ${b.prices.day7} \u0E3F</span>
+          <button class="bike-card-btn">${t('bikeBtnRent')}</button>
         </div>
       </div>
     </div>
@@ -141,7 +362,6 @@ function renderBikes() {
   });
 }
 
-// Bike filter chips
 bikeFiltersEl.addEventListener('click', e => {
   const chip = e.target.closest('.filter-chip');
   if (!chip) return;
@@ -159,10 +379,10 @@ function renderPopular() {
   const popular = BIKES.filter(b => b.popular);
   popularScroll.innerHTML = popular.map(b => `
     <div class="popular-card" data-bike="${b.id}">
-      <div class="popular-card-img cat-${b.category}" style="background: linear-gradient(135deg, ${b.category === 'scooter' ? '#e0f2fe, #bae6fd' : b.category === 'maxi' ? '#ccfbf1, #99f6e4' : '#fef3c7, #fde68a'})">${BIKE_EMOJI[b.category] || '🛵'}</div>
+      <div class="popular-card-img cat-${b.category}" style="background: linear-gradient(135deg, ${b.category === 'scooter' ? '#e8f8f7, #dbeafe' : b.category === 'maxi' ? '#d1fae5, #ccfbf1' : '#fef3c7, #fde68a'})">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
       <div class="popular-card-body">
         <div class="popular-card-name">${b.name}</div>
-        <div class="popular-card-price">от ${b.prices.day7} &#3647;/день</div>
+        <div class="popular-card-price">${t('priceFrom')} ${b.prices.day7} \u0E3F${t('perDay')}</div>
       </div>
     </div>
   `).join('');
@@ -185,29 +405,24 @@ function openBookingSheet(bike) {
   sheetBike = bike;
   sheetDays = 3;
 
-  // Set header
   sheetBikeImg.className = `sheet-bike-img cat-${bike.category}`;
-  sheetBikeImg.textContent = BIKE_EMOJI[bike.category] || '🛵';
+  sheetBikeImg.textContent = BIKE_EMOJI[bike.category] || '\u{1F6F5}';
   sheetBikeName.textContent = bike.name;
   sheetBikeCc.textContent = `${bike.cc} cc — ${BIKE_CATEGORIES[bike.category] || bike.category}`;
 
-  // Features
   sheetFeatures.innerHTML = bike.features.map(f =>
     `<span class="sheet-feature-tag">${f}</span>`
   ).join('');
 
-  // Pricing table
-  sheetP1.textContent = bike.prices.day1 + ' ฿';
-  sheetP3.textContent = bike.prices.day3 + ' ฿';
-  sheetP7.textContent = bike.prices.day7 + ' ฿';
-  sheetP14.textContent = bike.prices.day14 + ' ฿';
-  sheetPM.textContent = bike.prices.month + ' ฿';
+  sheetP1.textContent = bike.prices.day1 + ' \u0E3F';
+  sheetP3.textContent = bike.prices.day3 + ' \u0E3F';
+  sheetP7.textContent = bike.prices.day7 + ' \u0E3F';
+  sheetP14.textContent = bike.prices.day14 + ' \u0E3F';
+  sheetPM.textContent = bike.prices.month + ' \u0E3F';
 
-  // Slider
   sheetDaySlider.value = sheetDays;
   updateSheetCalc();
 
-  // Open
   bookingSheet.classList.add('open');
   sheetOverlay.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -238,15 +453,17 @@ function getTierName(days) {
 
 function updateSheetCalc() {
   if (!sheetBike) return;
-  sheetDaysDisplay.textContent = sheetDays;
+  const daysEl = $('sheetDays');
+  if (daysEl) daysEl.textContent = sheetDays;
 
   const perDay = getPerDay(sheetBike, sheetDays);
   const total = sheetDays >= 30
     ? sheetBike.prices.month
     : Math.round(perDay * sheetDays);
-  sheetTotal.textContent = total.toLocaleString() + ' ฿';
 
-  // Highlight active tier
+  const totalEl = document.querySelector('.sheet-total');
+  if (totalEl) totalEl.innerHTML = `${t('sheetTotal')} <strong id="sheetTotal">${total.toLocaleString()} \u0E3F</strong>`;
+
   const tierName = getTierName(sheetDays);
   const tds = document.querySelectorAll('.sheet-price-table td');
   const tierMap = ['day1', 'day3', 'day7', 'day14', 'month'];
@@ -254,8 +471,7 @@ function updateSheetCalc() {
     td.classList.toggle('active-tier', tierMap[i] === tierName);
   });
 
-  // WA/TG links
-  const msg = encodeURIComponent(`Хочу арендовать ${sheetBike.name} на ${sheetDays} дн.`);
+  const msg = encodeURIComponent(tpl('waMsgBike', { name: sheetBike.name, days: sheetDays }));
   sheetWa.href = `https://wa.me/66822545737?text=${msg}`;
   sheetTg.href = `https://t.me/ThaiGoSale1`;
 }
@@ -267,7 +483,6 @@ sheetDaySlider.addEventListener('input', () => {
 
 sheetOverlay.addEventListener('click', closeBookingSheet);
 
-// Touch-to-dismiss on sheet handle
 function setupDragDismiss(sheetEl, closeFn) {
   const handle = sheetEl.querySelector('.sheet-handle');
   if (!handle) return;
@@ -312,14 +527,12 @@ setupDragDismiss(bookingSheet, closeBookingSheet);
 function filterPlaces() {
   let filtered = PLACES;
 
-  // Category filter
   if (placeFilter === 'top') {
     filtered = filtered.filter(p => p.cat.includes('top'));
   } else if (placeFilter !== 'all') {
     filtered = filtered.filter(p => p.cat.includes(placeFilter));
   }
 
-  // Search
   if (placeSearch.trim()) {
     const q = placeSearch.toLowerCase();
     filtered = filtered.filter(p =>
@@ -346,22 +559,19 @@ function renderPlaces() {
           <div class="place-name">${p.name}</div>
           <div class="place-desc">${p.desc.slice(0, 60)}...</div>
         </div>
-        <button class="place-add-btn ${inRoute ? 'added' : ''}" data-place-add="${p.id}">${inRoute ? '✓' : '+'}</button>
+        <button class="place-add-btn ${inRoute ? 'added' : ''}" data-place-add="${p.id}">${inRoute ? '\u2713' : '+'}</button>
       </div>
     `;
   }).join('');
 
-  // Click on card → open place sheet
   placeList.querySelectorAll('.place-card').forEach(card => {
     card.addEventListener('click', e => {
-      // If clicked on add button, handle separately
       if (e.target.closest('.place-add-btn')) return;
       const place = PLACES.find(p => p.id === card.dataset.place);
       if (place) openPlaceSheet(place);
     });
   });
 
-  // Click on + button → toggle in route
   placeList.querySelectorAll('.place-add-btn').forEach(btn => {
     btn.addEventListener('click', e => {
       e.stopPropagation();
@@ -371,7 +581,6 @@ function renderPlaces() {
   });
 }
 
-// Place filter chips
 placeFiltersEl.addEventListener('click', e => {
   const chip = e.target.closest('.filter-chip');
   if (!chip) return;
@@ -382,7 +591,6 @@ placeFiltersEl.addEventListener('click', e => {
   renderPlaces();
 });
 
-// Search
 placeSearchInput.addEventListener('input', () => {
   placeSearch = placeSearchInput.value;
   renderPlaces();
@@ -403,18 +611,18 @@ function openPlaceSheet(place) {
   placeSheetIcon.style.color = color;
   placeSheetName.textContent = place.name;
   placeSheetKm.textContent = place.km_from_patong
-    ? `~${place.km_from_patong} км от Патонга`
+    ? tpl('kmFromPatong', { km: place.km_from_patong })
     : '';
   placeSheetDesc.textContent = place.desc;
 
   const tips = [];
   if (place.tips) tips.push(place.tips);
-  if (place.warnings && place.warnings.length) tips.push('⚠ ' + place.warnings.join('. '));
+  if (place.warnings && place.warnings.length) tips.push('\u26A0 ' + place.warnings.join('. '));
   placeSheetTips.textContent = tips.join('\n');
   placeSheetTips.style.display = tips.length ? '' : 'none';
 
   const inRoute = route.some(r => r.id === place.id);
-  placeSheetAdd.textContent = inRoute ? '✓ В маршруте' : '+ В маршрут';
+  placeSheetAdd.textContent = inRoute ? t('inRoute') : t('addToRoute');
 
   placeSheet.classList.add('open');
   sheetOverlay.classList.add('active');
@@ -437,7 +645,6 @@ placeSheetAdd.addEventListener('click', () => {
 
 setupDragDismiss(placeSheet, closePlaceSheet);
 
-// Make overlay close whichever sheet is open
 sheetOverlay.addEventListener('click', () => {
   if (bookingSheet.classList.contains('open')) closeBookingSheet();
   if (placeSheet.classList.contains('open')) closePlaceSheet();
@@ -450,14 +657,14 @@ function toggleRoute(place) {
   const idx = route.findIndex(r => r.id === place.id);
   if (idx >= 0) {
     route.splice(idx, 1);
-    showToast(`${place.name} убран`);
+    showToast(`${place.name} ${t('placeRemoved')}`);
   } else {
     if (route.length >= MAX_ROUTE_POINTS) {
-      showToast(`Максимум ${MAX_ROUTE_POINTS} точек`, 'warning');
+      showToast(tpl('maxPoints', { n: MAX_ROUTE_POINTS }), 'warning');
       return;
     }
     route.push(place);
-    showToast(`${place.name} добавлен`);
+    showToast(`${place.name} ${t('placeAdded')}`);
   }
   updateRoute();
   renderPlaces();
@@ -470,16 +677,17 @@ function removeFromRoute(placeId) {
 }
 
 function updateRoute() {
-  // Badge
-  routeCount.textContent = route.length;
+  // Update badge refs (may have been recreated by applyTranslations)
+  const rc = $('routeCount');
+  const rb = $('routeBadge');
+
+  if (rc) rc.textContent = route.length;
   if (route.length > 0) {
-    routeBadge.textContent = route.length;
-    routeBadge.style.display = 'inline-flex';
+    if (rb) { rb.textContent = route.length; rb.style.display = 'inline-flex'; }
   } else {
-    routeBadge.style.display = 'none';
+    if (rb) rb.style.display = 'none';
   }
 
-  // Stops list
   if (route.length === 0) {
     routeEmpty.style.display = '';
     routeStops.querySelectorAll('.route-stop').forEach(s => s.remove());
@@ -492,7 +700,6 @@ function updateRoute() {
 
   routeEmpty.style.display = 'none';
 
-  // Render stops
   const stopsHTML = route.map((p, i) => {
     let numClass = '';
     if (i === 0) numClass = 'first';
@@ -506,16 +713,13 @@ function updateRoute() {
     `;
   }).join('');
 
-  // Keep routeEmpty, replace stops
   routeStops.querySelectorAll('.route-stop').forEach(s => s.remove());
   routeStops.insertAdjacentHTML('beforeend', stopsHTML);
 
-  // Remove buttons
   routeStops.querySelectorAll('.stop-remove').forEach(btn => {
     btn.addEventListener('click', () => removeFromRoute(btn.dataset.remove));
   });
 
-  // Stats
   if (route.length >= 2) {
     const stats = calcStats(route);
     $('statKm').textContent = stats.km;
@@ -523,14 +727,12 @@ function updateRoute() {
     $('statFuel').textContent = stats.fuel;
     routeStats.style.display = '';
 
-    // Taxi cost comparison
     const taxiCost = Math.round(stats.km * TAXI_RATE_PER_KM);
     $('costTaxi').textContent = taxiCost.toLocaleString();
     costRow.style.display = '';
 
-    // CTA
-    const routeNames = route.map(r => r.name).join(' → ');
-    const msg = encodeURIComponent(`Хочу арендовать байк для маршрута: ${routeNames} (~${stats.km} км)`);
+    const routeNames = route.map(r => r.name).join(' \u2192 ');
+    const msg = encodeURIComponent(tpl('waMsgRoute', { route: routeNames, km: stats.km }));
     $('routeWa').href = `https://wa.me/66822545737?text=${msg}`;
     $('routeTg').href = `https://t.me/ThaiGoSale1`;
     routeCtaBlock.style.display = '';
@@ -543,12 +745,11 @@ function updateRoute() {
   }
 }
 
-// Clear route
 $('routeClear').addEventListener('click', () => {
   route = [];
   updateRoute();
   renderPlaces();
-  showToast('Маршрут сброшен');
+  showToast(t('routeCleared'));
 });
 
 // ══════════════════════════════════════════════
@@ -570,7 +771,5 @@ function showToast(msg, type = 'info') {
 // ══════════════════════════════════════════════
 // Init
 // ══════════════════════════════════════════════
-renderBikes();
-renderPopular();
-renderPlaces();
-updateRoute();
+document.documentElement.lang = lang;
+applyTranslations();

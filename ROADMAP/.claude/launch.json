@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "phuket-dev",
+      "runtimeExecutable": "ruby",
+      "runtimeArgs": ["/tmp/serve.rb", "/tmp/phuket-dev"],
+      "port": 8080
+    }
+  ]
+}

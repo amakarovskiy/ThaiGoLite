@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>ThaiGo Lite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/styles/reset.css" />
+  <link rel="stylesheet" href="/src/styles/tokens.css" />
+  <link rel="stylesheet" href="/src/styles/app.css" />
+  <link rel="stylesheet" href="/src/components/bottom-tab-bar.css" />
+  <link rel="stylesheet" href="/src/components/booking-sheet.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-greeting">
+        <span class="greeting-text">Sawadee!</span>
+        <h1 class="header-title">ThaiGo <span class="lite">Lite</span></h1>
+      </div>
+      <button class="header-avatar" aria-label="Profile">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg>
+      </button>
+    </header>
+
+    <!-- Page: Home -->
+    <main id="page-home" class="page page--active">
+      <!-- Search bar -->
+      <div class="search-bar">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="search-input" placeholder="Куда едем?" />
+      </div>
+
+      <!-- Quick categories -->
+      <section class="categories">
+        <button class="category-chip category-chip--active" data-category="all">Все</button>
+        <button class="category-chip" data-category="beach">Пляжи</button>
+        <button class="category-chip" data-category="temple">Храмы</button>
+        <button class="category-chip" data-category="food">Еда</button>
+        <button class="category-chip" data-category="adventure">Активности</button>
+      </section>
+
+      <!-- Destination cards -->
+      <section class="card-list">
+        <article class="destination-card" data-destination="phuket">
+          <div class="card-image" style="background: linear-gradient(135deg, #43cea2, #185a9d);">
+            <span class="card-badge">Popular</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Пхукет</h3>
+            <p class="card-subtitle">Пляжи, ночная жизнь, храмы</p>
+            <div class="card-footer">
+              <span class="card-rating">4.8 ★</span>
+              <span class="card-price">от ฿1,200/день</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="destination-card" data-destination="chiangmai">
+          <div class="card-image" style="background: linear-gradient(135deg, #f5af19, #f12711);">
+            <span class="card-badge">Hot</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Чианг Май</h3>
+            <p class="card-subtitle">Горы, культура, кухня</p>
+            <div class="card-footer">
+              <span class="card-rating">4.9 ★</span>
+              <span class="card-price">от ฿800/день</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="destination-card" data-destination="bangkok">
+          <div class="card-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+            <span class="card-badge">City</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Бангкок</h3>
+            <p class="card-subtitle">Шопинг, еда, дворцы</p>
+            <div class="card-footer">
+              <span class="card-rating">4.7 ★</span>
+              <span class="card-price">от ฿1,500/день</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="destination-card" data-destination="krabi">
+          <div class="card-image" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Краби</h3>
+            <p class="card-subtitle">Острова, каякинг, скалы</p>
+            <div class="card-footer">
+              <span class="card-rating">4.8 ★</span>
+              <span class="card-price">от ฿900/день</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <!-- Page: Explore -->
+    <main id="page-explore" class="page">
+      <h2 class="page-title">Исследовать</h2>
+      <p class="page-placeholder">Карта и маршруты — скоро</p>
+    </main>
+
+    <!-- Page: Bookings -->
+    <main id="page-bookings" class="page">
+      <h2 class="page-title">Мои бронирования</h2>
+      <p class="page-placeholder">Пока нет бронирований</p>
+    </main>
+
+    <!-- Page: Profile -->
+    <main id="page-profile" class="page">
+      <h2 class="page-title">Профиль</h2>
+      <p class="page-placeholder">Настройки аккаунта — скоро</p>
+    </main>
+
+    <!-- Booking Sheet (bottom sheet) -->
+    <div class="booking-sheet-overlay" id="bookingOverlay"></div>
+    <div class="booking-sheet" id="bookingSheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-content">
+        <h2 class="sheet-title" id="sheetTitle">Забронировать</h2>
+        <p class="sheet-description" id="sheetDescription">Выберите даты и количество гостей</p>
+
+        <div class="sheet-form">
+          <label class="form-field">
+            <span class="form-label">Дата заезда</span>
+            <input type="date" class="form-input" id="checkinDate" />
+          </label>
+
+          <label class="form-field">
+            <span class="form-label">Дата выезда</span>
+            <input type="date" class="form-input" id="checkoutDate" />
+          </label>
+
+          <label class="form-field">
+            <span class="form-label">Гости</span>
+            <div class="guest-counter">
+              <button class="counter-btn" id="guestMinus" aria-label="Минус гость">−</button>
+              <span class="counter-value" id="guestCount">2</span>
+              <button class="counter-btn" id="guestPlus" aria-label="Плюс гость">+</button>
+            </div>
+          </label>
+
+          <div class="sheet-summary">
+            <div class="summary-row">
+              <span>Направление</span>
+              <span id="summaryDestination">—</span>
+            </div>
+            <div class="summary-row">
+              <span>Ночей</span>
+              <span id="summaryNights">0</span>
+            </div>
+            <div class="summary-row summary-row--total">
+              <span>Итого</span>
+              <span id="summaryTotal">฿0</span>
+            </div>
+          </div>
+
+          <button class="btn-book" id="btnBook">Забронировать</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Tab Bar -->
+    <nav class="bottom-tab-bar" id="bottomTabBar">
+      <button class="tab-item tab-item--active" data-tab="home" aria-label="Главная">
+        <svg class="tab-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="tab-label">Главная</span>
+      </button>
+      <button class="tab-item" data-tab="explore" aria-label="Исследовать">
+        <svg class="tab-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        <span class="tab-label">Карта</span>
+      </button>
+      <button class="tab-item tab-item--book" data-action="book" aria-label="Забронировать">
+        <div class="tab-book-circle">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <span class="tab-label">Букинг</span>
+      </button>
+      <button class="tab-item" data-tab="bookings" aria-label="Бронирования">
+        <svg class="tab-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span class="tab-label">Брони</span>
+      </button>
+      <button class="tab-item" data-tab="profile" aria-label="Профиль">
+        <svg class="tab-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="tab-label">Профиль</span>
+      </button>
+    </nav>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

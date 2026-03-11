@@ -1,0 +1,77 @@
+/* BottomTabBar — mobile-first, 95% traffic */
+.bottom-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  height: calc(var(--tab-bar-height) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -2px 8px rgba(0,0,0,.06);
+  z-index: 100;
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 0;
+  min-width: 48px;
+  color: var(--color-text-muted);
+  transition: color .2s;
+  position: relative;
+}
+
+.tab-item--active {
+  color: var(--color-primary);
+}
+
+.tab-item--active .tab-icon {
+  stroke: var(--color-primary);
+}
+
+.tab-icon {
+  width: 24px;
+  height: 24px;
+  transition: stroke .2s;
+}
+
+.tab-label {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* Central "Book" button — accent FAB */
+.tab-item--book {
+  margin-top: -20px;
+}
+
+.tab-book-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 14px rgba(13,148,136,.4);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.tab-item--book:active .tab-book-circle {
+  transform: scale(0.92);
+}
+
+.tab-item--book .tab-label {
+  margin-top: 4px;
+  color: var(--color-primary);
+  font-weight: 600;
+}

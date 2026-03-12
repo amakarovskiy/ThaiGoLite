@@ -7,8 +7,8 @@ export const CAT_LABELS = {
 };
 
 export const CAT_COLORS = {
-  beach: '#2563eb', view: '#16a34a', temple: '#d97706', nature: '#059669',
-  market: '#9333ea', food: '#dc2626', photo: '#0891b2', office: '#4338ca', top: '#eab308'
+  beach: '#ff5a5a', view: '#44dd66', temple: '#ffaa33', nature: '#33cc88',
+  market: '#ffd34a', food: '#ff7744', photo: '#55bbff', office: '#BBFF46', top: '#eab308'
 };
 
 export function getDisplayCat(place) {

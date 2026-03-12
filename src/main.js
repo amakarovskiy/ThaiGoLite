@@ -766,25 +766,129 @@ function setupDragDismiss(sheetEl, closeFn) {
 setupDragDismiss(bookingSheet, closeBookingSheet);
 
 // ══════════════════════════════════════════════
-// SVG Map — coordinate conversion & markers
+// SVG Map — coordinate conversion, island drawing, markers, pan/zoom
 // ══════════════════════════════════════════════
-const MAP_BOUNDS = {
-  latMin: 7.75, latMax: 8.18,
-  lngMin: 98.24, lngMax: 98.44,
-  svgW: 400, svgH: 700,
-  padTop: 30, padBottom: 30, padLeft: 20, padRight: 20
-};
+const MAP_BOUNDS = { latMin: 7.74, latMax: 8.18, lngMin: 98.26, lngMax: 98.42 };
+const SVG_W = 600, SVG_H = 1000;
+let mapViewBox = { x: 0, y: 0, w: SVG_W, h: SVG_H };
+let mapDragging = false;
+let mapDragStart = { x: 0, y: 0, vx: 0, vy: 0 };
+let pinchStartDist = 0;
+let pinchStartViewBox = null;
 
 function latLngToSvg(lat, lng) {
-  const { latMin, latMax, lngMin, lngMax, svgW, svgH, padTop, padBottom, padLeft, padRight } = MAP_BOUNDS;
-  const x = padLeft + ((lng - lngMin) / (lngMax - lngMin)) * (svgW - padLeft - padRight);
-  const y = padTop + ((latMax - lat) / (latMax - latMin)) * (svgH - padTop - padBottom);
-  return { x, y };
+  return {
+    x: ((lng - MAP_BOUNDS.lngMin) / (MAP_BOUNDS.lngMax - MAP_BOUNDS.lngMin)) * SVG_W,
+    y: ((MAP_BOUNDS.latMax - lat) / (MAP_BOUNDS.latMax - MAP_BOUNDS.latMin)) * SVG_H
+  };
+}
+
+function applyMapViewBox() {
+  svgMap.setAttribute('viewBox', `${mapViewBox.x} ${mapViewBox.y} ${mapViewBox.w} ${mapViewBox.h}`);
+}
+
+function svgMapZoomCenter(dir) {
+  const factor = dir > 0 ? 0.8 : 1.25;
+  const newW = mapViewBox.w * factor, newH = mapViewBox.h * factor;
+  if (newW < 80 || newW > SVG_W * 2) return;
+  const cx = mapViewBox.x + mapViewBox.w / 2, cy = mapViewBox.y + mapViewBox.h / 2;
+  mapViewBox = { x: cx - newW / 2, y: cy - newH / 2, w: newW, h: newH };
+  applyMapViewBox();
+}
+
+function svgEl(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const k in attrs) el.setAttribute(k, attrs[k]);
+  return el;
+}
+
+function coordsToPath(coords, closed) {
+  return coords.map((c, i) => {
+    const p = latLngToSvg(c[0], c[1]);
+    return (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1);
+  }).join(' ') + (closed ? ' Z' : '');
+}
+
+// Island coastline, areas, roads data
+const ISLAND_COAST = [
+  [8.165,98.305],[8.160,98.295],[8.150,98.288],[8.135,98.283],[8.120,98.280],
+  [8.105,98.278],[8.090,98.276],[8.075,98.274],[8.060,98.273],[8.045,98.272],
+  [8.030,98.271],[8.015,98.275],[8.000,98.278],[7.985,98.275],[7.970,98.272],
+  [7.955,98.275],[7.940,98.276],[7.925,98.278],[7.910,98.280],[7.895,98.285],
+  [7.880,98.283],[7.865,98.280],[7.850,98.278],[7.835,98.280],[7.820,98.283],
+  [7.810,98.286],[7.800,98.288],[7.790,98.290],[7.780,98.293],[7.770,98.298],
+  [7.762,98.305],[7.758,98.312],[7.755,98.320],[7.758,98.330],[7.762,98.340],
+  [7.770,98.345],[7.780,98.342],[7.790,98.338],[7.800,98.340],[7.810,98.345],
+  [7.815,98.355],[7.820,98.365],[7.830,98.375],[7.840,98.380],[7.850,98.385],
+  [7.860,98.390],[7.870,98.395],[7.880,98.400],[7.890,98.405],[7.900,98.408],
+  [7.910,98.405],[7.920,98.400],[7.930,98.395],[7.940,98.390],[7.950,98.388],
+  [7.960,98.392],[7.970,98.398],[7.980,98.405],[7.990,98.410],[8.000,98.412],
+  [8.015,98.410],[8.030,98.405],[8.045,98.400],[8.060,98.395],[8.075,98.390],
+  [8.090,98.385],[8.100,98.378],[8.110,98.370],[8.120,98.365],[8.130,98.355],
+  [8.140,98.345],[8.145,98.335],[8.150,98.325],[8.155,98.315],[8.165,98.305]
+];
+const ROAD_MAIN = [
+  [8.15,98.305],[8.10,98.300],[8.05,98.295],[8.00,98.300],[7.95,98.305],
+  [7.90,98.310],[7.88,98.320],[7.86,98.340],[7.84,98.345],[7.82,98.340],
+  [7.80,98.330],[7.78,98.320],[7.77,98.315]
+];
+const MAP_AREAS = [
+  { lat: 8.14, lng: 98.295, rx: 30, ry: 22, name: 'Mai Khao' },
+  { lat: 8.01, lng: 98.287, rx: 28, ry: 20, name: 'Bang Tao' },
+  { lat: 7.97, lng: 98.277, rx: 22, ry: 16, name: 'Surin' },
+  { lat: 7.94, lng: 98.280, rx: 24, ry: 18, name: 'Kamala' },
+  { lat: 7.895, lng: 98.293, rx: 30, ry: 22, name: 'Patong', main: true },
+  { lat: 7.845, lng: 98.295, rx: 26, ry: 18, name: 'Karon' },
+  { lat: 7.818, lng: 98.298, rx: 22, ry: 16, name: 'Kata' },
+  { lat: 7.785, lng: 98.330, rx: 25, ry: 18, name: 'Rawai' },
+  { lat: 7.845, lng: 98.370, rx: 28, ry: 20, name: 'Chalong', main: true },
+  { lat: 7.885, lng: 98.395, rx: 32, ry: 24, name: 'Phuket Town', main: true },
+  { lat: 7.765, lng: 98.310, rx: 18, ry: 14, name: 'Promthep' }
+];
+
+function drawIslandMap() {
+  const il = document.getElementById('island-layer');
+  il.appendChild(svgEl('path', {
+    d: coordsToPath(ISLAND_COAST, true),
+    fill: 'rgba(10,60,80,0.5)', stroke: '#22cc66',
+    'stroke-width': '2', 'stroke-opacity': '0.4'
+  }));
+
+  const al = document.getElementById('areas-layer');
+  MAP_AREAS.forEach(a => {
+    const p = latLngToSvg(a.lat, a.lng);
+    al.appendChild(svgEl('ellipse', {
+      cx: p.x, cy: p.y, rx: a.rx, ry: a.ry,
+      fill: 'rgba(30,140,80,0.15)', stroke: 'rgba(50,200,100,0.08)', 'stroke-width': '1'
+    }));
+  });
+
+  const rl = document.getElementById('roads-layer');
+  rl.appendChild(svgEl('path', {
+    d: coordsToPath(ROAD_MAIN, false), fill: 'none',
+    stroke: '#BBFF46', 'stroke-width': '2.5', 'stroke-opacity': '0.35',
+    'stroke-dasharray': '6,4', 'stroke-linecap': 'round'
+  }));
+
+  const ll = document.getElementById('labels-layer');
+  MAP_AREAS.forEach(a => {
+    const p = latLngToSvg(a.lat, a.lng);
+    const t = svgEl('text', {
+      x: p.x, y: p.y - a.ry - 5, 'text-anchor': 'middle',
+      'font-family': 'Inter Tight, sans-serif',
+      'font-size': a.main ? '13' : '10',
+      'font-weight': a.main ? '700' : '600',
+      fill: `rgba(255,255,255,${a.main ? '0.5' : '0.3'})`,
+      'letter-spacing': '2'
+    });
+    t.textContent = a.name.toUpperCase();
+    ll.appendChild(t);
+  });
 }
 
 const MAP_CAT_COLORS = {
-  beach: '#2563eb', view: '#16a34a', temple: '#d97706', nature: '#059669',
-  market: '#9333ea', food: '#dc2626', photo: '#0891b2', office: '#4338ca', top: '#eab308'
+  beach: '#ff5a5a', view: '#44dd66', temple: '#ffaa33', nature: '#33cc88',
+  market: '#ffd34a', food: '#ff7744', photo: '#55bbff', office: '#BBFF46', top: '#eab308'
 };
 
 function renderMapMarkers() {
@@ -796,18 +900,25 @@ function renderMapMarkers() {
     const color = MAP_CAT_COLORS[cat] || '#6b7280';
     const inRoute = route.some(r => r.id === p.id);
     const routeIdx = route.findIndex(r => r.id === p.id);
+    const isOffice = cat === 'office';
+    const r = isOffice ? 10 : 6;
 
-    html += `<g class="map-marker ${inRoute ? 'in-route' : ''}" data-id="${p.id}" transform="translate(${x},${y})">
-      <circle class="marker-dot" r="6" fill="${color}" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" opacity="0.9"/>
-      ${inRoute ? `<circle class="marker-badge" cx="6" cy="-6" r="5" fill="#4338ca"/>
-      <text x="6" y="-3.5" text-anchor="middle" font-size="6" font-weight="900" fill="#fff">${routeIdx + 1}</text>` : ''}
+    html += `<g class="poi-marker ${inRoute ? 'in-route' : ''}" data-id="${p.id}" transform="translate(${x.toFixed(1)},${y.toFixed(1)})">
+      <circle class="poi-glow" r="${r * 2}" fill="${color}" opacity="${inRoute ? '0.35' : '0.15'}"/>
+      <circle class="poi-dot" r="${r}" fill="${color}" opacity="${inRoute ? '1' : '0.75'}"
+        stroke="${inRoute ? '#BBFF46' : isOffice ? '#BBFF46' : 'rgba(255,255,255,0.3)'}"
+        stroke-width="${inRoute ? '2.5' : isOffice ? '2' : '1'}"/>
+      <circle r="${r * 0.4}" fill="#fff" opacity="0.8"/>
+      ${isOffice ? `<circle r="${r + 4}" fill="none" stroke="#BBFF46" stroke-width="1.5" opacity="0" class="office-pulse-svg"/>` : ''}
+      ${inRoute ? `<circle cx="${r + 2}" cy="${-(r + 2)}" r="8" fill="#BBFF46"/>
+      <text x="${r + 2}" y="${-(r - 1)}" text-anchor="middle" font-size="8" font-weight="900" fill="#0A0A0A">${routeIdx + 1}</text>` : ''}
     </g>`;
   });
   mapMarkers.innerHTML = html;
 
-  // Click handlers
-  mapMarkers.querySelectorAll('.map-marker').forEach(m => {
-    m.addEventListener('click', () => {
+  mapMarkers.querySelectorAll('.poi-marker').forEach(m => {
+    m.addEventListener('click', e => {
+      e.stopPropagation();
       const place = PLACES.find(p => p.id === m.dataset.id);
       if (place) openPlaceSheet(place);
     });
@@ -821,9 +932,94 @@ function updateRouteLine() {
   }
   const pts = route.map(p => {
     const { x, y } = latLngToSvg(p.lat, p.lng);
-    return `${x},${y}`;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
   }).join(' ');
   routeLine.setAttribute('points', pts);
+}
+
+// Pan & Zoom
+function initMapPanZoom() {
+  svgMap.addEventListener('mousedown', e => {
+    if (e.target.closest('.poi-marker')) return;
+    mapDragging = true;
+    mapDragStart = { x: e.clientX, y: e.clientY, vx: mapViewBox.x, vy: mapViewBox.y };
+  });
+  svgMap.addEventListener('mousemove', e => {
+    if (!mapDragging) return;
+    const r = svgMap.getBoundingClientRect();
+    mapViewBox.x = mapDragStart.vx - (e.clientX - mapDragStart.x) * (mapViewBox.w / r.width);
+    mapViewBox.y = mapDragStart.vy - (e.clientY - mapDragStart.y) * (mapViewBox.h / r.height);
+    applyMapViewBox();
+  });
+  document.addEventListener('mouseup', () => { mapDragging = false; });
+
+  svgMap.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      mapDragging = false;
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      pinchStartDist = Math.sqrt(dx * dx + dy * dy);
+      pinchStartViewBox = { ...mapViewBox };
+      e.preventDefault();
+    } else if (e.touches.length === 1) {
+      if (e.target.closest('.poi-marker')) return;
+      mapDragging = true; pinchStartDist = 0;
+      const t = e.touches[0];
+      mapDragStart = { x: t.clientX, y: t.clientY, vx: mapViewBox.x, vy: mapViewBox.y };
+    }
+  }, { passive: false });
+
+  svgMap.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (e.touches.length === 2 && pinchStartDist > 0 && pinchStartViewBox) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const scale = pinchStartDist / dist;
+      let newW = pinchStartViewBox.w * scale, newH = pinchStartViewBox.h * scale;
+      if (newW < 80) { newW = 80; newH = 80 * (SVG_H / SVG_W); }
+      if (newW > SVG_W * 2) { newW = SVG_W * 2; newH = SVG_H * 2; }
+      const r = svgMap.getBoundingClientRect();
+      const mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      const my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+      const sx = pinchStartViewBox.x + ((mx - r.left) / r.width) * pinchStartViewBox.w;
+      const sy = pinchStartViewBox.y + ((my - r.top) / r.height) * pinchStartViewBox.h;
+      mapViewBox = { x: sx - ((mx - r.left) / r.width) * newW, y: sy - ((my - r.top) / r.height) * newH, w: newW, h: newH };
+      applyMapViewBox();
+      return;
+    }
+    if (mapDragging && e.touches.length === 1) {
+      const t = e.touches[0], r = svgMap.getBoundingClientRect();
+      mapViewBox.x = mapDragStart.vx - (t.clientX - mapDragStart.x) * (mapViewBox.w / r.width);
+      mapViewBox.y = mapDragStart.vy - (t.clientY - mapDragStart.y) * (mapViewBox.h / r.height);
+      applyMapViewBox();
+    }
+  }, { passive: false });
+
+  svgMap.addEventListener('touchend', e => {
+    if (e.touches.length < 2) { pinchStartDist = 0; pinchStartViewBox = null; }
+    if (e.touches.length === 0) mapDragging = false;
+    if (e.touches.length === 1) {
+      mapDragging = true;
+      const t = e.touches[0];
+      mapDragStart = { x: t.clientX, y: t.clientY, vx: mapViewBox.x, vy: mapViewBox.y };
+    }
+  });
+
+  svgMap.addEventListener('wheel', e => {
+    e.preventDefault();
+    const factor = e.deltaY < 0 ? 0.8 : 1.25;
+    const newW = mapViewBox.w * factor, newH = mapViewBox.h * factor;
+    if (newW < 80 || newW > SVG_W * 2) return;
+    const r = svgMap.getBoundingClientRect();
+    const mx = mapViewBox.x + ((e.clientX - r.left) / r.width) * mapViewBox.w;
+    const my = mapViewBox.y + ((e.clientY - r.top) / r.height) * mapViewBox.h;
+    mapViewBox = { x: mx - ((e.clientX - r.left) / r.width) * newW, y: my - ((e.clientY - r.top) / r.height) * newH, w: newW, h: newH };
+    applyMapViewBox();
+  }, { passive: false });
+
+  $('mapZoomIn').addEventListener('click', () => svgMapZoomCenter(1));
+  $('mapZoomOut').addEventListener('click', () => svgMapZoomCenter(-1));
 }
 
 // ══════════════════════════════════════════════
@@ -1207,6 +1403,9 @@ function updateRoute() {
 
   // Update route line on map
   updateRouteLine();
+
+  // Update markers (route badge state)
+  renderMapMarkers();
 
   // Render route panel content
   renderRoutePanel();
@@ -1647,4 +1846,6 @@ if (routeParam) {
   });
 }
 
+drawIslandMap();
+initMapPanZoom();
 applyTranslations();

@@ -779,7 +779,7 @@ function updateSheetCalc() {
   const insText = sheetInsurancePlus && insTier ? ` + ${t('insPlus')}` : '';
   const msg = encodeURIComponent(tpl('waMsgBike', { name: sheetBike.name, days: sheetDays }) + insText);
   sheetWa.href = `https://wa.me/66822545737?text=${msg}`;
-  sheetTg.href = `https://t.me/ThaiGoSale1`;
+  sheetTg.href = `https://t.me/ThaiGoSale1?text=${msg}`;
 }
 
 sheetDaySlider.addEventListener('input', () => {

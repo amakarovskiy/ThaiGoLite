@@ -378,3 +378,58 @@ export const T = {
     ru: '/день', en: '/day', de: '/Tag', fr: '/jour', es: '/día'
   }
 };
+
+// Bike feature translations
+export const FEATURE_TR = {
+  'ABS нет':  { en: 'No ABS', de: 'Kein ABS', fr: 'Pas d\'ABS', es: 'Sin ABS' },
+  'ABS':      { en: 'ABS', de: 'ABS', fr: 'ABS', es: 'ABS' },
+  'Вариатор': { en: 'CVT', de: 'CVT', fr: 'CVT', es: 'CVT' },
+  'Большой багажник': { en: 'Large trunk', de: 'Großer Kofferraum', fr: 'Grand coffre', es: 'Maletero grande' },
+  'Внедорожный стиль': { en: 'Off-road style', de: 'Offroad-Stil', fr: 'Style tout-terrain', es: 'Estilo off-road' },
+  'Спортбайк': { en: 'Sport bike', de: 'Sportbike', fr: 'Sportive', es: 'Deportiva' },
+  'Нейкед':    { en: 'Naked', de: 'Naked', fr: 'Naked', es: 'Naked' },
+  'Круизер':   { en: 'Cruiser', de: 'Cruiser', fr: 'Cruiser', es: 'Cruiser' },
+  'Круиз':     { en: 'Cruise control', de: 'Tempomat', fr: 'Régulateur', es: 'Control crucero' },
+  'Низкая посадка': { en: 'Low seat', de: 'Niedrige Sitzposition', fr: 'Selle basse', es: 'Asiento bajo' },
+  'Электро-экран':  { en: 'Electric screen', de: 'Elektro-Windschild', fr: 'Pare-brise électrique', es: 'Pantalla eléctrica' },
+  'Автомат':   { en: 'Automatic', de: 'Automatik', fr: 'Automatique', es: 'Automático' },
+  'Кондиционер': { en: 'Air conditioning', de: 'Klimaanlage', fr: 'Climatisation', es: 'Aire acondicionado' },
+  '5 мест':    { en: '5 seats', de: '5 Sitze', fr: '5 places', es: '5 asientos' },
+  '6 МКПП':    { en: '6-speed manual', de: '6-Gang Schaltung', fr: '6 vitesses', es: '6 marchas' },
+  'Keyless':   { en: 'Keyless', de: 'Keyless', fr: 'Keyless', es: 'Keyless' },
+  'USB зарядка': { en: 'USB charging', de: 'USB-Ladung', fr: 'Charge USB', es: 'Carga USB' },
+  'Traction Control': { en: 'Traction Control', de: 'Traction Control', fr: 'Traction Control', es: 'Traction Control' },
+  'HSTC':      { en: 'HSTC', de: 'HSTC', fr: 'HSTC', es: 'HSTC' },
+  'Ride-by-Wire': { en: 'Ride-by-Wire', de: 'Ride-by-Wire', fr: 'Ride-by-Wire', es: 'Ride-by-Wire' },
+  'Assist Slipper Clutch': { en: 'Assist Slipper Clutch', de: 'Assist Slipper Clutch', fr: 'Embrayage anti-dribble', es: 'Embrague deslizante' },
+  'Assist & Slipper Clutch': { en: 'Assist & Slipper Clutch', de: 'Assist & Slipper Clutch', fr: 'Embrayage anti-dribble', es: 'Embrague deslizante' },
+  'Ergo-Fit':  { en: 'Ergo-Fit', de: 'Ergo-Fit', fr: 'Ergo-Fit', es: 'Ergo-Fit' },
+  'TFT дисплей': { en: 'TFT display', de: 'TFT-Display', fr: 'Écran TFT', es: 'Pantalla TFT' }
+};
+
+// Translate a bike feature string
+export function translateFeature(feature, lang) {
+  if (lang === 'ru') return feature;
+  // Check exact match
+  if (FEATURE_TR[feature]) return FEATURE_TR[feature][lang] || feature;
+  // Handle weight pattern "~XXX кг"
+  const weightMatch = feature.match(/^~(\d+)\s*кг$/);
+  if (weightMatch) return `~${weightMatch[1]} kg`;
+  // Handle fuel pattern "Расход X.X л/100км"
+  const fuelMatch = feature.match(/^Расход\s+([\d.]+)\s*л\/100км$/);
+  if (fuelMatch) {
+    const val = fuelMatch[1];
+    const labels = { en: `${val} L/100km`, de: `${val} L/100km`, fr: `${val} L/100km`, es: `${val} L/100km` };
+    return labels[lang] || `${val} L/100km`;
+  }
+  return feature;
+}
+
+// Bike category translations
+export const BIKE_CAT_TR = {
+  all:     { ru: 'Все', en: 'All', de: 'Alle', fr: 'Tout', es: 'Todos' },
+  scooter: { ru: 'Скутеры', en: 'Scooters', de: 'Roller', fr: 'Scooters', es: 'Scooters' },
+  maxi:    { ru: 'Макси', en: 'Maxi', de: 'Maxi', fr: 'Maxi', es: 'Maxi' },
+  moto:    { ru: 'Мотоциклы', en: 'Motorcycles', de: 'Motorräder', fr: 'Motos', es: 'Motocicletas' },
+  car:     { ru: 'Авто', en: 'Cars', de: 'Autos', fr: 'Voitures', es: 'Coches' }
+};

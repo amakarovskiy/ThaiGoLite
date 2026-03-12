@@ -36,11 +36,20 @@ export function calcStats(route) {
   };
 }
 
-export function formatTime(mins) {
-  if (mins <= 0) return '0 мин';
-  if (mins < 60) return mins + ' мин';
+const TIME_UNITS = {
+  ru: { h: 'ч', m: 'мин' },
+  en: { h: 'h', m: 'min' },
+  de: { h: 'Std', m: 'Min' },
+  fr: { h: 'h', m: 'min' },
+  es: { h: 'h', m: 'min' }
+};
+
+export function formatTime(mins, lang = 'ru') {
+  const u = TIME_UNITS[lang] || TIME_UNITS.en;
+  if (mins <= 0) return '0 ' + u.m;
+  if (mins < 60) return mins + ' ' + u.m;
   const h = Math.floor(mins / 60);
   const m = mins % 60;
-  if (m === 0) return h + ' ч';
-  return h + ' ч ' + m + ' мин';
+  if (m === 0) return h + ' ' + u.h;
+  return h + ' ' + u.h + ' ' + m + ' ' + u.m;
 }

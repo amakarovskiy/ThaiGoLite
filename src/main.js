@@ -7,7 +7,8 @@ import './components/booking-sheet.css';
 import { BIKES, BIKE_CATEGORIES } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
 import { calcStats, formatTime, TAXI_RATE_PER_KM } from './utils/stats.js';
-import { LANGS, detectLang, saveLang, T } from './data/i18n.js';
+import { LANGS, detectLang, saveLang, T, translateFeature, BIKE_CAT_TR } from './data/i18n.js';
+import { PLACE_TR } from './data/place-translations.js';
 
 // ══════════════════════════════════════════════
 // i18n helper
@@ -26,6 +27,33 @@ function tpl(key, vars) {
     s = s.replace('${' + k + '}', v);
   }
   return s;
+}
+
+function placeName(place) {
+  const tr = PLACE_TR[place.id];
+  if (tr && tr.name && tr.name[lang]) return tr.name[lang];
+  return place.name;
+}
+
+function placeDesc(place) {
+  const tr = PLACE_TR[place.id];
+  if (tr && tr.desc && tr.desc[lang]) return tr.desc[lang];
+  return place.desc;
+}
+
+function placeTips(place) {
+  const tr = PLACE_TR[place.id];
+  if (tr && tr.tips && tr.tips[lang]) return tr.tips[lang];
+  return place.tips || '';
+}
+
+function trFeature(feature) {
+  return translateFeature(feature, lang);
+}
+
+function bikeCatName(cat) {
+  const entry = BIKE_CAT_TR[cat];
+  return entry ? (entry[lang] || entry.en || cat) : cat;
 }
 
 // ══════════════════════════════════════════════
@@ -408,10 +436,10 @@ function openBookingSheet(bike) {
   sheetBikeImg.className = `sheet-bike-img cat-${bike.category}`;
   sheetBikeImg.textContent = BIKE_EMOJI[bike.category] || '\u{1F6F5}';
   sheetBikeName.textContent = bike.name;
-  sheetBikeCc.textContent = `${bike.cc} cc — ${BIKE_CATEGORIES[bike.category] || bike.category}`;
+  sheetBikeCc.textContent = `${bike.cc} cc — ${bikeCatName(bike.category)}`;
 
   sheetFeatures.innerHTML = bike.features.map(f =>
-    `<span class="sheet-feature-tag">${f}</span>`
+    `<span class="sheet-feature-tag">${trFeature(f)}</span>`
   ).join('');
 
   sheetP1.textContent = bike.prices.day1 + ' \u0E3F';
@@ -536,8 +564,9 @@ function filterPlaces() {
   if (placeSearch.trim()) {
     const q = placeSearch.toLowerCase();
     filtered = filtered.filter(p =>
-      p.name.toLowerCase().includes(q) ||
-      p.desc.toLowerCase().includes(q)
+      placeName(p).toLowerCase().includes(q) ||
+      placeDesc(p).toLowerCase().includes(q) ||
+      p.name.toLowerCase().includes(q)
     );
   }
 
@@ -556,8 +585,8 @@ function renderPlaces() {
       <div class="place-card" data-place="${p.id}">
         <div class="place-icon" style="background:${color}20;color:${color}">${p.icon}</div>
         <div class="place-info">
-          <div class="place-name">${p.name}</div>
-          <div class="place-desc">${p.desc.slice(0, 60)}...</div>
+          <div class="place-name">${placeName(p)}</div>
+          <div class="place-desc">${placeDesc(p).slice(0, 60)}...</div>
         </div>
         <button class="place-add-btn ${inRoute ? 'added' : ''}" data-place-add="${p.id}">${inRoute ? '\u2713' : '+'}</button>
       </div>
@@ -609,14 +638,14 @@ function openPlaceSheet(place) {
   placeSheetIcon.textContent = place.icon;
   placeSheetIcon.style.background = color + '20';
   placeSheetIcon.style.color = color;
-  placeSheetName.textContent = place.name;
+  placeSheetName.textContent = placeName(place);
   placeSheetKm.textContent = place.km_from_patong
     ? tpl('kmFromPatong', { km: place.km_from_patong })
     : '';
-  placeSheetDesc.textContent = place.desc;
+  placeSheetDesc.textContent = placeDesc(place);
 
   const tips = [];
-  if (place.tips) tips.push(place.tips);
+  if (place.tips) tips.push(placeTips(place));
   if (place.warnings && place.warnings.length) tips.push('\u26A0 ' + place.warnings.join('. '));
   placeSheetTips.textContent = tips.join('\n');
   placeSheetTips.style.display = tips.length ? '' : 'none';
@@ -657,14 +686,14 @@ function toggleRoute(place) {
   const idx = route.findIndex(r => r.id === place.id);
   if (idx >= 0) {
     route.splice(idx, 1);
-    showToast(`${place.name} ${t('placeRemoved')}`);
+    showToast(`${placeName(place)} ${t('placeRemoved')}`);
   } else {
     if (route.length >= MAX_ROUTE_POINTS) {
       showToast(tpl('maxPoints', { n: MAX_ROUTE_POINTS }), 'warning');
       return;
     }
     route.push(place);
-    showToast(`${place.name} ${t('placeAdded')}`);
+    showToast(`${placeName(place)} ${t('placeAdded')}`);
   }
   updateRoute();
   renderPlaces();
@@ -707,7 +736,7 @@ function updateRoute() {
     return `
       <div class="route-stop">
         <span class="stop-num ${numClass}">${i + 1}</span>
-        <span class="stop-name">${p.name}</span>
+        <span class="stop-name">${placeName(p)}</span>
         <button class="stop-remove" data-remove="${p.id}">&times;</button>
       </div>
     `;
@@ -723,7 +752,7 @@ function updateRoute() {
   if (route.length >= 2) {
     const stats = calcStats(route);
     $('statKm').textContent = stats.km;
-    $('statTime').textContent = formatTime(stats.mins);
+    $('statTime').textContent = formatTime(stats.mins, lang);
     $('statFuel').textContent = stats.fuel;
     routeStats.style.display = '';
 
@@ -731,7 +760,7 @@ function updateRoute() {
     $('costTaxi').textContent = taxiCost.toLocaleString();
     costRow.style.display = '';
 
-    const routeNames = route.map(r => r.name).join(' \u2192 ');
+    const routeNames = route.map(r => placeName(r)).join(' \u2192 ');
     const msg = encodeURIComponent(tpl('waMsgRoute', { route: routeNames, km: stats.km }));
     $('routeWa').href = `https://wa.me/66822545737?text=${msg}`;
     $('routeTg').href = `https://t.me/ThaiGoSale1`;

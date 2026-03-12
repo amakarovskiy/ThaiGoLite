@@ -39,3 +39,26 @@ export function getPricePerDay(bike, days) {
 export function getTotalPrice(bike, days) {
   return getPricePerDay(bike, days) * days;
 }
+
+const MAXI_BIG_IDS = ['xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'];
+
+/**
+ * Returns insurance+ total cost for a bike over given days.
+ * Returns null for manual transmission bikes (insurance+ unavailable).
+ */
+export function getInsuranceTotal(days, bike) {
+  if (bike.category === 'moto') return null;
+  const isMaxi = MAXI_BIG_IDS.includes(bike.id);
+  if (isMaxi) return days <= 10 ? 1000 : days <= 20 ? 2000 : 3000;
+  return days <= 10 ? 500 : days <= 20 ? 1000 : 1500;
+}
+
+/**
+ * Returns insurance+ cost per day (rounded up).
+ * Returns null for manual transmission bikes.
+ */
+export function getInsurancePerDay(days, bike) {
+  const total = getInsuranceTotal(days, bike);
+  if (total === null) return null;
+  return Math.ceil(total / days);
+}

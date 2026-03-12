@@ -228,79 +228,105 @@
 
     <!-- ══════ TAB 3: МАРШРУТЫ ══════ -->
     <main id="page-routes" class="page">
-      <!-- Субтабы: Места / Мой маршрут -->
-      <div class="route-subtabs">
-        <button class="route-subtab route-subtab--active" data-subtab="places">Места</button>
-        <button class="route-subtab" data-subtab="myroute">Маршрут <span class="route-badge" id="routeBadge" style="display:none">0</span></button>
+      <div class="routes-page">
+        <!-- SVG Map -->
+        <div class="svg-map-wrap" id="svgMapWrap">
+          <svg id="svgMap" class="svg-map" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid meet">
+            <!-- Water background -->
+            <rect width="400" height="700" fill="#0a1628"/>
+            <!-- Island shape -->
+            <path id="islandShape" d="
+              M 180 45 C 195 40, 220 42, 235 50
+              C 250 58, 258 70, 260 85
+              C 265 100, 270 115, 268 130
+              C 266 145, 270 160, 275 175
+              C 280 190, 288 200, 290 215
+              C 292 230, 295 245, 290 260
+              C 285 275, 278 285, 275 300
+              C 272 315, 268 330, 265 345
+              C 262 360, 258 375, 255 390
+              C 252 405, 250 420, 248 435
+              C 246 450, 248 465, 252 480
+              C 256 495, 260 510, 258 525
+              C 256 540, 250 555, 242 565
+              C 234 575, 225 582, 218 590
+              C 210 598, 202 608, 195 618
+              C 188 628, 178 635, 168 638
+              C 158 641, 148 635, 140 625
+              C 132 615, 128 605, 130 592
+              C 132 580, 135 568, 138 555
+              C 141 542, 140 530, 135 518
+              C 130 506, 125 495, 122 482
+              C 119 470, 118 458, 120 445
+              C 122 432, 126 420, 128 405
+              C 130 390, 128 375, 124 360
+              C 120 345, 118 330, 120 315
+              C 122 300, 128 285, 130 270
+              C 132 255, 130 240, 128 225
+              C 126 210, 125 195, 128 180
+              C 131 165, 138 152, 142 140
+              C 146 128, 152 115, 155 100
+              C 158 85, 162 70, 168 58
+              C 174 48, 180 45, 180 45 Z
+            " fill="#1a2a1a" stroke="#2d4a2d" stroke-width="1.5" opacity="0.85"/>
+            <!-- Roads (simplified) -->
+            <path d="M 195 60 L 200 130 L 210 200 L 220 270 L 230 340 L 225 410 L 210 480 L 195 550 L 180 610" fill="none" stroke="#3a3a2a" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.4"/>
+            <path d="M 140 300 L 180 310 L 230 340 L 270 330" fill="none" stroke="#3a3a2a" stroke-width="1" stroke-dasharray="3 2" opacity="0.3"/>
+            <!-- Route line drawn by JS -->
+            <polyline id="routeLine" class="route-line" points=""/>
+            <!-- Markers rendered by JS -->
+            <g id="mapMarkers"></g>
+          </svg>
+        </div>
+
+        <!-- Bottom Sheet -->
+        <div class="route-sheet rs-collapsed" id="routeSheet">
+          <!-- Handle -->
+          <div class="rs-handle" id="rsHandle">
+            <div class="rs-pill"></div>
+          </div>
+          <!-- Tabs -->
+          <div class="rs-tabs" id="rsTabs">
+            <button class="rs-tab active" data-rs-tab="places">Места</button>
+            <button class="rs-tab" data-rs-tab="route">Маршрут <span class="rs-badge" id="rsBadge" style="display:none">0</span></button>
+          </div>
+          <!-- Content -->
+          <div class="rs-content" id="rsContent">
+            <!-- Places panel -->
+            <div class="rs-panel active" id="rsPanelPlaces">
+              <div class="rs-search">
+                <input type="text" id="rsSearchInput" class="rs-search-input" placeholder="Поиск места..." />
+              </div>
+              <div class="rs-filters" id="rsFilters">
+                <button class="filter-chip filter-chip--active" data-cat="top">Топ</button>
+                <button class="filter-chip" data-cat="all">Все</button>
+                <button class="filter-chip" data-cat="beach">Пляжи</button>
+                <button class="filter-chip" data-cat="view">Смотровые</button>
+                <button class="filter-chip" data-cat="temple">Храмы</button>
+                <button class="filter-chip" data-cat="nature">Природа</button>
+                <button class="filter-chip" data-cat="market">Рынки</button>
+                <button class="filter-chip" data-cat="food">Еда</button>
+                <button class="filter-chip" data-cat="photo">Фото</button>
+              </div>
+              <div class="rs-place-list" id="rsPlaceList"></div>
+            </div>
+            <!-- Route panel -->
+            <div class="rs-panel" id="rsPanelRoute">
+              <div class="rs-route-panel" id="rsRoutePanel"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Подтаб: Места -->
-      <div id="subtab-places" class="subtab subtab--active">
-        <div class="place-filters" id="placeFilters">
-          <button class="filter-chip filter-chip--active" data-cat="top">Топ</button>
-          <button class="filter-chip" data-cat="all">Все</button>
-          <button class="filter-chip" data-cat="beach">Пляжи</button>
-          <button class="filter-chip" data-cat="view">Смотровые</button>
-          <button class="filter-chip" data-cat="temple">Храмы</button>
-          <button class="filter-chip" data-cat="nature">Природа</button>
-          <button class="filter-chip" data-cat="market">Рынки</button>
-          <button class="filter-chip" data-cat="food">Еда</button>
-          <button class="filter-chip" data-cat="photo">Фото</button>
-        </div>
-        <div class="place-search">
-          <input type="text" id="placeSearch" class="search-input" placeholder="Поиск места..." />
-        </div>
-        <div class="place-list" id="placeList">
-          <!-- Static SEO content — replaced by JS on load -->
-          <div class="place-card"><div class="place-icon" style="background:#eab30820;color:#eab308">🏖</div><div class="place-info"><div class="place-name">Пляж Патонг</div><div class="place-desc">Главный пляж острова — 3.5 км белого песка, сотни баров и ресторанов, ночной Bangla Road.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#eab30820;color:#eab308">🏖</div><div class="place-info"><div class="place-name">Пляж Ката</div><div class="place-desc">Уютная бухта с мелким белым песком и бирюзовой водой. Лучший сёрфинг на острове.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#eab30820;color:#eab308">🏖</div><div class="place-info"><div class="place-name">Пляж Карон</div><div class="place-desc">3 км «поющего» кварцевого песка. Людей вдвое меньше, чем на Патонге.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#eab30820;color:#eab308">🏖</div><div class="place-info"><div class="place-name">Пляж Най Харн</div><div class="place-desc">Любимый пляж местных жителей на юге. Спокойная лагуна, мало волн.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#eab30820;color:#eab308">🏖</div><div class="place-info"><div class="place-name">Пляж Бангтао</div><div class="place-desc">6 км песка — самый длинный пляж на западном побережье Пхукета.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#eab30820;color:#eab308">🏖</div><div class="place-info"><div class="place-name">Пляж Ката Ной</div><div class="place-desc">Один из самых красивых пляжей Пхукета. Прозрачная вода, отличный снорклинг.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#eab30820;color:#eab308">🏖</div><div class="place-info"><div class="place-name">Пляж Фридом</div><div class="place-desc">Секретный пляж в бухте, окружённый джунглями. Ощущение необитаемого острова.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#16a34a20;color:#16a34a">⛰</div><div class="place-info"><div class="place-name">Мыс Пхромтхеп</div><div class="place-desc">Самая южная точка Пхукета и самый знаменитый закат в Таиланде.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#16a34a20;color:#16a34a">⛰</div><div class="place-info"><div class="place-name">Смотровая Карон</div><div class="place-desc">Панорама на три пляжа — Ката Ной, Ката и Карон — с высоты.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#16a34a20;color:#16a34a">⛰</div><div class="place-info"><div class="place-name">Ранг Хилл</div><div class="place-desc">Холм над Пхукет-тауном с обзорной площадкой на 360°. Кафе с панорамой.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#16a34a20;color:#16a34a">⛰</div><div class="place-info"><div class="place-name">Вью-поинт Big Buddha</div><div class="place-desc">Панорама на 360° с холма Наккерд. Видно весь юг острова.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#16a34a20;color:#16a34a">⛰</div><div class="place-info"><div class="place-name">Ветряные мельницы</div><div class="place-desc">Панорама на оба побережья — восток и запад одновременно. Лучший фотоспот.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#d9770620;color:#d97706">🛕</div><div class="place-info"><div class="place-name">Ват Чалонг</div><div class="place-desc">Главный буддийский храм Пхукета. Красивейшая архитектура, позолоченные ступы.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#d9770620;color:#d97706">🛕</div><div class="place-info"><div class="place-name">Большой Будда</div><div class="place-desc">45-метровая мраморная статуя Будды — символ Пхукета.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#05966920;color:#059669">🌿</div><div class="place-info"><div class="place-name">Водопад Тон Сай</div><div class="place-desc">Главный водопад Пхукета в национальном парке. Купание в природных бассейнах.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#0891b220;color:#0891b2">📸</div><div class="place-info"><div class="place-name">Старый город Пхукет</div><div class="place-desc">Шино-португальские дома, муралы, крафтовые кафе, галереи.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#9333ea20;color:#9333ea">🛍</div><div class="place-info"><div class="place-name">Рынок Банзаан</div><div class="place-desc">Крытый рынок Патонга — морепродукты, фрукты, готовая еда на двух этажах.</div></div></div>
-          <div class="place-card"><div class="place-icon" style="background:#9333ea20;color:#9333ea">🛍</div><div class="place-info"><div class="place-name">Ночной рынок Пхукет</div><div class="place-desc">Сотни палаток с едой, одеждой, сувенирами. Работает каждый день с 17:00.</div></div></div>
-        </div>
-      </div>
-
-      <!-- Подтаб: Мой маршрут -->
-      <div id="subtab-myroute" class="subtab">
-        <div class="route-panel">
-          <div class="route-header">
-            <span>Маршрут <span class="route-count" id="routeCount">0</span>/12</span>
-            <button class="route-clear-btn" id="routeClear">Сбросить</button>
-          </div>
-          <div class="route-stops" id="routeStops">
-            <div class="route-empty" id="routeEmpty">Выбери 2+ места чтобы построить маршрут</div>
-          </div>
-          <div class="route-stats" id="routeStats" style="display:none">
-            <div class="stat-box"><div class="stat-val" id="statKm">0</div><div class="stat-label">км</div></div>
-            <div class="stat-box"><div class="stat-val" id="statTime">0</div><div class="stat-label">в пути</div></div>
-            <div class="stat-box"><div class="stat-val" id="statFuel">0</div><div class="stat-label">&#3647; бензин</div></div>
-          </div>
-          <div class="cost-row" id="costRow" style="display:none">
-            <span class="cost-taxi">Такси: ~<span id="costTaxi">0</span> &#3647;</span>
-            <span class="cost-arrow">&rarr;</span>
-            <span class="cost-bike">Байк: ~180 &#3647;/день</span>
-          </div>
-          <div class="route-cta-block" id="routeCtaBlock" style="display:none">
-            <a class="btn btn-wa btn-full" id="routeWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="btn btn-tg btn-full" id="routeTg" href="#" target="_blank" rel="noopener">Telegram</a>
-          </div>
-          <div class="route-rent-cta" id="routeRentCta" style="display:none">
-            <div><strong>Для маршрута нужен байк</strong><br><small>от 180 &#3647; в день</small></div>
-            <button class="btn btn-primary btn-sm" data-goto="bikes">Арендовать</button>
-          </div>
+      <!-- Share popover -->
+      <div class="sheet-overlay" id="rsShareOverlay"></div>
+      <div class="rs-share-pop" id="rsSharePop">
+        <div class="rs-share-pop-title" id="rsShareTitle">Поделиться</div>
+        <div class="rs-share-grid">
+          <button class="rs-cta-btn cta-wa" id="rsShareWa">WhatsApp</button>
+          <button class="rs-cta-btn cta-tg" id="rsShareTg">Telegram</button>
+          <button class="rs-cta-btn cta-share" id="rsShareCopy">Копировать</button>
+          <a class="rs-cta-btn cta-gmaps" id="rsShareGmaps" href="#" target="_blank" rel="noopener">Google Maps</a>
         </div>
       </div>
     </main>

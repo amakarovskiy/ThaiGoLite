@@ -5,6 +5,7 @@ import './styles/app.css';
 import './components/bottom-tab-bar.css';
 import './components/booking-sheet.css';
 import './components/rider-test.css';
+import './components/bike-picker.css';
 import './components/routes-map.css';
 import { BIKES, BIKE_CATEGORIES } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
@@ -12,6 +13,7 @@ import { calcStats, formatTime, haversine, TAXI_RATE_PER_KM } from './utils/stat
 import { LANGS, detectLang, saveLang, T, translateFeature, BIKE_CAT_TR } from './data/i18n.js';
 import { PLACE_TR } from './data/place-translations.js';
 import { RIDER_QUESTIONS, CONFETTI_EMOJIS } from './data/rider-test.js';
+import { getPricePerDay, getTotalPrice, getCurrentSeason } from './utils/pricing.js';
 
 // ══════════════════════════════════════════════
 // i18n helper
@@ -270,6 +272,8 @@ function applyTranslations() {
   const menuRiderText = $('menuRiderTest');
   if (menuRoutesText) menuRoutesText.querySelector('.menu-text').textContent = t('guideMenuRoutes');
   if (menuRiderText) menuRiderText.querySelector('.menu-text').textContent = t('guideMenuRiderTest');
+  const menuBikePickerText = $('menuBikePickerText');
+  if (menuBikePickerText) menuBikePickerText.textContent = t('bpMenuBtn');
 
   // Rider teaser
   const teaserTitle = document.querySelector('.rider-teaser-title');
@@ -285,7 +289,7 @@ function applyTranslations() {
 
   // Bike filters
   const bikeFilterChips = bikeFiltersEl.querySelectorAll('.filter-chip');
-  const bikeFilterKeys = ['filterAll', 'filterScooter', 'filterMaxi', 'filterMoto', 'filterCar'];
+  const bikeFilterKeys = ['filterAll', 'filterScooter', 'filterMaxi', 'filterMoto'];
   bikeFilterChips.forEach((el, i) => { if (bikeFilterKeys[i]) el.textContent = t(bikeFilterKeys[i]); });
 
   // Place filters in route sheet
@@ -398,6 +402,8 @@ function closeAllModals() {
   if (ps && ps.classList.contains('open')) closePlaceSheet();
   const sp = $('rsSharePop');
   if (sp && sp.classList.contains('open')) closeSharePopover();
+  const bp = $('bikePickerOverlay');
+  if (bp && bp.classList.contains('active')) closeBikePicker();
   const rt = $('riderTestOverlay');
   if (rt && rt.classList.contains('active')) closeRiderTest();
 }
@@ -615,7 +621,7 @@ function renderBikes() {
         <div class="bike-card-name">${b.name}</div>
         <div class="bike-card-cc">${b.cc} cc</div>
         <div class="bike-card-footer">
-          <span class="bike-card-price">${t('priceFrom')} ${b.prices.day7} \u0E3F</span>
+          <span class="bike-card-price">${t('priceFrom')} ${getPricePerDay(b, 7)} \u0E3F</span>
           <button class="bike-card-btn">${t('bikeBtnRent')}</button>
         </div>
       </div>
@@ -650,7 +656,7 @@ function renderPopular() {
       <div class="popular-card-img cat-${b.category}" role="img" aria-label="${b.name} аренда Пхукет" style="background: linear-gradient(135deg, ${b.category === 'scooter' ? '#eef2ff, #dbeafe' : b.category === 'maxi' ? '#d1fae5, #e0f2fe' : '#fef3c7, #fde68a'})">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
       <div class="popular-card-body">
         <div class="popular-card-name">${b.name}</div>
-        <div class="popular-card-price">${t('priceFrom')} ${b.prices.day7} \u0E3F${t('perDay')}</div>
+        <div class="popular-card-price">${t('priceFrom')} ${getPricePerDay(b, 7)} \u0E3F${t('perDay')}</div>
       </div>
     </div>
   `).join('');
@@ -699,11 +705,13 @@ function openBookingSheet(bike) {
     `<span class="sheet-feature-tag">${trFeature(f)}</span>`
   ).join('');
 
-  sheetP1.textContent = bike.prices.day1 + ' \u0E3F';
-  sheetP3.textContent = bike.prices.day3 + ' \u0E3F';
-  sheetP7.textContent = bike.prices.day7 + ' \u0E3F';
-  sheetP14.textContent = bike.prices.day14 + ' \u0E3F';
-  sheetPM.textContent = bike.prices.month + ' \u0E3F';
+  const season = getCurrentSeason();
+  const sp = bike.prices[season];
+  sheetP1.textContent = sp[0] + ' \u0E3F';
+  sheetP3.textContent = sp[1] + ' \u0E3F';
+  sheetP7.textContent = sp[2] + ' \u0E3F';
+  sheetP14.textContent = sp[3] + ' \u0E3F';
+  sheetPM.textContent = (sp[3] * 30) + ' \u0E3F';
 
   sheetDaySlider.value = sheetDays;
   updateSheetCalc();
@@ -766,23 +774,18 @@ lbTrack.addEventListener('touchend', () => {
 });
 
 function getPerDay(bike, days) {
-  if (days >= 30) return bike.prices.month / 30;
-  if (days >= 14) return bike.prices.day14;
-  if (days >= 7) return bike.prices.day7;
-  if (days >= 3) return bike.prices.day3;
-  return bike.prices.day1;
+  return getPricePerDay(bike, days);
 }
 
 function getTierName(days) {
-  if (days >= 30) return 'month';
-  if (days >= 14) return 'day14';
+  if (days >= 20) return 'day14';
   if (days >= 7) return 'day7';
   if (days >= 3) return 'day3';
   return 'day1';
 }
 
 // ── Insurance pricing ──
-const MAXI_BIG_IDS = ['xmax-300', 'forza-350', 'adv-350'];
+const MAXI_BIG_IDS = ['xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'];
 
 function getInsuranceTier(bike) {
   if (bike.category === 'moto') return null; // no insurance+ for motorcycles
@@ -816,9 +819,7 @@ function updateSheetCalc() {
   if (daysEl) daysEl.textContent = sheetDays;
 
   const perDay = getPerDay(sheetBike, sheetDays);
-  let total = sheetDays >= 30
-    ? sheetBike.prices.month
-    : Math.round(perDay * sheetDays);
+  let total = getTotalPrice(sheetBike, sheetDays);
 
   // Insurance+ cost
   const insTier = getInsuranceTier(sheetBike);
@@ -847,7 +848,7 @@ function updateSheetCalc() {
 
   const tierName = getTierName(sheetDays);
   const tds = document.querySelectorAll('.sheet-price-table td');
-  const tierMap = ['day1', 'day3', 'day7', 'day14', 'month'];
+  const tierMap = ['day1', 'day3', 'day7', 'day14', 'day14'];
   tds.forEach((td, i) => {
     td.classList.toggle('active-tier', tierMap[i] === tierName);
   });
@@ -2038,26 +2039,20 @@ function launchConfetti() {
 }
 
 // ══════════════════════════════════════════════
-// Cost Calculator
+// Cost Calculator (uses real bike pricing)
 // ══════════════════════════════════════════════
-const CALC_CATS = { scooter: 180, standard: 300, maxi: 533, moto: 300 };
+// Representative bike IDs for each calc category
+const CALC_REP = { scooter: 'scoopy-110', standard: 'pcx-160', maxi: 'forza-350-new', moto: 'cbr-150-new' };
 let calcCat = 'scooter';
-
-function getCalcDiscount(days) {
-  if (days >= 30) return 35;
-  if (days >= 14) return 25;
-  if (days >= 7) return 15;
-  if (days >= 3) return 10;
-  return 0;
-}
 
 function updateCalc() {
   const slider = $('calcSlider');
   if (!slider) return;
   const days = parseInt(slider.value);
-  const base = CALC_CATS[calcCat];
-  const discount = getCalcDiscount(days);
-  const total = Math.round(base * days * (1 - discount / 100));
+  const repBike = BIKES.find(b => b.id === CALC_REP[calcCat]);
+  if (!repBike) return;
+  const perDay = getPricePerDay(repBike, days);
+  const total = getTotalPrice(repBike, days);
 
   const totalEl = $('calcTotal');
   if (totalEl) totalEl.textContent = total.toLocaleString() + ' \u0E3F';
@@ -2068,24 +2063,32 @@ function updateCalc() {
   const titleEl = $('calcTitle');
   if (titleEl) titleEl.textContent = t('calcTitle');
 
+  // Show discount info when price drops at tier boundaries
+  const basePerDay = getPricePerDay(repBike, 1);
+  const discountPct = basePerDay > perDay ? Math.round((1 - perDay / basePerDay) * 100) : 0;
   const discountEl = $('calcDiscount');
   if (discountEl) {
-    if (discount > 0) {
+    if (discountPct > 0) {
       discountEl.style.display = 'flex';
-      $('calcDiscountBadge').textContent = '\u2212' + discount + '%';
+      $('calcDiscountBadge').textContent = '\u2212' + discountPct + '%';
       $('calcDiscountText').textContent = t('calcDiscountText');
     } else {
       discountEl.style.display = 'none';
     }
   }
 
-  // Update chip labels
+  // Update chip labels with real prices
   document.querySelectorAll('[data-calc-cat]').forEach(el => {
     const cat = el.dataset.calcCat;
     const nameEl = el.querySelector('.calc-chip-name');
     if (nameEl) {
       const keyMap = { scooter: 'calcCatScooter', standard: 'calcCatStandard', maxi: 'calcCatMaxi', moto: 'calcCatMoto' };
       nameEl.textContent = t(keyMap[cat]);
+    }
+    const priceEl = el.querySelector('.calc-chip-price');
+    if (priceEl) {
+      const rb = BIKES.find(b => b.id === CALC_REP[cat]);
+      if (rb) priceEl.textContent = getPricePerDay(rb, days) + ' \u0E3F';
     }
   });
 
@@ -2110,6 +2113,349 @@ if (calcSlider) calcSlider.addEventListener('input', updateCalc);
 // Calc link -> bikes tab
 const calcLink = $('calcLink');
 if (calcLink) calcLink.addEventListener('click', () => switchTab('bikes'));
+
+// ══════════════════════════════════════════════
+// Bike Picker
+// ══════════════════════════════════════════════
+const bpOverlay = $('bikePickerOverlay');
+const bpBody = $('bpBody');
+const bpProgressFill = $('bpProgressFill');
+let bpStep = 0;
+let bpAnswers = { who: [], experience: null, bikeType: null, priorities: [], destination: [], days: 7, budget: null };
+
+function openBikePicker() {
+  bpStep = 0;
+  bpAnswers = { who: [], experience: null, bikeType: null, priorities: [], destination: [], days: 7, budget: null };
+  bpOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  $('bpTitle').textContent = t('bpTitle');
+  renderBpStep();
+}
+
+function closeBikePicker() {
+  bpOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+$('bpClose').addEventListener('click', closeBikePicker);
+$('menuBikePicker').addEventListener('click', () => {
+  closeGuideMenu();
+  openBikePicker();
+});
+
+const BP_TOTAL_STEPS = 6;
+
+function updateBpProgress() {
+  const pct = Math.min(100, Math.round((bpStep / BP_TOTAL_STEPS) * 100));
+  bpProgressFill.style.width = pct + '%';
+}
+
+function renderBpStep() {
+  updateBpProgress();
+  // Determine effective step (skip step 3 for newbie/beginner)
+  if (bpStep === 2 && (bpAnswers.experience === 'newbie' || bpAnswers.experience === 'beginner')) {
+    bpAnswers.bikeType = 'auto';
+    bpStep = 3; // skip to step 4 (priorities)
+    updateBpProgress();
+  }
+
+  const steps = [renderBpStep1, renderBpStep2, renderBpStep3, renderBpStep4, renderBpStep5, renderBpStep6];
+  if (bpStep >= steps.length) {
+    renderBpResults();
+    return;
+  }
+  steps[bpStep]();
+}
+
+function bpMakeOption(emoji, labelKey, descKey, value) {
+  return { emoji, label: t(labelKey), desc: t(descKey), value };
+}
+
+function bpRenderMultiStep(question, options, currentSelection, onNext) {
+  bpBody.innerHTML = `
+    <div class="bp-step">
+      <div class="bp-step-question">${question}</div>
+      <div class="bp-options">${options.map(o => `
+        <div class="bp-option${currentSelection.includes(o.value) ? ' selected' : ''}" data-val="${o.value}">
+          <span class="bp-option-emoji">${o.emoji}</span>
+          <div class="bp-option-text">
+            <div class="bp-option-label">${o.label}</div>
+            <div class="bp-option-desc">${o.desc}</div>
+          </div>
+          <span class="bp-option-check"></span>
+        </div>
+      `).join('')}</div>
+      <button class="bp-next${currentSelection.length > 0 ? ' enabled' : ''}" id="bpNextBtn">${t('bpNext')}</button>
+    </div>`;
+  bpBody.querySelectorAll('.bp-option').forEach(el => {
+    el.addEventListener('click', () => {
+      el.classList.toggle('selected');
+      const selected = [...bpBody.querySelectorAll('.bp-option.selected')].map(e => e.dataset.val);
+      onNext.updateSelection(selected);
+      const btn = $('bpNextBtn');
+      btn.classList.toggle('enabled', selected.length > 0);
+    });
+  });
+  $('bpNextBtn').addEventListener('click', () => {
+    const selected = [...bpBody.querySelectorAll('.bp-option.selected')].map(e => e.dataset.val);
+    if (selected.length === 0) return;
+    onNext.commit(selected);
+    bpStep++;
+    renderBpStep();
+  });
+}
+
+function bpRenderSingleStep(question, options, currentValue, onCommit) {
+  bpBody.innerHTML = `
+    <div class="bp-step">
+      <div class="bp-step-question">${question}</div>
+      <div class="bp-options">${options.map(o => `
+        <div class="bp-option${currentValue === o.value ? ' selected' : ''}" data-val="${o.value}">
+          <span class="bp-option-emoji">${o.emoji}</span>
+          <div class="bp-option-text">
+            <div class="bp-option-label">${o.label}</div>
+            <div class="bp-option-desc">${o.desc}</div>
+          </div>
+          <span class="bp-option-check"></span>
+        </div>
+      `).join('')}</div>
+    </div>`;
+  bpBody.querySelectorAll('.bp-option').forEach(el => {
+    el.addEventListener('click', () => {
+      bpBody.querySelectorAll('.bp-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      onCommit(el.dataset.val);
+      setTimeout(() => { bpStep++; renderBpStep(); }, 200);
+    });
+  });
+}
+
+// Step 1 — Who is riding? (multi)
+function renderBpStep1() {
+  const opts = [
+    bpMakeOption('🙋', 'bpSolo', 'bpSoloDesc', 'solo'),
+    bpMakeOption('👫', 'bpCouple', 'bpCoupleDesc', 'couple'),
+    bpMakeOption('👨‍👩‍👦', 'bpChild', 'bpChildDesc', 'child'),
+    bpMakeOption('👩', 'bpGirl', 'bpGirlDesc', 'girl')
+  ];
+  bpRenderMultiStep(t('bpStep1Q'), opts, bpAnswers.who, {
+    updateSelection(sel) { bpAnswers.who = sel; },
+    commit(sel) { bpAnswers.who = sel; }
+  });
+}
+
+// Step 2 — Experience (single)
+function renderBpStep2() {
+  const opts = [
+    bpMakeOption('🐣', 'bpNewbie', 'bpNewbieDesc', 'newbie'),
+    bpMakeOption('🌱', 'bpBeginner', 'bpBeginnerDesc', 'beginner'),
+    bpMakeOption('✅', 'bpConfident', 'bpConfidentDesc', 'confident'),
+    bpMakeOption('🏆', 'bpExpert', 'bpExpertDesc', 'expert')
+  ];
+  bpRenderSingleStep(t('bpStep2Q'), opts, bpAnswers.experience, val => {
+    bpAnswers.experience = val;
+  });
+}
+
+// Step 3 — Bike type (single, only for confident/expert)
+function renderBpStep3() {
+  const opts = [
+    bpMakeOption('🛵', 'bpAutoOnly', 'bpAutoOnlyDesc', 'auto'),
+    bpMakeOption('🏍️', 'bpManualOk', 'bpManualOkDesc', 'any')
+  ];
+  bpRenderSingleStep(t('bpStep3Q'), opts, bpAnswers.bikeType, val => {
+    bpAnswers.bikeType = val;
+  });
+}
+
+// Step 4 — Priorities (multi)
+function renderBpStep4() {
+  const opts = [
+    bpMakeOption('🪶', 'bpEasy', 'bpEasyDesc', 'easy'),
+    bpMakeOption('🛋️', 'bpComfort', 'bpComfortDesc', 'comfort'),
+    bpMakeOption('⚡', 'bpSport', 'bpSportDesc', 'sport'),
+    bpMakeOption('📸', 'bpStyle', 'bpStyleDesc', 'style'),
+    bpMakeOption('💰', 'bpEconomy', 'bpEconomyDesc', 'economy')
+  ];
+  bpRenderMultiStep(t('bpStep4Q'), opts, bpAnswers.priorities, {
+    updateSelection(sel) { bpAnswers.priorities = sel; },
+    commit(sel) { bpAnswers.priorities = sel; }
+  });
+}
+
+// Step 5 — Destination (multi)
+function renderBpStep5() {
+  const opts = [
+    bpMakeOption('🏖️', 'bpBeach', 'bpBeachDesc', 'beach'),
+    bpMakeOption('🌴', 'bpIsland', 'bpIslandDesc', 'island'),
+    bpMakeOption('⛰️', 'bpMountain', 'bpMountainDesc', 'mountain'),
+    bpMakeOption('🧭', 'bpBeyond', 'bpBeyondDesc', 'beyond')
+  ];
+  bpRenderMultiStep(t('bpStep5Q'), opts, bpAnswers.destination, {
+    updateSelection(sel) { bpAnswers.destination = sel; },
+    commit(sel) { bpAnswers.destination = sel; }
+  });
+}
+
+// Step 6 — Days + Budget
+function renderBpStep6() {
+  const budgets = [
+    { key: null, label: t('bpBudgetAll'), emoji: '🔘' },
+    { key: 'economy', label: t('bpBudgetEconomy'), emoji: '💚' },
+    { key: 'comfort', label: t('bpBudgetComfort'), emoji: '💙' },
+    { key: 'premium', label: t('bpBudgetPremium'), emoji: '💜' }
+  ];
+  const cheapest = BIKES.reduce((min, b) => {
+    const p = getTotalPrice(b, bpAnswers.days);
+    return p < min ? p : min;
+  }, Infinity);
+
+  bpBody.innerHTML = `
+    <div class="bp-step">
+      <div class="bp-step-question">${t('bpStep6Q')}</div>
+      <div class="bp-slider-row">
+        <div class="bp-slider-label">
+          <span id="bpDaysLabel">${bpAnswers.days} ${t('bpDays')}</span>
+          <span id="bpTotalPreviewLabel">${t('bpTotalFrom')} ${cheapest.toLocaleString()} ฿</span>
+        </div>
+        <input type="range" class="bp-slider" id="bpDaySlider" min="1" max="30" value="${bpAnswers.days}">
+      </div>
+      <div class="bp-budget-row">${budgets.map(b => `
+        <button class="bp-budget-btn${bpAnswers.budget === b.key ? ' active' : ''}${b.key === null && bpAnswers.budget === null ? ' active' : ''}" data-budget="${b.key || ''}">
+          <span class="bp-budget-emoji">${b.emoji}</span>${b.label}
+        </button>
+      `).join('')}</div>
+      <button class="bp-next enabled" id="bpNextBtn">${t('bpNext')}</button>
+    </div>`;
+
+  const slider = $('bpDaySlider');
+  function updateStep6() {
+    const days = parseInt(slider.value);
+    bpAnswers.days = days;
+    $('bpDaysLabel').textContent = days + ' ' + t('bpDays');
+    const filtered = bpAnswers.budget ? BIKES.filter(b => b.budgetGroup === bpAnswers.budget) : BIKES;
+    const min = filtered.reduce((m, b) => { const p = getTotalPrice(b, days); return p < m ? p : m; }, Infinity);
+    $('bpTotalPreviewLabel').textContent = t('bpTotalFrom') + ' ' + min.toLocaleString() + ' ฿';
+  }
+  slider.addEventListener('input', updateStep6);
+
+  bpBody.querySelectorAll('.bp-budget-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      bpBody.querySelectorAll('.bp-budget-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.dataset.budget;
+      bpAnswers.budget = val || null;
+      updateStep6();
+    });
+  });
+
+  $('bpNextBtn').addEventListener('click', () => {
+    bpStep++;
+    renderBpStep();
+  });
+}
+
+// Scoring & Results
+function scoreBikes() {
+  const a = bpAnswers;
+  // Map answer values to score keys
+  const whoMap = { solo: 'solo', couple: 'couple', child: 'child', girl: 'girl' };
+  const prioMap = { easy: 'easy', comfort: 'comfort', sport: 'sport', style: 'style', economy: 'economy' };
+  const destMap = { beach: 'beach', island: 'island', mountain: 'mountain', beyond: 'beyond' };
+
+  let candidates = BIKES.filter(b => {
+    // Filter by transmission
+    if (a.bikeType === 'auto' && b.transmission === 'manual') return false;
+    // Filter by budget
+    if (a.budget && b.budgetGroup !== a.budget) return false;
+    return true;
+  });
+
+  return candidates.map(bike => {
+    let score = 0;
+    const s = bike.scores;
+    // Who
+    a.who.forEach(w => { if (whoMap[w] && s[whoMap[w]]) score += s[whoMap[w]]; });
+    // Priorities
+    a.priorities.forEach(p => { if (prioMap[p] && s[prioMap[p]]) score += s[prioMap[p]]; });
+    // Destinations
+    a.destination.forEach(d => { if (destMap[d] && s[destMap[d]]) score += s[destMap[d]]; });
+
+    // Bonus: "Драйв" + "Комфорт" without "Лёгкость" → premium maxi bonus
+    if (a.priorities.includes('sport') && a.priorities.includes('comfort') && !a.priorities.includes('easy')) {
+      if (['xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'].includes(bike.id)) {
+        score += 2;
+      }
+    }
+    // Bonus: mountain or beyond → ADV bonus
+    if (a.destination.includes('mountain') || a.destination.includes('beyond')) {
+      if (['adv-160', 'adv-350-new'].includes(bike.id)) {
+        score += 2;
+      }
+    }
+
+    return { bike, score };
+  }).sort((a, b) => b.score - a.score).slice(0, 3);
+}
+
+function renderBpResults() {
+  updateBpProgress();
+  bpProgressFill.style.width = '100%';
+  const results = scoreBikes();
+  const days = bpAnswers.days;
+  const emoji = { scooter: '🛵', maxi: '🏍', moto: '🏍' };
+
+  bpBody.innerHTML = `
+    <div class="bp-results">
+      <div class="bp-results-title">${t('bpResultTitle')}</div>
+      <div class="bp-results-sub">${t('bpResultSub')}</div>
+      ${results.map((r, i) => {
+        const b = r.bike;
+        const perDay = getPricePerDay(b, days);
+        const total = getTotalPrice(b, days);
+        const whyText = b.why[lang] || b.why.en;
+        const transType = b.transmission === 'auto' ? t('bpAutoType') : t('bpManualType');
+        return `
+        <div class="bp-result-card" data-bike-id="${b.id}">
+          ${i === 0 ? `<div class="bp-result-badge">${t('bpBestChoice')}</div>` : ''}
+          <div class="bp-result-header">
+            <div class="bp-result-emoji cat-${b.category}">${emoji[b.category] || '🛵'}</div>
+            <div>
+              <div class="bp-result-name">${b.name}</div>
+              <div class="bp-result-cc">${b.cc} cc · ${transType}</div>
+            </div>
+          </div>
+          <div class="bp-result-why">${whyText}</div>
+          <div class="bp-result-tags">${(b.tags || []).map(tag => `<span class="bp-result-tag">${tag}</span>`).join('')}</div>
+          <div class="bp-result-price">
+            <span class="bp-result-perday">${perDay} ${t('bpPerDay')}</span>
+            <span class="bp-result-total">${t('bpTotalFor')} ${days} ${t('bpDaysUnit')}: ${total.toLocaleString()} ฿</span>
+          </div>
+          <button class="bp-result-rent" data-rent-id="${b.id}">${t('bpRent')}</button>
+        </div>`;
+      }).join('')}
+      <button class="bp-restart" id="bpRestartBtn">${t('bpRestart')}</button>
+    </div>`;
+
+  // Rent button handlers
+  bpBody.querySelectorAll('.bp-result-rent').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const bike = BIKES.find(b => b.id === btn.dataset.rentId);
+      if (bike) {
+        closeBikePicker();
+        switchTab('bikes');
+        openBookingSheet(bike);
+      }
+    });
+  });
+
+  // Restart
+  $('bpRestartBtn').addEventListener('click', () => {
+    bpStep = 0;
+    bpAnswers = { who: [], experience: null, bikeType: null, priorities: [], destination: [], days: 7, budget: null };
+    renderBpStep();
+  });
+}
 
 // ══════════════════════════════════════════════
 // Init

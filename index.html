@@ -255,7 +255,6 @@
         <button class="filter-chip" data-cat="scooter">Скутеры</button>
         <button class="filter-chip" data-cat="maxi">Макси</button>
         <button class="filter-chip" data-cat="moto">Мотоциклы</button>
-        <button class="filter-chip" data-cat="car">Авто</button>
       </div>
       <div class="bike-grid" id="bikeGrid">
         <!-- Static SEO content — replaced by JS on load -->
@@ -536,6 +535,7 @@
       <div class="menu-pill"></div>
       <button class="guide-menu-item" id="menuRoutes"><span class="menu-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7z"/><path d="M9 4v13"/><path d="M15 7v13"/></svg></span><span class="menu-text">Маршруты</span></button>
       <button class="guide-menu-item" id="menuRiderTest"><span class="menu-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg></span><span class="menu-text">Райдер-тест</span></button>
+      <button class="guide-menu-item" id="menuBikePicker"><span class="menu-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></span><span class="menu-text" id="menuBikePickerText">Помочь выбрать байк</span></button>
     </div>
 
     <!-- RIDER TEST OVERLAY -->
@@ -549,6 +549,16 @@
         <span class="rider-bike-icon" id="riderBikeIcon">🛵</span>
       </div>
       <div class="rider-test-body" id="riderTestBody"></div>
+    </div>
+
+    <!-- BIKE PICKER OVERLAY -->
+    <div class="bike-picker-overlay" id="bikePickerOverlay">
+      <div class="bp-header">
+        <span class="bp-title" id="bpTitle">Подбор байка</span>
+        <button class="bp-close" id="bpClose">&times;</button>
+      </div>
+      <div class="bp-progress" id="bpProgress"><div class="bp-progress-fill" id="bpProgressFill"></div></div>
+      <div class="bp-body" id="bpBody"></div>
     </div>
 
     <!-- TOASTS -->

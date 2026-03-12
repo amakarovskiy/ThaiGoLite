@@ -271,6 +271,45 @@ export const T = {
   routeCleared: {
     ru: 'Маршрут сброшен', en: 'Route cleared', de: 'Route gelöscht', fr: 'Itinéraire réinitialisé', es: 'Ruta eliminada'
   },
+
+  // ── Route presets & features ──
+  presetsTitle: {
+    ru: 'Готовые маршруты', en: 'Preset routes', de: 'Vorgefertigte Routen', fr: 'Itinéraires prédéfinis', es: 'Rutas predefinidas'
+  },
+  presetSouth: {
+    ru: 'Юг острова', en: 'South Island', de: 'Süden', fr: 'Sud', es: 'Sur'
+  },
+  presetSunset: {
+    ru: 'Закатный', en: 'Sunset Tour', de: 'Sonnenuntergang', fr: 'Coucher de soleil', es: 'Atardecer'
+  },
+  presetNorth: {
+    ru: 'Север острова', en: 'North Island', de: 'Norden', fr: 'Nord', es: 'Norte'
+  },
+  presetCulture: {
+    ru: 'Культура', en: 'Culture', de: 'Kultur', fr: 'Culture', es: 'Cultura'
+  },
+  presetFood: {
+    ru: 'Гастротур', en: 'Food Tour', de: 'Food-Tour', fr: 'Gastronomie', es: 'Gastronomía'
+  },
+  randomTitle: {
+    ru: 'Случайный маршрут', en: 'Random route', de: 'Zufällige Route', fr: 'Itinéraire aléatoire', es: 'Ruta aleatoria'
+  },
+  timeH: { ru: 'ч', en: 'h', de: 'h', fr: 'h', es: 'h' },
+  fullDay: { ru: 'Весь день', en: 'Full day', de: 'Ganzer Tag', fr: 'Journée', es: 'Todo el día' },
+  presetLoaded: { ru: 'Маршрут загружен', en: 'Route loaded', de: 'Route geladen', fr: 'Itinéraire chargé', es: 'Ruta cargada' },
+  randomCreated: { ru: 'Маршрут создан', en: 'Route created', de: 'Route erstellt', fr: 'Itinéraire créé', es: 'Ruta creada' },
+  optimize: { ru: 'Оптимизировать', en: 'Optimize', de: 'Optimieren', fr: 'Optimiser', es: 'Optimizar' },
+  routeOptimized: { ru: 'Маршрут оптимизирован', en: 'Route optimized', de: 'Route optimiert', fr: 'Itinéraire optimisé', es: 'Ruta optimizada' },
+  shareRoute: { ru: 'Поделиться', en: 'Share', de: 'Teilen', fr: 'Partager', es: 'Compartir' },
+  copyLink: { ru: 'Копировать ссылку', en: 'Copy link', de: 'Link kopieren', fr: 'Copier le lien', es: 'Copiar enlace' },
+  linkCopied: { ru: 'Ссылка скопирована', en: 'Link copied', de: 'Link kopiert', fr: 'Lien copié', es: 'Enlace copiado' },
+  nearbyLabel: { ru: 'Рядом:', en: 'Nearby:', de: 'In der Nähe:', fr: 'À proximité :', es: 'Cerca:' },
+  addBtn: { ru: 'Добавить', en: 'Add', de: 'Hinzufügen', fr: 'Ajouter', es: 'Añadir' },
+  warnTraffic: { ru: 'Пробки в районе Патонга — заложи доп. время', en: 'Traffic near Patong — allow extra time', de: 'Stau bei Patong — plane extra Zeit ein', fr: 'Embouteillages près de Patong — prévoyez du temps', es: 'Tráfico cerca de Patong — deja tiempo extra' },
+  warnDressCode: { ru: 'Закрой плечи и колени для храма', en: 'Cover shoulders and knees for the temple', de: 'Bedecke Schultern und Knie für den Tempel', fr: 'Couvre épaules et genoux pour le temple', es: 'Cubre hombros y rodillas para el templo' },
+  warnSerpentine: { ru: 'Серпантин — осторожно на поворотах', en: 'Winding road — careful on turns', de: 'Serpentinen — vorsichtig in Kurven', fr: 'Route sinueuse — prudence dans les virages', es: 'Carretera sinuosa — cuidado en las curvas' },
+  warnLongRoute: { ru: 'Длинный маршрут — выезжай пораньше', en: 'Long route — start early', de: 'Lange Route — starte früh', fr: 'Long itinéraire — partez tôt', es: 'Ruta larga — sal temprano' },
+
   placeAdded: {
     ru: 'добавлен', en: 'added', de: 'hinzugefügt', fr: 'ajouté', es: 'añadido'
   },

@@ -5,9 +5,10 @@ import './styles/app.css';
 import './components/bottom-tab-bar.css';
 import './components/booking-sheet.css';
 import './components/rider-test.css';
+import './components/routes-map.css';
 import { BIKES, BIKE_CATEGORIES } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
-import { calcStats, formatTime, TAXI_RATE_PER_KM } from './utils/stats.js';
+import { calcStats, formatTime, haversine, TAXI_RATE_PER_KM } from './utils/stats.js';
 import { LANGS, detectLang, saveLang, T, translateFeature, BIKE_CAT_TR } from './data/i18n.js';
 import { PLACE_TR } from './data/place-translations.js';
 import { RIDER_QUESTIONS, CONFETTI_EMOJIS } from './data/rider-test.js';
@@ -80,17 +81,21 @@ const bikeGrid = $('bikeGrid');
 const bikeFiltersEl = $('bikeFilters');
 const popularScroll = $('popularScroll');
 
-const placeList = $('placeList');
-const placeFiltersEl = $('placeFilters');
-const placeSearchInput = $('placeSearch');
-const routeStops = $('routeStops');
-const routeEmpty = $('routeEmpty');
-const routeStats = $('routeStats');
-const routeCount = $('routeCount');
-const routeBadge = $('routeBadge');
-const costRow = $('costRow');
-const routeCtaBlock = $('routeCtaBlock');
-const routeRentCta = $('routeRentCta');
+// Routes map page refs
+const routeSheet = $('routeSheet');
+const rsHandle = $('rsHandle');
+const rsTabs = $('rsTabs');
+const rsContent = $('rsContent');
+const rsBadge = $('rsBadge');
+const rsPlaceList = $('rsPlaceList');
+const rsSearchInput = $('rsSearchInput');
+const rsFilters = $('rsFilters');
+const rsPanelPlaces = $('rsPanelPlaces');
+const rsPanelRoute = $('rsPanelRoute');
+const rsRoutePanel = $('rsRoutePanel');
+const svgMap = $('svgMap');
+const mapMarkers = $('mapMarkers');
+const routeLine = $('routeLine');
 
 const sheetOverlay = $('sheetOverlay');
 const bookingSheet = $('bookingSheet');
@@ -243,45 +248,24 @@ function applyTranslations() {
   const bikeFilterKeys = ['filterAll', 'filterScooter', 'filterMaxi', 'filterMoto', 'filterCar'];
   bikeFilterChips.forEach((el, i) => { if (bikeFilterKeys[i]) el.textContent = t(bikeFilterKeys[i]); });
 
-  // Place filters
-  const placeFilterChips = placeFiltersEl.querySelectorAll('.filter-chip');
+  // Place filters in route sheet
+  const placeFilterChips = rsFilters.querySelectorAll('.filter-chip');
   const placeFilterKeys = ['placeTop', 'filterAll', 'placeBeach', 'placeView', 'placeTemple', 'placeNature', 'placeMarket', 'placeFood', 'placePhoto'];
   placeFilterChips.forEach((el, i) => { if (placeFilterKeys[i]) el.textContent = t(placeFilterKeys[i]); });
 
   // Search placeholder
-  placeSearchInput.placeholder = t('placeSearchPlaceholder');
+  rsSearchInput.placeholder = t('placeSearchPlaceholder');
 
-  // Route subtabs
-  const subtabs = document.querySelectorAll('.route-subtab');
-  if (subtabs[0]) {
-    subtabs[0].textContent = t('subtabPlaces');
-  }
-  if (subtabs[1]) {
-    subtabs[1].innerHTML = `${t('subtabRoute')} <span class="route-badge" id="routeBadge" style="${route.length ? '' : 'display:none'}">${route.length}</span>`;
-  }
+  // Route sheet tabs
+  const rsTb = rsTabs.querySelectorAll('.rs-tab');
+  if (rsTb[0]) rsTb[0].textContent = t('subtabPlaces');
+  if (rsTb[1]) rsTb[1].innerHTML = `${t('subtabRoute')} <span class="rs-badge" id="rsBadge" style="${route.length ? '' : 'display:none'}">${route.length}</span>`;
 
-  // Route panel
-  const routeHeader = document.querySelector('.route-header span');
-  if (routeHeader) routeHeader.innerHTML = `${t('routeLabel')} <span class="route-count" id="routeCount">${route.length}</span>/12`;
-  $('routeClear').textContent = t('routeReset');
-  routeEmpty.textContent = t('routeEmpty');
-
-  // Stat labels
-  const statLabels = document.querySelectorAll('.stat-label');
-  const statLabelKeys = ['statKm', 'statEnRoute', 'statFuel'];
-  statLabels.forEach((el, i) => { if (statLabelKeys[i]) el.textContent = t(statLabelKeys[i]); });
-
-  // Cost bike label
-  const costBike = document.querySelector('.cost-bike');
-  if (costBike) costBike.textContent = t('costBikeLabel');
-
-  // Route rent CTA
-  const rentCtaStrong = routeRentCta.querySelector('strong');
-  const rentCtaSmall = routeRentCta.querySelector('small');
-  if (rentCtaStrong) rentCtaStrong.textContent = t('routeNeedBike');
-  if (rentCtaSmall) rentCtaSmall.textContent = t('routeNeedBikePrice');
-  const rentBtn = routeRentCta.querySelector('.btn');
-  if (rentBtn) rentBtn.textContent = t('routeRentBtn');
+  // Share popover
+  const rsShareTitle = $('rsShareTitle');
+  if (rsShareTitle) rsShareTitle.textContent = t('shareRoute');
+  const rsShareCopy = $('rsShareCopy');
+  if (rsShareCopy) rsShareCopy.textContent = t('copyLink');
 
   // Contacts page
   const contactsTitle = document.querySelector('.contacts-page .page-title');
@@ -421,16 +405,96 @@ document.querySelectorAll('[data-goto]').forEach(el => {
 });
 
 // ══════════════════════════════════════════════
-// Route subtabs
+// Routes Map — Bottom Sheet (3 states)
 // ══════════════════════════════════════════════
-document.querySelectorAll('.route-subtab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.route-subtab').forEach(b => b.classList.remove('route-subtab--active'));
-    btn.classList.add('route-subtab--active');
-    document.querySelectorAll('.subtab').forEach(s => s.classList.remove('subtab--active'));
-    const target = $(`subtab-${btn.dataset.subtab}`);
-    if (target) target.classList.add('subtab--active');
-  });
+let rsState = 'collapsed'; // collapsed | half | expanded
+let rsTab = 'places';
+
+function setSheetState(state) {
+  rsState = state;
+  routeSheet.classList.remove('rs-collapsed', 'rs-half', 'rs-expanded');
+  routeSheet.classList.add('rs-' + state);
+}
+
+function toggleSheet() {
+  if (rsState === 'collapsed') setSheetState('half');
+  else if (rsState === 'half') setSheetState('expanded');
+  else setSheetState('collapsed');
+}
+
+// Handle drag
+{
+  let startY = 0, startTranslate = 0, isDragging = false;
+  function getTranslateY() {
+    const style = window.getComputedStyle(routeSheet);
+    const matrix = new DOMMatrix(style.transform);
+    return matrix.m42;
+  }
+  function onTouchStart(e) {
+    if (e.touches.length !== 1) return;
+    isDragging = true;
+    startY = e.touches[0].clientY;
+    startTranslate = getTranslateY();
+    routeSheet.classList.add('sheet-dragging');
+  }
+  function onTouchMove(e) {
+    if (!isDragging) return;
+    const dy = e.touches[0].clientY - startY;
+    const h = routeSheet.offsetHeight;
+    const newY = Math.max(0, Math.min(h - 40, startTranslate + dy));
+    routeSheet.style.transform = 'translateY(' + newY + 'px)';
+    e.preventDefault();
+  }
+  function onTouchEnd(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    routeSheet.classList.remove('sheet-dragging');
+    routeSheet.style.transform = '';
+    const dy = e.changedTouches[0].clientY - startY;
+    const threshold = 60;
+    if (dy < -threshold) {
+      if (rsState === 'collapsed') setSheetState('half');
+      else if (rsState === 'half') setSheetState('expanded');
+    } else if (dy > threshold) {
+      if (rsState === 'expanded') setSheetState('half');
+      else if (rsState === 'half') setSheetState('collapsed');
+    }
+  }
+  rsHandle.addEventListener('touchstart', onTouchStart, { passive: true });
+  rsTabs.addEventListener('touchstart', onTouchStart, { passive: true });
+  document.addEventListener('touchmove', onTouchMove, { passive: false });
+  document.addEventListener('touchend', onTouchEnd, { passive: true });
+  rsHandle.addEventListener('click', toggleSheet);
+
+  // Pull-down from content when scrolled to top
+  rsContent.addEventListener('touchstart', (e) => {
+    if (rsContent.scrollTop > 0 || rsState === 'collapsed') return;
+    const touchY = e.touches[0].clientY;
+    let moved = false;
+    const moveH = (ev) => {
+      const dy = ev.touches[0].clientY - touchY;
+      if (!moved && dy > 10) { moved = true; onTouchStart(e); }
+      if (moved) onTouchMove(ev);
+    };
+    const endH = (ev) => {
+      document.removeEventListener('touchmove', moveH);
+      document.removeEventListener('touchend', endH);
+      if (moved) onTouchEnd(ev);
+    };
+    document.addEventListener('touchmove', moveH, { passive: false });
+    document.addEventListener('touchend', endH, { passive: true });
+  }, { passive: true });
+}
+
+// Sheet tabs
+rsTabs.addEventListener('click', e => {
+  const tab = e.target.closest('.rs-tab');
+  if (!tab) return;
+  rsTab = tab.dataset.rsTab;
+  rsTabs.querySelectorAll('.rs-tab').forEach(t => t.classList.toggle('active', t === tab));
+  rsPanelPlaces.classList.toggle('active', rsTab === 'places');
+  rsPanelRoute.classList.toggle('active', rsTab === 'route');
+  if (rsState === 'collapsed') setSheetState('half');
 });
 
 // ══════════════════════════════════════════════
@@ -689,7 +753,68 @@ function setupDragDismiss(sheetEl, closeFn) {
 setupDragDismiss(bookingSheet, closeBookingSheet);
 
 // ══════════════════════════════════════════════
-// Place list
+// SVG Map — coordinate conversion & markers
+// ══════════════════════════════════════════════
+const MAP_BOUNDS = {
+  latMin: 7.75, latMax: 8.18,
+  lngMin: 98.24, lngMax: 98.44,
+  svgW: 400, svgH: 700,
+  padTop: 30, padBottom: 30, padLeft: 20, padRight: 20
+};
+
+function latLngToSvg(lat, lng) {
+  const { latMin, latMax, lngMin, lngMax, svgW, svgH, padTop, padBottom, padLeft, padRight } = MAP_BOUNDS;
+  const x = padLeft + ((lng - lngMin) / (lngMax - lngMin)) * (svgW - padLeft - padRight);
+  const y = padTop + ((latMax - lat) / (latMax - latMin)) * (svgH - padTop - padBottom);
+  return { x, y };
+}
+
+const MAP_CAT_COLORS = {
+  beach: '#2563eb', view: '#16a34a', temple: '#d97706', nature: '#059669',
+  market: '#9333ea', food: '#dc2626', photo: '#0891b2', office: '#0d9488', top: '#eab308'
+};
+
+function renderMapMarkers() {
+  const filtered = filterPlaces();
+  let html = '';
+  filtered.forEach(p => {
+    const { x, y } = latLngToSvg(p.lat, p.lng);
+    const cat = getDisplayCat(p);
+    const color = MAP_CAT_COLORS[cat] || '#6b7280';
+    const inRoute = route.some(r => r.id === p.id);
+    const routeIdx = route.findIndex(r => r.id === p.id);
+
+    html += `<g class="map-marker ${inRoute ? 'in-route' : ''}" data-id="${p.id}" transform="translate(${x},${y})">
+      <circle class="marker-dot" r="6" fill="${color}" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" opacity="0.9"/>
+      ${inRoute ? `<circle class="marker-badge" cx="6" cy="-6" r="5" fill="#0d9488"/>
+      <text x="6" y="-3.5" text-anchor="middle" font-size="6" font-weight="900" fill="#fff">${routeIdx + 1}</text>` : ''}
+    </g>`;
+  });
+  mapMarkers.innerHTML = html;
+
+  // Click handlers
+  mapMarkers.querySelectorAll('.map-marker').forEach(m => {
+    m.addEventListener('click', () => {
+      const place = PLACES.find(p => p.id === m.dataset.id);
+      if (place) openPlaceSheet(place);
+    });
+  });
+}
+
+function updateRouteLine() {
+  if (route.length < 2) {
+    routeLine.setAttribute('points', '');
+    return;
+  }
+  const pts = route.map(p => {
+    const { x, y } = latLngToSvg(p.lat, p.lng);
+    return `${x},${y}`;
+  }).join(' ');
+  routeLine.setAttribute('points', pts);
+}
+
+// ══════════════════════════════════════════════
+// Place list in bottom sheet
 // ══════════════════════════════════════════════
 function filterPlaces() {
   let filtered = PLACES;
@@ -715,52 +840,55 @@ function filterPlaces() {
 function renderPlaces() {
   const filtered = filterPlaces();
 
-  placeList.innerHTML = filtered.map(p => {
+  rsPlaceList.innerHTML = filtered.map(p => {
     const cat = getDisplayCat(p);
     const color = CAT_COLORS[cat] || '#6b7280';
     const inRoute = route.some(r => r.id === p.id);
 
     return `
-      <div class="place-card" data-place="${p.id}">
-        <div class="place-icon" style="background:${color}20;color:${color}">${p.icon}</div>
-        <div class="place-info">
-          <div class="place-name">${placeName(p)}</div>
-          <div class="place-desc">${placeDesc(p).slice(0, 60)}...</div>
+      <div class="rs-place-item" data-place="${p.id}">
+        <div class="rs-place-icon" style="background:${color}20;color:${color}">${p.icon}</div>
+        <div class="rs-place-info">
+          <div class="rs-place-name">${placeName(p)}</div>
+          <div class="rs-place-desc">${placeDesc(p).slice(0, 60)}...</div>
         </div>
-        <button class="place-add-btn ${inRoute ? 'added' : ''}" data-place-add="${p.id}">${inRoute ? '\u2713' : '+'}</button>
+        <button class="rs-place-add ${inRoute ? 'added' : ''}" data-place-add="${p.id}">${inRoute ? '\u2713' : '+'}</button>
       </div>
     `;
   }).join('');
 
-  placeList.querySelectorAll('.place-card').forEach(card => {
+  rsPlaceList.querySelectorAll('.rs-place-item').forEach(card => {
     card.addEventListener('click', e => {
-      if (e.target.closest('.place-add-btn')) return;
+      if (e.target.closest('.rs-place-add')) return;
       const place = PLACES.find(p => p.id === card.dataset.place);
       if (place) openPlaceSheet(place);
     });
   });
 
-  placeList.querySelectorAll('.place-add-btn').forEach(btn => {
+  rsPlaceList.querySelectorAll('.rs-place-add').forEach(btn => {
     btn.addEventListener('click', e => {
       e.stopPropagation();
       const place = PLACES.find(p => p.id === btn.dataset.placeAdd);
       if (place) toggleRoute(place);
     });
   });
+
+  // Also update map markers
+  renderMapMarkers();
 }
 
-placeFiltersEl.addEventListener('click', e => {
+rsFilters.addEventListener('click', e => {
   const chip = e.target.closest('.filter-chip');
   if (!chip) return;
   placeFilter = chip.dataset.cat;
-  placeFiltersEl.querySelectorAll('.filter-chip').forEach(c =>
+  rsFilters.querySelectorAll('.filter-chip').forEach(c =>
     c.classList.toggle('filter-chip--active', c.dataset.cat === placeFilter)
   );
   renderPlaces();
 });
 
-placeSearchInput.addEventListener('input', () => {
-  placeSearch = placeSearchInput.value;
+rsSearchInput.addEventListener('input', () => {
+  placeSearch = rsSearchInput.value;
   renderPlaces();
 });
 
@@ -819,6 +947,169 @@ sheetOverlay.addEventListener('click', () => {
 });
 
 // ══════════════════════════════════════════════
+// Preset routes
+// ══════════════════════════════════════════════
+const PRESET_ROUTES = [
+  { nameKey: 'presetSouth', icon: '🌅', ids: ['karon-viewpoint', 'kata', 'naiharn', 'yanui', 'windmill', 'promthep'] },
+  { nameKey: 'presetSunset', icon: '🌇', ids: ['big-buddha', 'karon-viewpoint', 'promthep', 'windmill', 'after-beach'] },
+  { nameKey: 'presetNorth', icon: '🏝', ids: ['bangtao', 'nai-thon', 'nai-yang', 'sirinat', 'mai-khao'] },
+  { nameKey: 'presetCulture', icon: '🛕', ids: ['big-buddha', 'chalong', 'old-town', 'serene-light', 'rang-hill'] },
+  { nameKey: 'presetFood', icon: '🛍', ids: ['banzaan', 'indy-market', 'chillva', 'three-monkeys', 'tunk-ka-cafe'] }
+];
+
+function loadPreset(preset) {
+  route = [];
+  preset.ids.forEach(id => {
+    const place = PLACES.find(p => p.id === id);
+    if (place) route.push(place);
+  });
+  updateRoute();
+  renderPlaces();
+  showToast(t('presetLoaded'));
+}
+
+// ══════════════════════════════════════════════
+// Random route generator
+// ══════════════════════════════════════════════
+const KM_FACTOR = 1.35;
+
+function generateRandomRoute(maxMins) {
+  const maxKm = maxMins / 1.5;
+  const available = PLACES.filter(p => !p.cat.includes('office'));
+  // Shuffle
+  for (let i = available.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [available[i], available[j]] = [available[j], available[i]];
+  }
+  const result = [available[0]];
+  let totalKm = 0;
+  for (let k = 1; k < available.length && result.length < 6; k++) {
+    const segKm = haversine(result[result.length - 1], available[k]) * KM_FACTOR;
+    if (totalKm + segKm <= maxKm) {
+      result.push(available[k]);
+      totalKm += segKm;
+    }
+  }
+  return result;
+}
+
+// ══════════════════════════════════════════════
+// Route optimization (nearest neighbor)
+// ══════════════════════════════════════════════
+function optimizeRoute() {
+  if (route.length < 3) return;
+  const remaining = route.slice();
+  const optimized = [remaining.shift()];
+  while (remaining.length > 0) {
+    const last = optimized[optimized.length - 1];
+    let nearest = 0, nearestDist = Infinity;
+    for (let i = 0; i < remaining.length; i++) {
+      const d = haversine(last, remaining[i]);
+      if (d < nearestDist) { nearestDist = d; nearest = i; }
+    }
+    optimized.push(remaining.splice(nearest, 1)[0]);
+  }
+  route = optimized;
+  updateRoute();
+  renderPlaces();
+  showToast(t('routeOptimized'));
+}
+
+// ══════════════════════════════════════════════
+// Nearby place suggestion
+// ══════════════════════════════════════════════
+function findNearbyPlace() {
+  if (route.length < 2) return null;
+  const lastPlace = route[route.length - 1];
+  const routeIds = route.map(p => p.id);
+  let best = null, bestDist = Infinity;
+  PLACES.forEach(p => {
+    if (routeIds.includes(p.id)) return;
+    if (p.cat.includes('office')) return;
+    const d = haversine(lastPlace, p) * KM_FACTOR;
+    if (d < 3 && d < bestDist) { bestDist = d; best = p; }
+  });
+  return best;
+}
+
+// ══════════════════════════════════════════════
+// Route warnings
+// ══════════════════════════════════════════════
+const WARNINGS_DB = {
+  patong_traffic: { icon: '🚗', key: 'warnTraffic' },
+  temple_dress: { icon: '👔', key: 'warnDressCode' },
+  north_serpentine: { icon: '🏔', key: 'warnSerpentine' },
+  long_route: { icon: '⚡', key: 'warnLongRoute' }
+};
+
+function getRouteWarnings() {
+  const set = new Set();
+  route.forEach(p => {
+    (p.warnings || []).forEach(w => set.add(w));
+  });
+  const stats = calcStats(route);
+  if (stats.km > 80) set.add('long_route');
+  return Array.from(set);
+}
+
+// ══════════════════════════════════════════════
+// Google Maps link
+// ══════════════════════════════════════════════
+function buildGoogleMapsLink() {
+  if (route.length === 0) return '#';
+  if (route.length === 1) {
+    return `https://www.google.com/maps/dir/?api=1&destination=${route[0].lat},${route[0].lng}`;
+  }
+  const origin = `${route[0].lat},${route[0].lng}`;
+  const dest = `${route[route.length - 1].lat},${route[route.length - 1].lng}`;
+  const waypoints = route.slice(1, -1).map(p => `${p.lat},${p.lng}`).join('|');
+  return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}${waypoints ? '&waypoints=' + waypoints : ''}&travelmode=driving`;
+}
+
+// ══════════════════════════════════════════════
+// Share route
+// ══════════════════════════════════════════════
+const rsShareOverlay = $('rsShareOverlay');
+const rsSharePop = $('rsSharePop');
+
+function openSharePopover() {
+  rsShareOverlay.classList.add('active');
+  rsSharePop.classList.add('open');
+  // Update Google Maps link
+  $('rsShareGmaps').href = buildGoogleMapsLink();
+}
+
+function closeSharePopover() {
+  rsShareOverlay.classList.remove('active');
+  rsSharePop.classList.remove('open');
+}
+
+rsShareOverlay.addEventListener('click', closeSharePopover);
+
+$('rsShareWa').addEventListener('click', () => {
+  const names = route.map(r => placeName(r)).join(' → ');
+  const stats = calcStats(route);
+  const msg = encodeURIComponent(tpl('waMsgRoute', { route: names, km: stats.km }));
+  window.open(`https://wa.me/66822545737?text=${msg}`, '_blank');
+  closeSharePopover();
+});
+
+$('rsShareTg').addEventListener('click', () => {
+  const names = route.map(r => placeName(r)).join(' → ');
+  const stats = calcStats(route);
+  const msg = encodeURIComponent(tpl('waMsgRoute', { route: names, km: stats.km }));
+  window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${msg}`, '_blank');
+  closeSharePopover();
+});
+
+$('rsShareCopy').addEventListener('click', () => {
+  const ids = route.map(r => r.id).join(',');
+  const url = window.location.origin + window.location.pathname + '?route=' + ids;
+  navigator.clipboard.writeText(url).then(() => showToast(t('linkCopied'))).catch(() => {});
+  closeSharePopover();
+});
+
+// ══════════════════════════════════════════════
 // Route management
 // ══════════════════════════════════════════════
 function toggleRoute(place) {
@@ -844,81 +1135,226 @@ function removeFromRoute(placeId) {
   renderPlaces();
 }
 
+// Drag & Drop for route stops
+let dragFromIdx = -1;
+
+function initRouteStopsDragDrop() {
+  const list = rsRoutePanel.querySelector('.rs-stops');
+  if (!list) return;
+
+  list.addEventListener('dragstart', e => {
+    const stop = e.target.closest('.rs-stop');
+    if (!stop) return;
+    const stops = Array.from(list.querySelectorAll('.rs-stop'));
+    dragFromIdx = stops.indexOf(stop);
+    stop.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  list.addEventListener('dragend', e => {
+    const stop = e.target.closest('.rs-stop');
+    if (stop) stop.classList.remove('dragging');
+    list.querySelectorAll('.rs-stop').forEach(s => s.classList.remove('drag-over'));
+  });
+
+  list.addEventListener('dragover', e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const stop = e.target.closest('.rs-stop');
+    if (!stop) return;
+    list.querySelectorAll('.rs-stop').forEach(s => s.classList.remove('drag-over'));
+    stop.classList.add('drag-over');
+  });
+
+  list.addEventListener('drop', e => {
+    e.preventDefault();
+    const stop = e.target.closest('.rs-stop');
+    if (!stop) return;
+    const stops = Array.from(list.querySelectorAll('.rs-stop'));
+    const toIdx = stops.indexOf(stop);
+    if (dragFromIdx >= 0 && toIdx >= 0 && dragFromIdx !== toIdx) {
+      const item = route.splice(dragFromIdx, 1)[0];
+      route.splice(toIdx, 0, item);
+      updateRoute();
+      renderPlaces();
+    }
+    list.querySelectorAll('.rs-stop').forEach(s => s.classList.remove('drag-over'));
+    dragFromIdx = -1;
+  });
+}
+
 function updateRoute() {
-  // Update badge refs (may have been recreated by applyTranslations)
-  const rc = $('routeCount');
-  const rb = $('routeBadge');
-
-  if (rc) rc.textContent = route.length;
+  // Update badge
   if (route.length > 0) {
-    if (rb) { rb.textContent = route.length; rb.style.display = 'inline-flex'; }
+    rsBadge.textContent = route.length;
+    rsBadge.style.display = 'inline-flex';
   } else {
-    if (rb) rb.style.display = 'none';
+    rsBadge.style.display = 'none';
   }
 
+  // Update route line on map
+  updateRouteLine();
+
+  // Render route panel content
+  renderRoutePanel();
+}
+
+function renderRoutePanel() {
+  const stats = route.length >= 2 ? calcStats(route) : null;
+  const warnings = getRouteWarnings();
+  const nearby = findNearbyPlace();
+
+  let html = '';
+
+  // Presets section (show when route is empty)
   if (route.length === 0) {
-    routeEmpty.style.display = '';
-    routeStops.querySelectorAll('.route-stop').forEach(s => s.remove());
-    routeStats.style.display = 'none';
-    costRow.style.display = 'none';
-    routeCtaBlock.style.display = 'none';
-    routeRentCta.style.display = 'none';
-    return;
+    html += `<div class="rs-presets">
+      <div class="rs-presets-title">${t('presetsTitle')}</div>
+      <div class="rs-preset-grid">
+        ${PRESET_ROUTES.map((p, i) => `<button class="rs-preset-btn" data-preset="${i}"><span class="preset-icon">${p.icon}</span> ${t(p.nameKey)}</button>`).join('')}
+      </div>
+    </div>`;
+
+    // Random generator
+    html += `<div class="rs-random">
+      <div class="rs-random-title">${t('randomTitle')}</div>
+      <div class="rs-random-grid">
+        <button class="rs-random-btn" data-mins="120">🎲 2${t('timeH')}</button>
+        <button class="rs-random-btn" data-mins="240">🎲 4${t('timeH')}</button>
+        <button class="rs-random-btn" data-mins="480">🎲 ${t('fullDay')}</button>
+      </div>
+    </div>`;
+
+    html += `<div class="rs-empty">${t('routeEmpty')}</div>`;
+  } else {
+    // Route header
+    html += `<div class="rs-route-header">
+      <div class="rs-route-title">${t('routeLabel')} <span class="rs-route-count">${route.length}</span>/12</div>
+      <div class="rs-route-actions">
+        ${route.length >= 3 ? `<button class="rs-action-btn" id="rsOptimize"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg> ${t('optimize')}</button>` : ''}
+        <button class="rs-action-btn danger" id="rsClear">${t('routeReset')}</button>
+      </div>
+    </div>`;
+
+    // Stops list
+    html += `<div class="rs-stops">`;
+    route.forEach((p, i) => {
+      let numClass = '';
+      if (i === 0) numClass = 'first';
+      else if (i === route.length - 1) numClass = 'last';
+      html += `<div class="rs-stop" draggable="true">
+        <span class="rs-stop-grip">⠿</span>
+        <span class="rs-stop-num ${numClass}">${i + 1}</span>
+        <span class="rs-stop-name">${placeName(p)}</span>
+        <button class="rs-stop-remove" data-remove="${p.id}">&times;</button>
+      </div>`;
+    });
+    html += `</div>`;
+
+    // Stats
+    if (stats) {
+      html += `<div class="rs-stats">
+        <div class="rs-stat"><div class="rs-stat-val">${stats.km}</div><div class="rs-stat-label">${t('statKm')}</div></div>
+        <div class="rs-stat"><div class="rs-stat-val">${formatTime(stats.mins, lang)}</div><div class="rs-stat-label">${t('statEnRoute')}</div></div>
+        <div class="rs-stat"><div class="rs-stat-val">${stats.fuel}</div><div class="rs-stat-label">${t('statFuel')}</div></div>
+      </div>`;
+
+      // Cost comparison
+      const taxiCost = Math.round(stats.km * TAXI_RATE_PER_KM);
+      html += `<div class="rs-cost">
+        <span class="rs-cost-taxi">${t('costTaxiLabel')} ~${taxiCost.toLocaleString()} ฿</span>
+        <span>→</span>
+        <span class="rs-cost-bike">${t('costBikeLabel')}</span>
+      </div>`;
+    }
+
+    // Warnings
+    if (warnings.length > 0) {
+      html += `<div class="rs-warnings">`;
+      warnings.forEach(w => {
+        const info = WARNINGS_DB[w];
+        if (info) {
+          html += `<div class="rs-warning"><span class="rs-warning-icon">${info.icon}</span> ${t(info.key)}</div>`;
+        }
+      });
+      html += `</div>`;
+    }
+
+    // Nearby suggestion
+    if (nearby) {
+      html += `<div class="rs-nearby">
+        <div class="rs-nearby-text">${t('nearbyLabel')} <strong>${placeName(nearby)}</strong></div>
+        <button class="rs-nearby-add" data-nearby="${nearby.id}">+ ${t('addBtn')}</button>
+      </div>`;
+    }
+
+    // CTA buttons
+    if (route.length >= 2) {
+      html += `<div class="rs-cta-row">
+        <button class="rs-cta-btn cta-share" id="rsShareBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> ${t('shareRoute')}</button>
+        <a class="rs-cta-btn cta-gmaps" href="${buildGoogleMapsLink()}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Maps</a>
+      </div>`;
+
+      html += `<div class="rs-rent-cta">
+        <div><strong>${t('routeNeedBike')}</strong><br><small>${t('routeNeedBikePrice')}</small></div>
+        <button class="btn btn-primary btn-sm" data-goto="bikes">${t('routeRentBtn')}</button>
+      </div>`;
+    }
   }
 
-  routeEmpty.style.display = 'none';
+  rsRoutePanel.innerHTML = html;
 
-  const stopsHTML = route.map((p, i) => {
-    let numClass = '';
-    if (i === 0) numClass = 'first';
-    else if (i === route.length - 1) numClass = 'last';
-    return `
-      <div class="route-stop">
-        <span class="stop-num ${numClass}">${i + 1}</span>
-        <span class="stop-name">${placeName(p)}</span>
-        <button class="stop-remove" data-remove="${p.id}">&times;</button>
-      </div>
-    `;
-  }).join('');
+  // Event handlers
+  rsRoutePanel.querySelectorAll('.rs-preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => loadPreset(PRESET_ROUTES[parseInt(btn.dataset.preset)]));
+  });
 
-  routeStops.querySelectorAll('.route-stop').forEach(s => s.remove());
-  routeStops.insertAdjacentHTML('beforeend', stopsHTML);
+  rsRoutePanel.querySelectorAll('.rs-random-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      route = generateRandomRoute(parseInt(btn.dataset.mins));
+      updateRoute();
+      renderPlaces();
+      showToast(t('randomCreated'));
+    });
+  });
 
-  routeStops.querySelectorAll('.stop-remove').forEach(btn => {
+  const optimizeBtn = $('rsOptimize');
+  if (optimizeBtn) optimizeBtn.addEventListener('click', optimizeRoute);
+
+  const clearBtn = $('rsClear');
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    route = [];
+    updateRoute();
+    renderPlaces();
+    showToast(t('routeCleared'));
+  });
+
+  rsRoutePanel.querySelectorAll('.rs-stop-remove').forEach(btn => {
     btn.addEventListener('click', () => removeFromRoute(btn.dataset.remove));
   });
 
-  if (route.length >= 2) {
-    const stats = calcStats(route);
-    $('statKm').textContent = stats.km;
-    $('statTime').textContent = formatTime(stats.mins, lang);
-    $('statFuel').textContent = stats.fuel;
-    routeStats.style.display = '';
+  const shareBtn = $('rsShareBtn');
+  if (shareBtn) shareBtn.addEventListener('click', openSharePopover);
 
-    const taxiCost = Math.round(stats.km * TAXI_RATE_PER_KM);
-    $('costTaxi').textContent = taxiCost.toLocaleString();
-    costRow.style.display = '';
+  rsRoutePanel.querySelectorAll('.rs-nearby-add').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const place = PLACES.find(p => p.id === btn.dataset.nearby);
+      if (place) {
+        route.push(place);
+        updateRoute();
+        renderPlaces();
+        showToast(`${placeName(place)} ${t('placeAdded')}`);
+      }
+    });
+  });
 
-    const routeNames = route.map(r => placeName(r)).join(' \u2192 ');
-    const msg = encodeURIComponent(tpl('waMsgRoute', { route: routeNames, km: stats.km }));
-    $('routeWa').href = `https://wa.me/66822545737?text=${msg}`;
-    $('routeTg').href = `https://t.me/ThaiGoSale1`;
-    routeCtaBlock.style.display = '';
-    routeRentCta.style.display = '';
-  } else {
-    routeStats.style.display = 'none';
-    costRow.style.display = 'none';
-    routeCtaBlock.style.display = 'none';
-    routeRentCta.style.display = 'none';
-  }
+  rsRoutePanel.querySelectorAll('[data-goto]').forEach(el => {
+    el.addEventListener('click', () => switchTab(el.dataset.goto));
+  });
+
+  // Init drag & drop
+  initRouteStopsDragDrop();
 }
-
-$('routeClear').addEventListener('click', () => {
-  route = [];
-  updateRoute();
-  renderPlaces();
-  showToast(t('routeCleared'));
-});
 
 // ══════════════════════════════════════════════
 // Toasts
@@ -1185,4 +1621,17 @@ function launchConfetti() {
 // Init
 // ══════════════════════════════════════════════
 document.documentElement.lang = lang;
+
+// Restore route from URL if present
+const urlParams = new URLSearchParams(window.location.search);
+const routeParam = urlParams.get('route');
+if (routeParam) {
+  routeParam.split(',').forEach(id => {
+    const place = PLACES.find(p => p.id === id);
+    if (place && route.length < MAX_ROUTE_POINTS && !route.some(r => r.id === id)) {
+      route.push(place);
+    }
+  });
+}
+
 applyTranslations();

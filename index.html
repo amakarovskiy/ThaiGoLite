@@ -137,6 +137,15 @@
         <div class="popular-scroll" id="popularScroll"></div>
       </section>
 
+      <!-- Rider Test Teaser -->
+      <section class="section" style="padding-bottom:0">
+        <div class="rider-teaser" id="riderTeaser">
+          <div class="rider-teaser-title">Ты уверен что готов ездить на Пхукете?</div>
+          <div class="rider-teaser-sub">Пройди Райдер-тест за 3 минуты</div>
+          <button class="rider-teaser-btn" id="teaserStartBtn">Начать тест</button>
+        </div>
+      </section>
+
       <!-- Районы доставки -->
       <section class="section">
         <h2 class="section-title">Доставка по Пхукету</h2>
@@ -366,6 +375,27 @@
       </div>
     </div>
 
+    <!-- GUIDE MICRO-MENU -->
+    <div class="guide-menu-overlay" id="guideMenuOverlay"></div>
+    <div class="guide-micro-menu" id="guideMicroMenu">
+      <div class="menu-pill"></div>
+      <button class="guide-menu-item" id="menuRoutes"><span class="menu-icon">🗺️</span><span class="menu-text">Маршруты</span></button>
+      <button class="guide-menu-item" id="menuRiderTest"><span class="menu-icon">🛵</span><span class="menu-text">Райдер-тест</span></button>
+    </div>
+
+    <!-- RIDER TEST OVERLAY -->
+    <div class="rider-test-overlay" id="riderTestOverlay">
+      <div class="rider-test-header">
+        <span class="rider-test-title">Райдер-тест</span>
+        <button class="rider-test-close" id="riderTestClose">&times;</button>
+      </div>
+      <div class="rider-progress" id="riderProgress">
+        <div class="rider-road"><div class="rider-road-fill" id="riderRoadFill"></div></div>
+        <span class="rider-bike-icon" id="riderBikeIcon">🛵</span>
+      </div>
+      <div class="rider-test-body" id="riderTestBody"></div>
+    </div>
+
     <!-- TOASTS -->
     <div id="toasts"></div>
 
@@ -379,9 +409,10 @@
         <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 100-2 1 1 0 000 2zm-3 11.5V14l-3-3 4-3 2 3h2"/></svg>
         <span class="tab-label">Байки</span>
       </button>
-      <button class="tab" data-tab="routes">
+      <button class="tab" data-tab="guide">
         <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><path d="M12 8v14"/><circle cx="12" cy="19" r="3"/></svg>
-        <span class="tab-label">Маршруты</span>
+        <span class="tab-label">Гид</span>
+        <span class="tab-guide-badge"></span>
       </button>
       <button class="tab" data-tab="contacts">
         <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>

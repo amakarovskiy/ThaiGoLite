@@ -4,11 +4,13 @@ import './styles/tokens.css';
 import './styles/app.css';
 import './components/bottom-tab-bar.css';
 import './components/booking-sheet.css';
+import './components/rider-test.css';
 import { BIKES, BIKE_CATEGORIES } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
 import { calcStats, formatTime, TAXI_RATE_PER_KM } from './utils/stats.js';
 import { LANGS, detectLang, saveLang, T, translateFeature, BIKE_CAT_TR } from './data/i18n.js';
 import { PLACE_TR } from './data/place-translations.js';
+import { RIDER_QUESTIONS, CONFETTI_EMOJIS } from './data/rider-test.js';
 
 // ══════════════════════════════════════════════
 // i18n helper
@@ -194,8 +196,26 @@ function applyTranslations() {
 
   // Tab bar
   const tabLabels = document.querySelectorAll('.tab .tab-label');
-  const tabKeys = ['tabHome', 'tabBikes', 'tabRoutes', 'tabContacts'];
+  const tabKeys = ['tabHome', 'tabBikes', 'tabGuide', 'tabContacts'];
   tabLabels.forEach((el, i) => { if (tabKeys[i]) el.textContent = t(tabKeys[i]); });
+
+  // Guide micro-menu
+  const menuRoutesText = $('menuRoutes');
+  const menuRiderText = $('menuRiderTest');
+  if (menuRoutesText) menuRoutesText.querySelector('.menu-text').textContent = t('guideMenuRoutes');
+  if (menuRiderText) menuRiderText.querySelector('.menu-text').textContent = t('guideMenuRiderTest');
+
+  // Rider teaser
+  const teaserTitle = document.querySelector('.rider-teaser-title');
+  const teaserSub = document.querySelector('.rider-teaser-sub');
+  const teaserBtn = document.querySelector('.rider-teaser-btn');
+  if (teaserTitle) teaserTitle.textContent = t('teaserTitle');
+  if (teaserSub) teaserSub.textContent = t('teaserSub');
+  if (teaserBtn) teaserBtn.textContent = t('teaserBtn');
+
+  // Rider test header
+  const rtTitle = document.querySelector('.rider-test-title');
+  if (rtTitle) rtTitle.textContent = t('riderTestTitle');
 
   // Bike filters
   const bikeFilterChips = bikeFiltersEl.querySelectorAll('.filter-chip');
@@ -325,6 +345,11 @@ function renderFAQ() {
 // Tab switching
 // ══════════════════════════════════════════════
 function switchTab(tab) {
+  // "guide" tab opens micro-menu instead of switching page
+  if (tab === 'guide') {
+    openGuideMenu();
+    return;
+  }
   currentTab = tab;
   pages.forEach(p => p.classList.remove('page--active'));
   const target = $(`page-${tab}`);
@@ -336,6 +361,41 @@ function switchTab(tab) {
 
 tabs.forEach(t => {
   t.addEventListener('click', () => switchTab(t.dataset.tab));
+});
+
+// ══════════════════════════════════════════════
+// Guide Micro-Menu
+// ══════════════════════════════════════════════
+const guideMenuOverlay = $('guideMenuOverlay');
+const guideMicroMenu = $('guideMicroMenu');
+
+function openGuideMenu() {
+  guideMenuOverlay.classList.add('active');
+  guideMicroMenu.classList.add('open');
+}
+
+function closeGuideMenu() {
+  guideMenuOverlay.classList.remove('active');
+  guideMicroMenu.classList.remove('open');
+}
+
+guideMenuOverlay.addEventListener('click', closeGuideMenu);
+
+$('menuRoutes').addEventListener('click', () => {
+  closeGuideMenu();
+  // Switch to routes page
+  currentTab = 'routes';
+  pages.forEach(p => p.classList.remove('page--active'));
+  const target = $('page-routes');
+  if (target) target.classList.add('page--active');
+  tabs.forEach(t => {
+    t.classList.toggle('tab--active', t.dataset.tab === 'guide');
+  });
+});
+
+$('menuRiderTest').addEventListener('click', () => {
+  closeGuideMenu();
+  openRiderTest();
 });
 
 document.querySelectorAll('[data-goto]').forEach(el => {
@@ -795,6 +855,251 @@ function showToast(msg, type = 'info') {
     el.classList.add('removing');
     el.addEventListener('animationend', () => el.remove());
   }, 2200);
+}
+
+// ══════════════════════════════════════════════
+// Rider Test
+// ══════════════════════════════════════════════
+const riderTestOverlay = $('riderTestOverlay');
+const riderTestBody = $('riderTestBody');
+const riderRoadFill = $('riderRoadFill');
+const riderBikeIcon = $('riderBikeIcon');
+let riderCurrentQ = 0;
+let riderAnswered = false;
+
+const RIDER_PROGRESS_KEY = 'thaigo_rider_progress';
+
+function saveRiderProgress() {
+  localStorage.setItem(RIDER_PROGRESS_KEY, JSON.stringify({ question: riderCurrentQ }));
+}
+
+function loadRiderProgress() {
+  try {
+    const data = JSON.parse(localStorage.getItem(RIDER_PROGRESS_KEY));
+    return data && typeof data.question === 'number' ? data : null;
+  } catch { return null; }
+}
+
+function clearRiderProgress() {
+  localStorage.removeItem(RIDER_PROGRESS_KEY);
+}
+
+function openRiderTest() {
+  const saved = loadRiderProgress();
+  if (saved && saved.question > 0 && saved.question < RIDER_QUESTIONS.length) {
+    showResumePrompt(saved.question);
+  } else {
+    startRiderTest(0);
+  }
+}
+
+function showResumePrompt(savedQ) {
+  riderTestOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  riderTestBody.innerHTML = `
+    <div class="rider-resume">
+      <div class="rider-resume-card">
+        <h3>${t('resumeTitle')}</h3>
+        <p>${tpl('resumeText', { n: savedQ + 1, total: RIDER_QUESTIONS.length })}</p>
+        <div class="rider-resume-btns">
+          <button class="rider-resume-restart" id="resumeRestart">${t('resumeRestart')}</button>
+          <button class="rider-resume-continue" id="resumeContinue">${t('resumeContinue')}</button>
+        </div>
+      </div>
+    </div>
+  `;
+  $('resumeRestart').addEventListener('click', () => { clearRiderProgress(); startRiderTest(0); });
+  $('resumeContinue').addEventListener('click', () => startRiderTest(savedQ));
+}
+
+function startRiderTest(fromQuestion) {
+  riderCurrentQ = fromQuestion;
+  riderTestOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  renderRiderQuestion(riderCurrentQ, false);
+}
+
+function closeRiderTest() {
+  riderTestOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+  riderTestBody.innerHTML = '';
+}
+
+$('riderTestClose').addEventListener('click', closeRiderTest);
+
+// Teaser button
+const teaserStartBtn = $('teaserStartBtn');
+if (teaserStartBtn) {
+  teaserStartBtn.addEventListener('click', openRiderTest);
+}
+
+function updateRiderProgress(qIndex) {
+  const total = RIDER_QUESTIONS.length;
+  const pct = ((qIndex) / total) * 100;
+  riderRoadFill.style.width = pct + '%';
+  riderBikeIcon.style.left = Math.max(5, Math.min(95, pct)) + '%';
+}
+
+function renderRiderQuestion(qIndex, slideIn) {
+  riderAnswered = false;
+  updateRiderProgress(qIndex);
+  saveRiderProgress();
+
+  const q = RIDER_QUESTIONS[qIndex];
+  const qData = T[`rtQ${q.id}`];
+  const situation = qData ? (qData[lang] || qData.en) : {};
+
+  const html = `
+    <div class="rider-question ${slideIn ? 'slide-in-right' : ''}" id="riderQ">
+      <div class="cartoon-scene ${q.sceneClass}" id="cartoonScene">${q.scene}</div>
+      <div class="rider-situation">${situation.text || ''}</div>
+      <div class="rider-answers">
+        ${(situation.answers || []).map((a, i) => `
+          <button class="rider-answer-btn" data-idx="${i}">${String.fromCharCode(1040 + i)}) ${a}</button>
+        `).join('')}
+      </div>
+      <div class="rider-explanation" id="riderExplanation">
+        <div class="rider-explanation-text">${situation.explanation || ''}</div>
+        ${q.phoneLink ? `<a href="tel:${q.phoneLink}" class="phone-link">📞 ${q.phoneLink.replace('+', '+')}</a>` : ''}
+      </div>
+      <button class="rider-next-btn" id="riderNextBtn">${t('riderNext')}</button>
+    </div>
+  `;
+
+  riderTestBody.innerHTML = html;
+
+  if (slideIn) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const el = $('riderQ');
+        if (el) {
+          el.classList.remove('slide-in-right');
+          el.classList.add('entering');
+        }
+      });
+    });
+  }
+
+  // Start scene animation
+  setTimeout(() => {
+    const scene = $('cartoonScene');
+    if (scene) scene.classList.add('animate');
+  }, 100);
+
+  // Answer buttons
+  riderTestBody.querySelectorAll('.rider-answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (riderAnswered) return;
+      riderAnswered = true;
+      const idx = parseInt(btn.dataset.idx);
+      const correct = q.correct;
+
+      riderTestBody.querySelectorAll('.rider-answer-btn').forEach((b, i) => {
+        b.classList.add('disabled');
+        if (i === correct) {
+          b.classList.add('correct');
+          b.textContent = '✅ ' + b.textContent;
+        } else if (i === idx && idx !== correct) {
+          b.classList.add('wrong');
+        } else {
+          b.classList.add('wrong');
+        }
+      });
+
+      // Show explanation
+      setTimeout(() => {
+        const expl = $('riderExplanation');
+        if (expl) expl.classList.add('visible');
+      }, 400);
+
+      // Show next button
+      setTimeout(() => {
+        const nextBtn = $('riderNextBtn');
+        if (nextBtn) {
+          nextBtn.classList.add('visible');
+          nextBtn.addEventListener('click', goToNextQuestion);
+        }
+      }, 800);
+    });
+  });
+}
+
+function goToNextQuestion() {
+  const nextQ = riderCurrentQ + 1;
+
+  if (nextQ >= RIDER_QUESTIONS.length) {
+    // Show bike transition then final screen
+    showBikeTransition(() => {
+      clearRiderProgress();
+      showFinalScreen();
+    });
+    return;
+  }
+
+  // Slide out current
+  const currentEl = $('riderQ');
+  if (currentEl) currentEl.classList.add('slide-out-left');
+
+  // Bike transition
+  showBikeTransition(() => {
+    riderCurrentQ = nextQ;
+    renderRiderQuestion(riderCurrentQ, true);
+  });
+}
+
+function showBikeTransition(callback) {
+  const bike = document.createElement('div');
+  bike.className = 'bike-transition';
+  bike.textContent = '🛵';
+  document.body.appendChild(bike);
+  setTimeout(() => {
+    bike.remove();
+    callback();
+  }, 500);
+}
+
+function showFinalScreen() {
+  updateRiderProgress(RIDER_QUESTIONS.length);
+
+  // Launch confetti
+  launchConfetti();
+
+  riderTestBody.innerHTML = `
+    <div class="rider-final">
+      <span class="trophy">🏆</span>
+      <div class="rider-final-title">${t('finalTitle')}</div>
+      <div class="rider-final-text">${t('finalText')}</div>
+      <button class="rider-final-btn" id="finalBikeBtn">${t('finalBtn')}</button>
+      ${typeof navigator.share === 'function' ? `<button class="rider-share-link" id="finalShareBtn">${t('finalShare')}</button>` : ''}
+    </div>
+  `;
+
+  $('finalBikeBtn').addEventListener('click', () => {
+    closeRiderTest();
+    switchTab('bikes');
+  });
+
+  const shareBtn = $('finalShareBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      navigator.share({
+        title: t('shareTitle'),
+        text: t('shareText')
+      }).catch(() => {});
+    });
+  }
+}
+
+function launchConfetti() {
+  for (let i = 0; i < 25; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.textContent = CONFETTI_EMOJIS[Math.floor(Math.random() * CONFETTI_EMOJIS.length)];
+    el.style.left = (Math.random() * 100) + '%';
+    el.style.animationDelay = (Math.random() * 2) + 's';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3500);
+  }
 }
 
 // ══════════════════════════════════════════════

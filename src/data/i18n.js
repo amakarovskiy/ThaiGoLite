@@ -1,12 +1,13 @@
 // ThaiGo Lite — Internationalization
-// Supported: ru, en, de, fr, es
+// Supported: ru, en, de, fr, es, th
 
 export const LANGS = [
   { code: 'ru', flag: '\u{1F1F7}\u{1F1FA}', label: 'RU', name: 'Русский' },
   { code: 'en', flag: '\u{1F1EC}\u{1F1E7}', label: 'EN', name: 'English' },
   { code: 'de', flag: '\u{1F1E9}\u{1F1EA}', label: 'DE', name: 'Deutsch' },
   { code: 'fr', flag: '\u{1F1EB}\u{1F1F7}', label: 'FR', name: 'Français' },
-  { code: 'es', flag: '\u{1F1EA}\u{1F1F8}', label: 'ES', name: 'Español' }
+  { code: 'es', flag: '\u{1F1EA}\u{1F1F8}', label: 'ES', name: 'Español' },
+  { code: 'th', flag: '\u{1F1F9}\u{1F1ED}', label: 'TH', name: 'ไทย' }
 ];
 
 const LS_KEY = 'thaigo_lang';
@@ -29,14 +30,16 @@ export const T = {
     en: 'ThaiGo Lite — Bike Rental in Phuket | From 180 ฿/day',
     de: 'ThaiGo Lite — Motorradverleih auf Phuket | Ab 180 ฿/Tag',
     fr: 'ThaiGo Lite — Location de motos à Phuket | Dès 180 ฿/jour',
-    es: 'ThaiGo Lite — Alquiler de motos en Phuket | Desde 180 ฿/día'
+    es: 'ThaiGo Lite — Alquiler de motos en Phuket | Desde 180 ฿/día',
+    th: 'ThaiGo Lite — เช่ามอเตอร์ไซค์ภูเก็ต | ตั้งแต่ 180 ฿/วัน'
   },
   seoDescription: {
     ru: 'Аренда байков и скутеров на Пхукете от 180 ฿/день. Без залога паспорта, доставка в отель, договор и страховка. Звоните 24/7 на русском.',
     en: 'Rent bikes and scooters in Phuket without passport deposit. Honda Scoopy from 180 ฿/day. Hotel delivery, contract and insurance.',
     de: 'Motorrad- und Rollerverleih auf Phuket ohne Reisepass-Kaution. Honda Scoopy ab 180 ฿/Tag. Hotellieferung, Vertrag und Versicherung.',
     fr: 'Location de motos et scooters à Phuket sans caution de passeport. Honda Scoopy à partir de 180 ฿/jour. Livraison à l\'hôtel, contrat et assurance.',
-    es: 'Alquiler de motos y scooters en Phuket sin depósito de pasaporte. Honda Scoopy desde 180 ฿/día. Entrega en hotel, contrato y seguro.'
+    es: 'Alquiler de motos y scooters en Phuket sin depósito de pasaporte. Honda Scoopy desde 180 ฿/día. Entrega en hotel, contrato y seguro.',
+    th: 'เช่ามอเตอร์ไซค์และสกู๊ตเตอร์ภูเก็ต ไม่ต้องวางพาสปอร์ต Honda Scoopy ตั้งแต่ 180 ฿/วัน ส่งถึงโรงแรม สัญญาและประกัน'
   },
 
   // ── Hero ──
@@ -45,110 +48,131 @@ export const T = {
     en: 'Bike Rental<br>in Phuket',
     de: 'Motorrad-Verleih<br>auf Phuket',
     fr: 'Location de motos<br>à Phuket',
-    es: 'Alquiler de motos<br>en Phuket'
+    es: 'Alquiler de motos<br>en Phuket',
+    th: 'เช่ามอเตอร์ไซค์<br>ภูเก็ต'
   },
   heroSub: {
     ru: 'Без залога паспорта. Доставка по острову.<br>От 180 \u0E3F/сутки. Договор и страховка.',
     en: 'No passport deposit. Island-wide delivery.<br>From 180 \u0E3F/day. Contract & insurance.',
     de: 'Ohne Passkaution. Inselweite Lieferung.<br>Ab 180 \u0E3F/Tag. Vertrag & Versicherung.',
     fr: 'Sans caution de passeport. Livraison sur l\u2019\u00eele.<br>\u00C0 partir de 180 \u0E3F/jour. Contrat & assurance.',
-    es: 'Sin dep\u00f3sito de pasaporte. Entrega en toda la isla.<br>Desde 180 \u0E3F/d\u00eda. Contrato y seguro.'
+    es: 'Sin dep\u00f3sito de pasaporte. Entrega en toda la isla.<br>Desde 180 \u0E3F/d\u00eda. Contrato y seguro.',
+    th: 'ไม่ต้องวางพาสปอร์ต ส่งถึงที่ทั่วเกาะ<br>ตั้งแต่ 180 \u0E3F/วัน สัญญาและประกัน'
   },
 
   // ── Why ThaiGo ──
   whyTitle: {
-    ru: 'Почему ThaiGo', en: 'Why ThaiGo', de: 'Warum ThaiGo', fr: 'Pourquoi ThaiGo', es: 'Por qué ThaiGo'
+    ru: 'Почему ThaiGo', en: 'Why ThaiGo', de: 'Warum ThaiGo', fr: 'Pourquoi ThaiGo', es: 'Por qué ThaiGo', th: 'ทำไม ThaiGo'
   },
   whyNoDeposit: {
-    ru: 'Без залога паспорта', en: 'No passport deposit', de: 'Ohne Passkaution', fr: 'Sans caution', es: 'Sin depósito'
+    ru: 'Без залога паспорта', en: 'No passport deposit', de: 'Ohne Passkaution', fr: 'Sans caution', es: 'Sin depósito', th: 'ไม่ต้องวางพาสปอร์ต'
   },
   whyDelivery: {
-    ru: 'Доставка в отель', en: 'Hotel delivery', de: 'Hotellieferung', fr: 'Livraison hôtel', es: 'Entrega al hotel'
+    ru: 'Доставка в отель', en: 'Hotel delivery', de: 'Hotellieferung', fr: 'Livraison hôtel', es: 'Entrega al hotel', th: 'ส่งถึงโรงแรม'
   },
   whyPrice: {
-    ru: 'От 180 \u0E3F/сутки', en: 'From 180 \u0E3F/day', de: 'Ab 180 \u0E3F/Tag', fr: 'Dès 180 \u0E3F/jour', es: 'Desde 180 \u0E3F/día'
+    ru: 'От 180 \u0E3F/сутки', en: 'From 180 \u0E3F/day', de: 'Ab 180 \u0E3F/Tag', fr: 'Dès 180 \u0E3F/jour', es: 'Desde 180 \u0E3F/día', th: 'ตั้งแต่ 180 \u0E3F/วัน'
   },
   whySupport: {
-    ru: '24/7 на русском', en: '24/7 Support', de: '24/7 Support', fr: '24/7 Support', es: '24/7 Soporte'
+    ru: '24/7 на русском', en: '24/7 Support', de: '24/7 Support', fr: '24/7 Support', es: '24/7 Soporte', th: 'บริการ 24/7'
   },
   whyReplace: {
-    ru: 'Замена при поломке', en: 'Free replacement', de: 'Kostenloser Ersatz', fr: 'Remplacement gratuit', es: 'Reemplazo gratis'
+    ru: 'Замена при поломке', en: 'Free replacement', de: 'Kostenloser Ersatz', fr: 'Remplacement gratuit', es: 'Reemplazo gratis', th: 'เปลี่ยนฟรีเมื่อเสีย'
   },
   whyContract: {
-    ru: 'Договор + страховка', en: 'Contract + insurance', de: 'Vertrag + Versicherung', fr: 'Contrat + assurance', es: 'Contrato + seguro'
+    ru: 'Договор + страховка', en: 'Contract + insurance', de: 'Vertrag + Versicherung', fr: 'Contrat + assurance', es: 'Contrato + seguro', th: 'สัญญา + ประกัน'
   },
   whyNoDepositSub: {
     ru: 'Берём залог деньгами, паспорт остаётся у вас',
     en: 'Cash deposit only — your passport stays with you',
     de: 'Nur Barkaution — Ihr Pass bleibt bei Ihnen',
     fr: 'Caution en espèces — votre passeport reste avec vous',
-    es: 'Depósito en efectivo — tu pasaporte se queda contigo'
+    es: 'Depósito en efectivo — tu pasaporte se queda contigo',
+    th: 'วางมัดจำเงินสดเท่านั้น พาสปอร์ตอยู่กับคุณ'
   },
   whyDeliverySub: {
     ru: 'Привезём байк к вашему отелю или вилле',
     en: 'We deliver the bike to your hotel or villa',
     de: 'Wir liefern das Bike zu Ihrem Hotel oder Villa',
     fr: 'On livre le scooter à votre hôtel ou villa',
-    es: 'Entregamos la moto en tu hotel o villa'
+    es: 'Entregamos la moto en tu hotel o villa',
+    th: 'เราส่งรถถึงโรงแรมหรือวิลล่าของคุณ'
   },
   whyPriceSub: {
     ru: 'Чем дольше аренда — тем ниже цена за день',
     en: 'Longer rental = lower daily rate',
     de: 'Längere Miete = niedrigerer Tagespreis',
     fr: 'Plus longue la location, plus bas le prix',
-    es: 'Más días = precio más bajo por día'
+    es: 'Más días = precio más bajo por día',
+    th: 'เช่านานยิ่งถูก'
   },
   whySupportSub: {
     ru: 'Звонок, WhatsApp или Telegram — всегда на связи',
     en: 'Call, WhatsApp, or Telegram — always available',
     de: 'Anruf, WhatsApp oder Telegram — immer erreichbar',
     fr: 'Appel, WhatsApp ou Telegram — toujours joignable',
-    es: 'Llamada, WhatsApp o Telegram — siempre disponibles'
+    es: 'Llamada, WhatsApp o Telegram — siempre disponibles',
+    th: 'โทร WhatsApp หรือ Telegram — พร้อมให้บริการเสมอ'
   },
   whyReplaceSub: {
     ru: 'Сломался байк — заменим бесплатно в течение дня',
     en: 'Bike broke down? Free replacement within the day',
     de: 'Bike kaputt? Kostenloser Ersatz am selben Tag',
     fr: 'Panne ? Remplacement gratuit dans la journée',
-    es: '¿Moto averiada? Reemplazo gratis en el día'
+    es: '¿Moto averiada? Reemplazo gratis en el día',
+    th: 'รถเสีย? เปลี่ยนฟรีภายในวัน'
   },
   whyContractSub: {
     ru: 'Официальный договор и страховка здоровья включены',
     en: 'Official contract and health insurance included',
     de: 'Offizieller Vertrag und Krankenversicherung inklusive',
     fr: 'Contrat officiel et assurance santé inclus',
-    es: 'Contrato oficial y seguro de salud incluidos'
+    es: 'Contrato oficial y seguro de salud incluidos',
+    th: 'สัญญาอย่างเป็นทางการและประกันสุขภาพรวมอยู่แล้ว'
   },
   heroSeo: {
     ru: 'Прокат скутеров и мотоциклов в Кате, Патонге, Карон, Бангтао и по всему Пхукету. Honda, Yamaha, Vespa — новые байки с регулярным обслуживанием.',
     en: 'Scooter and motorbike rental in Kata, Patong, Karon, Bangtao and across Phuket. Honda, Yamaha, Vespa — new bikes with regular maintenance.',
     de: 'Roller- und Motorradverleih in Kata, Patong, Karon, Bangtao und ganz Phuket. Honda, Yamaha, Vespa — neue Bikes mit regelmäßiger Wartung.',
     fr: 'Location de scooters et motos à Kata, Patong, Karon, Bangtao et partout à Phuket. Honda, Yamaha, Vespa — motos neuves et entretenues.',
-    es: 'Alquiler de scooters y motos en Kata, Patong, Karon, Bangtao y todo Phuket. Honda, Yamaha, Vespa — motos nuevas con mantenimiento regular.'
+    es: 'Alquiler de scooters y motos en Kata, Patong, Karon, Bangtao y todo Phuket. Honda, Yamaha, Vespa — motos nuevas con mantenimiento regular.',
+    th: 'เช่าสกู๊ตเตอร์และมอเตอร์ไซค์ที่กะตะ ป่าตอง กะรน บางเทา และทั่วภูเก็ต Honda, Yamaha, Vespa — รถใหม่บำรุงรักษาสม่ำเสมอ'
   },
   footerSeo: {
     ru: 'ThaiGo Rent — официальная аренда байков и скутеров на Пхукете. Офис в Кате. Доставка в Патонг, Карон, Камала, Бангтао, Раваи, Чалонг, аэропорт Пхукета и другие районы острова. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza и другие модели. Работаем ежедневно 8:00–20:00, поддержка на русском языке 24/7.',
     en: 'ThaiGo Rent — official bike and scooter rental in Phuket. Office in Kata. Delivery to Patong, Karon, Kamala, Bangtao, Rawai, Chalong, Phuket Airport and other areas. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza and more. Open daily 8:00–20:00, 24/7 support.',
     de: 'ThaiGo Rent — offizieller Bike- und Rollerverleih auf Phuket. Büro in Kata. Lieferung nach Patong, Karon, Kamala, Bangtao, Rawai, Chalong, Flughafen Phuket und weitere Gebiete. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza u.a. Täglich 8:00–20:00, 24/7 Support.',
     fr: 'ThaiGo Rent — location officielle de motos et scooters à Phuket. Bureau à Kata. Livraison à Patong, Karon, Kamala, Bangtao, Rawai, Chalong, aéroport de Phuket et autres zones. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza et plus. Ouvert 8h–20h, support 24/7.',
-    es: 'ThaiGo Rent — alquiler oficial de motos y scooters en Phuket. Oficina en Kata. Entrega en Patong, Karon, Kamala, Bangtao, Rawai, Chalong, aeropuerto de Phuket y más zonas. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza y más. Abierto 8:00–20:00, soporte 24/7.'
+    es: 'ThaiGo Rent — alquiler oficial de motos y scooters en Phuket. Oficina en Kata. Entrega en Patong, Karon, Kamala, Bangtao, Rawai, Chalong, aeropuerto de Phuket y más zonas. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza y más. Abierto 8:00–20:00, soporte 24/7.',
+    th: 'ThaiGo Rent — เช่ามอเตอร์ไซค์และสกู๊ตเตอร์ภูเก็ตอย่างเป็นทางการ สำนักงานที่กะตะ ส่งถึงป่าตอง กะรน กมลา บางเทา ราไวย์ ฉลอง สนามบินภูเก็ต Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza เปิดทุกวัน 8:00–20:00 บริการ 24/7'
   },
 
   // ── Popular bikes ──
   popularTitle: {
-    ru: 'Популярные байки', en: 'Popular Bikes', de: 'Beliebte Bikes', fr: 'Motos populaires', es: 'Motos populares'
+    ru: 'Популярные байки', en: 'Popular Bikes', de: 'Beliebte Bikes', fr: 'Motos populaires', es: 'Motos populares', th: 'รถยอดนิยม'
   },
   viewAll: {
-    ru: 'Все \u2192', en: 'All \u2192', de: 'Alle \u2192', fr: 'Tout \u2192', es: 'Todos \u2192'
+    ru: 'Все \u2192', en: 'All \u2192', de: 'Alle \u2192', fr: 'Tout \u2192', es: 'Todos \u2192', th: 'ทั้งหมด \u2192'
   },
 
   // ── Steps (How it works) ──
-  step1: { ru: 'Выбери байк', en: 'Choose a bike', de: 'Bike wählen', fr: 'Choisis un scooter', es: 'Elige una moto' },
-  step2: { ru: 'Мы привезём', en: 'We deliver', de: 'Wir liefern', fr: 'On livre', es: 'Lo entregamos' },
-  step3: { ru: 'Езди и кайфуй', en: 'Ride & enjoy', de: 'Fahre & genieße', fr: 'Roule et profite', es: 'Conduce y disfruta' },
+  step1: { ru: 'Выбери байк', en: 'Choose a bike', de: 'Bike wählen', fr: 'Choisis un scooter', es: 'Elige una moto', th: 'เลือกรถ' },
+  step2: { ru: 'Мы привезём', en: 'We deliver', de: 'Wir liefern', fr: 'On livre', es: 'Lo entregamos', th: 'เราจะส่งให้' },
+  step3: { ru: 'Езди и кайфуй', en: 'Ride & enjoy', de: 'Fahre & genieße', fr: 'Roule et profite', es: 'Conduce y disfruta', th: 'ขับสนุก' },
+  stepsTitle: { ru: 'Как это работает', en: 'How it works', de: 'So funktioniert\'s', fr: 'Comment ça marche', es: 'Cómo funciona', th: 'ขั้นตอนการใช้งาน' },
+
+  // ── Cost Calculator ──
+  calcTitle: { ru: 'Сколько стоит?', en: 'How much?', de: 'Was kostet es?', fr: 'Combien ça coûte ?', es: '¿Cuánto cuesta?', th: 'ราคาเท่าไหร่?' },
+  calcCatScooter: { ru: 'Скутер', en: 'Scooter', de: 'Roller', fr: 'Scooter', es: 'Scooter', th: 'สกู๊ตเตอร์' },
+  calcCatStandard: { ru: 'Стандарт', en: 'Standard', de: 'Standard', fr: 'Standard', es: 'Estándar', th: 'มาตรฐาน' },
+  calcCatMaxi: { ru: 'Макси', en: 'Maxi', de: 'Maxi', fr: 'Maxi', es: 'Maxi', th: 'แม็กซี่' },
+  calcCatMoto: { ru: 'Мото', en: 'Moto', de: 'Moto', fr: 'Moto', es: 'Moto', th: 'มอเตอร์ไซค์' },
+  calcDaysUnit: { ru: 'дн.', en: 'days', de: 'Tage', fr: 'jours', es: 'días', th: 'วัน' },
+  calcDiscountText: { ru: 'скидка при аренде от', en: 'discount for rental from', de: 'Rabatt ab', fr: 'remise à partir de', es: 'descuento desde', th: 'ส่วนลดเมื่อเช่าตั้งแต่' },
+  calcViewBikes: { ru: 'Смотреть байки →', en: 'View bikes →', de: 'Bikes ansehen →', fr: 'Voir les motos →', es: 'Ver motos →', th: 'ดูรถ →' },
 
   // ── Reviews ──
-  reviewsTitle: { ru: 'Что говорят клиенты', en: 'What clients say', de: 'Was Kunden sagen', fr: 'Avis clients', es: 'Lo que dicen los clientes' },
+  reviewsTitle: { ru: 'Что говорят клиенты', en: 'What clients say', de: 'Was Kunden sagen', fr: 'Avis clients', es: 'Lo que dicen los clientes', th: 'ลูกค้าพูดว่าอะไร' },
   reviews: [
     {
       text: {
@@ -156,9 +180,10 @@ export const T = {
         en: 'Rented a PCX for a week — delivered right to our hotel, clean and fueled. When we scratched the mirror, called the guys and they sorted it in 10 minutes, no drama. Highly recommend.',
         de: 'PCX für eine Woche gemietet — direkt zum Hotel geliefert, sauber und betankt. Als wir den Spiegel zerkratzten, haben die Jungs das in 10 Minuten geklärt. Empfehlenswert.',
         fr: 'Loué un PCX pour une semaine — livré à l\'hôtel, propre et plein. Quand on a rayé le rétro, les gars ont réglé ça en 10 min sans stress. Je recommande.',
-        es: 'Alquilamos un PCX por una semana — lo trajeron al hotel, limpio y con tanque lleno. Cuando rayamos el espejo, lo resolvieron en 10 minutos sin drama. Recomendado.'
+        es: 'Alquilamos un PCX por una semana — lo trajeron al hotel, limpio y con tanque lleno. Cuando rayamos el espejo, lo resolvieron en 10 minutos sin drama. Recomendado.',
+        th: 'เช่า PCX หนึ่งสัปดาห์ — ส่งถึงโรงแรม สะอาดเติมน้ำมันเต็ม ตอนกระจกข่วน โทรหาทีม แก้ไขใน 10 นาที ไม่มีปัญหา แนะนำเลย'
       },
-      author: { ru: 'Михаил, Москва', en: 'Mikhail, Moscow', de: 'Mikhail, Moskau', fr: 'Mikhaïl, Moscou', es: 'Mikhail, Moscú' }
+      author: { ru: 'Михаил, Москва', en: 'Mikhail, Moscow', de: 'Mikhail, Moskau', fr: 'Mikhaïl, Moscou', es: 'Mikhail, Moscú', th: 'Mikhail, มอสโก' }
     },
     {
       text: {
@@ -166,9 +191,10 @@ export const T = {
         en: 'Rented two Scoopys for 10 days, explored the whole island. Fair prices, proper contract, no passport held. Will rent again next time.',
         de: 'Zwei Scoopys für 10 Tage gemietet, die ganze Insel erkundet. Faire Preise, ordentlicher Vertrag, kein Pass einbehalten. Nächstes Mal wieder.',
         fr: 'Loué deux Scoopy pour 10 jours, on a fait tout l\'île. Prix honnêtes, contrat correct, pas de passeport retenu. On reviendra.',
-        es: 'Alquilamos dos Scoopy por 10 días, recorrimos toda la isla. Precios justos, contrato normal, sin retener pasaporte. Volveremos.'
+        es: 'Alquilamos dos Scoopy por 10 días, recorrimos toda la isla. Precios justos, contrato normal, sin retener pasaporte. Volveremos.',
+        th: 'เช่า Scoopy สองคัน 10 วัน เที่ยวทั่วเกาะ ราคายุติธรรม สัญญาถูกต้อง ไม่ยึดพาสปอร์ต จะมาเช่าอีกครั้งต่อไป'
       },
-      author: { ru: 'Анна и Дима, Санкт-Петербург', en: 'Anna & Dima, St. Petersburg', de: 'Anna & Dima, St. Petersburg', fr: 'Anna & Dima, Saint-Pétersbourg', es: 'Anna y Dima, San Petersburgo' }
+      author: { ru: 'Анна и Дима, Санкт-Петербург', en: 'Anna & Dima, St. Petersburg', de: 'Anna & Dima, St. Petersburg', fr: 'Anna & Dima, Saint-Pétersbourg', es: 'Anna y Dima, San Petersburgo', th: 'Anna & Dima, เซนต์ปีเตอร์สเบิร์ก' }
     },
     {
       text: {
@@ -176,244 +202,247 @@ export const T = {
         en: 'First time renting a bike ever, I was really nervous. The guys explained everything, helped me choose the right model for my height and experience. Rode the whole trip without issues.',
         de: 'Zum ersten Mal ein Bike gemietet, war sehr nervös. Die Jungs haben alles erklärt und mir das passende Modell empfohlen. Die ganze Reise problemlos gefahren.',
         fr: 'Première location de scooter de ma vie, j\'étais stressée. Les gars ont tout expliqué, m\'ont aidée à choisir le bon modèle. J\'ai roulé sans souci pendant tout le séjour.',
-        es: 'Primera vez alquilando una moto en mi vida, estaba muy nerviosa. Los chicos me explicaron todo y me ayudaron a elegir el modelo adecuado. Conduje sin problemas todo el viaje.'
+        es: 'Primera vez alquilando una moto en mi vida, estaba muy nerviosa. Los chicos me explicaron todo y me ayudaron a elegir el modelo adecuado. Conduje sin problemas todo el viaje.',
+        th: 'เช่ามอเตอร์ไซค์ครั้งแรกในชีวิต ตื่นเต้นมาก ทีมงานอธิบายทุกอย่าง ช่วยเลือกรุ่นที่เหมาะกับส่วนสูงและประสบการณ์ ขับสนุกตลอดทริป'
       },
-      author: { ru: 'Лера, Екатеринбург', en: 'Lera, Yekaterinburg', de: 'Lera, Jekaterinburg', fr: 'Lera, Iekaterinbourg', es: 'Lera, Ekaterimburgo' }
+      author: { ru: 'Лера, Екатеринбург', en: 'Lera, Yekaterinburg', de: 'Lera, Jekaterinburg', fr: 'Lera, Iekaterinbourg', es: 'Lera, Ekaterimburgo', th: 'Lera, เยคาเตรินเบิร์ก' }
     }
   ],
 
   // ── Delivery districts ──
   deliveryTitle: {
-    ru: 'Доставка по Пхукету', en: 'Delivery across Phuket', de: 'Lieferung auf Phuket', fr: 'Livraison à Phuket', es: 'Entrega en Phuket'
+    ru: 'Доставка по Пхукету', en: 'Delivery across Phuket', de: 'Lieferung auf Phuket', fr: 'Livraison à Phuket', es: 'Entrega en Phuket', th: 'บริการส่งทั่วภูเก็ต'
   },
   deliveryNote: {
     ru: 'Доставка в отель или виллу. Возврат — туда же.',
     en: 'Delivery to your hotel or villa. Return pickup included.',
     de: 'Lieferung an Ihr Hotel oder Ihre Villa. Rückgabe inklusive.',
     fr: 'Livraison à votre hôtel ou villa. Retour inclus.',
-    es: 'Entrega en tu hotel o villa. Recogida de vuelta incluida.'
+    es: 'Entrega en tu hotel o villa. Recogida de vuelta incluida.',
+    th: 'ส่งถึงโรงแรมหรือวิลล่า คืนที่เดิม'
   },
   dlvAreas: [
     {
-      name: { ru: 'Ката / Карон', en: 'Kata / Karon', de: 'Kata / Karon', fr: 'Kata / Karon', es: 'Kata / Karon' },
-      cond: { ru: 'Бесплатно от 3 дней', en: 'Free from 3 days', de: 'Kostenlos ab 3 Tagen', fr: 'Gratuit dès 3 jours', es: 'Gratis desde 3 días' },
+      name: { ru: 'Ката / Карон', en: 'Kata / Karon', de: 'Kata / Karon', fr: 'Kata / Karon', es: 'Kata / Karon', th: 'กะตะ / กะรน' },
+      cond: { ru: 'Бесплатно от 3 дней', en: 'Free from 3 days', de: 'Kostenlos ab 3 Tagen', fr: 'Gratuit dès 3 jours', es: 'Gratis desde 3 días', th: 'ฟรีตั้งแต่ 3 วัน' },
       color: 'green'
     },
     {
-      name: { ru: 'Патонг', en: 'Patong', de: 'Patong', fr: 'Patong', es: 'Patong' },
-      cond: { ru: 'Бесплатно от 3 дней', en: 'Free from 3 days', de: 'Kostenlos ab 3 Tagen', fr: 'Gratuit dès 3 jours', es: 'Gratis desde 3 días' },
+      name: { ru: 'Патонг', en: 'Patong', de: 'Patong', fr: 'Patong', es: 'Patong', th: 'ป่าตอง' },
+      cond: { ru: 'Бесплатно от 3 дней', en: 'Free from 3 days', de: 'Kostenlos ab 3 Tagen', fr: 'Gratuit dès 3 jours', es: 'Gratis desde 3 días', th: 'ฟรีตั้งแต่ 3 วัน' },
       color: 'green'
     },
     {
-      name: { ru: 'Камала / Сурин', en: 'Kamala / Surin', de: 'Kamala / Surin', fr: 'Kamala / Surin', es: 'Kamala / Surin' },
-      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días' },
+      name: { ru: 'Камала / Сурин', en: 'Kamala / Surin', de: 'Kamala / Surin', fr: 'Kamala / Surin', es: 'Kamala / Surin', th: 'กมลา / สุรินทร์' },
+      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días', th: '300 ฿ · ฟรีตั้งแต่ 7 วัน' },
       color: 'yellow'
     },
     {
-      name: { ru: 'Бангтао', en: 'Bangtao', de: 'Bangtao', fr: 'Bangtao', es: 'Bangtao' },
-      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días' },
+      name: { ru: 'Бангтао', en: 'Bangtao', de: 'Bangtao', fr: 'Bangtao', es: 'Bangtao', th: 'บางเทา' },
+      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días', th: '300 ฿ · ฟรีตั้งแต่ 7 วัน' },
       color: 'yellow'
     },
     {
-      name: { ru: 'Раваи / Най Харн', en: 'Rawai / Nai Harn', de: 'Rawai / Nai Harn', fr: 'Rawai / Nai Harn', es: 'Rawai / Nai Harn' },
-      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días' },
+      name: { ru: 'Раваи / Най Харн', en: 'Rawai / Nai Harn', de: 'Rawai / Nai Harn', fr: 'Rawai / Nai Harn', es: 'Rawai / Nai Harn', th: 'ราไวย์ / ในหาน' },
+      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días', th: '300 ฿ · ฟรีตั้งแต่ 7 วัน' },
       color: 'yellow'
     },
     {
-      name: { ru: 'Чалонг / Пхукет-таун', en: 'Chalong / Phuket Town', de: 'Chalong / Phuket Town', fr: 'Chalong / Phuket Town', es: 'Chalong / Phuket Town' },
-      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días' },
+      name: { ru: 'Чалонг / Пхукет-таун', en: 'Chalong / Phuket Town', de: 'Chalong / Phuket Town', fr: 'Chalong / Phuket Town', es: 'Chalong / Phuket Town', th: 'ฉลอง / เมืองภูเก็ต' },
+      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días', th: '300 ฿ · ฟรีตั้งแต่ 7 วัน' },
       color: 'yellow'
     },
     {
-      name: { ru: 'Аэропорт / Най Янг', en: 'Airport / Nai Yang', de: 'Flughafen / Nai Yang', fr: 'Aéroport / Nai Yang', es: 'Aeropuerto / Nai Yang' },
-      cond: { ru: '500 ฿ · бесплатно от 10 дней', en: '500 ฿ · free from 10 days', de: '500 ฿ · kostenlos ab 10 Tagen', fr: '500 ฿ · gratuit dès 10 jours', es: '500 ฿ · gratis desde 10 días' },
+      name: { ru: 'Аэропорт / Най Янг', en: 'Airport / Nai Yang', de: 'Flughafen / Nai Yang', fr: 'Aéroport / Nai Yang', es: 'Aeropuerto / Nai Yang', th: 'สนามบิน / ในยาง' },
+      cond: { ru: '500 ฿ · бесплатно от 10 дней', en: '500 ฿ · free from 10 days', de: '500 ฿ · kostenlos ab 10 Tagen', fr: '500 ฿ · gratuit dès 10 jours', es: '500 ฿ · gratis desde 10 días', th: '500 ฿ · ฟรีตั้งแต่ 10 วัน' },
       color: 'blue'
     },
     {
-      name: { ru: 'Другой район', en: 'Other area', de: 'Anderes Gebiet', fr: 'Autre quartier', es: 'Otra zona' },
-      cond: { ru: 'Уточняйте', en: 'Contact us', de: 'Auf Anfrage', fr: 'Nous contacter', es: 'Consúltenos' },
+      name: { ru: 'Другой район', en: 'Other area', de: 'Anderes Gebiet', fr: 'Autre quartier', es: 'Otra zona', th: 'พื้นที่อื่น' },
+      cond: { ru: 'Уточняйте', en: 'Contact us', de: 'Auf Anfrage', fr: 'Nous contacter', es: 'Consúltenos', th: 'สอบถามเพิ่มเติม' },
       color: 'blue'
     }
   ],
 
   // ── Tab bar ──
   tabHome: {
-    ru: 'Главная', en: 'Home', de: 'Start', fr: 'Accueil', es: 'Inicio'
+    ru: 'Главная', en: 'Home', de: 'Start', fr: 'Accueil', es: 'Inicio', th: 'หน้าหลัก'
   },
   tabBikes: {
-    ru: 'Байки', en: 'Bikes', de: 'Bikes', fr: 'Motos', es: 'Motos'
+    ru: 'Байки', en: 'Bikes', de: 'Bikes', fr: 'Motos', es: 'Motos', th: 'รถ'
   },
   tabGuide: {
-    ru: 'Гид', en: 'Guide', de: 'Guide', fr: 'Guide', es: 'Guía'
+    ru: 'Гид', en: 'Guide', de: 'Guide', fr: 'Guide', es: 'Guía', th: 'ไกด์'
   },
   tabRoutes: {
-    ru: 'Маршруты', en: 'Routes', de: 'Routen', fr: 'Itinéraires', es: 'Rutas'
+    ru: 'Маршруты', en: 'Routes', de: 'Routen', fr: 'Itinéraires', es: 'Rutas', th: 'เส้นทาง'
   },
   tabContacts: {
-    ru: 'Контакты', en: 'Contacts', de: 'Kontakt', fr: 'Contact', es: 'Contacto'
+    ru: 'Контакты', en: 'Contacts', de: 'Kontakt', fr: 'Contact', es: 'Contacto', th: 'ติดต่อ'
   },
 
   // ── Bike filters ──
   filterAll: {
-    ru: 'Все', en: 'All', de: 'Alle', fr: 'Tout', es: 'Todos'
+    ru: 'Все', en: 'All', de: 'Alle', fr: 'Tout', es: 'Todos', th: 'ทั้งหมด'
   },
   filterScooter: {
-    ru: 'Скутеры', en: 'Scooters', de: 'Roller', fr: 'Scooters', es: 'Scooters'
+    ru: 'Скутеры', en: 'Scooters', de: 'Roller', fr: 'Scooters', es: 'Scooters', th: 'สกู๊ตเตอร์'
   },
   filterMaxi: {
-    ru: 'Макси', en: 'Maxi', de: 'Maxi', fr: 'Maxi', es: 'Maxi'
+    ru: 'Макси', en: 'Maxi', de: 'Maxi', fr: 'Maxi', es: 'Maxi', th: 'แม็กซี่'
   },
   filterMoto: {
-    ru: 'Мотоциклы', en: 'Motorcycles', de: 'Motorräder', fr: 'Motos', es: 'Motocicletas'
+    ru: 'Мотоциклы', en: 'Motorcycles', de: 'Motorräder', fr: 'Motos', es: 'Motocicletas', th: 'มอเตอร์ไซค์'
   },
   filterCar: {
-    ru: 'Авто', en: 'Cars', de: 'Autos', fr: 'Voitures', es: 'Coches'
+    ru: 'Авто', en: 'Cars', de: 'Autos', fr: 'Voitures', es: 'Coches', th: 'รถยนต์'
   },
   bikeBtnRent: {
-    ru: 'Взять', en: 'Rent', de: 'Mieten', fr: 'Louer', es: 'Alquilar'
+    ru: 'Взять', en: 'Rent', de: 'Mieten', fr: 'Louer', es: 'Alquilar', th: 'เช่า'
   },
 
   // ── Place filters ──
   placeTop: {
-    ru: 'Топ', en: 'Top', de: 'Top', fr: 'Top', es: 'Top'
+    ru: 'Топ', en: 'Top', de: 'Top', fr: 'Top', es: 'Top', th: 'ยอดนิยม'
   },
   placeBeach: {
-    ru: 'Пляжи', en: 'Beaches', de: 'Strände', fr: 'Plages', es: 'Playas'
+    ru: 'Пляжи', en: 'Beaches', de: 'Strände', fr: 'Plages', es: 'Playas', th: 'หาดทราย'
   },
   placeView: {
-    ru: 'Смотровые', en: 'Viewpoints', de: 'Aussichten', fr: 'Panoramas', es: 'Miradores'
+    ru: 'Смотровые', en: 'Viewpoints', de: 'Aussichten', fr: 'Panoramas', es: 'Miradores', th: 'จุดชมวิว'
   },
   placeTemple: {
-    ru: 'Храмы', en: 'Temples', de: 'Tempel', fr: 'Temples', es: 'Templos'
+    ru: 'Храмы', en: 'Temples', de: 'Tempel', fr: 'Temples', es: 'Templos', th: 'วัด'
   },
   placeNature: {
-    ru: 'Природа', en: 'Nature', de: 'Natur', fr: 'Nature', es: 'Naturaleza'
+    ru: 'Природа', en: 'Nature', de: 'Natur', fr: 'Nature', es: 'Naturaleza', th: 'ธรรมชาติ'
   },
   placeMarket: {
-    ru: 'Рынки', en: 'Markets', de: 'Märkte', fr: 'Marchés', es: 'Mercados'
+    ru: 'Рынки', en: 'Markets', de: 'Märkte', fr: 'Marchés', es: 'Mercados', th: 'ตลาด'
   },
   placeFood: {
-    ru: 'Еда', en: 'Food', de: 'Essen', fr: 'Cuisine', es: 'Comida'
+    ru: 'Еда', en: 'Food', de: 'Essen', fr: 'Cuisine', es: 'Comida', th: 'อาหาร'
   },
   placePhoto: {
-    ru: 'Фото', en: 'Photo', de: 'Foto', fr: 'Photo', es: 'Foto'
+    ru: 'Фото', en: 'Photo', de: 'Foto', fr: 'Photo', es: 'Foto', th: 'ถ่ายรูป'
   },
   placeSearchPlaceholder: {
-    ru: 'Поиск места...', en: 'Search place...', de: 'Ort suchen...', fr: 'Chercher un lieu...', es: 'Buscar lugar...'
+    ru: 'Поиск места...', en: 'Search place...', de: 'Ort suchen...', fr: 'Chercher un lieu...', es: 'Buscar lugar...', th: 'ค้นหาสถานที่...'
   },
 
   // ── Route subtabs ──
   subtabPlaces: {
-    ru: 'Места', en: 'Places', de: 'Orte', fr: 'Lieux', es: 'Lugares'
+    ru: 'Места', en: 'Places', de: 'Orte', fr: 'Lieux', es: 'Lugares', th: 'สถานที่'
   },
   subtabRoute: {
-    ru: 'Маршрут', en: 'Route', de: 'Route', fr: 'Itinéraire', es: 'Ruta'
+    ru: 'Маршрут', en: 'Route', de: 'Route', fr: 'Itinéraire', es: 'Ruta', th: 'เส้นทาง'
   },
 
   // ── Route panel ──
   routeLabel: {
-    ru: 'Маршрут', en: 'Route', de: 'Route', fr: 'Itinéraire', es: 'Ruta'
+    ru: 'Маршрут', en: 'Route', de: 'Route', fr: 'Itinéraire', es: 'Ruta', th: 'เส้นทาง'
   },
   routeReset: {
-    ru: 'Сбросить', en: 'Reset', de: 'Zurücksetzen', fr: 'Réinitialiser', es: 'Resetear'
+    ru: 'Сбросить', en: 'Reset', de: 'Zurücksetzen', fr: 'Réinitialiser', es: 'Resetear', th: 'รีเซ็ต'
   },
   routeEmpty: {
     ru: 'Выбери 2+ места чтобы построить маршрут',
     en: 'Pick 2+ places to build a route',
     de: 'Wähle 2+ Orte für eine Route',
     fr: 'Choisis 2+ lieux pour créer un itinéraire',
-    es: 'Elige 2+ lugares para crear una ruta'
+    es: 'Elige 2+ lugares para crear una ruta',
+    th: 'เลือก 2 สถานที่ขึ้นไปเพื่อสร้างเส้นทาง'
   },
-  statKm: { ru: 'км', en: 'km', de: 'km', fr: 'km', es: 'km' },
-  statEnRoute: { ru: 'в пути', en: 'en route', de: 'unterwegs', fr: 'en route', es: 'en ruta' },
-  statFuel: { ru: '\u0E3F бензин', en: '\u0E3F fuel', de: '\u0E3F Benzin', fr: '\u0E3F carburant', es: '\u0E3F gasolina' },
-  costTaxiLabel: { ru: 'Такси:', en: 'Taxi:', de: 'Taxi:', fr: 'Taxi :', es: 'Taxi:' },
+  statKm: { ru: 'км', en: 'km', de: 'km', fr: 'km', es: 'km', th: 'กม.' },
+  statEnRoute: { ru: 'в пути', en: 'en route', de: 'unterwegs', fr: 'en route', es: 'en ruta', th: 'ระหว่างทาง' },
+  statFuel: { ru: '\u0E3F бензин', en: '\u0E3F fuel', de: '\u0E3F Benzin', fr: '\u0E3F carburant', es: '\u0E3F gasolina', th: '\u0E3F น้ำมัน' },
+  costTaxiLabel: { ru: 'Такси:', en: 'Taxi:', de: 'Taxi:', fr: 'Taxi :', es: 'Taxi:', th: 'แท็กซี่:' },
   costBikeLabel: {
-    ru: 'Байк: ~180 \u0E3F/день', en: 'Bike: ~180 \u0E3F/day', de: 'Bike: ~180 \u0E3F/Tag', fr: 'Moto : ~180 \u0E3F/jour', es: 'Moto: ~180 \u0E3F/día'
+    ru: 'Байк: ~180 \u0E3F/день', en: 'Bike: ~180 \u0E3F/day', de: 'Bike: ~180 \u0E3F/Tag', fr: 'Moto : ~180 \u0E3F/jour', es: 'Moto: ~180 \u0E3F/día', th: 'มอเตอร์ไซค์: ~180 \u0E3F/วัน'
   },
   routeNeedBike: {
-    ru: 'Для маршрута нужен байк', en: 'You need a bike for this route', de: 'Für die Route brauchst du ein Bike', fr: 'Un scooter est nécessaire', es: 'Necesitas una moto para esta ruta'
+    ru: 'Для маршрута нужен байк', en: 'You need a bike for this route', de: 'Für die Route brauchst du ein Bike', fr: 'Un scooter est nécessaire', es: 'Necesitas una moto para esta ruta', th: 'ต้องมีมอเตอร์ไซค์สำหรับเส้นทางนี้'
   },
   routeNeedBikePrice: {
-    ru: 'от 180 \u0E3F в день', en: 'from 180 \u0E3F/day', de: 'ab 180 \u0E3F/Tag', fr: 'dès 180 \u0E3F/jour', es: 'desde 180 \u0E3F/día'
+    ru: 'от 180 \u0E3F в день', en: 'from 180 \u0E3F/day', de: 'ab 180 \u0E3F/Tag', fr: 'dès 180 \u0E3F/jour', es: 'desde 180 \u0E3F/día', th: 'ตั้งแต่ 180 \u0E3F/วัน'
   },
   routeRentBtn: {
-    ru: 'Арендовать', en: 'Rent a bike', de: 'Mieten', fr: 'Louer', es: 'Alquilar'
+    ru: 'Арендовать', en: 'Rent a bike', de: 'Mieten', fr: 'Louer', es: 'Alquilar', th: 'เช่ารถ'
   },
   routeCleared: {
-    ru: 'Маршрут сброшен', en: 'Route cleared', de: 'Route gelöscht', fr: 'Itinéraire réinitialisé', es: 'Ruta eliminada'
+    ru: 'Маршрут сброшен', en: 'Route cleared', de: 'Route gelöscht', fr: 'Itinéraire réinitialisé', es: 'Ruta eliminada', th: 'ล้างเส้นทางแล้ว'
   },
 
   // ── Route presets & features ──
   presetsTitle: {
-    ru: 'Готовые маршруты', en: 'Preset routes', de: 'Vorgefertigte Routen', fr: 'Itinéraires prédéfinis', es: 'Rutas predefinidas'
+    ru: 'Готовые маршруты', en: 'Preset routes', de: 'Vorgefertigte Routen', fr: 'Itinéraires prédéfinis', es: 'Rutas predefinidas', th: 'เส้นทางสำเร็จรูป'
   },
   presetSouth: {
-    ru: 'Юг острова', en: 'South Island', de: 'Süden', fr: 'Sud', es: 'Sur'
+    ru: 'Юг острова', en: 'South Island', de: 'Süden', fr: 'Sud', es: 'Sur', th: 'ใต้เกาะ'
   },
   presetSunset: {
-    ru: 'Закатный', en: 'Sunset Tour', de: 'Sonnenuntergang', fr: 'Coucher de soleil', es: 'Atardecer'
+    ru: 'Закатный', en: 'Sunset Tour', de: 'Sonnenuntergang', fr: 'Coucher de soleil', es: 'Atardecer', th: 'ทัวร์พระอาทิตย์ตก'
   },
   presetNorth: {
-    ru: 'Север острова', en: 'North Island', de: 'Norden', fr: 'Nord', es: 'Norte'
+    ru: 'Север острова', en: 'North Island', de: 'Norden', fr: 'Nord', es: 'Norte', th: 'เหนือเกาะ'
   },
   presetCulture: {
-    ru: 'Культура', en: 'Culture', de: 'Kultur', fr: 'Culture', es: 'Cultura'
+    ru: 'Культура', en: 'Culture', de: 'Kultur', fr: 'Culture', es: 'Cultura', th: 'วัฒนธรรม'
   },
   presetFood: {
-    ru: 'Гастротур', en: 'Food Tour', de: 'Food-Tour', fr: 'Gastronomie', es: 'Gastronomía'
+    ru: 'Гастротур', en: 'Food Tour', de: 'Food-Tour', fr: 'Gastronomie', es: 'Gastronomía', th: 'ทัวร์อาหาร'
   },
   randomTitle: {
-    ru: 'Случайный маршрут', en: 'Random route', de: 'Zufällige Route', fr: 'Itinéraire aléatoire', es: 'Ruta aleatoria'
+    ru: 'Случайный маршрут', en: 'Random route', de: 'Zufällige Route', fr: 'Itinéraire aléatoire', es: 'Ruta aleatoria', th: 'เส้นทางสุ่ม'
   },
-  timeH: { ru: 'ч', en: 'h', de: 'h', fr: 'h', es: 'h' },
-  fullDay: { ru: 'Весь день', en: 'Full day', de: 'Ganzer Tag', fr: 'Journée', es: 'Todo el día' },
-  presetLoaded: { ru: 'Маршрут загружен', en: 'Route loaded', de: 'Route geladen', fr: 'Itinéraire chargé', es: 'Ruta cargada' },
-  randomCreated: { ru: 'Маршрут создан', en: 'Route created', de: 'Route erstellt', fr: 'Itinéraire créé', es: 'Ruta creada' },
-  optimize: { ru: 'Оптимизировать', en: 'Optimize', de: 'Optimieren', fr: 'Optimiser', es: 'Optimizar' },
-  routeOptimized: { ru: 'Маршрут оптимизирован', en: 'Route optimized', de: 'Route optimiert', fr: 'Itinéraire optimisé', es: 'Ruta optimizada' },
-  shareRoute: { ru: 'Поделиться', en: 'Share', de: 'Teilen', fr: 'Partager', es: 'Compartir' },
-  copyLink: { ru: 'Копировать ссылку', en: 'Copy link', de: 'Link kopieren', fr: 'Copier le lien', es: 'Copiar enlace' },
-  linkCopied: { ru: 'Ссылка скопирована', en: 'Link copied', de: 'Link kopiert', fr: 'Lien copié', es: 'Enlace copiado' },
-  nearbyLabel: { ru: 'Рядом:', en: 'Nearby:', de: 'In der Nähe:', fr: 'À proximité :', es: 'Cerca:' },
-  addBtn: { ru: 'Добавить', en: 'Add', de: 'Hinzufügen', fr: 'Ajouter', es: 'Añadir' },
-  warnTraffic: { ru: 'Пробки в районе Патонга — заложи доп. время', en: 'Traffic near Patong — allow extra time', de: 'Stau bei Patong — plane extra Zeit ein', fr: 'Embouteillages près de Patong — prévoyez du temps', es: 'Tráfico cerca de Patong — deja tiempo extra' },
-  warnDressCode: { ru: 'Закрой плечи и колени для храма', en: 'Cover shoulders and knees for the temple', de: 'Bedecke Schultern und Knie für den Tempel', fr: 'Couvre épaules et genoux pour le temple', es: 'Cubre hombros y rodillas para el templo' },
-  warnSerpentine: { ru: 'Серпантин — осторожно на поворотах', en: 'Winding road — careful on turns', de: 'Serpentinen — vorsichtig in Kurven', fr: 'Route sinueuse — prudence dans les virages', es: 'Carretera sinuosa — cuidado en las curvas' },
-  warnLongRoute: { ru: 'Длинный маршрут — выезжай пораньше', en: 'Long route — start early', de: 'Lange Route — starte früh', fr: 'Long itinéraire — partez tôt', es: 'Ruta larga — sal temprano' },
+  timeH: { ru: 'ч', en: 'h', de: 'h', fr: 'h', es: 'h', th: 'ชม.' },
+  fullDay: { ru: 'Весь день', en: 'Full day', de: 'Ganzer Tag', fr: 'Journée', es: 'Todo el día', th: 'ทั้งวัน' },
+  presetLoaded: { ru: 'Маршрут загружен', en: 'Route loaded', de: 'Route geladen', fr: 'Itinéraire chargé', es: 'Ruta cargada', th: 'โหลดเส้นทางแล้ว' },
+  randomCreated: { ru: 'Маршрут создан', en: 'Route created', de: 'Route erstellt', fr: 'Itinéraire créé', es: 'Ruta creada', th: 'สร้างเส้นทางแล้ว' },
+  optimize: { ru: 'Оптимизировать', en: 'Optimize', de: 'Optimieren', fr: 'Optimiser', es: 'Optimizar', th: 'ปรับปรุง' },
+  routeOptimized: { ru: 'Маршрут оптимизирован', en: 'Route optimized', de: 'Route optimiert', fr: 'Itinéraire optimisé', es: 'Ruta optimizada', th: 'ปรับปรุงเส้นทางแล้ว' },
+  shareRoute: { ru: 'Поделиться', en: 'Share', de: 'Teilen', fr: 'Partager', es: 'Compartir', th: 'แชร์' },
+  copyLink: { ru: 'Копировать ссылку', en: 'Copy link', de: 'Link kopieren', fr: 'Copier le lien', es: 'Copiar enlace', th: 'คัดลอกลิงก์' },
+  linkCopied: { ru: 'Ссылка скопирована', en: 'Link copied', de: 'Link kopiert', fr: 'Lien copié', es: 'Enlace copiado', th: 'คัดลอกลิงก์แล้ว' },
+  nearbyLabel: { ru: 'Рядом:', en: 'Nearby:', de: 'In der Nähe:', fr: 'À proximité :', es: 'Cerca:', th: 'ใกล้เคียง:' },
+  addBtn: { ru: 'Добавить', en: 'Add', de: 'Hinzufügen', fr: 'Ajouter', es: 'Añadir', th: 'เพิ่ม' },
+  warnTraffic: { ru: 'Пробки в районе Патонга — заложи доп. время', en: 'Traffic near Patong — allow extra time', de: 'Stau bei Patong — plane extra Zeit ein', fr: 'Embouteillages près de Patong — prévoyez du temps', es: 'Tráfico cerca de Patong — deja tiempo extra', th: 'รถติดแถวป่าตอง — เผื่อเวลาเพิ่ม' },
+  warnDressCode: { ru: 'Закрой плечи и колени для храма', en: 'Cover shoulders and knees for the temple', de: 'Bedecke Schultern und Knie für den Tempel', fr: 'Couvre épaules et genoux pour le temple', es: 'Cubre hombros y rodillas para el templo', th: 'ปิดไหล่และเข่าสำหรับวัด' },
+  warnSerpentine: { ru: 'Серпантин — осторожно на поворотах', en: 'Winding road — careful on turns', de: 'Serpentinen — vorsichtig in Kurven', fr: 'Route sinueuse — prudence dans les virages', es: 'Carretera sinuosa — cuidado en las curvas', th: 'ถนนคดเคี้ยว — ระวังโค้ง' },
+  warnLongRoute: { ru: 'Длинный маршрут — выезжай пораньше', en: 'Long route — start early', de: 'Lange Route — starte früh', fr: 'Long itinéraire — partez tôt', es: 'Ruta larga — sal temprano', th: 'เส้นทางยาว — ออกเดินทางเช้า' },
 
   placeAdded: {
-    ru: 'добавлен', en: 'added', de: 'hinzugefügt', fr: 'ajouté', es: 'añadido'
+    ru: 'добавлен', en: 'added', de: 'hinzugefügt', fr: 'ajouté', es: 'añadido', th: 'เพิ่มแล้ว'
   },
   placeRemoved: {
-    ru: 'убран', en: 'removed', de: 'entfernt', fr: 'retiré', es: 'eliminado'
+    ru: 'убран', en: 'removed', de: 'entfernt', fr: 'retiré', es: 'eliminado', th: 'ลบแล้ว'
   },
   maxPoints: {
-    ru: 'Максимум ${n} точек', en: 'Maximum ${n} points', de: 'Maximal ${n} Punkte', fr: 'Maximum ${n} points', es: 'Máximo ${n} puntos'
+    ru: 'Максимум ${n} точек', en: 'Maximum ${n} points', de: 'Maximal ${n} Punkte', fr: 'Maximum ${n} points', es: 'Máximo ${n} puntos', th: 'สูงสุด ${n} จุด'
   },
   kmFromPatong: {
-    ru: '~${km} км от Патонга', en: '~${km} km from Patong', de: '~${km} km von Patong', fr: '~${km} km de Patong', es: '~${km} km de Patong'
+    ru: '~${km} км от Патонга', en: '~${km} km from Patong', de: '~${km} km von Patong', fr: '~${km} km de Patong', es: '~${km} km de Patong', th: '~${km} กม. จากป่าตอง'
   },
   addToRoute: {
-    ru: '+ В маршрут', en: '+ Add to route', de: '+ Zur Route', fr: '+ Ajouter', es: '+ Añadir a ruta'
+    ru: '+ В маршрут', en: '+ Add to route', de: '+ Zur Route', fr: '+ Ajouter', es: '+ Añadir a ruta', th: '+ เพิ่มเส้นทาง'
   },
   inRoute: {
-    ru: '\u2713 В маршруте', en: '\u2713 In route', de: '\u2713 In Route', fr: '\u2713 Ajouté', es: '\u2713 En ruta'
+    ru: '\u2713 В маршруте', en: '\u2713 In route', de: '\u2713 In Route', fr: '\u2713 Ajouté', es: '\u2713 En ruta', th: '\u2713 ในเส้นทาง'
   },
 
   // ── Contacts ──
   contactsTitle: {
-    ru: 'Контакты', en: 'Contacts', de: 'Kontakt', fr: 'Contact', es: 'Contacto'
+    ru: 'Контакты', en: 'Contacts', de: 'Kontakt', fr: 'Contact', es: 'Contacto', th: 'ติดต่อ'
   },
   contactHours: {
-    ru: 'Ежедневно 8:00–20:00', en: 'Daily 8:00–20:00', de: 'Täglich 8:00–20:00', fr: 'Tous les jours 8h–20h', es: 'Diario 8:00–20:00'
+    ru: 'Ежедневно 8:00–20:00', en: 'Daily 8:00–20:00', de: 'Täglich 8:00–20:00', fr: 'Tous les jours 8h–20h', es: 'Diario 8:00–20:00', th: 'ทุกวัน 8:00–20:00'
   },
   deliveryAreasTitle: {
-    ru: 'Районы доставки', en: 'Delivery Areas', de: 'Liefergebiete', fr: 'Zones de livraison', es: 'Zonas de entrega'
+    ru: 'Районы доставки', en: 'Delivery Areas', de: 'Liefergebiete', fr: 'Zones de livraison', es: 'Zonas de entrega', th: 'พื้นที่บริการส่ง'
   },
 
   // ── FAQ ──
-  faqTitle: { ru: 'FAQ', en: 'FAQ', de: 'FAQ', fr: 'FAQ', es: 'FAQ' },
+  faqTitle: { ru: 'FAQ', en: 'FAQ', de: 'FAQ', fr: 'FAQ', es: 'FAQ', th: 'คำถามที่พบบ่อย' },
   faq: {
     ru: [
       { q: 'Сколько стоит аренда байка?', a: 'Honda Scoopy от 180 \u0E3F/день, Honda Click от 200 \u0E3F/день, PCX/NMAX от 300 \u0E3F/день. Чем дольше срок — тем дешевле.' },
@@ -474,6 +503,18 @@ export const T = {
       { q: '¿Puedo alquilar una moto en Patong?', a: 'Sí, entregamos motos en Patong gratis desde 3 días de alquiler. Directamente a tu hotel o villa — llama o escríbenos por WhatsApp.' },
       { q: '¿Cuánto cuesta alquilar una moto por mes en Phuket?', a: 'Honda Scoopy — 4.500 \u0E3F/mes, Honda Click — 5.000 \u0E3F/mes, PCX/NMAX — 7.000 \u0E3F/mes, Forza 350 — 14.000 \u0E3F/mes.' },
       { q: '¿Qué moto es mejor para principiantes?', a: 'Honda Scoopy o Yamaha Fino — ligeras (96–99 kg), asiento bajo, manejo fácil. Para más confiados — Honda Click 125i.' }
+    ],
+    th: [
+      { q: 'เช่ามอเตอร์ไซค์ราคาเท่าไหร่?', a: 'Honda Scoopy ตั้งแต่ 180 ฿/วัน, Honda Click ตั้งแต่ 200 ฿/วัน, PCX/NMAX ตั้งแต่ 300 ฿/วัน ยิ่งเช่านานยิ่งถูก' },
+      { q: 'ต้องใช้เอกสารอะไรบ้าง?', a: 'พาสปอร์ตและใบขับขี่สากล (ประเภท A) มัดจำตั้งแต่ 2000 ฿ หรือสำเนาพาสปอร์ต' },
+      { q: 'มีประกันไหม?', a: 'มี ทุกคันมีประกัน การเช่าทำสัญญาตามกฎหมายไทย' },
+      { q: 'ขับขี่ปลอดภัยไหม?', a: 'ขับซ้าย หมวกกันน็อคบังคับ (ปรับ 500 ฿) ห้ามเกิน 60 กม./ชม. ในเมือง' },
+      { q: 'น้ำมันราคาเท่าไหร่?', a: '~43 ฿/ลิตร สกู๊ตเตอร์ใช้ ~2 ลิตร/100 กม. เดินทาง 50 กม. ใช้น้ำมัน ~45 ฿' },
+      { q: 'ใช้แผนเส้นทางอย่างไร?', a: 'เปิดแท็บเส้นทาง เพิ่มสถานที่ ดูระยะทาง เวลา และค่าน้ำมัน' },
+      { q: 'ต้องมีใบขับขี่เช่าสกู๊ตเตอร์ภูเก็ตไหม?', a: 'ตำรวจต้องการใบขับขี่สากล (ประเภท A) อย่างเป็นทางการ สกู๊ตเตอร์ต่ำกว่า 125cc ตรวจไม่บ่อย แต่ไม่มีใบขับขี่ประกันจะยุ่งยาก แนะนำทำ IDP ก่อนเดินทาง' },
+      { q: 'เช่ามอเตอร์ไซค์ที่ป่าตองได้ไหม?', a: 'ได้ เราส่งรถถึงป่าตองฟรีตั้งแต่ 3 วัน ส่งถึงโรงแรมหรือวิลล่า โทรหรือส่งข้อความ WhatsApp' },
+      { q: 'เช่ามอเตอร์ไซค์รายเดือนภูเก็ตราคาเท่าไหร่?', a: 'Honda Scoopy — 4,500 ฿/เดือน, Honda Click — 5,000 ฿/เดือน, PCX/NMAX — 7,000 ฿/เดือน, Forza 350 — 14,000 ฿/เดือน' },
+      { q: 'มือใหม่ควรเลือกรถรุ่นไหน?', a: 'Honda Scoopy หรือ Yamaha Fino — เบา (96–99 กก.) เบาะต่ำ ขับง่าย สำหรับผู้มั่นใจ — Honda Click 125i' }
     ]
   },
 
@@ -482,92 +523,99 @@ export const T = {
     en: 'ThaiGo Rent — bike rental in Phuket. Office in Kata.',
     de: 'ThaiGo Rent — Motorrad-Verleih auf Phuket. Büro in Kata.',
     fr: 'ThaiGo Rent — location de motos à Phuket. Bureau à Kata.',
-    es: 'ThaiGo Rent — alquiler de motos en Phuket. Oficina en Kata.'
+    es: 'ThaiGo Rent — alquiler de motos en Phuket. Oficina en Kata.',
+    th: 'ThaiGo Rent — เช่ามอเตอร์ไซค์ภูเก็ต สำนักงานที่กะตะ'
   },
 
   // ── Booking sheet ──
   sheetTariffs: {
-    ru: 'Тарифы', en: 'Rates', de: 'Tarife', fr: 'Tarifs', es: 'Tarifas'
+    ru: 'Тарифы', en: 'Rates', de: 'Tarife', fr: 'Tarifs', es: 'Tarifas', th: 'อัตราค่าเช่า'
   },
   sheetDays12: {
-    ru: '1–2 дня', en: '1–2 days', de: '1–2 Tage', fr: '1–2 jours', es: '1–2 días'
+    ru: '1–2 дня', en: '1–2 days', de: '1–2 Tage', fr: '1–2 jours', es: '1–2 días', th: '1–2 วัน'
   },
   sheetDays36: {
-    ru: '3–6 дней', en: '3–6 days', de: '3–6 Tage', fr: '3–6 jours', es: '3–6 días'
+    ru: '3–6 дней', en: '3–6 days', de: '3–6 Tage', fr: '3–6 jours', es: '3–6 días', th: '3–6 วัน'
   },
   sheetDays713: {
-    ru: '7–13', en: '7–13', de: '7–13', fr: '7–13', es: '7–13'
+    ru: '7–13', en: '7–13', de: '7–13', fr: '7–13', es: '7–13', th: '7–13'
   },
   sheetDays1429: {
-    ru: '14–29', en: '14–29', de: '14–29', fr: '14–29', es: '14–29'
+    ru: '14–29', en: '14–29', de: '14–29', fr: '14–29', es: '14–29', th: '14–29'
   },
   sheetDays30: {
-    ru: '30 дн', en: '30 d', de: '30 T', fr: '30 j', es: '30 d'
+    ru: '30 дн', en: '30 d', de: '30 T', fr: '30 j', es: '30 d', th: '30 วัน'
   },
   sheetRentalDays: {
-    ru: 'Дней аренды:', en: 'Rental days:', de: 'Miettage:', fr: 'Jours de location :', es: 'Días de alquiler:'
+    ru: 'Дней аренды:', en: 'Rental days:', de: 'Miettage:', fr: 'Jours de location :', es: 'Días de alquiler:', th: 'จำนวนวันเช่า:'
   },
   sheetTotal: {
-    ru: 'Итого:', en: 'Total:', de: 'Gesamt:', fr: 'Total :', es: 'Total:'
+    ru: 'Итого:', en: 'Total:', de: 'Gesamt:', fr: 'Total :', es: 'Total:', th: 'รวม:'
   },
 
   // ── Insurance ──
   insBasic: {
-    ru: 'Страховка', en: 'Insurance', de: 'Versicherung', fr: 'Assurance', es: 'Seguro'
+    ru: 'Страховка', en: 'Insurance', de: 'Versicherung', fr: 'Assurance', es: 'Seguro', th: 'ประกัน'
   },
   insPlus: {
-    ru: 'Страховка+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+'
+    ru: 'Страховка+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+', th: 'ประกัน+'
   },
   insBasicTitle: {
-    ru: 'Страховка (включена)', en: 'Insurance (included)', de: 'Versicherung (inkl.)', fr: 'Assurance (incluse)', es: 'Seguro (incluido)'
+    ru: 'Страховка (включена)', en: 'Insurance (included)', de: 'Versicherung (inkl.)', fr: 'Assurance (incluse)', es: 'Seguro (incluido)', th: 'ประกัน (รวมอยู่แล้ว)'
   },
   insBasicDesc: {
     ru: 'Здоровье водителя и пассажира. Покрытие до 30 000 ฿ на госпитализацию. Включена бесплатно.',
     en: 'Rider and passenger health coverage. Up to 30,000 ฿ hospitalization. Included free.',
     de: 'Fahrer- und Beifahrerschutz. Bis zu 30.000 ฿ Krankenhauskosten. Kostenlos inklusive.',
     fr: 'Santé du conducteur et passager. Jusqu\'à 30 000 ฿ d\'hospitalisation. Incluse gratuitement.',
-    es: 'Salud del conductor y pasajero. Hasta 30.000 ฿ de hospitalización. Incluido gratis.'
+    es: 'Salud del conductor y pasajero. Hasta 30.000 ฿ de hospitalización. Incluido gratis.',
+    th: 'คุ้มครองสุขภาพผู้ขับและผู้โดยสาร สูงสุด 30,000 ฿ ค่ารักษาพยาบาล รวมฟรี'
   },
   insPlusTitle: {
-    ru: 'Страховка+ (расширенная)', en: 'Insurance+ (extended)', de: 'Versicherung+ (erweitert)', fr: 'Assurance+ (étendue)', es: 'Seguro+ (extendido)'
+    ru: 'Страховка+ (расширенная)', en: 'Insurance+ (extended)', de: 'Versicherung+ (erweitert)', fr: 'Assurance+ (étendue)', es: 'Seguro+ (extendido)', th: 'ประกัน+ (ขยาย)'
   },
   insPlusDesc: {
     ru: 'Защита байка от расходов на ремонт сверх депозита. Франшиза клиента — ${franchise} ฿.',
     en: 'Bike damage protection beyond deposit. Client deductible — ${franchise} ฿.',
     de: 'Bike-Schadenschutz über die Kaution hinaus. Selbstbeteiligung — ${franchise} ฿.',
     fr: 'Protection du véhicule au-delà de la caution. Franchise client — ${franchise} ฿.',
-    es: 'Protección de la moto más allá del depósito. Franquicia del cliente — ${franchise} ฿.'
+    es: 'Protección de la moto más allá del depósito. Franquicia del cliente — ${franchise} ฿.',
+    th: 'คุ้มครองความเสียหายของรถเกินมัดจำ แฟรนไชส์ลูกค้า — ${franchise} ฿'
   },
   insPlusExclude: {
     ru: 'Не покрывает: шины, аккумулятор, ДТП по вине третьих лиц',
     en: 'Does not cover: tires, battery, accidents caused by third parties',
     de: 'Nicht abgedeckt: Reifen, Batterie, Unfälle durch Dritte',
     fr: 'Non couvert : pneus, batterie, accidents causés par des tiers',
-    es: 'No cubre: neumáticos, batería, accidentes causados por terceros'
+    es: 'No cubre: neumáticos, batería, accidentes causados por terceros',
+    th: 'ไม่ครอบคลุม: ยาง แบตเตอรี่ อุบัติเหตุจากบุคคลที่สาม'
   },
   insPlusCall: {
     ru: 'При страховом случае: позвоните нам сразу — не покидайте место инцидента',
     en: 'In case of incident: call us immediately — do not leave the scene',
     de: 'Im Schadensfall: rufen Sie uns sofort an — verlassen Sie nicht den Unfallort',
     fr: 'En cas d\'incident : appelez-nous immédiatement — ne quittez pas les lieux',
-    es: 'En caso de incidente: llámenos de inmediato — no abandone el lugar'
+    es: 'En caso de incidente: llámenos de inmediato — no abandone el lugar',
+    th: 'กรณีเกิดเหตุ: โทรหาเราทันที — อย่าออกจากที่เกิดเหตุ'
   },
   insPlusPhoto: {
     ru: 'Отправьте фото байка с четырёх сторон и снимите видео инцидента',
     en: 'Send photos of the bike from four sides and record a video of the incident',
     de: 'Senden Sie Fotos des Bikes von vier Seiten und nehmen Sie ein Video des Vorfalls auf',
     fr: 'Envoyez des photos du véhicule de quatre côtés et filmez l\'incident',
-    es: 'Envíe fotos de la moto desde cuatro lados y grabe un video del incidente'
+    es: 'Envíe fotos de la moto desde cuatro lados y grabe un video del incidente',
+    th: 'ส่งรูปรถจากสี่ด้านและถ่ายวิดีโอเหตุการณ์'
   },
   insPlusPrice: {
     ru: 'Оценка ущерба по утверждённому прайс-листу',
     en: 'Damage assessment based on the approved price list',
     de: 'Schadensbewertung gemäß genehmigter Preisliste',
     fr: 'Évaluation des dommages selon le tarif approuvé',
-    es: 'Evaluación de daños según la lista de precios aprobada'
+    es: 'Evaluación de daños según la lista de precios aprobada',
+    th: 'ประเมินความเสียหายตามรายการราคาที่อนุมัติ'
   },
   insPlusPriceLabel: {
-    ru: 'Стоимость:', en: 'Cost:', de: 'Kosten:', fr: 'Coût :', es: 'Coste:'
+    ru: 'Стоимость:', en: 'Cost:', de: 'Kosten:', fr: 'Coût :', es: 'Coste:', th: 'ราคา:'
   },
 
   // ── Booking WA message ──
@@ -576,30 +624,32 @@ export const T = {
     en: 'I want to rent ${name} for ${days} days.',
     de: 'Ich möchte ${name} für ${days} Tage mieten.',
     fr: 'Je voudrais louer ${name} pour ${days} jours.',
-    es: 'Quiero alquilar ${name} por ${days} días.'
+    es: 'Quiero alquilar ${name} por ${days} días.',
+    th: 'ต้องการเช่า ${name} ${days} วัน'
   },
   waMsgRoute: {
     ru: 'Хочу арендовать байк для маршрута: ${route} (~${km} км)',
     en: 'I want to rent a bike for route: ${route} (~${km} km)',
     de: 'Ich möchte ein Bike für die Route mieten: ${route} (~${km} km)',
     fr: 'Je voudrais louer un scooter pour l\'itinéraire : ${route} (~${km} km)',
-    es: 'Quiero alquilar una moto para la ruta: ${route} (~${km} km)'
+    es: 'Quiero alquilar una moto para la ruta: ${route} (~${km} km)',
+    th: 'ต้องการเช่ามอเตอร์ไซค์สำหรับเส้นทาง: ${route} (~${km} กม.)'
   },
 
   // ── Price prefix ──
   priceFrom: {
-    ru: 'от', en: 'from', de: 'ab', fr: 'dès', es: 'desde'
+    ru: 'от', en: 'from', de: 'ab', fr: 'dès', es: 'desde', th: 'ตั้งแต่'
   },
   perDay: {
-    ru: '/день', en: '/day', de: '/Tag', fr: '/jour', es: '/día'
+    ru: '/день', en: '/day', de: '/Tag', fr: '/jour', es: '/día', th: '/วัน'
   },
 
   // ── Guide micro-menu ──
   guideMenuRoutes: {
-    ru: 'Маршруты', en: 'Routes', de: 'Routen', fr: 'Itinéraires', es: 'Rutas'
+    ru: 'Маршруты', en: 'Routes', de: 'Routen', fr: 'Itinéraires', es: 'Rutas', th: 'เส้นทาง'
   },
   guideMenuRiderTest: {
-    ru: 'Райдер-тест', en: 'Rider Test', de: 'Rider-Test', fr: 'Test Rider', es: 'Test Rider'
+    ru: 'Райдер-тест', en: 'Rider Test', de: 'Rider-Test', fr: 'Test Rider', es: 'Test Rider', th: 'แบบทดสอบนักขับ'
   },
 
   // ── Teaser card ──
@@ -608,71 +658,77 @@ export const T = {
     en: 'Are you sure you\'re ready to ride in Phuket?',
     de: 'Bist du sicher, dass du auf Phuket fahren kannst?',
     fr: 'Es-tu sûr d\'être prêt à rouler à Phuket ?',
-    es: '¿Estás seguro de que estás listo para conducir en Phuket?'
+    es: '¿Estás seguro de que estás listo para conducir en Phuket?',
+    th: 'พร้อมขับขี่ที่ภูเก็ตหรือยัง?'
   },
   teaserSub: {
     ru: 'Пройди Райдер-тест за 3 минуты',
     en: 'Take the Rider Test in 3 minutes',
     de: 'Mache den Rider-Test in 3 Minuten',
     fr: 'Fais le Test Rider en 3 minutes',
-    es: 'Haz el Test Rider en 3 minutos'
+    es: 'Haz el Test Rider en 3 minutos',
+    th: 'ทำแบบทดสอบนักขับใน 3 นาที'
   },
   teaserBtn: {
-    ru: 'Начать тест', en: 'Start test', de: 'Test starten', fr: 'Commencer le test', es: 'Iniciar test'
+    ru: 'Начать тест', en: 'Start test', de: 'Test starten', fr: 'Commencer le test', es: 'Iniciar test', th: 'เริ่มทดสอบ'
   },
 
   // ── Rider Test UI ──
   riderTestTitle: {
-    ru: 'Райдер-тест', en: 'Rider Test', de: 'Rider-Test', fr: 'Test Rider', es: 'Test Rider'
+    ru: 'Райдер-тест', en: 'Rider Test', de: 'Rider-Test', fr: 'Test Rider', es: 'Test Rider', th: 'แบบทดสอบนักขับ'
   },
   riderNext: {
-    ru: 'Дальше →', en: 'Next →', de: 'Weiter →', fr: 'Suivant →', es: 'Siguiente →'
+    ru: 'Дальше →', en: 'Next →', de: 'Weiter →', fr: 'Suivant →', es: 'Siguiente →', th: 'ถัดไป →'
   },
   resumeTitle: {
-    ru: 'Продолжить тест?', en: 'Continue test?', de: 'Test fortsetzen?', fr: 'Continuer le test ?', es: '¿Continuar el test?'
+    ru: 'Продолжить тест?', en: 'Continue test?', de: 'Test fortsetzen?', fr: 'Continuer le test ?', es: '¿Continuar el test?', th: 'ทำต่อไหม?'
   },
   resumeText: {
     ru: 'Ты остановился на вопросе ${n} из ${total}',
     en: 'You stopped at question ${n} of ${total}',
     de: 'Du warst bei Frage ${n} von ${total}',
     fr: 'Tu t\'es arrêté à la question ${n} sur ${total}',
-    es: 'Te detuviste en la pregunta ${n} de ${total}'
+    es: 'Te detuviste en la pregunta ${n} de ${total}',
+    th: 'คุณหยุดที่คำถาม ${n} จาก ${total}'
   },
   resumeContinue: {
-    ru: 'Продолжить', en: 'Continue', de: 'Fortsetzen', fr: 'Continuer', es: 'Continuar'
+    ru: 'Продолжить', en: 'Continue', de: 'Fortsetzen', fr: 'Continuer', es: 'Continuar', th: 'ทำต่อ'
   },
   resumeRestart: {
-    ru: 'Сначала', en: 'Restart', de: 'Neustart', fr: 'Recommencer', es: 'Reiniciar'
+    ru: 'Сначала', en: 'Restart', de: 'Neustart', fr: 'Recommencer', es: 'Reiniciar', th: 'เริ่มใหม่'
   },
   finalTitle: {
     ru: 'Ты готов к Пхукету!',
     en: 'You\'re ready for Phuket!',
     de: 'Du bist bereit für Phuket!',
     fr: 'Tu es prêt pour Phuket !',
-    es: '¡Estás listo para Phuket!'
+    es: '¡Estás listo para Phuket!',
+    th: 'คุณพร้อมสำหรับภูเก็ตแล้ว!'
   },
   finalText: {
     ru: 'Теперь ты знаешь то что большинство туристов узнают только после неприятной ситуации. Езди спокойно — мы всегда на связи если что-то пойдёт не так.',
     en: 'Now you know what most tourists only learn after an unpleasant situation. Ride safe — we\'re always in touch if something goes wrong.',
     de: 'Jetzt weißt du, was die meisten Touristen erst nach einer unangenehmen Situation lernen. Fahre sicher — wir sind immer erreichbar, wenn etwas schiefgeht.',
     fr: 'Maintenant tu sais ce que la plupart des touristes n\'apprennent qu\'après une mésaventure. Roule tranquille — on est toujours joignables si ça tourne mal.',
-    es: 'Ahora sabes lo que la mayoría de turistas solo aprenden después de una situación desagradable. Conduce seguro — siempre estamos disponibles si algo sale mal.'
+    es: 'Ahora sabes lo que la mayoría de turistas solo aprenden después de una situación desagradable. Conduce seguro — siempre estamos disponibles si algo sale mal.',
+    th: 'ตอนนี้คุณรู้สิ่งที่นักท่องเที่ยวส่วนใหญ่เรียนรู้หลังจากเกิดเหตุแล้ว ขับปลอดภัย — เราพร้อมช่วยเสมอหากมีปัญหา'
   },
   finalBtn: {
-    ru: 'Выбрать байк 🛵', en: 'Choose a bike 🛵', de: 'Bike wählen 🛵', fr: 'Choisir une moto 🛵', es: 'Elegir una moto 🛵'
+    ru: 'Выбрать байк 🛵', en: 'Choose a bike 🛵', de: 'Bike wählen 🛵', fr: 'Choisir une moto 🛵', es: 'Elegir una moto 🛵', th: 'เลือกรถ 🛵'
   },
   finalShare: {
-    ru: 'Поделиться результатом', en: 'Share result', de: 'Ergebnis teilen', fr: 'Partager le résultat', es: 'Compartir resultado'
+    ru: 'Поделиться результатом', en: 'Share result', de: 'Ergebnis teilen', fr: 'Partager le résultat', es: 'Compartir resultado', th: 'แชร์ผลลัพธ์'
   },
   shareTitle: {
-    ru: 'Райдер-тест', en: 'Rider Test', de: 'Rider-Test', fr: 'Test Rider', es: 'Test Rider'
+    ru: 'Райдер-тест', en: 'Rider Test', de: 'Rider-Test', fr: 'Test Rider', es: 'Test Rider', th: 'แบบทดสอบนักขับ'
   },
   shareText: {
     ru: 'Я прошёл Райдер-тест на Пхукете! А ты готов к острову? 🛵 thaigo.rent',
     en: 'I passed the Rider Test in Phuket! Are you ready for the island? 🛵 thaigo.rent',
     de: 'Ich habe den Rider-Test auf Phuket bestanden! Bist du bereit für die Insel? 🛵 thaigo.rent',
     fr: 'J\'ai réussi le Test Rider à Phuket ! Es-tu prêt pour l\'île ? 🛵 thaigo.rent',
-    es: '¡Pasé el Test Rider en Phuket! ¿Estás listo para la isla? 🛵 thaigo.rent'
+    es: '¡Pasé el Test Rider en Phuket! ¿Estás listo para la isla? 🛵 thaigo.rent',
+    th: 'ฉันผ่านแบบทดสอบนักขับที่ภูเก็ตแล้ว! คุณพร้อมหรือยัง? 🛵 thaigo.rent'
   },
 
   // ── Rider Test Questions ──
@@ -721,6 +777,15 @@ export const T = {
         'Reviso frenos y espejos.'
       ],
       explanation: 'Nosotros grabamos video en cada entrega de moto — y te aconsejamos hacer lo mismo. 30 segundos con tu teléfono y no hay disputas al devolver. Todos contentos 🤝'
+    },
+    th: {
+      text: 'ส่งรถถึงโรงแรม แดดออก ทะเลรอ ผู้จัดการยื่นกุญแจ คุณทำอะไรก่อน?',
+      answers: [
+        'เซ็นสัญญาแล้วไปเลย',
+        'ถ่ายวิดีโอรอบรถ — รอยขีดข่วนทั้งหมดก่อนออกเดินทาง',
+        'ตรวจเบรกและกระจก'
+      ],
+      explanation: 'เราถ่ายวิดีโอทุกครั้งที่ส่งรถ — แนะนำให้คุณทำเหมือนกัน 30 วินาทีด้วยโทรศัพท์ ไม่มีข้อพิพาทตอนคืนรถ ทุกคนแฮปปี้ 🤝'
     }
   },
   rtQ2: {
@@ -768,6 +833,15 @@ export const T = {
         'Reduzco velocidad con anticipación, entro suave — que me adelante.'
       ],
       explanation: 'El asfalto mojado después de la lluvia es la causa más común de caídas de turistas en Phuket. Especialmente los primeros minutos cuando el aceite aún no se ha lavado. Lento = llegarás 🙏'
+    },
+    th: {
+      text: 'ฝนเพิ่งตก ถนนลื่น ข้างหน้าโค้งลงเนิน รถข้างหลังบีบแตร คุณทำอะไร?',
+      answers: [
+        'เร่งเครื่อง — ไม่อยากขวางทาง',
+        'เบรกแรงก่อนโค้ง',
+        'ชะลอล่วงหน้า เข้าโค้งนุ่มนวล — ให้เขาแซง'
+      ],
+      explanation: 'ถนนเปียกหลังฝนเป็นสาเหตุหลักที่นักท่องเที่ยวล้มที่ภูเก็ต โดยเฉพาะนาทีแรกที่น้ำมันยังไม่ถูกล้างออก ช้า = ถึงที่หมาย 🙏'
     }
   },
   rtQ3: {
@@ -815,6 +889,15 @@ export const T = {
         'A la izquierda — es mi carril en tráfico por la izquierda.'
       ],
       explanation: 'Tailandia tiene tráfico por la izquierda. Tu carril es el izquierdo. En carreteras de montaña esto es crítico. En bajada, frena con el motor, no con la mano 🏔️'
+    },
+    th: {
+      text: 'ขับไปจุดชมวิวตอนพระอาทิตย์ตก ถนนแคบชัน รถสวนมา คุณอยู่ทางไหน?',
+      answers: [
+        'ชิดขวา — ห่างจากขอบ',
+        'อยู่กลาง — มองเห็นชัดกว่า',
+        'ชิดซ้าย — เลนของฉันในการขับซ้าย'
+      ],
+      explanation: 'ไทยขับซ้าย เลนของคุณคือซ้าย บนถนนภูเขาสิ่งนี้สำคัญมาก ลงเนินเบรกด้วยเครื่องยนต์ ไม่ใช่มือเบรก 🏔️'
     }
   },
   rtQ4: {
@@ -862,6 +945,15 @@ export const T = {
         'Tomo un Grab o tuk-tuk, recojo la moto por la mañana.'
       ],
       explanation: 'Tailandia tiene un límite mínimo de alcohol. Pero si tienes cualquier accidente habiendo bebido — el seguro no funciona en absoluto. Grab cuesta 100 baht. Dormir tranquilo no tiene precio 😴'
+    },
+    th: {
+      text: 'ค่ำสนุกที่ป่าตอง ดื่มค็อกเทลไปหลายแก้ว ถึงโรงแรม 15 นาทีถนนคุ้นเคย คุณทำอะไร?',
+      answers: [
+        'ขับไป — ฉันปกติ ถนนว่าง',
+        'ขับช้าๆ อย่างระมัดระวัง',
+        'เรียก Grab หรือตุ๊กตุ๊ก เอารถเช้า'
+      ],
+      explanation: 'ไทยมีขีดจำกัดแอลกอฮอล์ แต่ถ้าเกิดอุบัติเหตุขณะดื่ม — ประกันไม่คุ้มครองเลย Grab 100 บาท นอนหลับสบายหาค่าไม่ได้ 😴'
     }
   },
   rtQ5: {
@@ -909,6 +1001,15 @@ export const T = {
         'Hago como que no lo vi.'
       ],
       explanation: 'La regla de oro de Tailandia: una sonrisa lo resuelve todo. Sawadee krap — y la atmósfera cambia inmediatamente. Los tailandeses no entienden el conflicto — si discutes, lo empeoras incluso si tienes razón 😊'
+    },
+    th: {
+      text: 'ทางเข้าป่าตอง ตำรวจโบกไม้ คุณไม่ได้ทำผิดอะไร คุณทำอย่างไร?',
+      answers: [
+        'จอดและอธิบายว่าฉันไม่ผิด',
+        'จอด ยิ้ม แสดงเอกสารอย่างสงบ',
+        'ทำเป็นไม่เห็น'
+      ],
+      explanation: 'กฎทองของไทย: รอยยิ้มแก้ทุกอย่าง สวัสดีครับ — บรรยากาศเปลี่ยนทันที คนไทยไม่เข้าใจการทะเลาะ — ถ้าเถียง จะแย่กว่าแม้คุณจะถูก 😊'
     }
   },
   rtQ6: {
@@ -956,6 +1057,15 @@ export const T = {
         'No digo nada y llamo inmediatamente a la empresa de alquiler.'
       ],
       explanation: 'Somos tus mejores amigos en esta situación. Llámanos primero — antes que la policía, antes de cualquier conversación. Hablamos tailandés y sabemos cómo funciona. Es exactamente por eso que nos valoran 🤙 Y sorry en Tailandia = admisión legal de culpa.'
+    },
+    th: {
+      text: 'ตุ๊กตุ๊กปาดหน้า คุณล้ม คนขับพูดภาษาไทย คุณทำอะไรก่อน?',
+      answers: [
+        'พูด sorry — สุภาพดี',
+        'อธิบายว่าผิดที่ตุ๊กตุ๊ก',
+        'ไม่พูดอะไร โทรหาร้านเช่าทันที'
+      ],
+      explanation: 'เราเป็นเพื่อนที่ดีที่สุดของคุณในสถานการณ์นี้ โทรหาเราก่อน — ก่อนตำรวจ ก่อนพูดคุยใดๆ เราพูดไทยและรู้วิธีจัดการ 🤙 sorry ในไทย = รับผิดทางกฎหมาย'
     }
   },
   rtQ7: {
@@ -1003,6 +1113,15 @@ export const T = {
         'Busco un lugar con bordillo blanco o un estacionamiento adecuado.'
       ],
       explanation: 'Bordillo rojo y blanco — pondrán una abrazadera metálica en tu rueda. Esto pasa literalmente todos los días. No intentes quitarla — la policía tiene todo registrado. Bordillo blanco — aparca. Rojo y blanco — sigue adelante 🔒'
+    },
+    th: {
+      text: 'เห็นที่จอดสะดวกริมทาง ขอบทางแดงขาว คุณทำอะไร?',
+      answers: [
+        'จอด — รถเล็ก ไม่เกะกะ',
+        'จอดแป๊บเดียว วิ่งไปเร็วๆ',
+        'หาที่จอดขอบทางขาวหรือที่จอดรถปกติ'
+      ],
+      explanation: 'ขอบทางแดงขาว — จะล็อกล้อด้วยเหล็ก เกิดขึ้นจริงทุกวัน อย่าพยายามถอดเอง — ตำรวจบันทึกทุกอย่าง ขอบทางขาว — จอดได้ แดงขาว — ไปต่อ 🔒'
     }
   },
   rtQ8: {
@@ -1050,36 +1169,45 @@ export const T = {
         'Problemas serios — en Tailandia es un delito penal.'
       ],
       explanation: 'IQOS, vapeadores, cigarrillos electrónicos — en Tailandia no es una infracción administrativa sino un delito penal. En los controles de motos los buscan específicamente. Solo tenlo en cuenta antes de salir 🙏'
+    },
+    th: {
+      text: 'ขับรถอยู่ มี IQOS ในกระเป๋า ถูกตรวจตามปกติ เกิดอะไรขึ้น?',
+      answers: [
+        'ไม่เป็นไร — ของส่วนตัว',
+        'ปรับเล็กน้อย จ่ายแล้วไป',
+        'ปัญหาใหญ่ — ในไทยนี่เป็นความผิดอาญา'
+      ],
+      explanation: 'IQOS, บุหรี่ไฟฟ้า, vape — ในไทยไม่ใช่แค่ปรับแต่เป็นความผิดอาญา ตอนตรวจรถจะหาโดยเฉพาะ รู้ไว้ก่อนออกเดินทาง 🙏'
     }
   }
 };
 
 // Bike feature translations
 export const FEATURE_TR = {
-  'ABS нет':  { en: 'No ABS', de: 'Kein ABS', fr: 'Pas d\'ABS', es: 'Sin ABS' },
-  'ABS':      { en: 'ABS', de: 'ABS', fr: 'ABS', es: 'ABS' },
-  'Вариатор': { en: 'CVT', de: 'CVT', fr: 'CVT', es: 'CVT' },
-  'Большой багажник': { en: 'Large trunk', de: 'Großer Kofferraum', fr: 'Grand coffre', es: 'Maletero grande' },
-  'Внедорожный стиль': { en: 'Off-road style', de: 'Offroad-Stil', fr: 'Style tout-terrain', es: 'Estilo off-road' },
-  'Спортбайк': { en: 'Sport bike', de: 'Sportbike', fr: 'Sportive', es: 'Deportiva' },
-  'Нейкед':    { en: 'Naked', de: 'Naked', fr: 'Naked', es: 'Naked' },
-  'Круизер':   { en: 'Cruiser', de: 'Cruiser', fr: 'Cruiser', es: 'Cruiser' },
-  'Круиз':     { en: 'Cruise control', de: 'Tempomat', fr: 'Régulateur', es: 'Control crucero' },
-  'Низкая посадка': { en: 'Low seat', de: 'Niedrige Sitzposition', fr: 'Selle basse', es: 'Asiento bajo' },
-  'Электро-экран':  { en: 'Electric screen', de: 'Elektro-Windschild', fr: 'Pare-brise électrique', es: 'Pantalla eléctrica' },
-  'Автомат':   { en: 'Automatic', de: 'Automatik', fr: 'Automatique', es: 'Automático' },
-  'Кондиционер': { en: 'Air conditioning', de: 'Klimaanlage', fr: 'Climatisation', es: 'Aire acondicionado' },
-  '5 мест':    { en: '5 seats', de: '5 Sitze', fr: '5 places', es: '5 asientos' },
-  '6 МКПП':    { en: '6-speed manual', de: '6-Gang Schaltung', fr: '6 vitesses', es: '6 marchas' },
-  'Keyless':   { en: 'Keyless', de: 'Keyless', fr: 'Keyless', es: 'Keyless' },
-  'USB зарядка': { en: 'USB charging', de: 'USB-Ladung', fr: 'Charge USB', es: 'Carga USB' },
-  'Traction Control': { en: 'Traction Control', de: 'Traction Control', fr: 'Traction Control', es: 'Traction Control' },
-  'HSTC':      { en: 'HSTC', de: 'HSTC', fr: 'HSTC', es: 'HSTC' },
-  'Ride-by-Wire': { en: 'Ride-by-Wire', de: 'Ride-by-Wire', fr: 'Ride-by-Wire', es: 'Ride-by-Wire' },
-  'Assist Slipper Clutch': { en: 'Assist Slipper Clutch', de: 'Assist Slipper Clutch', fr: 'Embrayage anti-dribble', es: 'Embrague deslizante' },
-  'Assist & Slipper Clutch': { en: 'Assist & Slipper Clutch', de: 'Assist & Slipper Clutch', fr: 'Embrayage anti-dribble', es: 'Embrague deslizante' },
-  'Ergo-Fit':  { en: 'Ergo-Fit', de: 'Ergo-Fit', fr: 'Ergo-Fit', es: 'Ergo-Fit' },
-  'TFT дисплей': { en: 'TFT display', de: 'TFT-Display', fr: 'Écran TFT', es: 'Pantalla TFT' }
+  'ABS нет':  { en: 'No ABS', de: 'Kein ABS', fr: 'Pas d\'ABS', es: 'Sin ABS', th: 'ไม่มี ABS' },
+  'ABS':      { en: 'ABS', de: 'ABS', fr: 'ABS', es: 'ABS', th: 'ABS' },
+  'Вариатор': { en: 'CVT', de: 'CVT', fr: 'CVT', es: 'CVT', th: 'CVT' },
+  'Большой багажник': { en: 'Large trunk', de: 'Großer Kofferraum', fr: 'Grand coffre', es: 'Maletero grande', th: 'กระโปรงใหญ่' },
+  'Внедорожный стиль': { en: 'Off-road style', de: 'Offroad-Stil', fr: 'Style tout-terrain', es: 'Estilo off-road', th: 'สไตล์ออฟโรด' },
+  'Спортбайк': { en: 'Sport bike', de: 'Sportbike', fr: 'Sportive', es: 'Deportiva', th: 'สปอร์ตไบค์' },
+  'Нейкед':    { en: 'Naked', de: 'Naked', fr: 'Naked', es: 'Naked', th: 'Naked' },
+  'Круизер':   { en: 'Cruiser', de: 'Cruiser', fr: 'Cruiser', es: 'Cruiser', th: 'ครูเซอร์' },
+  'Круиз':     { en: 'Cruise control', de: 'Tempomat', fr: 'Régulateur', es: 'Control crucero', th: 'ครูซคอนโทรล' },
+  'Низкая посадка': { en: 'Low seat', de: 'Niedrige Sitzposition', fr: 'Selle basse', es: 'Asiento bajo', th: 'เบาะต่ำ' },
+  'Электро-экран':  { en: 'Electric screen', de: 'Elektro-Windschild', fr: 'Pare-brise électrique', es: 'Pantalla eléctrica', th: 'กระจกไฟฟ้า' },
+  'Автомат':   { en: 'Automatic', de: 'Automatik', fr: 'Automatique', es: 'Automático', th: 'ออโต้' },
+  'Кондиционер': { en: 'Air conditioning', de: 'Klimaanlage', fr: 'Climatisation', es: 'Aire acondicionado', th: 'แอร์' },
+  '5 мест':    { en: '5 seats', de: '5 Sitze', fr: '5 places', es: '5 asientos', th: '5 ที่นั่ง' },
+  '6 МКПП':    { en: '6-speed manual', de: '6-Gang Schaltung', fr: '6 vitesses', es: '6 marchas', th: '6 เกียร์ธรรมดา' },
+  'Keyless':   { en: 'Keyless', de: 'Keyless', fr: 'Keyless', es: 'Keyless', th: 'Keyless' },
+  'USB зарядка': { en: 'USB charging', de: 'USB-Ladung', fr: 'Charge USB', es: 'Carga USB', th: 'ชาร์จ USB' },
+  'Traction Control': { en: 'Traction Control', de: 'Traction Control', fr: 'Traction Control', es: 'Traction Control', th: 'Traction Control' },
+  'HSTC':      { en: 'HSTC', de: 'HSTC', fr: 'HSTC', es: 'HSTC', th: 'HSTC' },
+  'Ride-by-Wire': { en: 'Ride-by-Wire', de: 'Ride-by-Wire', fr: 'Ride-by-Wire', es: 'Ride-by-Wire', th: 'Ride-by-Wire' },
+  'Assist Slipper Clutch': { en: 'Assist Slipper Clutch', de: 'Assist Slipper Clutch', fr: 'Embrayage anti-dribble', es: 'Embrague deslizante', th: 'Assist Slipper Clutch' },
+  'Assist & Slipper Clutch': { en: 'Assist & Slipper Clutch', de: 'Assist & Slipper Clutch', fr: 'Embrayage anti-dribble', es: 'Embrague deslizante', th: 'Assist & Slipper Clutch' },
+  'Ergo-Fit':  { en: 'Ergo-Fit', de: 'Ergo-Fit', fr: 'Ergo-Fit', es: 'Ergo-Fit', th: 'Ergo-Fit' },
+  'TFT дисплей': { en: 'TFT display', de: 'TFT-Display', fr: 'Écran TFT', es: 'Pantalla TFT', th: 'จอ TFT' }
 };
 
 // Translate a bike feature string
@@ -1089,12 +1217,12 @@ export function translateFeature(feature, lang) {
   if (FEATURE_TR[feature]) return FEATURE_TR[feature][lang] || feature;
   // Handle weight pattern "~XXX кг"
   const weightMatch = feature.match(/^~(\d+)\s*кг$/);
-  if (weightMatch) return `~${weightMatch[1]} kg`;
+  if (weightMatch) return lang === 'th' ? `~${weightMatch[1]} กก.` : `~${weightMatch[1]} kg`;
   // Handle fuel pattern "Расход X.X л/100км"
   const fuelMatch = feature.match(/^Расход\s+([\d.]+)\s*л\/100км$/);
   if (fuelMatch) {
     const val = fuelMatch[1];
-    const labels = { en: `${val} L/100km`, de: `${val} L/100km`, fr: `${val} L/100km`, es: `${val} L/100km` };
+    const labels = { en: `${val} L/100km`, de: `${val} L/100km`, fr: `${val} L/100km`, es: `${val} L/100km`, th: `${val} ลิตร/100กม.` };
     return labels[lang] || `${val} L/100km`;
   }
   return feature;
@@ -1102,9 +1230,9 @@ export function translateFeature(feature, lang) {
 
 // Bike category translations
 export const BIKE_CAT_TR = {
-  all:     { ru: 'Все', en: 'All', de: 'Alle', fr: 'Tout', es: 'Todos' },
-  scooter: { ru: 'Скутеры', en: 'Scooters', de: 'Roller', fr: 'Scooters', es: 'Scooters' },
-  maxi:    { ru: 'Макси', en: 'Maxi', de: 'Maxi', fr: 'Maxi', es: 'Maxi' },
-  moto:    { ru: 'Мотоциклы', en: 'Motorcycles', de: 'Motorräder', fr: 'Motos', es: 'Motocicletas' },
-  car:     { ru: 'Авто', en: 'Cars', de: 'Autos', fr: 'Voitures', es: 'Coches' }
+  all:     { ru: 'Все', en: 'All', de: 'Alle', fr: 'Tout', es: 'Todos', th: 'ทั้งหมด' },
+  scooter: { ru: 'Скутеры', en: 'Scooters', de: 'Roller', fr: 'Scooters', es: 'Scooters', th: 'สกู๊ตเตอร์' },
+  maxi:    { ru: 'Макси', en: 'Maxi', de: 'Maxi', fr: 'Maxi', es: 'Maxi', th: 'แม็กซี่' },
+  moto:    { ru: 'Мотоциклы', en: 'Motorcycles', de: 'Motorräder', fr: 'Motos', es: 'Motocicletas', th: 'มอเตอร์ไซค์' },
+  car:     { ru: 'Авто', en: 'Cars', de: 'Autos', fr: 'Voitures', es: 'Coches', th: 'รถยนต์' }
 };

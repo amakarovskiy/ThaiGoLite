@@ -868,7 +868,7 @@ function openBookingSheet(bike) {
   sheetP3.textContent = sp[1] + ' \u0E3F';
   sheetP7.textContent = sp[2] + ' \u0E3F';
   sheetP14.textContent = sp[3] + ' \u0E3F';
-  sheetPM.textContent = (sp[3] * 30) + ' \u0E3F';
+  sheetPM.textContent = sp[3] + ' \u0E3F';
 
   sheetDaySlider.value = sheetDays;
   updateSheetCalc();
@@ -2647,7 +2647,12 @@ applyTranslations();
   // Don't show if already dismissed this session
   if (sessionStorage.getItem('tg_fab_hidden')) return;
 
-  // Geo-check via ipapi.co
+  // Geo-check: timezone fallback + ipapi.co
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  if (tz === 'Asia/Bangkok') {
+    fab.style.display = 'flex';
+    return;
+  }
   fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) })
     .then(r => r.json())
     .then(data => {

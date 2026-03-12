@@ -53,8 +53,8 @@
 }
 
 @keyframes svgPulse {
-  0%   { r: 14; opacity: 0.5; }
-  100% { r: 24; opacity: 0; }
+  0%   { r: 24; opacity: 0.5; }
+  100% { r: 36; opacity: 0; }
 }
 
 /* Route polyline */
@@ -105,8 +105,8 @@
 }
 
 .legend-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
 }

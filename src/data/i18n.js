@@ -531,6 +531,33 @@ export const T = {
   contactHours: {
     ru: 'Ежедневно 8:00–20:00', en: 'Daily 8:00–20:00', de: 'Täglich 8:00–20:00', fr: 'Tous les jours 8h–20h', es: 'Diario 8:00–20:00', th: 'ทุกวัน 8:00–20:00'
   },
+  contactAddr: {
+    ru: 'Ката, Пхукет, Таиланд', en: 'Kata, Phuket, Thailand', de: 'Kata, Phuket, Thailand', fr: 'Kata, Phuket, Thaïlande', es: 'Kata, Phuket, Tailandia', th: 'กะตะ ภูเก็ต ประเทศไทย'
+  },
+  contactAddrLabel: {
+    ru: 'Адрес', en: 'Address', de: 'Adresse', fr: 'Adresse', es: 'Dirección', th: 'ที่อยู่'
+  },
+  contactHoursLabel: {
+    ru: 'Часы работы', en: 'Working hours', de: 'Öffnungszeiten', fr: 'Horaires', es: 'Horario', th: 'เวลาทำการ'
+  },
+  contactPhoneLabel: {
+    ru: 'Телефон', en: 'Phone', de: 'Telefon', fr: 'Téléphone', es: 'Teléfono', th: 'โทรศัพท์'
+  },
+  contactCallBtn: {
+    ru: 'Позвонить', en: 'Call', de: 'Anrufen', fr: 'Appeler', es: 'Llamar', th: 'โทร'
+  },
+  contactMsgLabel: {
+    ru: 'Написать нам', en: 'Message us', de: 'Schreiben Sie uns', fr: 'Écrivez-nous', es: 'Escríbenos', th: 'ส่งข้อความ'
+  },
+  contactOpenMap: {
+    ru: 'Открыть карту', en: 'Open map', de: 'Karte öffnen', fr: 'Ouvrir la carte', es: 'Abrir mapa', th: 'เปิดแผนที่'
+  },
+  contactMapLabel: {
+    ru: 'ThaiGo Rent · Ката', en: 'ThaiGo Rent · Kata', de: 'ThaiGo Rent · Kata', fr: 'ThaiGo Rent · Kata', es: 'ThaiGo Rent · Kata', th: 'ThaiGo Rent · กะตะ'
+  },
+  floatingDirections: {
+    ru: 'Как добраться', en: 'Get directions', de: 'Wegbeschreibung', fr: 'Itinéraire', es: 'Cómo llegar', th: 'เส้นทาง'
+  },
   deliveryAreasTitle: {
     ru: 'Районы доставки', en: 'Delivery Areas', de: 'Liefergebiete', fr: 'Zones de livraison', es: 'Zonas de entrega', th: 'พื้นที่บริการส่ง'
   },

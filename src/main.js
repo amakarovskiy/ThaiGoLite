@@ -357,13 +357,26 @@ function applyTranslations() {
   // Contacts page
   const contactsTitle = document.querySelector('.contacts-page .page-title');
   if (contactsTitle) contactsTitle.textContent = t('contactsTitle');
-  const contactHours = document.querySelectorAll('.contact-row');
-  if (contactHours[5]) {
-    const icon = contactHours[5].querySelector('.contact-icon');
-    contactHours[5].textContent = '';
-    if (icon) contactHours[5].appendChild(icon);
-    contactHours[5].appendChild(document.createTextNode(t('contactHours')));
+
+  // Contact card rows
+  const contactCard = $('contactCard');
+  if (contactCard) {
+    contactCard.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (T[key]) el.textContent = t(key);
+    });
   }
+  // Map preview label & button
+  const mapLabel = document.querySelector('[data-i18n-map]');
+  if (mapLabel) mapLabel.textContent = t(mapLabel.dataset.i18nMap);
+  const mapBtn = $('contactMapBtn');
+  if (mapBtn) {
+    const span = mapBtn.querySelector('[data-i18n]');
+    if (span) span.textContent = t(span.dataset.i18n);
+  }
+  // Floating directions text
+  const floatText = $('floatingDirectionsText');
+  if (floatText) floatText.textContent = t('floatingDirections');
 
   // Delivery areas in contacts
   renderDeliveryAreas();
@@ -2622,3 +2635,32 @@ if (routeParam) {
 drawIslandMap();
 initMapPanZoom();
 applyTranslations();
+
+// ══════════════════════════════════════════════
+// Floating "Directions" button — show only for TH users
+// ══════════════════════════════════════════════
+(function initFloatingDirections() {
+  const fab = $('floatingDirections');
+  const closeBtn = $('floatingDirectionsClose');
+  if (!fab || !closeBtn) return;
+
+  // Dismiss button
+  closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    fab.style.display = 'none';
+    sessionStorage.setItem('tg_fab_hidden', '1');
+  });
+
+  // Don't show if already dismissed this session
+  if (sessionStorage.getItem('tg_fab_hidden')) return;
+
+  // Geo-check via ipapi.co
+  fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) })
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.country_code === 'TH') {
+        fab.style.display = 'flex';
+      }
+    })
+    .catch(() => { /* silently ignore — don't show button */ });
+})();

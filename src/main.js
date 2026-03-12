@@ -525,7 +525,7 @@ function renderBikes() {
 
   bikeGrid.innerHTML = filtered.map(b => `
     <div class="bike-card" data-bike="${b.id}">
-      <div class="bike-card-img cat-${b.category}">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
+      <div class="bike-card-img cat-${b.category}" role="img" aria-label="${b.name} аренда Пхукет">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
       <div class="bike-card-body">
         <div class="bike-card-name">${b.name}</div>
         <div class="bike-card-cc">${b.cc} cc</div>
@@ -562,7 +562,7 @@ function renderPopular() {
   const popular = BIKES.filter(b => b.popular);
   popularScroll.innerHTML = popular.map(b => `
     <div class="popular-card" data-bike="${b.id}">
-      <div class="popular-card-img cat-${b.category}" style="background: linear-gradient(135deg, ${b.category === 'scooter' ? '#eef2ff, #dbeafe' : b.category === 'maxi' ? '#d1fae5, #e0f2fe' : '#fef3c7, #fde68a'})">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
+      <div class="popular-card-img cat-${b.category}" role="img" aria-label="${b.name} аренда Пхукет" style="background: linear-gradient(135deg, ${b.category === 'scooter' ? '#eef2ff, #dbeafe' : b.category === 'maxi' ? '#d1fae5, #e0f2fe' : '#fef3c7, #fde68a'})">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
       <div class="popular-card-body">
         <div class="popular-card-name">${b.name}</div>
         <div class="popular-card-price">${t('priceFrom')} ${b.prices.day7} \u0E3F${t('perDay')}</div>

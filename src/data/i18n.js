@@ -25,14 +25,14 @@ export function saveLang(code) {
 export const T = {
   // ── SEO Meta ──
   seoTitle: {
-    ru: 'ThaiGo Lite — Аренда байков на Пхукете | от 180 ฿/день',
+    ru: 'Аренда байков Пхукет — без залога паспорта, доставка в отель | ThaiGo Rent',
     en: 'ThaiGo Lite — Bike Rental in Phuket | From 180 ฿/day',
     de: 'ThaiGo Lite — Motorradverleih auf Phuket | Ab 180 ฿/Tag',
     fr: 'ThaiGo Lite — Location de motos à Phuket | Dès 180 ฿/jour',
     es: 'ThaiGo Lite — Alquiler de motos en Phuket | Desde 180 ฿/día'
   },
   seoDescription: {
-    ru: 'Аренда байков и скутеров на Пхукете без залога паспорта. Honda Scoopy от 180 ฿/сутки. Доставка в отель, договор и страховка.',
+    ru: 'Аренда байков и скутеров на Пхукете от 180 ฿/день. Без залога паспорта, доставка в отель, договор и страховка. Звоните 24/7 на русском.',
     en: 'Rent bikes and scooters in Phuket without passport deposit. Honda Scoopy from 180 ฿/day. Hotel delivery, contract and insurance.',
     de: 'Motorrad- und Rollerverleih auf Phuket ohne Reisepass-Kaution. Honda Scoopy ab 180 ฿/Tag. Hotellieferung, Vertrag und Versicherung.',
     fr: 'Location de motos et scooters à Phuket sans caution de passeport. Honda Scoopy à partir de 180 ฿/jour. Livraison à l\'hôtel, contrat et assurance.',

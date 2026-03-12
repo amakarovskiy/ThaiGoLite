@@ -446,11 +446,11 @@ export const T = {
     ru: 'Страховка (включена)', en: 'Insurance (included)', de: 'Versicherung (inkl.)', fr: 'Assurance (incluse)', es: 'Seguro (incluido)'
   },
   insBasicDesc: {
-    ru: 'Здоровье водителя и пассажира. Покрытие до 30 000 ฿ на госпитализацию. Действует без прав категории А. Включена бесплатно.',
-    en: 'Rider and passenger health coverage. Up to 30,000 ฿ hospitalization. Valid without category A license. Included free.',
-    de: 'Fahrer- und Beifahrerschutz. Bis zu 30.000 ฿ Krankenhauskosten. Gültig ohne Klasse-A-Führerschein. Kostenlos inklusive.',
-    fr: 'Santé du conducteur et passager. Jusqu\'à 30 000 ฿ d\'hospitalisation. Valable sans permis catégorie A. Incluse gratuitement.',
-    es: 'Salud del conductor y pasajero. Hasta 30.000 ฿ de hospitalización. Válido sin licencia categoría A. Incluido gratis.'
+    ru: 'Здоровье водителя и пассажира. Покрытие до 30 000 ฿ на госпитализацию. Включена бесплатно.',
+    en: 'Rider and passenger health coverage. Up to 30,000 ฿ hospitalization. Included free.',
+    de: 'Fahrer- und Beifahrerschutz. Bis zu 30.000 ฿ Krankenhauskosten. Kostenlos inklusive.',
+    fr: 'Santé du conducteur et passager. Jusqu\'à 30 000 ฿ d\'hospitalisation. Incluse gratuitement.',
+    es: 'Salud del conductor y pasajero. Hasta 30.000 ฿ de hospitalización. Incluido gratis.'
   },
   insPlusTitle: {
     ru: 'Страховка+ (расширенная)', en: 'Insurance+ (extended)', de: 'Versicherung+ (erweitert)', fr: 'Assurance+ (étendue)', es: 'Seguro+ (extendido)'

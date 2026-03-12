@@ -6,7 +6,7 @@ const FUEL_L_PER_100KM = 4;
 const FUEL_PRICE_THB = 43;
 const TAXI_RATE_PER_KM = 30;
 
-export { TAXI_RATE_PER_KM };
+export { TAXI_RATE_PER_KM, KM_FACTOR };
 
 export function haversine(p1, p2) {
   const R = 6371;

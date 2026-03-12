@@ -13,8 +13,13 @@ export const LANGS = [
 const LS_KEY = 'thaigo_lang';
 
 export function detectLang() {
+  // 1. URL parameter ?lang= (for hreflang / shared links)
+  const urlLang = new URLSearchParams(window.location.search).get('lang');
+  if (urlLang && LANGS.some(l => l.code === urlLang)) return urlLang;
+  // 2. Previously saved preference
   const saved = localStorage.getItem(LS_KEY);
   if (saved && LANGS.some(l => l.code === saved)) return saved;
+  // 3. Browser language
   const nav = (navigator.language || '').slice(0, 2).toLowerCase();
   return LANGS.some(l => l.code === nav) ? nav : 'en';
 }

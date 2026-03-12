@@ -40,7 +40,7 @@ export function getTotalPrice(bike, days) {
   return getPricePerDay(bike, days) * days;
 }
 
-const MAXI_BIG_IDS = ['xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'];
+export const MAXI_BIG_IDS = ['xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'];
 
 /**
  * Returns insurance+ total cost for a bike over given days.

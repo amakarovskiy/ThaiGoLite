@@ -842,6 +842,7 @@ function setupDragDismiss(sheetEl, closeFn) {
     sheetEl.style.transition = '';
     const dy = currentY - startY;
     if (dy > 80) {
+      sheetEl.style.transform = '';
       closeFn();
     } else {
       sheetEl.style.transform = '';

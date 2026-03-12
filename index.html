@@ -319,7 +319,11 @@
       <div class="sheet-handle"><div class="sheet-pill"></div></div>
       <div class="sheet-body">
         <div class="sheet-bike-header">
-          <div class="sheet-bike-img" id="sheetBikeImg"></div>
+          <div class="sheet-img-wrap" id="sheetImgWrap">
+            <div class="sheet-bike-img" id="sheetBikeImg"></div>
+            <span class="sheet-img-zoom">🔍</span>
+            <div class="sheet-img-dots" id="sheetImgDots"></div>
+          </div>
           <div>
             <h3 class="sheet-bike-name" id="sheetBikeName"></h3>
             <span class="sheet-bike-cc" id="sheetBikeCc"></span>
@@ -343,6 +347,14 @@
           <a class="btn btn-tg btn-full" id="sheetTg" href="#" target="_blank" rel="noopener">Telegram</a>
         </div>
       </div>
+    </div>
+
+    <!-- BIKE LIGHTBOX -->
+    <div class="lb-overlay" id="lbOverlay">
+      <button class="lb-close" id="lbClose">&times;</button>
+      <span class="lb-counter" id="lbCounter">1 / 1</span>
+      <div class="lb-track" id="lbTrack"></div>
+      <div class="lb-dots" id="lbDots"></div>
     </div>
 
     <!-- PLACE SHEET (для мест) -->

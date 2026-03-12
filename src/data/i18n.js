@@ -75,19 +75,54 @@ export const T = {
     ru: 'Доставка по Пхукету', en: 'Delivery across Phuket', de: 'Lieferung auf Phuket', fr: 'Livraison à Phuket', es: 'Entrega en Phuket'
   },
   deliveryNote: {
-    ru: 'Бесплатно от 3 дней аренды в Карон, Ката, Патонг',
-    en: 'Free from 3-day rental in Karon, Kata, Patong',
-    de: 'Kostenlos ab 3 Tagen Miete in Karon, Kata, Patong',
-    fr: 'Gratuit dès 3 jours à Karon, Kata, Patong',
-    es: 'Gratis desde 3 días en Karon, Kata, Patong'
+    ru: 'Доставка в отель или виллу. Возврат — туда же.',
+    en: 'Delivery to your hotel or villa. Return pickup included.',
+    de: 'Lieferung an Ihr Hotel oder Ihre Villa. Rückgabe inklusive.',
+    fr: 'Livraison à votre hôtel ou villa. Retour inclus.',
+    es: 'Entrega en tu hotel o villa. Recogida de vuelta incluida.'
   },
-  districts: {
-    ru: ['Патонг', 'Карон', 'Ката', 'Камала', 'Бангтао', 'Сурин', 'Раваи', 'Чалонг', 'Пхукет-таун', 'Най Харн', 'Аэропорт', 'Най Янг'],
-    en: ['Patong', 'Karon', 'Kata', 'Kamala', 'Bangtao', 'Surin', 'Rawai', 'Chalong', 'Phuket Town', 'Nai Harn', 'Airport', 'Nai Yang'],
-    de: ['Patong', 'Karon', 'Kata', 'Kamala', 'Bangtao', 'Surin', 'Rawai', 'Chalong', 'Phuket Town', 'Nai Harn', 'Flughafen', 'Nai Yang'],
-    fr: ['Patong', 'Karon', 'Kata', 'Kamala', 'Bangtao', 'Surin', 'Rawai', 'Chalong', 'Phuket Town', 'Nai Harn', 'Aéroport', 'Nai Yang'],
-    es: ['Patong', 'Karon', 'Kata', 'Kamala', 'Bangtao', 'Surin', 'Rawai', 'Chalong', 'Phuket Town', 'Nai Harn', 'Aeropuerto', 'Nai Yang']
-  },
+  dlvAreas: [
+    {
+      name: { ru: 'Ката / Карон', en: 'Kata / Karon', de: 'Kata / Karon', fr: 'Kata / Karon', es: 'Kata / Karon' },
+      cond: { ru: 'Бесплатно от 3 дней', en: 'Free from 3 days', de: 'Kostenlos ab 3 Tagen', fr: 'Gratuit dès 3 jours', es: 'Gratis desde 3 días' },
+      color: 'green'
+    },
+    {
+      name: { ru: 'Патонг', en: 'Patong', de: 'Patong', fr: 'Patong', es: 'Patong' },
+      cond: { ru: 'Бесплатно от 3 дней', en: 'Free from 3 days', de: 'Kostenlos ab 3 Tagen', fr: 'Gratuit dès 3 jours', es: 'Gratis desde 3 días' },
+      color: 'green'
+    },
+    {
+      name: { ru: 'Камала / Сурин', en: 'Kamala / Surin', de: 'Kamala / Surin', fr: 'Kamala / Surin', es: 'Kamala / Surin' },
+      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días' },
+      color: 'yellow'
+    },
+    {
+      name: { ru: 'Бангтао', en: 'Bangtao', de: 'Bangtao', fr: 'Bangtao', es: 'Bangtao' },
+      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días' },
+      color: 'yellow'
+    },
+    {
+      name: { ru: 'Раваи / Най Харн', en: 'Rawai / Nai Harn', de: 'Rawai / Nai Harn', fr: 'Rawai / Nai Harn', es: 'Rawai / Nai Harn' },
+      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días' },
+      color: 'yellow'
+    },
+    {
+      name: { ru: 'Чалонг / Пхукет-таун', en: 'Chalong / Phuket Town', de: 'Chalong / Phuket Town', fr: 'Chalong / Phuket Town', es: 'Chalong / Phuket Town' },
+      cond: { ru: '300 ฿', en: '300 ฿', de: '300 ฿', fr: '300 ฿', es: '300 ฿' },
+      color: 'yellow'
+    },
+    {
+      name: { ru: 'Аэропорт / Най Янг / Бангтао', en: 'Airport / Nai Yang / Bangtao', de: 'Flughafen / Nai Yang / Bangtao', fr: 'Aéroport / Nai Yang / Bangtao', es: 'Aeropuerto / Nai Yang / Bangtao' },
+      cond: { ru: '500 ฿ · бесплатно от 10 дней', en: '500 ฿ · free from 10 days', de: '500 ฿ · kostenlos ab 10 Tagen', fr: '500 ฿ · gratuit dès 10 jours', es: '500 ฿ · gratis desde 10 días' },
+      color: 'blue'
+    },
+    {
+      name: { ru: 'Другой район', en: 'Other area', de: 'Anderes Gebiet', fr: 'Autre quartier', es: 'Otra zona' },
+      cond: { ru: 'Уточняйте', en: 'Contact us', de: 'Auf Anfrage', fr: 'Nous contacter', es: 'Consúltenos' },
+      color: 'blue'
+    }
+  ],
 
   // ── Tab bar ──
   tabHome: {
@@ -224,58 +259,6 @@ export const T = {
   },
   deliveryAreasTitle: {
     ru: 'Районы доставки', en: 'Delivery Areas', de: 'Liefergebiete', fr: 'Zones de livraison', es: 'Zonas de entrega'
-  },
-  deliveryAreas: {
-    ru: [
-      { name: 'Карон, Ката', note: 'Бесплатно от 3 дней' },
-      { name: 'Патонг', note: 'Бесплатно от 3 дней' },
-      { name: 'Камала, Сурин', note: '300 \u0E3F или бесплатно от 7 дней' },
-      { name: 'Бангтао', note: '300 \u0E3F или бесплатно от 7 дней' },
-      { name: 'Раваи, Най Харн', note: '300 \u0E3F или бесплатно от 7 дней' },
-      { name: 'Чалонг, Пхукет-таун', note: '300 \u0E3F' },
-      { name: 'Аэропорт, Най Янг', note: '500 \u0E3F' },
-      { name: 'Другой район', note: 'Уточняйте' }
-    ],
-    en: [
-      { name: 'Karon, Kata', note: 'Free from 3 days' },
-      { name: 'Patong', note: 'Free from 3 days' },
-      { name: 'Kamala, Surin', note: '300 \u0E3F or free from 7 days' },
-      { name: 'Bangtao', note: '300 \u0E3F or free from 7 days' },
-      { name: 'Rawai, Nai Harn', note: '300 \u0E3F or free from 7 days' },
-      { name: 'Chalong, Phuket Town', note: '300 \u0E3F' },
-      { name: 'Airport, Nai Yang', note: '500 \u0E3F' },
-      { name: 'Other area', note: 'Ask us' }
-    ],
-    de: [
-      { name: 'Karon, Kata', note: 'Kostenlos ab 3 Tagen' },
-      { name: 'Patong', note: 'Kostenlos ab 3 Tagen' },
-      { name: 'Kamala, Surin', note: '300 \u0E3F oder kostenlos ab 7 Tagen' },
-      { name: 'Bangtao', note: '300 \u0E3F oder kostenlos ab 7 Tagen' },
-      { name: 'Rawai, Nai Harn', note: '300 \u0E3F oder kostenlos ab 7 Tagen' },
-      { name: 'Chalong, Phuket Town', note: '300 \u0E3F' },
-      { name: 'Flughafen, Nai Yang', note: '500 \u0E3F' },
-      { name: 'Anderes Gebiet', note: 'Auf Anfrage' }
-    ],
-    fr: [
-      { name: 'Karon, Kata', note: 'Gratuit dès 3 jours' },
-      { name: 'Patong', note: 'Gratuit dès 3 jours' },
-      { name: 'Kamala, Surin', note: '300 \u0E3F ou gratuit dès 7 jours' },
-      { name: 'Bangtao', note: '300 \u0E3F ou gratuit dès 7 jours' },
-      { name: 'Rawai, Nai Harn', note: '300 \u0E3F ou gratuit dès 7 jours' },
-      { name: 'Chalong, Phuket Town', note: '300 \u0E3F' },
-      { name: 'Aéroport, Nai Yang', note: '500 \u0E3F' },
-      { name: 'Autre zone', note: 'Nous contacter' }
-    ],
-    es: [
-      { name: 'Karon, Kata', note: 'Gratis desde 3 días' },
-      { name: 'Patong', note: 'Gratis desde 3 días' },
-      { name: 'Kamala, Surin', note: '300 \u0E3F o gratis desde 7 días' },
-      { name: 'Bangtao', note: '300 \u0E3F o gratis desde 7 días' },
-      { name: 'Rawai, Nai Harn', note: '300 \u0E3F o gratis desde 7 días' },
-      { name: 'Chalong, Phuket Town', note: '300 \u0E3F' },
-      { name: 'Aeropuerto, Nai Yang', note: '500 \u0E3F' },
-      { name: 'Otra zona', note: 'Consultar' }
-    ]
   },
 
   // ── FAQ ──

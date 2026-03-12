@@ -188,11 +188,12 @@ function applyTranslations() {
   // Delivery section
   const delivTitle = document.querySelectorAll('#page-home .section-title');
   if (delivTitle[2]) delivTitle[2].textContent = t('deliveryTitle');
-  const districtChips = document.querySelectorAll('.district-chip');
-  const districtNames = T.districts[lang] || T.districts.en;
-  districtChips.forEach((el, i) => { if (districtNames[i]) el.textContent = districtNames[i]; });
-  const distNote = document.querySelector('.districts-note');
-  if (distNote) distNote.textContent = t('deliveryNote');
+  const dlvGrid = document.getElementById('dlvGrid');
+  if (dlvGrid) {
+    dlvGrid.innerHTML = T.dlvAreas.map(a => `<div class="dlv-card"><div class="dlv-name">${a.name[lang] || a.name.en}</div><div class="dlv-cond dlv-${a.color}">${a.cond[lang] || a.cond.en}</div></div>`).join('');
+  }
+  const dlvNote = document.querySelector('.dlv-note');
+  if (dlvNote) dlvNote.textContent = t('deliveryNote');
 
   // Tab bar
   const tabLabels = document.querySelectorAll('.tab .tab-label');
@@ -304,14 +305,11 @@ function applyTranslations() {
 }
 
 function renderDeliveryAreas() {
-  const grid = document.querySelector('.contacts-page .delivery-grid');
+  const grid = document.getElementById('dlvGridContacts');
   if (!grid) return;
-  const areas = T.deliveryAreas[lang] || T.deliveryAreas.en;
-  grid.innerHTML = areas.map(a =>
-    `<div class="delivery-item"><strong>${a.name}</strong><br><small>${a.note}</small></div>`
+  grid.innerHTML = T.dlvAreas.map(a =>
+    `<div class="dlv-card"><div class="dlv-name">${a.name[lang] || a.name.en}</div><div class="dlv-cond dlv-${a.color}">${a.cond[lang] || a.cond.en}</div></div>`
   ).join('');
-  const areaTitle = document.querySelector('.contacts-page .section-title');
-  // delivery areas title is the first section-title in contacts after the main title
   const titles = document.querySelectorAll('.contacts-page .section-title');
   if (titles[0]) titles[0].textContent = t('deliveryAreasTitle');
   if (titles[1]) titles[1].textContent = t('faqTitle');

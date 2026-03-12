@@ -57,7 +57,11 @@
   background: var(--color-surface-alt, #f1f5f9);
 }
 .guide-menu-item .menu-icon {
-  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 
 /* ========== Tab Badge (green dot) ========== */

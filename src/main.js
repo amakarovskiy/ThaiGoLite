@@ -108,6 +108,12 @@ const sheetDaysDisplay = $('sheetDays');
 const sheetTotal = $('sheetTotal');
 const sheetWa = $('sheetWa');
 const sheetTg = $('sheetTg');
+const sheetImgWrap = $('sheetImgWrap');
+const sheetImgDots = $('sheetImgDots');
+const lbOverlay = $('lbOverlay');
+const lbTrack = $('lbTrack');
+const lbCounter = $('lbCounter');
+const lbDots = $('lbDots');
 
 const placeSheet = $('placeSheet');
 const placeSheetIcon = $('placeSheetIcon');
@@ -487,12 +493,28 @@ function renderPopular() {
 // ══════════════════════════════════════════════
 // Booking Sheet
 // ══════════════════════════════════════════════
+let lbSlides = [];
+let lbIndex = 0;
+let lbStartX = 0;
+let lbDeltaX = 0;
+
 function openBookingSheet(bike) {
   sheetBike = bike;
   sheetDays = 3;
 
-  sheetBikeImg.className = `sheet-bike-img cat-${bike.category}`;
-  sheetBikeImg.textContent = BIKE_EMOJI[bike.category] || '\u{1F6F5}';
+  const emoji = BIKE_EMOJI[bike.category] || '\u{1F6F5}';
+  const catClass = `cat-${bike.category}`;
+  sheetBikeImg.className = `sheet-bike-img ${catClass}`;
+  sheetBikeImg.textContent = emoji;
+
+  // Build slides for lightbox (1 emoji slide per bike for now)
+  lbSlides = [{ emoji, catClass }];
+
+  // Render dots under thumbnail (only if >1 slide)
+  sheetImgDots.innerHTML = lbSlides.length > 1
+    ? lbSlides.map((_, i) => `<span class="dot${i === 0 ? ' active' : ''}"></span>`).join('')
+    : '';
+
   sheetBikeName.textContent = bike.name;
   sheetBikeCc.textContent = `${bike.cc} cc — ${bikeCatName(bike.category)}`;
 
@@ -520,6 +542,51 @@ function closeBookingSheet() {
   document.body.style.overflow = '';
   sheetBike = null;
 }
+
+// ══════════════════════════════════════════════
+// Bike Lightbox
+// ══════════════════════════════════════════════
+function openLightbox(startIndex) {
+  lbIndex = startIndex || 0;
+  lbTrack.innerHTML = lbSlides.map(s =>
+    `<div class="lb-slide"><div class="lb-slide-img ${s.catClass}">${s.emoji}</div></div>`
+  ).join('');
+  lbDots.innerHTML = lbSlides.map((_, i) =>
+    `<span class="dot${i === lbIndex ? ' active' : ''}"></span>`
+  ).join('');
+  updateLb();
+  lbOverlay.classList.add('open');
+}
+
+function closeLightbox() {
+  lbOverlay.classList.remove('open');
+}
+
+function updateLb() {
+  const slides = lbTrack.querySelectorAll('.lb-slide');
+  slides.forEach((s, i) => { s.style.transform = `translateX(${(i - lbIndex) * 100}%)`; });
+  lbCounter.textContent = `${lbIndex + 1} / ${lbSlides.length}`;
+  lbDots.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === lbIndex));
+  // Also update sheet thumbnail dots
+  sheetImgDots.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === lbIndex));
+}
+
+// Lightbox click handlers
+sheetImgWrap.addEventListener('click', () => { if (lbSlides.length) openLightbox(0); });
+$('lbClose').addEventListener('click', closeLightbox);
+lbOverlay.addEventListener('click', (e) => { if (e.target === lbOverlay) closeLightbox(); });
+
+// Lightbox touch swipe
+lbTrack.addEventListener('touchstart', (e) => { lbStartX = e.touches[0].clientX; lbDeltaX = 0; });
+lbTrack.addEventListener('touchmove', (e) => { lbDeltaX = e.touches[0].clientX - lbStartX; });
+lbTrack.addEventListener('touchend', () => {
+  if (Math.abs(lbDeltaX) > 40) {
+    if (lbDeltaX < 0 && lbIndex < lbSlides.length - 1) lbIndex++;
+    else if (lbDeltaX > 0 && lbIndex > 0) lbIndex--;
+    updateLb();
+  }
+  lbDeltaX = 0;
+});
 
 function getPerDay(bike, days) {
   if (days >= 30) return bike.prices.month / 30;

@@ -226,7 +226,7 @@
 .cartoon-scene {
   position: relative;
   height: 120px;
-  background: #f8f9fb;
+  background: var(--color-bg);
   border-radius: var(--radius-md);
   margin-bottom: 14px;
   overflow: hidden;

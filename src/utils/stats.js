@@ -41,7 +41,8 @@ const TIME_UNITS = {
   en: { h: 'h', m: 'min' },
   de: { h: 'Std', m: 'Min' },
   fr: { h: 'h', m: 'min' },
-  es: { h: 'h', m: 'min' }
+  es: { h: 'h', m: 'min' },
+  th: { h: 'ชม.', m: 'นาที' }
 };
 
 export function formatTime(mins, lang = 'ru') {

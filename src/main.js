@@ -213,8 +213,15 @@ function applyTranslations() {
   const heroSeo = document.querySelector('.hero-seo');
   if (heroSeo) heroSeo.textContent = t('heroSeo');
 
+  // Steps title
+  const stepsTitle = $('stepsTitle');
+  if (stepsTitle) stepsTitle.textContent = t('stepsTitle');
+
+  // Calculator
+  updateCalc();
+
   // Why ThaiGo
-  const whyTitle = document.querySelector('#page-home .section-title');
+  const whyTitle = $('whyTitle');
   if (whyTitle) whyTitle.textContent = t('whyTitle');
   const whyTexts = document.querySelectorAll('.why-text');
   const whyKeys = ['whyNoDeposit', 'whyDelivery', 'whyPrice', 'whySupport', 'whyReplace', 'whyContract'];
@@ -230,8 +237,8 @@ function applyTranslations() {
   if (viewAllBtn) viewAllBtn.innerHTML = t('viewAll');
 
   // Delivery section
-  const delivTitle = document.querySelectorAll('#page-home .section-title');
-  if (delivTitle[2]) delivTitle[2].textContent = t('deliveryTitle');
+  const delivTitleEl = $('deliveryTitle');
+  if (delivTitleEl) delivTitleEl.textContent = t('deliveryTitle');
   const dlvGrid = document.getElementById('dlvGrid');
   if (dlvGrid) {
     dlvGrid.innerHTML = T.dlvAreas.map(a => `<div class="dlv-card"><div class="dlv-name">${a.name[lang] || a.name.en}</div><div class="dlv-cond dlv-${a.color}">${a.cond[lang] || a.cond.en}</div></div>`).join('');
@@ -2029,6 +2036,80 @@ function launchConfetti() {
     setTimeout(() => el.remove(), 3500);
   }
 }
+
+// ══════════════════════════════════════════════
+// Cost Calculator
+// ══════════════════════════════════════════════
+const CALC_CATS = { scooter: 180, standard: 300, maxi: 533, moto: 300 };
+let calcCat = 'scooter';
+
+function getCalcDiscount(days) {
+  if (days >= 30) return 35;
+  if (days >= 14) return 25;
+  if (days >= 7) return 15;
+  if (days >= 3) return 10;
+  return 0;
+}
+
+function updateCalc() {
+  const slider = $('calcSlider');
+  if (!slider) return;
+  const days = parseInt(slider.value);
+  const base = CALC_CATS[calcCat];
+  const discount = getCalcDiscount(days);
+  const total = Math.round(base * days * (1 - discount / 100));
+
+  const totalEl = $('calcTotal');
+  if (totalEl) totalEl.textContent = total.toLocaleString() + ' \u0E3F';
+
+  const daysLabel = $('calcDaysLabel');
+  if (daysLabel) daysLabel.innerHTML = days + ' <span data-i18n="calcDaysUnit">' + t('calcDaysUnit') + '</span>';
+
+  const titleEl = $('calcTitle');
+  if (titleEl) titleEl.textContent = t('calcTitle');
+
+  const discountEl = $('calcDiscount');
+  if (discountEl) {
+    if (discount > 0) {
+      discountEl.style.display = 'flex';
+      $('calcDiscountBadge').textContent = '\u2212' + discount + '%';
+      $('calcDiscountText').textContent = t('calcDiscountText');
+    } else {
+      discountEl.style.display = 'none';
+    }
+  }
+
+  // Update chip labels
+  document.querySelectorAll('[data-calc-cat]').forEach(el => {
+    const cat = el.dataset.calcCat;
+    const nameEl = el.querySelector('.calc-chip-name');
+    if (nameEl) {
+      const keyMap = { scooter: 'calcCatScooter', standard: 'calcCatStandard', maxi: 'calcCatMaxi', moto: 'calcCatMoto' };
+      nameEl.textContent = t(keyMap[cat]);
+    }
+  });
+
+  const linkEl = $('calcLink');
+  if (linkEl) linkEl.textContent = t('calcViewBikes');
+}
+
+// Calc chip click
+document.querySelectorAll('[data-calc-cat]').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('[data-calc-cat]').forEach(c => c.classList.remove('calc-chip--active'));
+    el.classList.add('calc-chip--active');
+    calcCat = el.dataset.calcCat;
+    updateCalc();
+  });
+});
+
+// Calc slider
+const calcSlider = $('calcSlider');
+if (calcSlider) calcSlider.addEventListener('input', updateCalc);
+
+// Calc link -> bikes tab
+const calcLink = $('calcLink');
+if (calcLink) calcLink.addEventListener('click', () => switchTab('bikes'));
 
 // ══════════════════════════════════════════════
 // Init

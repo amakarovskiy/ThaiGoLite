@@ -127,11 +127,11 @@
 }
 
 .sheet-img-dots .dot.active {
-  background: var(--color-primary, #0d9488);
+  background: var(--color-primary);
 }
 
 .sheet-bike-img.cat-scooter { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
-.sheet-bike-img.cat-maxi { background: linear-gradient(135deg, #ccfbf1, #99f6e4); }
+.sheet-bike-img.cat-maxi { background: linear-gradient(135deg, #d1fae5, #e0f2fe); }
 .sheet-bike-img.cat-moto { background: linear-gradient(135deg, #fef3c7, #fde68a); }
 .sheet-bike-img.cat-car { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
 
@@ -239,7 +239,7 @@
   border-radius: 50%;
   background: var(--color-primary);
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(13,148,136,.3);
+  box-shadow: 0 2px 6px rgba(67,56,202,.3);
 }
 
 .sheet-slider::-moz-range-thumb {
@@ -442,5 +442,5 @@
 }
 
 .lb-dots .dot.active {
-  background: var(--color-primary, #0d9488);
+  background: var(--color-primary);
 }

@@ -80,7 +80,7 @@
 .rider-teaser {
   margin: 0 16px 8px;
   padding: 20px;
-  background: linear-gradient(135deg, #0d3b66 0%, #0d9488 100%);
+  background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%);
   border-radius: var(--radius-lg);
   text-align: center;
   color: #fff;
@@ -103,7 +103,7 @@
   padding: 12px 28px;
   border-radius: var(--radius-lg);
   background: #fff;
-  color: #0d9488;
+  color: var(--color-primary);
   font-size: 15px;
   font-weight: 700;
   border: none;
@@ -616,7 +616,7 @@
   cursor: pointer;
   font-family: inherit;
   margin-bottom: 16px;
-  box-shadow: 0 4px 16px rgba(13,148,136,.3);
+  box-shadow: 0 4px 16px rgba(67,56,202,.3);
 }
 .rider-share-link {
   font-size: 13px;

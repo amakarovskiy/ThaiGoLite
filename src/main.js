@@ -549,7 +549,7 @@ function renderPopular() {
   const popular = BIKES.filter(b => b.popular);
   popularScroll.innerHTML = popular.map(b => `
     <div class="popular-card" data-bike="${b.id}">
-      <div class="popular-card-img cat-${b.category}" style="background: linear-gradient(135deg, ${b.category === 'scooter' ? '#e8f8f7, #dbeafe' : b.category === 'maxi' ? '#d1fae5, #ccfbf1' : '#fef3c7, #fde68a'})">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
+      <div class="popular-card-img cat-${b.category}" style="background: linear-gradient(135deg, ${b.category === 'scooter' ? '#eef2ff, #dbeafe' : b.category === 'maxi' ? '#d1fae5, #e0f2fe' : '#fef3c7, #fde68a'})">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
       <div class="popular-card-body">
         <div class="popular-card-name">${b.name}</div>
         <div class="popular-card-price">${t('priceFrom')} ${b.prices.day7} \u0E3F${t('perDay')}</div>
@@ -771,7 +771,7 @@ function latLngToSvg(lat, lng) {
 
 const MAP_CAT_COLORS = {
   beach: '#2563eb', view: '#16a34a', temple: '#d97706', nature: '#059669',
-  market: '#9333ea', food: '#dc2626', photo: '#0891b2', office: '#0d9488', top: '#eab308'
+  market: '#9333ea', food: '#dc2626', photo: '#0891b2', office: '#4338ca', top: '#eab308'
 };
 
 function renderMapMarkers() {
@@ -786,7 +786,7 @@ function renderMapMarkers() {
 
     html += `<g class="map-marker ${inRoute ? 'in-route' : ''}" data-id="${p.id}" transform="translate(${x},${y})">
       <circle class="marker-dot" r="6" fill="${color}" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" opacity="0.9"/>
-      ${inRoute ? `<circle class="marker-badge" cx="6" cy="-6" r="5" fill="#0d9488"/>
+      ${inRoute ? `<circle class="marker-badge" cx="6" cy="-6" r="5" fill="#4338ca"/>
       <text x="6" y="-3.5" text-anchor="middle" font-size="6" font-weight="900" fill="#fff">${routeIdx + 1}</text>` : ''}
     </g>`;
   });

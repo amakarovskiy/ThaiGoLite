@@ -243,52 +243,43 @@
       <div class="routes-page">
         <!-- SVG Map -->
         <div class="svg-map-wrap" id="svgMapWrap">
-          <svg id="svgMap" class="svg-map" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid meet">
-            <!-- Water background -->
-            <rect width="400" height="700" fill="#0a1628"/>
-            <!-- Island shape -->
-            <path id="islandShape" d="
-              M 180 45 C 195 40, 220 42, 235 50
-              C 250 58, 258 70, 260 85
-              C 265 100, 270 115, 268 130
-              C 266 145, 270 160, 275 175
-              C 280 190, 288 200, 290 215
-              C 292 230, 295 245, 290 260
-              C 285 275, 278 285, 275 300
-              C 272 315, 268 330, 265 345
-              C 262 360, 258 375, 255 390
-              C 252 405, 250 420, 248 435
-              C 246 450, 248 465, 252 480
-              C 256 495, 260 510, 258 525
-              C 256 540, 250 555, 242 565
-              C 234 575, 225 582, 218 590
-              C 210 598, 202 608, 195 618
-              C 188 628, 178 635, 168 638
-              C 158 641, 148 635, 140 625
-              C 132 615, 128 605, 130 592
-              C 132 580, 135 568, 138 555
-              C 141 542, 140 530, 135 518
-              C 130 506, 125 495, 122 482
-              C 119 470, 118 458, 120 445
-              C 122 432, 126 420, 128 405
-              C 130 390, 128 375, 124 360
-              C 120 345, 118 330, 120 315
-              C 122 300, 128 285, 130 270
-              C 132 255, 130 240, 128 225
-              C 126 210, 125 195, 128 180
-              C 131 165, 138 152, 142 140
-              C 146 128, 152 115, 155 100
-              C 158 85, 162 70, 168 58
-              C 174 48, 180 45, 180 45 Z
-            " fill="#1a2a1a" stroke="#2d4a2d" stroke-width="1.5" opacity="0.85"/>
-            <!-- Roads (simplified) -->
-            <path d="M 195 60 L 200 130 L 210 200 L 220 270 L 230 340 L 225 410 L 210 480 L 195 550 L 180 610" fill="none" stroke="#3a3a2a" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.4"/>
-            <path d="M 140 300 L 180 310 L 230 340 L 270 330" fill="none" stroke="#3a3a2a" stroke-width="1" stroke-dasharray="3 2" opacity="0.3"/>
+          <svg id="svgMap" class="svg-map" viewBox="0 0 600 1000" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <filter id="dotGlow" x="-100%" y="-100%" width="300%" height="300%">
+                <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <g id="island-layer"></g>
+            <g id="areas-layer"></g>
+            <g id="roads-layer"></g>
             <!-- Route line drawn by JS -->
             <polyline id="routeLine" class="route-line" points=""/>
             <!-- Markers rendered by JS -->
             <g id="mapMarkers"></g>
+            <g id="labels-layer"></g>
           </svg>
+
+          <div class="map-legend" id="mapLegend">
+            <div class="legend-title">ЛЕГЕНДА</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#ff5a5a"></span> Пляжи</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#44dd66"></span> Смотровые</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#ffaa33"></span> Храмы</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#33cc88"></span> Природа</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#ffd34a"></span> Рынки</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#ff7744"></span> Еда</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#55bbff"></span> Фотоспоты</div>
+          </div>
+
+          <div class="map-zoom">
+            <button class="map-zoom-btn" id="mapZoomIn">+</button>
+            <button class="map-zoom-btn" id="mapZoomOut">&minus;</button>
+          </div>
+
+          <div class="map-scale">
+            <div class="map-scale-bar"></div>
+            <span class="map-scale-label">10 km</span>
+          </div>
         </div>
 
         <!-- Bottom Sheet -->

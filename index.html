@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1e1b4b" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>Аренда байков Пхукет — без залога паспорта, доставка в отель | ThaiGo Rent</title>
+  <meta name="description" content="Аренда байков и скутеров на Пхукете от 180 ฿/день. Без залога паспорта, доставка в отель, договор и страховка. Звоните 24/7 на русском." />
+  <meta name="keywords" content="аренда байков Пхукет, аренда скутера Пхукет, прокат мотоцикла Пхукет, rent bike Phuket, scooter rental Phuket, Honda Click Phuket, PCX Пхукет, NMAX Пхукет, байк Пхукет цена, аренда авто Пхукет" />
+  <link rel="canonical" href="https://amakarovskiy.github.io/ThaiGoLite/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Аренда байков Пхукет — без залога паспорта, доставка в отель | ThaiGo Rent" />
+  <meta property="og:description" content="Аренда байков и скутеров на Пхукете от 180 ฿/день. Без залога паспорта, доставка в отель, договор и страховка. Звоните 24/7 на русском." />
+  <meta property="og:url" content="https://amakarovskiy.github.io/ThaiGoLite/" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="ThaiGo Lite" />
+  <meta property="og:image" content="https://thaigo.rent/wp-content/themes/wordpress-theme/img/logo.svg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Аренда байков Пхукет — без залога паспорта, доставка в отель | ThaiGo Rent" />
+  <meta name="twitter:description" content="Аренда байков и скутеров на Пхукете от 180 ฿/день. Без залога паспорта, доставка в отель, договор и страховка. Звоните 24/7 на русском." />
+  <meta name="twitter:image" content="https://thaigo.rent/wp-content/themes/wordpress-theme/img/logo.svg" />
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="ru" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=ru" />
+  <link rel="alternate" hreflang="en" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=en" />
+  <link rel="alternate" hreflang="de" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=de" />
+  <link rel="alternate" hreflang="fr" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=fr" />
+  <link rel="alternate" hreflang="es" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=es" />
+  <link rel="alternate" hreflang="x-default" href="https://amakarovskiy.github.io/ThaiGoLite/" />
+
+  <!-- Geo -->
+  <meta name="geo.region" content="TH-83" />
+  <meta name="geo.placename" content="Phuket" />
+  <meta name="geo.position" content="7.8439;98.2977" />
+  <meta name="ICBM" content="7.8439, 98.2977" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Schema.org: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "ThaiGo Rent",
+    "description": "Аренда байков и скутеров на Пхукете. Без залога паспорта, с доставкой в отель, договором и страховкой.",
+    "url": "https://thaigo.rent",
+    "telephone": "+66822545737",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Patak Rd",
+      "addressLocality": "Ката, Пхукет",
+      "addressCountry": "TH"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 7.8439,
+      "longitude": 98.2977
+    },
+    "openingHours": "Mo-Su 08:00-20:00",
+    "priceRange": "180-1200 THB/day",
+    "areaServed": ["Patong", "Karon", "Kata", "Kamala", "Bangtao", "Surin", "Rawai", "Chalong", "Phuket Town"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Каталог байков",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Honda Scoopy 110i", "description": "Скутер 110cc, вариатор, 99 кг"}, "price": "180", "priceCurrency": "THB", "unitText": "день"},
+        {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Honda Click 125i", "description": "Скутер 125cc, вариатор, 108 кг"}, "price": "200", "priceCurrency": "THB", "unitText": "день"},
+        {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Honda Click 160i", "description": "Скутер 160cc, ABS, вариатор, 116 кг"}, "price": "250", "priceCurrency": "THB", "unitText": "день"},
+        {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Honda PCX 160", "description": "Макси-скутер 160cc, ABS, Keyless, USB"}, "price": "300", "priceCurrency": "THB", "unitText": "день"},
+        {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Yamaha NMAX 155", "description": "Макси-скутер 155cc, ABS, Traction Control"}, "price": "300", "priceCurrency": "THB", "unitText": "день"},
+        {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Honda ADV 160", "description": "Макси-скутер 160cc, ABS, внедорожный стиль"}, "price": "350", "priceCurrency": "THB", "unitText": "день"},
+        {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Yamaha XMAX 300", "description": "Макси-скутер 300cc, ABS, Keyless"}, "price": "500", "priceCurrency": "THB", "unitText": "день"},
+        {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Honda Forza 350", "description": "Макси-скутер 350cc, ABS, HSTC"}, "price": "600", "priceCurrency": "THB", "unitText": "день"}
+      ]
+    }
+  }
+  </script>
+
+  <!-- Schema.org: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Сколько стоит аренда байка на Пхукете?", "acceptedAnswer": {"@type": "Answer", "text": "Honda Scoopy от 180 ฿/день, Honda Click от 200 ฿/день, PCX/NMAX от 300 ฿/день. Чем дольше срок — тем дешевле. Месяц — от 4500 ฿."}},
+      {"@type": "Question", "name": "Какие документы нужны для аренды байка?", "acceptedAnswer": {"@type": "Answer", "text": "Загранпаспорт и международные права (категория А). Залог от 2000 ฿ или копия паспорта."}},
+      {"@type": "Question", "name": "Есть ли страховка при аренде байка?", "acceptedAnswer": {"@type": "Answer", "text": "Да, каждый байк застрахован. Аренда оформляется договором по законам Таиланда."}},
+      {"@type": "Question", "name": "Безопасно ли ездить на байке на Пхукете?", "acceptedAnswer": {"@type": "Answer", "text": "Движение левостороннее. Шлем обязателен (штраф 500 ฿). Не превышайте 60 км/ч в городе."}},
+      {"@type": "Question", "name": "Сколько стоит бензин на Пхукете?", "acceptedAnswer": {"@type": "Answer", "text": "~43 ฿/литр. Расход скутера — 2 л/100 км. Маршрут 50 км обойдётся в ~45 ฿ бензина."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div id="app">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <img src="https://thaigo.rent/wp-content/themes/wordpress-theme/img/logo.svg" alt="ThaiGo" class="header-logo" height="26" />
+      <span class="header-title">ThaiGo <span class="accent">Lite</span></span>
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn"><span class="lang-flag" id="langFlag"></span><span id="langCode"></span></button>
+        <div class="lang-dropdown" id="langDropdown"></div>
+      </div>
+    </header>
+
+    <!-- ══════ TAB 1: ГЛАВНАЯ ══════ -->
+    <main id="page-home" class="page page--active">
+      <!-- Hero -->
+      <section class="hero">
+        <h1 class="hero-h1">Аренда байков<br>на Пхукете</h1>
+        <p class="hero-sub">Без залога паспорта. Доставка по острову.<br>От 180 &#3647;/сутки. Договор и страховка.</p>
+        <div class="hero-cta">
+          <a href="https://wa.me/66822545737?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%B0%D1%80%D0%B5%D0%BD%D0%B4%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D0%B1%D0%B0%D0%B9%D0%BA" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp</a>
+          <a href="https://t.me/ThaiGoSale1" target="_blank" rel="noopener" class="btn btn-tg">Telegram</a>
+        </div>
+      </section>
+
+      <!-- Как это работает -->
+      <section class="steps-section">
+        <div class="steps-grid">
+          <div class="step-item">
+            <svg class="step-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Choose a bike"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+            <span class="step-num">1</span>
+            <span class="step-text">Выбери байк</span>
+          </div>
+          <div class="step-item">
+            <svg class="step-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Delivery"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <span class="step-num">2</span>
+            <span class="step-text">Мы привезём</span>
+          </div>
+          <div class="step-item">
+            <svg class="step-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Ride and enjoy"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.78 7.78 5.5 5.5 0 017.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+            <span class="step-num">3</span>
+            <span class="step-text">Езди и кайфуй</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Почему мы -->
+      <section class="section">
+        <h2 class="section-title">Почему ThaiGo</h2>
+        <div class="why-grid">
+          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span><span class="why-text">Без залога паспорта</span></div>
+          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="why-text">Доставка в отель</span></div>
+          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span><span class="why-text">От 180 &#3647;/сутки</span></div>
+          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></span><span class="why-text">24/7 на русском</span></div>
+          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></span><span class="why-text">Замена при поломке</span></div>
+          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span><span class="why-text">Договор + страховка</span></div>
+        </div>
+      </section>
+
+      <!-- Популярные байки -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Популярные байки</h2>
+          <button class="section-link" data-goto="bikes">Все &rarr;</button>
+        </div>
+        <div class="popular-scroll" id="popularScroll"></div>
+      </section>
+
+      <!-- Rider Test Teaser -->
+      <section class="section" style="padding-bottom:0">
+        <div class="rider-teaser" id="riderTeaser">
+          <div class="rider-teaser-title">Ты уверен что готов ездить на Пхукете?</div>
+          <div class="rider-teaser-sub">Пройди Райдер-тест за 3 минуты</div>
+          <button class="rider-teaser-btn" id="teaserStartBtn">Начать тест</button>
+        </div>
+      </section>
+
+      <!-- Районы доставки -->
+      <section class="section">
+        <h2 class="section-title">Доставка по Пхукету</h2>
+        <div class="dlv-grid" id="dlvGrid">
+          <div class="dlv-card"><div class="dlv-name">Ката / Карон</div><div class="dlv-cond dlv-green">Бесплатно от 3 дней</div></div>
+          <div class="dlv-card"><div class="dlv-name">Патонг</div><div class="dlv-cond dlv-green">Бесплатно от 3 дней</div></div>
+          <div class="dlv-card"><div class="dlv-name">Камала / Сурин</div><div class="dlv-cond dlv-yellow">300 ฿ · бесплатно от 7 дней</div></div>
+          <div class="dlv-card"><div class="dlv-name">Бангтао</div><div class="dlv-cond dlv-yellow">300 ฿ · бесплатно от 7 дней</div></div>
+          <div class="dlv-card"><div class="dlv-name">Раваи / Най Харн</div><div class="dlv-cond dlv-yellow">300 ฿ · бесплатно от 7 дней</div></div>
+          <div class="dlv-card"><div class="dlv-name">Чалонг / Пхукет-таун</div><div class="dlv-cond dlv-yellow">300 ฿ · бесплатно от 7 дней</div></div>
+          <div class="dlv-card"><div class="dlv-name">Аэропорт / Най Янг</div><div class="dlv-cond dlv-blue">500 ฿ · бесплатно от 10 дней</div></div>
+          <div class="dlv-card"><div class="dlv-name">Другой район</div><div class="dlv-cond dlv-blue">Уточняйте</div></div>
+        </div>
+        <p class="dlv-note">Доставка в отель или виллу. Возврат — туда же.</p>
+      </section>
+
+      <!-- Отзывы -->
+      <section class="section">
+        <h2 class="section-title" id="reviewsTitle">Что говорят клиенты</h2>
+        <div class="reviews-scroll" id="reviewsScroll"></div>
+      </section>
+    </main>
+
+    <!-- ══════ TAB 2: БАЙКИ ══════ -->
+    <main id="page-bikes" class="page">
+      <div class="bike-filters" id="bikeFilters">
+        <button class="filter-chip filter-chip--active" data-cat="all">Все</button>
+        <button class="filter-chip" data-cat="scooter">Скутеры</button>
+        <button class="filter-chip" data-cat="maxi">Макси</button>
+        <button class="filter-chip" data-cat="moto">Мотоциклы</button>
+        <button class="filter-chip" data-cat="car">Авто</button>
+      </div>
+      <div class="bike-grid" id="bikeGrid">
+        <!-- Static SEO content — replaced by JS on load -->
+        <div class="bike-card"><div class="bike-card-img cat-scooter" role="img" aria-label="Honda Scoopy 110i аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Honda Scoopy 110i</div><div class="bike-card-cc">110 cc</div><div class="bike-card-footer"><span class="bike-card-price">от 180 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-scooter" role="img" aria-label="Yamaha Fino 125 аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Yamaha Fino 125</div><div class="bike-card-cc">125 cc</div><div class="bike-card-footer"><span class="bike-card-price">от 180 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-scooter" role="img" aria-label="Honda Click 125i аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Honda Click 125i</div><div class="bike-card-cc">125 cc</div><div class="bike-card-footer"><span class="bike-card-price">от 200 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-scooter" role="img" aria-label="Honda Click 160i аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Honda Click 160i</div><div class="bike-card-cc">160 cc — ABS</div><div class="bike-card-footer"><span class="bike-card-price">от 250 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-scooter" role="img" aria-label="Yamaha Aerox 155 аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Yamaha Aerox 155</div><div class="bike-card-cc">155 cc — ABS</div><div class="bike-card-footer"><span class="bike-card-price">от 250 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-scooter" role="img" aria-label="Honda Lead 125 аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Honda Lead 125</div><div class="bike-card-cc">125 cc</div><div class="bike-card-footer"><span class="bike-card-price">от 200 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-maxi" role="img" aria-label="Honda PCX 160 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda PCX 160</div><div class="bike-card-cc">160 cc — ABS, Keyless</div><div class="bike-card-footer"><span class="bike-card-price">от 300 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-maxi" role="img" aria-label="Yamaha NMAX 155 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Yamaha NMAX 155</div><div class="bike-card-cc">155 cc — ABS</div><div class="bike-card-footer"><span class="bike-card-price">от 300 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-maxi" role="img" aria-label="Honda ADV 160 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda ADV 160</div><div class="bike-card-cc">160 cc — ABS</div><div class="bike-card-footer"><span class="bike-card-price">от 350 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-maxi" role="img" aria-label="Honda ADV 350 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda ADV 350</div><div class="bike-card-cc">350 cc — ABS, Круиз</div><div class="bike-card-footer"><span class="bike-card-price">от 550 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-maxi" role="img" aria-label="Yamaha XMAX 300 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Yamaha XMAX 300</div><div class="bike-card-cc">300 cc — ABS, Keyless</div><div class="bike-card-footer"><span class="bike-card-price">от 500 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-maxi" role="img" aria-label="Honda Forza 350 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda Forza 350</div><div class="bike-card-cc">350 cc — ABS, HSTC</div><div class="bike-card-footer"><span class="bike-card-price">от 600 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-moto" role="img" aria-label="Honda CBR 150R аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda CBR 150R</div><div class="bike-card-cc">150 cc — Спортбайк</div><div class="bike-card-footer"><span class="bike-card-price">от 350 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-moto" role="img" aria-label="Honda CBR 250RR аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda CBR 250RR</div><div class="bike-card-cc">250 cc — Ride-by-Wire</div><div class="bike-card-footer"><span class="bike-card-price">от 500 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-moto" role="img" aria-label="Honda CBR 500R аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda CBR 500R</div><div class="bike-card-cc">500 cc — ABS</div><div class="bike-card-footer"><span class="bike-card-price">от 650 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-moto" role="img" aria-label="Honda Rebel 500 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda Rebel 500</div><div class="bike-card-cc">500 cc — Круизер</div><div class="bike-card-footer"><span class="bike-card-price">от 650 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-moto" role="img" aria-label="Kawasaki Z300 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Kawasaki Z300</div><div class="bike-card-cc">300 cc — Нейкед</div><div class="bike-card-footer"><span class="bike-card-price">от 450 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-moto" role="img" aria-label="Kawasaki Z400 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Kawasaki Z400</div><div class="bike-card-cc">400 cc — ABS</div><div class="bike-card-footer"><span class="bike-card-price">от 550 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-moto" role="img" aria-label="Kawasaki Vulcan S 650 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Kawasaki Vulcan S 650</div><div class="bike-card-cc">649 cc — Круизер</div><div class="bike-card-footer"><span class="bike-card-price">от 750 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-moto" role="img" aria-label="KTM Duke 390 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">KTM Duke 390</div><div class="bike-card-cc">390 cc — TFT дисплей</div><div class="bike-card-footer"><span class="bike-card-price">от 550 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-car" role="img" aria-label="Honda City 2019 аренда Пхукет">🚗</div><div class="bike-card-body"><div class="bike-card-name">Honda City 2019</div><div class="bike-card-cc">1500 cc — Автомат</div><div class="bike-card-footer"><span class="bike-card-price">от 1000 &#3647;</span></div></div></div>
+        <div class="bike-card"><div class="bike-card-img cat-car" role="img" aria-label="Toyota Yaris Ativ аренда Пхукет">🚗</div><div class="bike-card-body"><div class="bike-card-name">Toyota Yaris Ativ</div><div class="bike-card-cc">1200 cc — Автомат</div><div class="bike-card-footer"><span class="bike-card-price">от 800 &#3647;</span></div></div></div>
+      </div>
+    </main>
+
+    <!-- ══════ TAB 3: МАРШРУТЫ ══════ -->
+    <main id="page-routes" class="page">
+      <div class="routes-page">
+        <!-- SVG Map -->
+        <div class="svg-map-wrap" id="svgMapWrap">
+          <svg id="svgMap" class="svg-map" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid meet">
+            <!-- Water background -->
+            <rect width="400" height="700" fill="#0a1628"/>
+            <!-- Island shape -->
+            <path id="islandShape" d="
+              M 180 45 C 195 40, 220 42, 235 50
+              C 250 58, 258 70, 260 85
+              C 265 100, 270 115, 268 130
+              C 266 145, 270 160, 275 175
+              C 280 190, 288 200, 290 215
+              C 292 230, 295 245, 290 260
+              C 285 275, 278 285, 275 300
+              C 272 315, 268 330, 265 345
+              C 262 360, 258 375, 255 390
+              C 252 405, 250 420, 248 435
+              C 246 450, 248 465, 252 480
+              C 256 495, 260 510, 258 525
+              C 256 540, 250 555, 242 565
+              C 234 575, 225 582, 218 590
+              C 210 598, 202 608, 195 618
+              C 188 628, 178 635, 168 638
+              C 158 641, 148 635, 140 625
+              C 132 615, 128 605, 130 592
+              C 132 580, 135 568, 138 555
+              C 141 542, 140 530, 135 518
+              C 130 506, 125 495, 122 482
+              C 119 470, 118 458, 120 445
+              C 122 432, 126 420, 128 405
+              C 130 390, 128 375, 124 360
+              C 120 345, 118 330, 120 315
+              C 122 300, 128 285, 130 270
+              C 132 255, 130 240, 128 225
+              C 126 210, 125 195, 128 180
+              C 131 165, 138 152, 142 140
+              C 146 128, 152 115, 155 100
+              C 158 85, 162 70, 168 58
+              C 174 48, 180 45, 180 45 Z
+            " fill="#1a2a1a" stroke="#2d4a2d" stroke-width="1.5" opacity="0.85"/>
+            <!-- Roads (simplified) -->
+            <path d="M 195 60 L 200 130 L 210 200 L 220 270 L 230 340 L 225 410 L 210 480 L 195 550 L 180 610" fill="none" stroke="#3a3a2a" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.4"/>
+            <path d="M 140 300 L 180 310 L 230 340 L 270 330" fill="none" stroke="#3a3a2a" stroke-width="1" stroke-dasharray="3 2" opacity="0.3"/>
+            <!-- Route line drawn by JS -->
+            <polyline id="routeLine" class="route-line" points=""/>
+            <!-- Markers rendered by JS -->
+            <g id="mapMarkers"></g>
+          </svg>
+        </div>
+
+        <!-- Bottom Sheet -->
+        <div class="route-sheet rs-collapsed" id="routeSheet">
+          <!-- Handle -->
+          <div class="rs-handle" id="rsHandle">
+            <div class="rs-pill"></div>
+          </div>
+          <!-- Tabs -->
+          <div class="rs-tabs" id="rsTabs">
+            <button class="rs-tab active" data-rs-tab="places">Места</button>
+            <button class="rs-tab" data-rs-tab="route">Маршрут <span class="rs-badge" id="rsBadge" style="display:none">0</span></button>
+          </div>
+          <!-- Content -->
+          <div class="rs-content" id="rsContent">
+            <!-- Places panel -->
+            <div class="rs-panel active" id="rsPanelPlaces">
+              <div class="rs-search">
+                <input type="text" id="rsSearchInput" class="rs-search-input" placeholder="Поиск места..." />
+              </div>
+              <div class="rs-filters" id="rsFilters">
+                <button class="filter-chip filter-chip--active" data-cat="top">Топ</button>
+                <button class="filter-chip" data-cat="all">Все</button>
+                <button class="filter-chip" data-cat="beach">Пляжи</button>
+                <button class="filter-chip" data-cat="view">Смотровые</button>
+                <button class="filter-chip" data-cat="temple">Храмы</button>
+                <button class="filter-chip" data-cat="nature">Природа</button>
+                <button class="filter-chip" data-cat="market">Рынки</button>
+                <button class="filter-chip" data-cat="food">Еда</button>
+                <button class="filter-chip" data-cat="photo">Фото</button>
+              </div>
+              <div class="rs-place-list" id="rsPlaceList"></div>
+            </div>
+            <!-- Route panel -->
+            <div class="rs-panel" id="rsPanelRoute">
+              <div class="rs-route-panel" id="rsRoutePanel"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Share popover -->
+      <div class="sheet-overlay" id="rsShareOverlay"></div>
+      <div class="rs-share-pop" id="rsSharePop">
+        <div class="rs-share-pop-title" id="rsShareTitle">Поделиться</div>
+        <div class="rs-share-grid">
+          <button class="rs-cta-btn cta-wa" id="rsShareWa">WhatsApp</button>
+          <button class="rs-cta-btn cta-tg" id="rsShareTg">Telegram</button>
+          <button class="rs-cta-btn cta-share" id="rsShareCopy">Копировать</button>
+          <a class="rs-cta-btn cta-gmaps" id="rsShareGmaps" href="#" target="_blank" rel="noopener">Google Maps</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- ══════ TAB 4: КОНТАКТЫ ══════ -->
+    <main id="page-contacts" class="page">
+      <div class="contacts-page">
+        <h2 class="page-title">Контакты</h2>
+
+        <div class="contact-card">
+          <div class="contact-row"><span class="contact-icon">&#128222;</span><a href="tel:+66822545737">+66 82 254 5737</a></div>
+          <div class="contact-row"><span class="contact-icon">&#128172;</span><a href="https://wa.me/66822545737" target="_blank" rel="noopener">WhatsApp</a></div>
+          <div class="contact-row"><span class="contact-icon">&#9992;</span><a href="https://t.me/ThaiGoSale1" target="_blank" rel="noopener">Telegram</a></div>
+          <div class="contact-row"><span class="contact-icon">&#127760;</span><a href="https://thaigo.rent" target="_blank" rel="noopener">thaigo.rent</a></div>
+          <div class="contact-row"><span class="contact-icon">&#128205;</span>Ката, Пхукет, Таиланд</div>
+          <div class="contact-row"><span class="contact-icon">&#128336;</span>Ежедневно 8:00–20:00</div>
+        </div>
+
+        <section class="section">
+          <h3 class="section-title">Районы доставки</h3>
+          <div class="dlv-grid" id="dlvGridContacts"></div>
+        </section>
+
+        <section class="section">
+          <h3 class="section-title">FAQ</h3>
+          <details class="faq-item"><summary>Сколько стоит аренда байка?</summary><p>Honda Scoopy от 180 &#3647;/день, Honda Click от 200 &#3647;/день, PCX/NMAX от 300 &#3647;/день. Чем дольше срок — тем дешевле.</p></details>
+          <details class="faq-item"><summary>Какие документы нужны?</summary><p>Загранпаспорт и международные права (категория А). Залог от 2000 &#3647; или копия паспорта.</p></details>
+          <details class="faq-item"><summary>Есть ли страховка?</summary><p>Да, каждый байк застрахован. Аренда оформляется договором по законам Таиланда.</p></details>
+          <details class="faq-item"><summary>Безопасно ли ездить?</summary><p>Движение левостороннее. Шлем обязателен (штраф 500 &#3647;). Не превышайте 60 км/ч в городе.</p></details>
+          <details class="faq-item"><summary>Сколько стоит бензин?</summary><p>~43 &#3647;/литр. Расход скутера — 2 л/100 км. Маршрут 50 км обойдётся в ~45 &#3647; бензина.</p></details>
+          <details class="faq-item"><summary>Как пользоваться планировщиком?</summary><p>Откройте вкладку «Маршруты», добавьте места, получите расчёт км, времени и бензина.</p></details>
+        </section>
+
+        <div class="contacts-footer">
+          <p>ThaiGo Rent — аренда байков на Пхукете. Офис в Кате.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- BOOKING SHEET (для байков) -->
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="booking-sheet" id="bookingSheet">
+      <div class="sheet-handle"><div class="sheet-pill"></div></div>
+      <div class="sheet-body">
+        <div class="sheet-bike-header">
+          <div class="sheet-img-wrap" id="sheetImgWrap">
+            <div class="sheet-bike-img" id="sheetBikeImg"></div>
+            <span class="sheet-img-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span>
+            <div class="sheet-img-dots" id="sheetImgDots"></div>
+          </div>
+          <div>
+            <h3 class="sheet-bike-name" id="sheetBikeName"></h3>
+            <span class="sheet-bike-cc" id="sheetBikeCc"></span>
+          </div>
+        </div>
+        <div class="sheet-features" id="sheetFeatures"></div>
+        <div class="sheet-pricing">
+          <h4 class="sheet-pricing-title">Тарифы</h4>
+          <table class="sheet-price-table" id="sheetPriceTable">
+            <tr><th>1–2 дня</th><th>3–6 дней</th><th>7–13</th><th>14–29</th><th>30 дн</th></tr>
+            <tr><td id="sheetP1"></td><td id="sheetP3"></td><td id="sheetP7"></td><td id="sheetP14"></td><td id="sheetPM"></td></tr>
+          </table>
+        </div>
+        <div class="sheet-calc">
+          <label class="sheet-calc-label">Дней аренды: <strong id="sheetDays">3</strong></label>
+          <input type="range" id="sheetDaySlider" min="1" max="30" value="3" class="sheet-slider" />
+          <div class="sheet-total">Итого: <strong id="sheetTotal">0 &#3647;</strong></div>
+        </div>
+        <div class="sheet-actions">
+          <a class="btn btn-wa btn-full" id="sheetWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn-tg btn-full" id="sheetTg" href="#" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BIKE LIGHTBOX -->
+    <div class="lb-overlay" id="lbOverlay">
+      <button class="lb-close" id="lbClose">&times;</button>
+      <span class="lb-counter" id="lbCounter">1 / 1</span>
+      <div class="lb-track" id="lbTrack"></div>
+      <div class="lb-dots" id="lbDots"></div>
+    </div>
+
+    <!-- PLACE SHEET (для мест) -->
+    <div class="place-sheet" id="placeSheet">
+      <div class="sheet-handle"><div class="sheet-pill"></div></div>
+      <div class="sheet-body">
+        <div class="place-sheet-header">
+          <span class="place-sheet-icon" id="placeSheetIcon"></span>
+          <div>
+            <h3 class="place-sheet-name" id="placeSheetName"></h3>
+            <span class="place-sheet-km" id="placeSheetKm"></span>
+          </div>
+        </div>
+        <p class="place-sheet-desc" id="placeSheetDesc"></p>
+        <p class="place-sheet-tips" id="placeSheetTips"></p>
+        <button class="btn btn-primary btn-full" id="placeSheetAdd">+ В маршрут</button>
+      </div>
+    </div>
+
+    <!-- GUIDE MICRO-MENU -->
+    <div class="guide-menu-overlay" id="guideMenuOverlay"></div>
+    <div class="guide-micro-menu" id="guideMicroMenu">
+      <div class="menu-pill"></div>
+      <button class="guide-menu-item" id="menuRoutes"><span class="menu-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7z"/><path d="M9 4v13"/><path d="M15 7v13"/></svg></span><span class="menu-text">Маршруты</span></button>
+      <button class="guide-menu-item" id="menuRiderTest"><span class="menu-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg></span><span class="menu-text">Райдер-тест</span></button>
+    </div>
+
+    <!-- RIDER TEST OVERLAY -->
+    <div class="rider-test-overlay" id="riderTestOverlay">
+      <div class="rider-test-header">
+        <span class="rider-test-title">Райдер-тест</span>
+        <button class="rider-test-close" id="riderTestClose">&times;</button>
+      </div>
+      <div class="rider-progress" id="riderProgress">
+        <div class="rider-road"><div class="rider-road-fill" id="riderRoadFill"></div></div>
+        <span class="rider-bike-icon" id="riderBikeIcon">🛵</span>
+      </div>
+      <div class="rider-test-body" id="riderTestBody"></div>
+    </div>
+
+    <!-- TOASTS -->
+    <div id="toasts"></div>
+
+    <!-- BOTTOM TAB BAR -->
+    <nav class="tab-bar" id="tabBar">
+      <button class="tab tab--active" data-tab="home">
+        <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="tab-label">Главная</span>
+      </button>
+      <button class="tab tab--accent" data-tab="bikes">
+        <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 100-2 1 1 0 000 2zm-3 11.5V14l-3-3 4-3 2 3h2"/></svg>
+        <span class="tab-label">Байки</span>
+      </button>
+      <button class="tab" data-tab="guide">
+        <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36z"/></svg>
+        <span class="tab-label">Гид</span>
+        <span class="tab-guide-badge"></span>
+      </button>
+      <button class="tab" data-tab="contacts">
+        <svg class="tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        <span class="tab-label">Контакты</span>
+      </button>
+    </nav>
+
+  </div>
+  <!-- SEO: Hidden semantic content for search engines (visible without JS) -->
+  <noscript>
+    <article style="max-width:600px;margin:0 auto;padding:20px;font-family:sans-serif">
+      <h2>Каталог байков для аренды на Пхукете</h2>
+      <h3>Скутеры</h3>
+      <ul>
+        <li><strong>Honda Scoopy 110i</strong> — 110cc, от 180 ฿/день, 4500 ฿/мес. Вариатор, 99 кг.</li>
+        <li><strong>Yamaha Fino 125</strong> — 125cc, от 180 ฿/день, 4500 ฿/мес. Вариатор, 96 кг.</li>
+        <li><strong>Honda Click 125i</strong> — 125cc, от 200 ฿/день, 5000 ฿/мес. Самый популярный скутер.</li>
+        <li><strong>Honda Click 160i</strong> — 160cc, ABS, от 250 ฿/день, 6000 ฿/мес.</li>
+        <li><strong>Yamaha Aerox 155</strong> — 155cc, ABS, от 250 ฿/день, 6000 ฿/мес.</li>
+        <li><strong>Honda Lead 125</strong> — 125cc, от 200 ฿/день. Большой багажник.</li>
+      </ul>
+      <h3>Макси-скутеры</h3>
+      <ul>
+        <li><strong>Honda PCX 160</strong> — 160cc, ABS, Keyless, USB, от 300 ฿/день, 7000 ฿/мес.</li>
+        <li><strong>Yamaha NMAX 155</strong> — 155cc, ABS, Traction Control, от 300 ฿/день, 7000 ฿/мес.</li>
+        <li><strong>Honda ADV 160</strong> — 160cc, ABS, от 350 ฿/день, 8000 ฿/мес.</li>
+        <li><strong>Honda ADV 350</strong> — 350cc, ABS, Круиз, от 550 ฿/день, 13000 ฿/мес.</li>
+        <li><strong>Yamaha XMAX 300</strong> — 300cc, ABS, Keyless, от 500 ฿/день, 12000 ฿/мес.</li>
+        <li><strong>Honda Forza 350</strong> — 350cc, ABS, HSTC, от 600 ฿/день, 14000 ฿/мес.</li>
+      </ul>
+      <h3>Мотоциклы</h3>
+      <ul>
+        <li><strong>Honda CBR 150R</strong> — 150cc, спортбайк, от 350 ฿/день.</li>
+        <li><strong>Honda CBR 500R</strong> — 500cc, от 650 ฿/день.</li>
+        <li><strong>Honda Rebel 500</strong> — 500cc, круизер, от 650 ฿/день.</li>
+        <li><strong>Kawasaki Z400</strong> — 400cc, нейкед, от 550 ฿/день.</li>
+        <li><strong>KTM Duke 390</strong> — 390cc, TFT дисплей, от 550 ฿/день.</li>
+      </ul>
+      <h3>Автомобили</h3>
+      <ul>
+        <li><strong>Honda City 2019</strong> — 1500cc, автомат, от 1000 ฿/день.</li>
+        <li><strong>Toyota Yaris Ativ</strong> — 1200cc, автомат, от 800 ฿/день.</li>
+      </ul>
+
+      <h2>Достопримечательности Пхукета для маршрутов на байке</h2>
+      <h3>Лучшие пляжи Пхукета</h3>
+      <ul>
+        <li><strong>Пляж Патонг</strong> — главный пляж, 3.5 км белого песка, Bangla Road, бары и рестораны.</li>
+        <li><strong>Пляж Ката</strong> — уютная бухта, лучший сёрфинг на Пхукете (май–октябрь).</li>
+        <li><strong>Пляж Карон</strong> — 3 км «поющего» кварцевого песка, меньше туристов.</li>
+        <li><strong>Пляж Най Харн</strong> — спокойная лагуна на юге, любимый пляж местных.</li>
+        <li><strong>Пляж Бангтао</strong> — 6 км, самый длинный на западном побережье.</li>
+        <li><strong>Пляж Ката Ной</strong> — лучший снорклинг у скал.</li>
+        <li><strong>Пляж Фридом</strong> — секретный пляж, доступный на лонгтейле.</li>
+        <li><strong>Пляж Сурин</strong> — элитный пляж с пляжными клубами.</li>
+        <li><strong>Пляж Камала</strong> — тихий семейный пляж рядом с Патонгом.</li>
+      </ul>
+      <h3>Смотровые площадки</h3>
+      <ul>
+        <li><strong>Мыс Пхромтхеп</strong> — самый знаменитый закат в Таиланде, панорама 270°.</li>
+        <li><strong>Смотровая Карон</strong> — вид на три пляжа: Ката Ной, Ката, Карон.</li>
+        <li><strong>Ранг Хилл</strong> — 360° панорама Пхукет-тауна, кафе Tung Ka.</li>
+        <li><strong>Ветряные мельницы</strong> — вид на оба побережья одновременно.</li>
+      </ul>
+      <h3>Храмы</h3>
+      <ul>
+        <li><strong>Ват Чалонг</strong> — главный буддийский храм Пхукета.</li>
+        <li><strong>Большой Будда</strong> — 45-метровая мраморная статуя на холме Наккерд.</li>
+        <li><strong>Shrine of Serene Light</strong> — луч света через крышу в полдень.</li>
+      </ul>
+      <h3>Рынки и еда</h3>
+      <ul>
+        <li><strong>Рынок Банзаан</strong> — крытый рынок морепродуктов в Патонге.</li>
+        <li><strong>Ночной рынок Пхукет</strong> — сотни палаток, работает ежедневно с 17:00.</li>
+        <li><strong>Старый город Пхукет</strong> — шино-португальские дома, кафе, муралы.</li>
+      </ul>
+
+      <h2>Контакты ThaiGo Rent</h2>
+      <p>Телефон: <a href="tel:+66822545737">+66 82 254 5737</a></p>
+      <p>WhatsApp: <a href="https://wa.me/66822545737">wa.me/66822545737</a></p>
+      <p>Telegram: <a href="https://t.me/ThaiGoSale1">@ThaiGoSale1</a></p>
+      <p>Адрес: Ката, Пхукет, Таиланд. Ежедневно 8:00–20:00.</p>
+    </article>
+  </noscript>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

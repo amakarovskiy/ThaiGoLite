@@ -1,0 +1,697 @@
+/* ========== Guide Micro-Menu ========== */
+.guide-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.guide-menu-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.guide-micro-menu {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
+  max-width: 430px;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  z-index: 301;
+  padding: 8px 0 calc(16px + var(--safe-bottom));
+  box-shadow: 0 -4px 24px rgba(0,0,0,.12);
+  transition: transform .4s cubic-bezier(.175,.885,.32,1.275);
+}
+.guide-micro-menu.open {
+  transform: translateX(-50%) translateY(0);
+}
+.guide-micro-menu .menu-pill {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border);
+  margin: 0 auto 8px;
+}
+.guide-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 24px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text);
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .12s;
+}
+.guide-menu-item:active {
+  background: var(--color-surface-alt, #f1f5f9);
+}
+.guide-menu-item .menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+/* ========== Tab Badge (green dot) ========== */
+.tab-guide-badge {
+  position: absolute;
+  top: 4px;
+  right: calc(50% - 18px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+/* ========== Teaser Card ========== */
+.rider-teaser {
+  margin: 0 16px 8px;
+  padding: 20px;
+  background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: #fff;
+  box-shadow: var(--shadow-card);
+}
+.rider-teaser-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.rider-teaser-sub {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-bottom: 14px;
+}
+.rider-teaser-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 28px;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  color: var(--color-primary);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  animation: pulse-btn 2s ease-in-out infinite;
+}
+@keyframes pulse-btn {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,.4); }
+  50% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+}
+
+/* ========== Rider Test Overlay ========== */
+.rider-test-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  z-index: 500;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+.rider-test-overlay.active {
+  display: flex;
+}
+.rider-test-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  flex-shrink: 0;
+}
+.rider-test-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+.rider-test-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--color-text-muted);
+  background: var(--color-surface-alt, #f1f5f9);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ========== Progress Bar (Road) ========== */
+.rider-progress {
+  position: relative;
+  height: 32px;
+  margin: 12px 20px 8px;
+  flex-shrink: 0;
+}
+.rider-road {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  transform: translateY(-50%);
+}
+.rider-road-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: width .4s ease;
+}
+.rider-bike-icon {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+  transition: left .4s ease;
+  z-index: 1;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.15));
+}
+
+/* ========== Question Container ========== */
+.rider-test-body {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  max-width: 430px;
+  width: 100%;
+  margin: 0 auto;
+}
+.rider-question {
+  padding: 0 20px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform .3s ease, opacity .3s ease;
+}
+.rider-question.slide-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.rider-question.slide-in-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.rider-question.slide-in-right.entering {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* ========== Mini-Cartoon Scene ========== */
+.cartoon-scene {
+  position: relative;
+  height: 120px;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.cartoon-scene span {
+  position: absolute;
+  font-size: 28px;
+  opacity: 0;
+  transition: none;
+}
+.cartoon-scene.animate span {
+  opacity: 1;
+}
+
+/* ── Q1: Bike inspection ── */
+.scene-q1 .s-bike { bottom: 40px; left: -40px; }
+.scene-q1.animate .s-bike { animation: q1-bike 1.2s ease forwards; }
+@keyframes q1-bike { 0% { left: -40px; } 100% { left: calc(50% - 14px); } }
+
+.scene-q1 .s-phone { bottom: 30px; right: -40px; opacity: 0; }
+.scene-q1.animate .s-phone { animation: q1-phone 3s 1s ease forwards; }
+@keyframes q1-phone {
+  0% { right: -40px; opacity: 0; transform: rotate(0deg); }
+  20% { right: 60px; opacity: 1; }
+  40% { right: 30px; transform: rotate(60deg); }
+  60% { right: 20px; transform: rotate(120deg); }
+  80% { right: 40px; transform: rotate(240deg); }
+  100% { right: 60px; opacity: 1; transform: rotate(360deg); }
+}
+
+.scene-q1 .s-flash { top: 10px; left: 50%; font-size: 24px; opacity: 0; }
+.scene-q1.animate .s-flash { animation: q1-flash .4s 3.5s ease forwards; }
+@keyframes q1-flash { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+
+.scene-q1 .s-check { top: 10px; left: 50%; font-size: 22px; opacity: 0; }
+.scene-q1.animate .s-check { animation: q1-check 1s 4s ease forwards; }
+@keyframes q1-check { 0% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
+
+/* ── Q2: Wet road ── */
+.scene-q2 .s-drop { top: -20px; font-size: 18px; opacity: 0; }
+.scene-q2 .s-drop1 { left: 20%; }
+.scene-q2 .s-drop2 { left: 50%; animation-delay: .3s !important; }
+.scene-q2 .s-drop3 { left: 75%; animation-delay: .6s !important; }
+.scene-q2.animate .s-drop { animation: q2-drop 1.2s ease infinite; }
+@keyframes q2-drop { 0% { top: -20px; opacity: 0; } 30% { opacity: 1; } 100% { top: 100px; opacity: 0; } }
+
+.scene-q2 .s-bike-fast { bottom: 40px; right: -40px; }
+.scene-q2.animate .s-bike-fast { animation: q2-fast 1.5s .5s ease forwards; }
+@keyframes q2-fast { 0% { right: -40px; } 40% { right: calc(50% - 14px); } 50% { right: calc(50% - 14px); transform: rotate(0); } 60% { transform: rotate(-15deg); } 70% { transform: rotate(10deg); } 80% { transform: rotate(-20deg); } 100% { right: calc(50% - 14px); transform: rotate(-45deg); } }
+
+.scene-q2 .s-crash { bottom: 30px; left: 50%; opacity: 0; font-size: 22px; }
+.scene-q2.animate .s-crash { animation: q2-crash .3s 2s ease forwards; }
+@keyframes q2-crash { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1.2); } }
+
+.scene-q2 .s-bike-slow { bottom: 40px; right: -40px; opacity: 0; }
+.scene-q2.animate .s-bike-slow { animation: q2-slow 2s 3s ease forwards; }
+@keyframes q2-slow { 0% { right: -40px; opacity: 0; } 30% { opacity: 1; } 100% { right: calc(100% + 40px); opacity: 1; } }
+
+.scene-q2 .s-check2 { top: 10px; right: 20px; font-size: 20px; opacity: 0; }
+.scene-q2.animate .s-check2 { animation: q1-check .6s 4.5s ease forwards; }
+
+/* ── Q3: Mountain road ── */
+.scene-q3 .s-mt-l { bottom: 20px; left: 10px; font-size: 32px; }
+.scene-q3 .s-mt-r { bottom: 20px; right: 10px; font-size: 32px; }
+.scene-q3.animate .s-mt-l, .scene-q3.animate .s-mt-r { opacity: 1; }
+
+.scene-q3 .s-truck { top: -30px; left: -30px; font-size: 26px; opacity: 0; }
+.scene-q3.animate .s-truck { animation: q3-truck 2.5s .5s ease forwards; }
+@keyframes q3-truck { 0% { top: -30px; left: -30px; opacity: 0; } 20% { opacity: 1; } 100% { top: 100px; left: calc(100% + 30px); opacity: 1; } }
+
+.scene-q3 .s-bike3 { bottom: -30px; right: -30px; font-size: 26px; opacity: 0; }
+.scene-q3.animate .s-bike3 { animation: q3-bike 2.5s .5s ease forwards; }
+@keyframes q3-bike { 0% { bottom: -30px; right: -30px; opacity: 0; } 20% { opacity: 1; } 50% { bottom: 50px; right: calc(50% - 14px); } 60% { right: calc(50% + 10px); } 100% { bottom: 100px; right: calc(100% + 30px); opacity: 1; } }
+
+.scene-q3 .s-wave1, .scene-q3 .s-wave2 { font-size: 18px; opacity: 0; }
+.scene-q3 .s-wave1 { top: 30px; left: 40%; }
+.scene-q3 .s-wave2 { top: 30px; left: 55%; }
+.scene-q3.animate .s-wave1 { animation: q3-wave .6s 1.8s ease forwards; }
+.scene-q3.animate .s-wave2 { animation: q3-wave .6s 2s ease forwards; }
+@keyframes q3-wave { 0% { opacity: 0; transform: rotate(-20deg); } 50% { opacity: 1; transform: rotate(20deg); } 100% { opacity: 1; transform: rotate(0); } }
+
+/* ── Q4: Drunk driving ── */
+.scene-q4 .s-beer { opacity: 0; font-size: 24px; }
+.scene-q4 .s-beer1 { bottom: 50px; left: calc(50% - 30px); }
+.scene-q4 .s-beer2 { bottom: 50px; left: 50%; }
+.scene-q4 .s-beer3 { bottom: 70px; left: calc(50% - 15px); }
+.scene-q4.animate .s-beer1 { animation: q4-beer-in .5s .2s ease forwards, q4-beer-fly 1s 2s ease forwards; }
+.scene-q4.animate .s-beer2 { animation: q4-beer-in .5s .4s ease forwards, q4-beer-fly2 1s 2s ease forwards; }
+.scene-q4.animate .s-beer3 { animation: q4-beer-in .5s .6s ease forwards, q4-beer-fly3 1s 2s ease forwards; }
+@keyframes q4-beer-in { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes q4-beer-fly { to { transform: translate(-80px, -40px) rotate(180deg); opacity: 0; } }
+@keyframes q4-beer-fly2 { to { transform: translate(80px, -60px) rotate(-150deg); opacity: 0; } }
+@keyframes q4-beer-fly3 { to { transform: translate(30px, 60px) rotate(200deg); opacity: 0; } }
+
+.scene-q4 .s-bike4 { bottom: 40px; left: -40px; opacity: 0; }
+.scene-q4.animate .s-bike4 { animation: q4-bike 1s 1s ease forwards; }
+@keyframes q4-bike { 0% { left: -40px; opacity: 0; } 100% { left: calc(50% - 14px); opacity: 1; } }
+
+.scene-q4 .s-crash4 { bottom: 40px; left: 50%; font-size: 22px; opacity: 0; }
+.scene-q4.animate .s-crash4 { animation: q2-crash .3s 1.8s ease forwards; }
+
+.scene-q4 .s-moon { top: 8px; right: 20px; font-size: 20px; opacity: 0; }
+.scene-q4.animate .s-moon { animation: q4-moon .6s 3.5s ease forwards; }
+@keyframes q4-moon { 0% { opacity: 0; transform: translateY(-20px); } 100% { opacity: 1; transform: translateY(0); } }
+
+.scene-q4 .s-bike4b { bottom: 40px; right: 60px; opacity: 0; }
+.scene-q4 .s-person { bottom: 40px; right: 40px; font-size: 20px; opacity: 0; }
+.scene-q4 .s-car4 { bottom: 40px; left: -40px; opacity: 0; font-size: 22px; }
+.scene-q4.animate .s-bike4b { animation: q4-appear .4s 3.8s ease forwards; }
+.scene-q4.animate .s-person { animation: q4-appear .4s 4s ease forwards; }
+.scene-q4.animate .s-car4 { animation: q4-car 1.5s 4.2s ease forwards; }
+@keyframes q4-appear { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes q4-car { 0% { left: -40px; opacity: 0; } 30% { left: 30px; opacity: 1; } 70% { left: 30px; opacity: 1; } 100% { left: calc(100% + 40px); opacity: 0; } }
+
+.scene-q4 .s-check4 { top: 10px; left: 20px; font-size: 20px; opacity: 0; }
+.scene-q4.animate .s-check4 { animation: q1-check .6s 5.5s ease forwards; }
+
+/* ── Q5: Police ── */
+.scene-q5 .s-police { bottom: 35px; left: 20px; font-size: 26px; opacity: 0; }
+.scene-q5.animate .s-police { opacity: 1; }
+
+.scene-q5 .s-siren-b { top: 18px; left: 25px; font-size: 14px; opacity: 0; }
+.scene-q5 .s-siren-r { top: 18px; left: 38px; font-size: 14px; opacity: 0; }
+.scene-q5.animate .s-siren-b { animation: q5-siren .4s ease infinite; }
+.scene-q5.animate .s-siren-r { animation: q5-siren .4s .2s ease infinite; }
+@keyframes q5-siren { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+.scene-q5 .s-bike5 { bottom: 40px; right: -40px; opacity: 0; }
+.scene-q5.animate .s-bike5 { animation: q5-bike 1.2s .5s ease forwards; }
+@keyframes q5-bike { 0% { right: -40px; opacity: 0; } 100% { right: 80px; opacity: 1; } }
+
+.scene-q5 .s-officer { bottom: 40px; left: 65px; font-size: 22px; opacity: 0; }
+.scene-q5 .s-biker { bottom: 40px; right: 110px; font-size: 22px; opacity: 0; }
+.scene-q5.animate .s-officer { animation: q4-appear .4s 1.8s ease forwards; }
+.scene-q5.animate .s-biker { animation: q4-appear .4s 2s ease forwards; }
+
+.scene-q5 .s-wave5a, .scene-q5 .s-wave5b { font-size: 16px; opacity: 0; }
+.scene-q5 .s-wave5a { bottom: 65px; left: 70px; }
+.scene-q5 .s-wave5b { bottom: 65px; right: 100px; }
+.scene-q5.animate .s-wave5a { animation: q3-wave .5s 2.5s ease forwards; }
+.scene-q5.animate .s-wave5b { animation: q3-wave .5s 2.7s ease forwards; }
+
+.scene-q5 .s-check5 { top: 10px; right: 20px; font-size: 20px; opacity: 0; }
+.scene-q5.animate .s-check5 { animation: q1-check .6s 3.2s ease forwards; }
+
+/* ── Q6: Accident ── */
+.scene-q6 .s-tuktuk { bottom: 40px; left: -40px; font-size: 26px; opacity: 0; }
+.scene-q6.animate .s-tuktuk { animation: q6-tuktuk 2s ease forwards; }
+@keyframes q6-tuktuk { 0% { left: -40px; opacity: 0; } 40% { left: 40%; opacity: 1; } 50% { left: 55%; } 100% { left: calc(100% + 40px); opacity: 0; } }
+
+.scene-q6 .s-bike6 { bottom: 40px; right: -40px; font-size: 24px; opacity: 0; }
+.scene-q6.animate .s-bike6 { animation: q6-bike6 1.5s ease forwards; }
+@keyframes q6-bike6 { 0% { right: -40px; opacity: 0; } 50% { right: 40%; opacity: 1; } 60% { transform: rotate(-30deg); } 100% { right: 40%; transform: rotate(-45deg); opacity: 1; } }
+
+.scene-q6 .s-crash6 { bottom: 35px; left: 45%; font-size: 20px; opacity: 0; }
+.scene-q6.animate .s-crash6 { animation: q2-crash .3s 1.2s ease forwards; }
+
+.scene-q6 .s-crowd1, .scene-q6 .s-crowd2 { font-size: 18px; opacity: 0; }
+.scene-q6 .s-crowd1 { bottom: 20px; left: 25%; }
+.scene-q6 .s-crowd2 { bottom: 20px; right: 25%; }
+.scene-q6.animate .s-crowd1 { animation: q4-appear .4s 1.8s ease forwards; }
+.scene-q6.animate .s-crowd2 { animation: q4-appear .4s 2s ease forwards; }
+
+.scene-q6 .s-phone6 { top: 15px; right: 30px; font-size: 22px; opacity: 0; }
+.scene-q6.animate .s-phone6 { animation: q6-phone 1s 2.5s ease forwards; }
+@keyframes q6-phone { 0% { opacity: 0; transform: rotate(0); } 25% { opacity: 1; transform: rotate(5deg); } 50% { transform: rotate(-5deg); } 75% { transform: rotate(5deg); } 100% { opacity: 1; transform: rotate(0); } }
+
+.scene-q6 .s-call6 { top: 15px; right: 60px; font-size: 18px; opacity: 0; }
+.scene-q6.animate .s-call6 { animation: q4-appear .4s 3.2s ease forwards; }
+
+.scene-q6 .s-check6 { top: 10px; left: 20px; font-size: 20px; opacity: 0; }
+.scene-q6.animate .s-check6 { animation: q1-check .6s 3.8s ease forwards; }
+
+/* ── Q7: Parking ── */
+.scene-q7 .s-curb-r { bottom: 0; left: 0; right: 0; height: 16px; display: flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: 2px; opacity: 0; }
+.scene-q7.animate .s-curb-r { opacity: 1; }
+
+.scene-q7 .s-bike7 { bottom: 18px; left: 40%; opacity: 0; }
+.scene-q7.animate .s-bike7 { animation: q4-appear .4s .5s ease forwards; }
+
+.scene-q7 .s-walker7 { bottom: 18px; left: 55%; font-size: 20px; opacity: 0; }
+.scene-q7.animate .s-walker7 { animation: q7-walk 1s 1s ease forwards; }
+@keyframes q7-walk { 0% { opacity: 1; left: 55%; } 100% { opacity: 0; left: 80%; } }
+
+.scene-q7 .s-cop7 { bottom: 18px; left: 20px; font-size: 22px; opacity: 0; }
+.scene-q7.animate .s-cop7 { animation: q4-appear .4s 2s ease forwards; }
+
+.scene-q7 .s-lock7 { bottom: 20px; left: 42%; font-size: 18px; opacity: 0; }
+.scene-q7.animate .s-lock7 { animation: q7-lock .6s 2.5s ease forwards; }
+@keyframes q7-lock { 0% { opacity: 0; transform: translateY(-20px); } 100% { opacity: 1; transform: translateY(0); } }
+
+.scene-q7 .s-money7 { top: 15px; left: 50%; font-size: 20px; opacity: 0; }
+.scene-q7.animate .s-money7 { animation: q4-appear .4s 3s ease forwards; }
+
+.scene-q7 .s-curb-w { bottom: 0; left: 0; right: 0; height: 16px; font-size: 12px; letter-spacing: 4px; opacity: 0; }
+.scene-q7.animate .s-curb-w { animation: q4-appear .4s 3.5s ease forwards; }
+
+.scene-q7 .s-palm7 { bottom: 18px; right: 30px; font-size: 24px; opacity: 0; }
+.scene-q7.animate .s-palm7 { animation: q4-appear .4s 4s ease forwards; }
+
+.scene-q7 .s-check7 { top: 10px; right: 20px; font-size: 20px; opacity: 0; }
+.scene-q7.animate .s-check7 { animation: q1-check .6s 4.5s ease forwards; }
+
+/* ── Q8: Vape ── */
+.scene-q8 .s-bike8 { bottom: 40px; left: -40px; opacity: 0; }
+.scene-q8.animate .s-bike8 { animation: q1-bike 1.2s ease forwards; }
+
+.scene-q8 .s-vape { bottom: 55px; left: calc(50% + 10px); font-size: 16px; opacity: 0; }
+.scene-q8.animate .s-vape { animation: q4-appear .3s 1.3s ease forwards; }
+
+.scene-q8 .s-cop8 { bottom: 40px; right: 30%; font-size: 22px; opacity: 0; }
+.scene-q8.animate .s-cop8 { animation: q4-appear .4s 1.8s ease forwards; }
+
+.scene-q8 .s-hand8 { bottom: 65px; right: 28%; font-size: 16px; opacity: 0; }
+.scene-q8.animate .s-hand8 { animation: q4-appear .3s 2s ease forwards; }
+
+.scene-q8 .s-mag8 { bottom: 30px; left: 40%; font-size: 20px; opacity: 0; }
+.scene-q8.animate .s-mag8 { animation: q8-mag 1.5s 2.5s ease forwards; }
+@keyframes q8-mag { 0% { left: 40%; opacity: 0; } 20% { opacity: 1; } 100% { left: calc(50% + 10px); opacity: 1; } }
+
+.scene-q8 .s-found8 { top: 15px; left: 50%; font-size: 18px; opacity: 0; }
+.scene-q8.animate .s-found8 { animation: q4-appear .4s 3.5s ease forwards; }
+
+.scene-q8 .s-chain8 { bottom: 55px; left: calc(50% - 20px); font-size: 18px; opacity: 0; }
+.scene-q8 .s-shock8 { bottom: 55px; left: calc(50% - 5px); font-size: 18px; opacity: 0; }
+.scene-q8.animate .s-chain8 { animation: q8-bounce .6s 3.8s ease forwards; }
+.scene-q8.animate .s-shock8 { animation: q8-bounce .6s 4s ease forwards; }
+@keyframes q8-bounce { 0% { opacity: 0; transform: scale(0.3); } 60% { opacity: 1; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
+
+/* ========== Question Text ========== */
+.rider-situation {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 14px;
+  color: var(--color-text);
+}
+
+/* ========== Answer Buttons ========== */
+.rider-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.rider-answer-btn {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--color-text);
+  transition: all .2s;
+  line-height: 1.4;
+}
+.rider-answer-btn:active {
+  transform: scale(0.98);
+}
+.rider-answer-btn.correct {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #16a34a;
+  animation: bounce-correct .4s ease;
+}
+@keyframes bounce-correct {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.03); }
+  60% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+.rider-answer-btn.wrong {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #94a3b8;
+}
+.rider-answer-btn.disabled {
+  pointer-events: none;
+}
+
+/* ========== Explanation Card ========== */
+.rider-explanation {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(30px);
+  opacity: 0;
+  transition: transform .35s ease, opacity .35s ease;
+  margin-bottom: 12px;
+}
+.rider-explanation.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+.rider-explanation-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+.rider-explanation .phone-link {
+  display: block;
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-decoration: none;
+  text-align: center;
+}
+
+/* ========== Next Button ========== */
+.rider-next-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.rider-next-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== Bike Transition Between Questions ========== */
+.bike-transition {
+  position: fixed;
+  top: 50%;
+  left: -60px;
+  font-size: 36px;
+  z-index: 510;
+  pointer-events: none;
+  animation: bike-pass .5s ease forwards;
+}
+@keyframes bike-pass {
+  0% { left: -60px; }
+  100% { left: calc(100% + 60px); }
+}
+
+/* ========== Final Screen ========== */
+.rider-final {
+  padding: 40px 20px 40px;
+  text-align: center;
+}
+.rider-final .trophy {
+  font-size: 72px;
+  display: block;
+  margin-bottom: 16px;
+  animation: trophy-bounce .8s ease;
+}
+@keyframes trophy-bounce {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.2); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.rider-final-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.rider-final-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: 28px;
+}
+.rider-final-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(67,56,202,.3);
+}
+.rider-share-link {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: inherit;
+}
+
+/* ========== Confetti ========== */
+.confetti-piece {
+  position: fixed;
+  top: -40px;
+  font-size: 24px;
+  z-index: 520;
+  pointer-events: none;
+  animation: confetti-fall 3s ease forwards;
+}
+@keyframes confetti-fall {
+  0% { top: -40px; opacity: 1; transform: rotate(0deg); }
+  80% { opacity: 1; }
+  100% { top: 110vh; opacity: 0; transform: rotate(720deg); }
+}
+
+/* ========== Resume Prompt ========== */
+.rider-resume {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 510;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.rider-resume-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+.rider-resume-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.rider-resume-card p {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+}
+.rider-resume-btns {
+  display: flex;
+  gap: 8px;
+}
+.rider-resume-btns button {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.rider-resume-continue {
+  background: var(--color-primary);
+  color: #fff;
+}
+.rider-resume-restart {
+  background: var(--color-surface-alt, #f1f5f9);
+  color: var(--color-text);
+}

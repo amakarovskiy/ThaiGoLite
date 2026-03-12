@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amakarovskiy.github.io/ThaiGoLite/sitemap.xml

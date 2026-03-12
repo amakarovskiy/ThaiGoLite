@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://amakarovskiy.github.io/ThaiGoLite/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://amakarovskiy.github.io/ThaiGoLite/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://amakarovskiy.github.io/ThaiGoLite/"/>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

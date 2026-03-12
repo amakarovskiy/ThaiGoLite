@@ -1,0 +1,446 @@
+/* BookingSheet + PlaceSheet — matching index.html class names */
+
+/* Overlay */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+
+.sheet-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Booking Sheet */
+.booking-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
+  max-width: 430px;
+  max-height: 88dvh;
+  background: var(--color-surface);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 24px rgba(0,0,0,.12);
+  z-index: 201;
+  transition: transform .35s cubic-bezier(.32,.72,0,1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.booking-sheet.open {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Sheet Handle */
+.sheet-handle {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 4px;
+  cursor: grab;
+}
+
+.sheet-pill {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border);
+}
+
+/* Sheet Body */
+.sheet-body {
+  padding: 8px 20px calc(20px + var(--safe-bottom));
+}
+
+/* Bike header */
+.sheet-bike-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+/* Image wrapper with zoom pill & dots */
+.sheet-img-wrap {
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.sheet-bike-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sheet-bike-img::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,.35), rgba(0,0,0,0));
+  pointer-events: none;
+}
+
+.sheet-img-wrap .sheet-bike-img {
+  position: relative;
+}
+
+.sheet-img-zoom {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  line-height: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sheet-img-dots {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.sheet-img-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-border, #cbd5e1);
+  transition: background .2s;
+}
+
+.sheet-img-dots .dot.active {
+  background: var(--color-primary);
+}
+
+.sheet-bike-img.cat-scooter { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
+.sheet-bike-img.cat-maxi { background: linear-gradient(135deg, #d1fae5, #e0f2fe); }
+.sheet-bike-img.cat-moto { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+.sheet-bike-img.cat-car { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+
+.sheet-bike-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.sheet-bike-cc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* Features tags */
+.sheet-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.sheet-feature-tag {
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--color-surface-alt);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* Pricing */
+.sheet-pricing {
+  margin-bottom: 14px;
+}
+
+.sheet-pricing-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.sheet-price-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sheet-price-table th {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 6px 2px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sheet-price-table td {
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px 2px;
+  color: var(--color-text);
+}
+
+.sheet-price-table td.active-tier {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border-radius: 6px;
+}
+
+/* Day calculator */
+.sheet-calc {
+  margin-bottom: 14px;
+}
+
+.sheet-calc-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--color-text-secondary);
+}
+
+.sheet-calc-label strong {
+  color: var(--color-primary);
+  font-size: 16px;
+}
+
+.sheet-slider {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 3px;
+  background: var(--color-border);
+  outline: none;
+  margin-bottom: 8px;
+}
+
+.sheet-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(67,56,202,.3);
+}
+
+.sheet-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: none;
+  cursor: pointer;
+}
+
+/* Total */
+.sheet-total {
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--color-primary-light);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 14px;
+}
+
+.sheet-total strong {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+/* CTA buttons */
+.sheet-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ========== Place Sheet ========== */
+.place-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
+  max-width: 430px;
+  max-height: 70dvh;
+  background: var(--color-surface);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 24px rgba(0,0,0,.12);
+  z-index: 201;
+  transition: transform .35s cubic-bezier(.32,.72,0,1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.place-sheet.open {
+  transform: translateX(-50%) translateY(0);
+}
+
+.place-sheet-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.place-sheet-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: var(--color-surface-alt);
+  flex-shrink: 0;
+}
+
+.place-sheet-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.place-sheet-km {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.place-sheet-desc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.place-sheet-tips {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-alt);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+/* ========== Bike Lightbox ========== */
+.lb-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+
+.lb-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lb-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(0,0,0,.06);
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+  color: #334155;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-counter {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  z-index: 2;
+}
+
+.lb-track {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.lb-slide {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  transition: transform .3s ease;
+}
+
+.lb-slide-img {
+  width: 90vw;
+  max-width: 420px;
+  max-height: 70vh;
+  aspect-ratio: 1;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.15);
+}
+
+.lb-dots {
+  position: absolute;
+  bottom: 32px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+
+.lb-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  transition: background .2s;
+}
+
+.lb-dots .dot.active {
+  background: var(--color-primary);
+}

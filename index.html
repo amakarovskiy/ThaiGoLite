@@ -396,15 +396,16 @@
         <div class="sheet-insurance" id="sheetInsurance">
           <div class="ins-chips">
             <button class="ins-chip active" id="insBasicChip">
-              <span class="ins-chip-label" data-i18n="insBasic">Страховка</span>
-              <span class="ins-chip-sub" data-i18n="insIncluded">включена</span>
+              <span class="ins-chip-text" data-i18n="insBasic">Страховка</span>
+              <span class="ins-chip-info" id="insBasicInfo" aria-label="Info">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              </span>
             </button>
             <button class="ins-chip" id="insPlusChip">
-              <span class="ins-chip-label" data-i18n="insPlus">Страховка+</span>
-              <span class="ins-chip-sub" id="insPlusCostLabel">+ 500 ฿</span>
-            </button>
-            <button class="ins-info-btn" id="insInfoBtn" aria-label="Insurance info">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span class="ins-chip-text"><span data-i18n="insPlus">Страховка+</span><span class="ins-chip-cost" id="insPlusCostLabel"> · 500 ฿</span></span>
+              <span class="ins-chip-info" id="insPlusInfo" aria-label="Info">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              </span>
             </button>
           </div>
         </div>
@@ -420,20 +421,34 @@
       </div>
     </div>
 
-    <!-- INSURANCE INFO SHEET -->
-    <div class="ins-info-sheet" id="insInfoSheet">
-      <div class="sheet-handle"><div class="sheet-pill"></div></div>
-      <div class="sheet-body">
-        <h3 class="ins-info-heading" data-i18n="insInfoTitle">Что покрывает страховка</h3>
-        <div class="ins-info-block">
-          <h4 data-i18n="insBasicTitle">Страховка (включена)</h4>
-          <p data-i18n="insBasicDesc">Базовая страховка от повреждений третьих лиц. Покрывает ущерб чужому транспорту и имуществу при ДТП.</p>
-        </div>
-        <div class="ins-info-block ins-info-plus">
-          <h4 data-i18n="insPlusTitle">Страховка+ (расширенная)</h4>
-          <p id="insPlusDescText">Покрытие повреждений арендованного байка. Франшиза 3 000 ฿ — вы платите не более этой суммы при любом повреждении.</p>
-          <div class="ins-info-price" id="insPlusPriceInfo"></div>
-        </div>
+    <!-- INSURANCE INFO SHEET — Basic -->
+    <div class="ins-info-overlay" id="insBasicOverlay"></div>
+    <div class="ins-info-sheet" id="insBasicSheet">
+      <div class="ins-info-sheet-header">
+        <h3 data-i18n="insBasicTitle">Страховка (включена)</h3>
+        <button class="ins-info-close" id="insBasicClose">&times;</button>
+      </div>
+      <div class="ins-info-sheet-body" id="insBasicBody">
+        <p data-i18n="insBasicDesc">Здоровье водителя и пассажира. Покрытие до 30 000 ฿ на госпитализацию. Действует без прав категории А. Включена бесплатно.</p>
+      </div>
+    </div>
+
+    <!-- INSURANCE INFO SHEET — Plus -->
+    <div class="ins-info-overlay" id="insPlusOverlay"></div>
+    <div class="ins-info-sheet" id="insPlusSheet">
+      <div class="ins-info-sheet-header">
+        <h3 data-i18n="insPlusTitle">Страховка+ (расширенная)</h3>
+        <button class="ins-info-close" id="insPlusClose">&times;</button>
+      </div>
+      <div class="ins-info-sheet-body" id="insPlusBody">
+        <p id="insPlusDescText">Защита байка от расходов на ремонт сверх депозита. Франшиза клиента — 3 000 ฿.</p>
+        <ul class="ins-info-list" id="insPlusRules">
+          <li data-i18n="insPlusExclude">Не покрывает: шины, аккумулятор, ДТП по вине третьих лиц</li>
+          <li data-i18n="insPlusCall">При страховом случае: позвоните нам сразу — не покидайте место инцидента</li>
+          <li data-i18n="insPlusPhoto">Отправьте фото байка с четырёх сторон и снимите видео инцидента</li>
+          <li data-i18n="insPlusPrice">Оценка ущерба по утверждённому прайс-листу</li>
+        </ul>
+        <div class="ins-info-cost" id="insPlusPriceInfo"></div>
       </div>
     </div>
 

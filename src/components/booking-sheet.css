@@ -269,77 +269,95 @@
   color: var(--color-primary);
 }
 
-/* ========== Insurance Chips ========== */
+/* ========== Insurance Chips (compact) ========== */
 .sheet-insurance {
   margin-bottom: 14px;
 }
 
 .ins-chips {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .ins-chip {
-  flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: 10px 8px;
-  border-radius: 12px;
+  gap: 6px;
+  padding: 6px 10px 6px 14px;
+  border-radius: var(--radius-full, 9999px);
   border: 1.5px solid var(--color-border);
-  background: var(--color-surface);
+  background: var(--color-surface-alt);
   cursor: pointer;
-  transition: all .2s;
+  transition: all .15s;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.ins-chip:active {
+  transform: scale(0.95);
 }
 
 .ins-chip.active {
   border-color: var(--color-primary);
-  background: var(--color-primary-light);
-}
-
-.ins-chip-label {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.ins-chip.active .ins-chip-label {
+  background: rgba(67, 56, 202, 0.10);
   color: var(--color-primary);
 }
 
-.ins-chip-sub {
-  font-size: 11px;
-  color: var(--color-text-muted);
+.ins-chip-text {
+  pointer-events: none;
 }
 
-.ins-chip.active .ins-chip-sub {
-  color: var(--color-primary);
-  opacity: .8;
+.ins-chip-cost {
+  font-weight: 500;
+  opacity: .65;
+  font-size: 12px;
 }
 
-.ins-info-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1.5px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text-muted);
+.ins-chip.active .ins-chip-cost {
+  opacity: .7;
+}
+
+.ins-chip-info {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  opacity: .5;
   flex-shrink: 0;
-  transition: color .2s, border-color .2s;
+  transition: opacity .15s;
 }
 
-.ins-info-btn:hover {
+.ins-chip-info:hover,
+.ins-chip.active .ins-chip-info {
+  opacity: .8;
+}
+
+.ins-chip.active .ins-chip-info {
   color: var(--color-primary);
-  border-color: var(--color-primary);
 }
 
 /* ========== Insurance Info Sheet ========== */
+.ins-info-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 299;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+
+.ins-info-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .ins-info-sheet {
   position: fixed;
   bottom: 0;
@@ -350,7 +368,7 @@
   max-height: 70dvh;
   background: var(--color-surface);
   border-radius: 20px 20px 0 0;
-  box-shadow: 0 -4px 24px rgba(0,0,0,.12);
+  box-shadow: 0 -8px 32px rgba(0,0,0,.15);
   z-index: 300;
   transition: transform .35s cubic-bezier(.32,.72,0,1);
   overflow-y: auto;
@@ -361,48 +379,80 @@
   transform: translateX(-50%) translateY(0);
 }
 
-.ins-info-heading {
-  font-size: 18px;
+.ins-info-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 0;
+}
+
+.ins-info-sheet-header h3 {
+  font-size: 17px;
   font-weight: 700;
-  margin: 0 0 14px;
+  margin: 0;
   color: var(--color-text);
 }
 
-.ins-info-block {
+.ins-info-close {
+  width: 28px;
+  height: 28px;
+  border: none;
   background: var(--color-surface-alt);
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin-bottom: 10px;
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.ins-info-block h4 {
-  font-size: 14px;
-  font-weight: 700;
-  margin: 0 0 6px;
+.ins-info-close:hover {
   color: var(--color-text);
 }
 
-.ins-info-block p {
+.ins-info-sheet-body {
+  padding: 12px 20px 24px;
+}
+
+.ins-info-sheet-body p {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+
+.ins-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+
+.ins-info-list li {
+  position: relative;
+  padding-left: 16px;
   font-size: 13px;
   color: var(--color-text-secondary);
   line-height: 1.5;
-  margin: 0;
+  margin-bottom: 6px;
 }
 
-.ins-info-plus {
-  border: 1.5px solid var(--color-primary);
-  background: var(--color-primary-light);
+.ins-info-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-text-muted);
 }
 
-.ins-info-plus h4 {
-  color: var(--color-primary);
-}
-
-.ins-info-price {
-  margin-top: 8px;
+.ins-info-cost {
   font-size: 14px;
   font-weight: 700;
   color: var(--color-primary);
+  padding: 10px 14px;
+  background: var(--color-primary-light);
+  border-radius: 10px;
 }
 
 /* CTA buttons */

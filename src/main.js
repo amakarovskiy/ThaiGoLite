@@ -120,8 +120,14 @@ const sheetInsuranceEl = $('sheetInsurance');
 const insBasicChip = $('insBasicChip');
 const insPlusChip = $('insPlusChip');
 const insPlusCostLabel = $('insPlusCostLabel');
-const insInfoBtn = $('insInfoBtn');
-const insInfoSheet = $('insInfoSheet');
+const insBasicInfo = $('insBasicInfo');
+const insPlusInfo = $('insPlusInfo');
+const insBasicSheet = $('insBasicSheet');
+const insBasicOverlay = $('insBasicOverlay');
+const insBasicClose = $('insBasicClose');
+const insPlusSheet = $('insPlusSheet');
+const insPlusOverlay = $('insPlusOverlay');
+const insPlusClose = $('insPlusClose');
 const insPlusDescText = $('insPlusDescText');
 const insPlusPriceInfo = $('insPlusPriceInfo');
 const lbOverlay = $('lbOverlay');
@@ -755,7 +761,7 @@ function updateSheetCalc() {
   } else {
     sheetInsuranceEl.style.display = '';
     insPlusChip.style.display = '';
-    insPlusCostLabel.textContent = `+ ${insCost.toLocaleString()} ฿`;
+    insPlusCostLabel.textContent = ` · ${insCost.toLocaleString()} ฿`;
   }
 
   if (sheetInsurancePlus && insTier) {
@@ -787,32 +793,49 @@ sheetDaySlider.addEventListener('input', () => {
   updateSheetCalc();
 });
 
-// Insurance chip listeners
-insBasicChip.addEventListener('click', () => {
+// Insurance chip listeners — select chip on click (but not on info icon)
+insBasicChip.addEventListener('click', (e) => {
+  if (e.target.closest('.ins-chip-info')) return;
   sheetInsurancePlus = false;
   updateSheetCalc();
 });
 
-insPlusChip.addEventListener('click', () => {
+insPlusChip.addEventListener('click', (e) => {
+  if (e.target.closest('.ins-chip-info')) return;
   sheetInsurancePlus = true;
   updateSheetCalc();
 });
 
-insInfoBtn.addEventListener('click', () => {
+// Info icon handlers — open per-chip sheet
+function openInsSheet(sheet, overlay) {
+  sheet.classList.add('open');
+  overlay.classList.add('active');
+}
+
+function closeInsSheet(sheet, overlay) {
+  sheet.classList.remove('open');
+  overlay.classList.remove('active');
+}
+
+insBasicInfo.addEventListener('click', (e) => {
+  e.stopPropagation();
+  openInsSheet(insBasicSheet, insBasicOverlay);
+});
+
+insPlusInfo.addEventListener('click', (e) => {
+  e.stopPropagation();
   if (!sheetBike) return;
   const franchise = getInsuranceFranchise(sheetBike);
   const cost = getInsurancePlusCost(sheetBike, sheetDays);
   insPlusDescText.textContent = tpl('insPlusDesc', { franchise: franchise.toLocaleString() });
   insPlusPriceInfo.textContent = `${t('insPlusPriceLabel')} ${cost.toLocaleString()} ฿`;
-  insInfoSheet.classList.add('open');
+  openInsSheet(insPlusSheet, insPlusOverlay);
 });
 
-insInfoSheet.addEventListener('click', (e) => {
-  if (e.target === insInfoSheet) insInfoSheet.classList.remove('open');
-});
-
-// Close insurance info sheet on handle drag or tap outside
-setupDragDismiss(insInfoSheet, () => insInfoSheet.classList.remove('open'));
+insBasicClose.addEventListener('click', () => closeInsSheet(insBasicSheet, insBasicOverlay));
+insPlusClose.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlusOverlay));
+insBasicOverlay.addEventListener('click', () => closeInsSheet(insBasicSheet, insBasicOverlay));
+insPlusOverlay.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlusOverlay));
 
 sheetOverlay.addEventListener('click', closeBookingSheet);
 

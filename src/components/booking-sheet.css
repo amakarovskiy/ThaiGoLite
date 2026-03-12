@@ -379,6 +379,23 @@
   transform: translateX(-50%) translateY(0);
 }
 
+/* Drag handle — 44px touch zone, pill visually centered */
+.ins-handle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  cursor: grab;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ins-handle .sheet-pill {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border);
+}
+
 .ins-info-sheet-header {
   display: flex;
   align-items: center;

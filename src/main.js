@@ -837,24 +837,32 @@ insPlusClose.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlus
 insBasicOverlay.addEventListener('click', () => closeInsSheet(insBasicSheet, insBasicOverlay));
 insPlusOverlay.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlusOverlay));
 
+// Drag-dismiss + tap-on-handle for info sheets
+setupDragDismiss(insBasicSheet, () => closeInsSheet(insBasicSheet, insBasicOverlay));
+setupDragDismiss(insPlusSheet, () => closeInsSheet(insPlusSheet, insPlusOverlay));
+
 sheetOverlay.addEventListener('click', closeBookingSheet);
 
 function setupDragDismiss(sheetEl, closeFn) {
-  const handle = sheetEl.querySelector('.sheet-handle');
+  const handle = sheetEl.querySelector('.sheet-handle') || sheetEl.querySelector('.ins-handle');
   if (!handle) return;
   let startY = 0;
   let currentY = 0;
   let dragging = false;
+  let moved = false;
 
   handle.addEventListener('touchstart', e => {
     startY = e.touches[0].clientY;
+    currentY = startY;
     dragging = true;
+    moved = false;
     sheetEl.style.transition = 'none';
   }, { passive: true });
 
   handle.addEventListener('touchmove', e => {
     if (!dragging) return;
     currentY = e.touches[0].clientY;
+    moved = true;
     const dy = Math.max(0, currentY - startY);
     sheetEl.style.transform = `translateX(-50%) translateY(${dy}px)`;
   }, { passive: true });
@@ -865,6 +873,10 @@ function setupDragDismiss(sheetEl, closeFn) {
     sheetEl.style.transition = '';
     const dy = currentY - startY;
     if (dy > 80) {
+      sheetEl.style.transform = '';
+      closeFn();
+    } else if (handle.classList.contains('ins-handle') && (!moved || dy < 5)) {
+      // Tap on ins-handle (no significant movement) — close info sheet
       sheetEl.style.transform = '';
       closeFn();
     } else {

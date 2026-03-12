@@ -82,7 +82,7 @@ const tabs = document.querySelectorAll('.tab-bar .tab');
 
 const bikeGrid = $('bikeGrid');
 const bikeFiltersEl = $('bikeFilters');
-const popularScroll = $('popularScroll');
+// popularScroll removed — now using popScroll in renderPopular()
 
 // Routes map page refs
 const routeSheet = $('routeSheet');
@@ -219,8 +219,8 @@ function applyTranslations() {
   const stepsTitle = $('stepsTitle');
   if (stepsTitle) stepsTitle.textContent = t('stepsTitle');
 
-  // Calculator
-  updateCalc();
+  // Popular bikes block
+  updatePopBlock();
 
   // Why ThaiGo
   const whyTitle = $('whyTitle');
@@ -233,10 +233,7 @@ function applyTranslations() {
   whySubs.forEach((el, i) => { if (whySubKeys[i]) el.textContent = t(whySubKeys[i]); });
 
   // Popular bikes section
-  const popHeader = document.querySelector('#page-home .section-header .section-title');
-  if (popHeader) popHeader.textContent = t('popularTitle');
-  const viewAllBtn = document.querySelector('#page-home .section-link');
-  if (viewAllBtn) viewAllBtn.innerHTML = t('viewAll');
+  // Popular bikes block translations handled by updatePopBlock()
 
   // Delivery section
   const delivTitleEl = $('deliveryTitle');
@@ -647,21 +644,43 @@ bikeFiltersEl.addEventListener('click', e => {
 });
 
 // ══════════════════════════════════════════════
-// Popular bikes on home page
+// Popular bikes combined block
 // ══════════════════════════════════════════════
-function renderPopular() {
-  const popular = BIKES.filter(b => b.popular);
-  popularScroll.innerHTML = popular.map(b => `
-    <div class="popular-card" data-bike="${b.id}">
-      <div class="popular-card-img cat-${b.category}" role="img" aria-label="${b.name} аренда Пхукет" style="background: linear-gradient(135deg, ${b.category === 'scooter' ? '#eef2ff, #dbeafe' : b.category === 'maxi' ? '#d1fae5, #e0f2fe' : '#fef3c7, #fde68a'})">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
-      <div class="popular-card-body">
-        <div class="popular-card-name">${b.name}</div>
-        <div class="popular-card-price">${t('priceFrom')} ${getPricePerDay(b, 7)} \u0E3F${t('perDay')}</div>
-      </div>
-    </div>
-  `).join('');
+let popGroup = 'economy';
+let popDays = 7;
 
-  popularScroll.querySelectorAll('.popular-card').forEach(card => {
+function getPopDiscount(bike, days) {
+  const season = getCurrentSeason();
+  const base = bike.prices[season][0];
+  const cur = getPricePerDay(bike, days);
+  return base > cur ? Math.round((1 - cur / base) * 100) : 0;
+}
+
+function renderPopular() {
+  const scroll = $('popScroll');
+  if (!scroll) return;
+  const days = popDays;
+  const filtered = BIKES.filter(b => b.budgetGroup === popGroup);
+
+  scroll.innerHTML = filtered.map(b => {
+    const season = getCurrentSeason();
+    const base = b.prices[season][0];
+    const cur = getPricePerDay(b, days);
+    const total = getTotalPrice(b, days);
+    const hasDiscount = cur < base;
+    return `
+    <div class="pop-card" data-bike="${b.id}">
+      <div class="pop-card-img cat-${b.category}">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
+      <div class="pop-card-name">${b.name}</div>
+      <div class="pop-card-prices">
+        <span class="pop-card-cur">${cur} \u0E3F</span>
+        ${hasDiscount ? `<span class="pop-card-base">${base} \u0E3F</span>` : ''}
+      </div>
+      <div class="pop-card-total">${t('popTotal')} ${total.toLocaleString()} \u0E3F</div>
+    </div>`;
+  }).join('');
+
+  scroll.querySelectorAll('.pop-card').forEach(card => {
     card.addEventListener('click', () => {
       const bike = BIKES.find(b => b.id === card.dataset.bike);
       if (bike) {
@@ -671,6 +690,85 @@ function renderPopular() {
     });
   });
 }
+
+function updatePopBlock() {
+  const days = popDays;
+  // Update days label
+  const daysLabel = $('popDaysLabel');
+  if (daysLabel) daysLabel.textContent = days + ' ' + t('popDays');
+
+  // Min total for group
+  const filtered = BIKES.filter(b => b.budgetGroup === popGroup);
+  const minTotal = filtered.reduce((m, b) => { const p = getTotalPrice(b, days); return p < m ? p : m; }, Infinity);
+  const totalLabel = $('popTotalLabel');
+  if (totalLabel) totalLabel.textContent = t('popFrom') + ' ' + minTotal.toLocaleString() + ' \u0E3F';
+
+  // Hint
+  const hint = $('popSliderHint');
+  if (hint) hint.textContent = t('popHint');
+
+  // Discount badge
+  const rep = filtered[0];
+  const discPct = rep ? getPopDiscount(rep, days) : 0;
+  const discEl = $('popDiscount');
+  if (discEl) {
+    if (discPct > 0) {
+      discEl.style.display = 'flex';
+      $('popDiscountBadge').textContent = '\u2212' + discPct + '%';
+      let discText = '';
+      if (days >= 20) discText = t('popDiscount20');
+      else if (days >= 7) discText = t('popDiscount7');
+      else discText = t('popDiscount3');
+      $('popDiscountText').textContent = discText;
+    } else {
+      discEl.style.display = 'none';
+    }
+  }
+
+  // Title & links
+  const titleEl = $('popTitle');
+  if (titleEl) titleEl.textContent = t('popTitle');
+  const allLink = $('popAllLink');
+  if (allLink) allLink.textContent = t('popAll');
+  const viewAll = $('popViewAll');
+  if (viewAll) viewAll.textContent = t('popViewAll');
+
+  // Chip labels
+  const chipLabels = { economy: 'popEconomy', comfort: 'popComfort', premium: 'popPremium' };
+  document.querySelectorAll('[data-pop-group]').forEach(el => {
+    const g = el.dataset.popGroup;
+    el.querySelector('span').textContent = t(chipLabels[g]);
+    el.classList.toggle('pop-chip--active', g === popGroup);
+  });
+
+  renderPopular();
+}
+
+// Pop chip clicks
+document.querySelectorAll('[data-pop-group]').forEach(el => {
+  el.addEventListener('click', () => {
+    popGroup = el.dataset.popGroup;
+    updatePopBlock();
+  });
+});
+
+// Pop slider
+const popSlider = $('popSlider');
+if (popSlider) popSlider.addEventListener('input', () => {
+  popDays = parseInt(popSlider.value);
+  updatePopBlock();
+});
+
+// "All →" link
+$('popAllLink').addEventListener('click', () => switchTab('bikes'));
+
+// "View all bikes →" button — switch to bikes with group filter
+$('popViewAll').addEventListener('click', () => {
+  // Set bike filter to match the group's category
+  const catMap = { economy: 'scooter', comfort: 'maxi', premium: 'maxi' };
+  bikeFilter = 'all';
+  switchTab('bikes');
+});
 
 // ══════════════════════════════════════════════
 // Booking Sheet
@@ -2038,81 +2136,7 @@ function launchConfetti() {
   }
 }
 
-// ══════════════════════════════════════════════
-// Cost Calculator (uses real bike pricing)
-// ══════════════════════════════════════════════
-// Representative bike IDs for each calc category
-const CALC_REP = { scooter: 'scoopy-110', standard: 'pcx-160', maxi: 'forza-350-new', moto: 'cbr-150-new' };
-let calcCat = 'scooter';
-
-function updateCalc() {
-  const slider = $('calcSlider');
-  if (!slider) return;
-  const days = parseInt(slider.value);
-  const repBike = BIKES.find(b => b.id === CALC_REP[calcCat]);
-  if (!repBike) return;
-  const perDay = getPricePerDay(repBike, days);
-  const total = getTotalPrice(repBike, days);
-
-  const totalEl = $('calcTotal');
-  if (totalEl) totalEl.textContent = total.toLocaleString() + ' \u0E3F';
-
-  const daysLabel = $('calcDaysLabel');
-  if (daysLabel) daysLabel.innerHTML = days + ' <span data-i18n="calcDaysUnit">' + t('calcDaysUnit') + '</span>';
-
-  const titleEl = $('calcTitle');
-  if (titleEl) titleEl.textContent = t('calcTitle');
-
-  // Show discount info when price drops at tier boundaries
-  const basePerDay = getPricePerDay(repBike, 1);
-  const discountPct = basePerDay > perDay ? Math.round((1 - perDay / basePerDay) * 100) : 0;
-  const discountEl = $('calcDiscount');
-  if (discountEl) {
-    if (discountPct > 0) {
-      discountEl.style.display = 'flex';
-      $('calcDiscountBadge').textContent = '\u2212' + discountPct + '%';
-      $('calcDiscountText').textContent = t('calcDiscountText');
-    } else {
-      discountEl.style.display = 'none';
-    }
-  }
-
-  // Update chip labels with real prices
-  document.querySelectorAll('[data-calc-cat]').forEach(el => {
-    const cat = el.dataset.calcCat;
-    const nameEl = el.querySelector('.calc-chip-name');
-    if (nameEl) {
-      const keyMap = { scooter: 'calcCatScooter', standard: 'calcCatStandard', maxi: 'calcCatMaxi', moto: 'calcCatMoto' };
-      nameEl.textContent = t(keyMap[cat]);
-    }
-    const priceEl = el.querySelector('.calc-chip-price');
-    if (priceEl) {
-      const rb = BIKES.find(b => b.id === CALC_REP[cat]);
-      if (rb) priceEl.textContent = getPricePerDay(rb, days) + ' \u0E3F';
-    }
-  });
-
-  const linkEl = $('calcLink');
-  if (linkEl) linkEl.textContent = t('calcViewBikes');
-}
-
-// Calc chip click
-document.querySelectorAll('[data-calc-cat]').forEach(el => {
-  el.addEventListener('click', () => {
-    document.querySelectorAll('[data-calc-cat]').forEach(c => c.classList.remove('calc-chip--active'));
-    el.classList.add('calc-chip--active');
-    calcCat = el.dataset.calcCat;
-    updateCalc();
-  });
-});
-
-// Calc slider
-const calcSlider = $('calcSlider');
-if (calcSlider) calcSlider.addEventListener('input', updateCalc);
-
-// Calc link -> bikes tab
-const calcLink = $('calcLink');
-if (calcLink) calcLink.addEventListener('click', () => switchTab('bikes'));
+// (Old calculator removed — replaced by popular bikes block)
 
 // ══════════════════════════════════════════════
 // Bike Picker

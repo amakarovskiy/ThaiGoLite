@@ -96,6 +96,9 @@ export const T = {
   tabBikes: {
     ru: 'Байки', en: 'Bikes', de: 'Bikes', fr: 'Motos', es: 'Motos'
   },
+  tabGuide: {
+    ru: 'Гид', en: 'Guide', de: 'Guide', fr: 'Guide', es: 'Guía'
+  },
   tabRoutes: {
     ru: 'Маршруты', en: 'Routes', de: 'Routen', fr: 'Itinéraires', es: 'Rutas'
   },
@@ -376,6 +379,465 @@ export const T = {
   },
   perDay: {
     ru: '/день', en: '/day', de: '/Tag', fr: '/jour', es: '/día'
+  },
+
+  // ── Guide micro-menu ──
+  guideMenuRoutes: {
+    ru: 'Маршруты', en: 'Routes', de: 'Routen', fr: 'Itinéraires', es: 'Rutas'
+  },
+  guideMenuRiderTest: {
+    ru: 'Райдер-тест', en: 'Rider Test', de: 'Rider-Test', fr: 'Test Rider', es: 'Test Rider'
+  },
+
+  // ── Teaser card ──
+  teaserTitle: {
+    ru: 'Ты уверен что готов ездить на Пхукете?',
+    en: 'Are you sure you\'re ready to ride in Phuket?',
+    de: 'Bist du sicher, dass du auf Phuket fahren kannst?',
+    fr: 'Es-tu sûr d\'être prêt à rouler à Phuket ?',
+    es: '¿Estás seguro de que estás listo para conducir en Phuket?'
+  },
+  teaserSub: {
+    ru: 'Пройди Райдер-тест за 3 минуты',
+    en: 'Take the Rider Test in 3 minutes',
+    de: 'Mache den Rider-Test in 3 Minuten',
+    fr: 'Fais le Test Rider en 3 minutes',
+    es: 'Haz el Test Rider en 3 minutos'
+  },
+  teaserBtn: {
+    ru: 'Начать тест', en: 'Start test', de: 'Test starten', fr: 'Commencer le test', es: 'Iniciar test'
+  },
+
+  // ── Rider Test UI ──
+  riderTestTitle: {
+    ru: 'Райдер-тест', en: 'Rider Test', de: 'Rider-Test', fr: 'Test Rider', es: 'Test Rider'
+  },
+  riderNext: {
+    ru: 'Дальше →', en: 'Next →', de: 'Weiter →', fr: 'Suivant →', es: 'Siguiente →'
+  },
+  resumeTitle: {
+    ru: 'Продолжить тест?', en: 'Continue test?', de: 'Test fortsetzen?', fr: 'Continuer le test ?', es: '¿Continuar el test?'
+  },
+  resumeText: {
+    ru: 'Ты остановился на вопросе ${n} из ${total}',
+    en: 'You stopped at question ${n} of ${total}',
+    de: 'Du warst bei Frage ${n} von ${total}',
+    fr: 'Tu t\'es arrêté à la question ${n} sur ${total}',
+    es: 'Te detuviste en la pregunta ${n} de ${total}'
+  },
+  resumeContinue: {
+    ru: 'Продолжить', en: 'Continue', de: 'Fortsetzen', fr: 'Continuer', es: 'Continuar'
+  },
+  resumeRestart: {
+    ru: 'Сначала', en: 'Restart', de: 'Neustart', fr: 'Recommencer', es: 'Reiniciar'
+  },
+  finalTitle: {
+    ru: 'Ты готов к Пхукету!',
+    en: 'You\'re ready for Phuket!',
+    de: 'Du bist bereit für Phuket!',
+    fr: 'Tu es prêt pour Phuket !',
+    es: '¡Estás listo para Phuket!'
+  },
+  finalText: {
+    ru: 'Теперь ты знаешь то что большинство туристов узнают только после неприятной ситуации. Езди спокойно — мы всегда на связи если что-то пойдёт не так.',
+    en: 'Now you know what most tourists only learn after an unpleasant situation. Ride safe — we\'re always in touch if something goes wrong.',
+    de: 'Jetzt weißt du, was die meisten Touristen erst nach einer unangenehmen Situation lernen. Fahre sicher — wir sind immer erreichbar, wenn etwas schiefgeht.',
+    fr: 'Maintenant tu sais ce que la plupart des touristes n\'apprennent qu\'après une mésaventure. Roule tranquille — on est toujours joignables si ça tourne mal.',
+    es: 'Ahora sabes lo que la mayoría de turistas solo aprenden después de una situación desagradable. Conduce seguro — siempre estamos disponibles si algo sale mal.'
+  },
+  finalBtn: {
+    ru: 'Выбрать байк 🛵', en: 'Choose a bike 🛵', de: 'Bike wählen 🛵', fr: 'Choisir une moto 🛵', es: 'Elegir una moto 🛵'
+  },
+  finalShare: {
+    ru: 'Поделиться результатом', en: 'Share result', de: 'Ergebnis teilen', fr: 'Partager le résultat', es: 'Compartir resultado'
+  },
+  shareTitle: {
+    ru: 'Райдер-тест', en: 'Rider Test', de: 'Rider-Test', fr: 'Test Rider', es: 'Test Rider'
+  },
+  shareText: {
+    ru: 'Я прошёл Райдер-тест на Пхукете! А ты готов к острову? 🛵 thaigo.rent',
+    en: 'I passed the Rider Test in Phuket! Are you ready for the island? 🛵 thaigo.rent',
+    de: 'Ich habe den Rider-Test auf Phuket bestanden! Bist du bereit für die Insel? 🛵 thaigo.rent',
+    fr: 'J\'ai réussi le Test Rider à Phuket ! Es-tu prêt pour l\'île ? 🛵 thaigo.rent',
+    es: '¡Pasé el Test Rider en Phuket! ¿Estás listo para la isla? 🛵 thaigo.rent'
+  },
+
+  // ── Rider Test Questions ──
+  rtQ1: {
+    ru: {
+      text: 'Байк привезли к отелю. Солнце светит, море ждёт. Менеджер протягивает ключи. Что делаешь первым делом?',
+      answers: [
+        'Подписываю договор и сразу уезжаю.',
+        'Снимаю видео вокруг байка — все царапины до отъезда.',
+        'Проверяю тормоза и зеркала.'
+      ],
+      explanation: 'Мы сами снимаем видео при каждой передаче байка — и тебе советуем то же самое. 30 секунд на телефон, и никаких споров при возврате. Все счастливы 🤝'
+    },
+    en: {
+      text: 'The bike was delivered to your hotel. The sun is shining, the sea awaits. The manager hands you the keys. What do you do first?',
+      answers: [
+        'Sign the contract and ride away immediately.',
+        'Record a video around the bike — all scratches before leaving.',
+        'Check brakes and mirrors.'
+      ],
+      explanation: 'We record video at every bike handover — and we advise you to do the same. 30 seconds on your phone, and no disputes when returning. Everyone\'s happy 🤝'
+    },
+    de: {
+      text: 'Das Bike wurde zum Hotel geliefert. Die Sonne scheint, das Meer wartet. Der Manager reicht dir die Schlüssel. Was machst du zuerst?',
+      answers: [
+        'Vertrag unterschreiben und sofort losfahren.',
+        'Ein Video rund um das Bike aufnehmen — alle Kratzer vor der Abfahrt.',
+        'Bremsen und Spiegel überprüfen.'
+      ],
+      explanation: 'Wir nehmen bei jeder Übergabe ein Video auf — und empfehlen dir dasselbe. 30 Sekunden mit dem Handy, und keine Streitigkeiten bei der Rückgabe. Alle sind glücklich 🤝'
+    },
+    fr: {
+      text: 'La moto a été livrée à ton hôtel. Le soleil brille, la mer t\'attend. Le gérant te tend les clés. Que fais-tu en premier ?',
+      answers: [
+        'Signer le contrat et partir immédiatement.',
+        'Filmer la moto sous tous les angles — toutes les rayures avant le départ.',
+        'Vérifier les freins et les rétroviseurs.'
+      ],
+      explanation: 'Nous filmons chaque remise de moto — et nous te conseillons de faire pareil. 30 secondes avec ton téléphone, et aucun litige au retour. Tout le monde est content 🤝'
+    },
+    es: {
+      text: 'La moto fue entregada en tu hotel. El sol brilla, el mar espera. El encargado te entrega las llaves. ¿Qué haces primero?',
+      answers: [
+        'Firmo el contrato y me voy inmediatamente.',
+        'Grabo un video alrededor de la moto — todos los rasguños antes de irme.',
+        'Reviso frenos y espejos.'
+      ],
+      explanation: 'Nosotros grabamos video en cada entrega de moto — y te aconsejamos hacer lo mismo. 30 segundos con tu teléfono y no hay disputas al devolver. Todos contentos 🤝'
+    }
+  },
+  rtQ2: {
+    ru: {
+      text: 'Только что прошёл ливень. Асфальт блестит, впереди поворот с горки. Сзади нетерпеливо сигналит байк. Что делаешь?',
+      answers: [
+        'Ускоряюсь — не буду мешать.',
+        'Торможу резко перед поворотом.',
+        'Сбавляю скорость заранее, вхожу плавно — пусть обгоняет.'
+      ],
+      explanation: 'Мокрый асфальт после дождя — самая частая причина падений туристов на Пхукете. Особенно первые минуты когда масло ещё не смылось. Медленно = доедешь 🙏'
+    },
+    en: {
+      text: 'It just rained heavily. The asphalt is glistening, there\'s a downhill turn ahead. A bike behind you is honking impatiently. What do you do?',
+      answers: [
+        'Speed up — I don\'t want to be in the way.',
+        'Brake hard before the turn.',
+        'Slow down early, enter smoothly — let them overtake.'
+      ],
+      explanation: 'Wet asphalt after rain is the most common cause of tourist falls in Phuket. Especially the first minutes when oil hasn\'t washed away yet. Slow = you\'ll make it 🙏'
+    },
+    de: {
+      text: 'Gerade hat es stark geregnet. Der Asphalt glänzt, vor dir liegt eine Kurve bergab. Hinter dir hupt ein Bike ungeduldig. Was machst du?',
+      answers: [
+        'Beschleunigen — ich will nicht im Weg sein.',
+        'Vor der Kurve hart bremsen.',
+        'Frühzeitig abbremsen, sanft einfahren — lass sie überholen.'
+      ],
+      explanation: 'Nasser Asphalt nach Regen ist die häufigste Ursache für Stürze von Touristen auf Phuket. Besonders die ersten Minuten, wenn das Öl noch nicht abgespült ist. Langsam = du kommst an 🙏'
+    },
+    fr: {
+      text: 'Il vient de pleuvoir. L\'asphalte brille, un virage en descente arrive. Derrière toi, un scooter klaxonne impatiemment. Que fais-tu ?',
+      answers: [
+        'J\'accélère — je ne veux pas gêner.',
+        'Je freine fort avant le virage.',
+        'Je ralentis à l\'avance, j\'entre doucement — qu\'il double.'
+      ],
+      explanation: 'L\'asphalte mouillé après la pluie est la cause la plus fréquente de chutes de touristes à Phuket. Surtout les premières minutes quand l\'huile n\'a pas encore été lavée. Lentement = tu arriveras 🙏'
+    },
+    es: {
+      text: 'Acaba de llover fuerte. El asfalto brilla, hay una curva cuesta abajo adelante. Detrás, una moto toca la bocina con impaciencia. ¿Qué haces?',
+      answers: [
+        'Acelero — no quiero estorbar.',
+        'Freno fuerte antes de la curva.',
+        'Reduzco velocidad con anticipación, entro suave — que me adelante.'
+      ],
+      explanation: 'El asfalto mojado después de la lluvia es la causa más común de caídas de turistas en Phuket. Especialmente los primeros minutos cuando el aceite aún no se ha lavado. Lento = llegarás 🙏'
+    }
+  },
+  rtQ3: {
+    ru: {
+      text: 'Едешь на смотровую на закате. Дорога узкая и крутая. Навстречу идут машины. Где держишься?',
+      answers: [
+        'Правее — подальше от края.',
+        'По центру — так виднее.',
+        'Левее — это моя полоса в левостороннем движении.'
+      ],
+      explanation: 'Таиланд — левостороннее движение. Твоя полоса — левая. На серпантине это критично. На спуске тормози мотором, не ручкой 🏔️'
+    },
+    en: {
+      text: 'You\'re heading to a viewpoint at sunset. The road is narrow and steep. Cars are coming your way. Where do you stay?',
+      answers: [
+        'To the right — away from the edge.',
+        'In the center — better visibility.',
+        'To the left — it\'s my lane in left-hand traffic.'
+      ],
+      explanation: 'Thailand has left-hand traffic. Your lane is the left one. On winding mountain roads this is critical. On descents, use engine braking, not the hand brake 🏔️'
+    },
+    de: {
+      text: 'Du fährst zum Aussichtspunkt bei Sonnenuntergang. Die Straße ist eng und steil. Autos kommen entgegen. Wo hältst du dich?',
+      answers: [
+        'Rechts — weiter weg vom Rand.',
+        'In der Mitte — bessere Sicht.',
+        'Links — das ist meine Spur im Linksverkehr.'
+      ],
+      explanation: 'Thailand hat Linksverkehr. Deine Spur ist die linke. Auf Serpentinen ist das entscheidend. Bergab mit Motor bremsen, nicht mit der Handbremse 🏔️'
+    },
+    fr: {
+      text: 'Tu roules vers un point de vue au coucher du soleil. La route est étroite et escarpée. Des voitures arrivent en face. Où te positionnes-tu ?',
+      answers: [
+        'À droite — loin du bord.',
+        'Au centre — meilleure visibilité.',
+        'À gauche — c\'est ma voie en conduite à gauche.'
+      ],
+      explanation: 'La Thaïlande roule à gauche. Ta voie est la gauche. Dans les virages de montagne, c\'est crucial. En descente, freine avec le moteur, pas avec la poignée 🏔️'
+    },
+    es: {
+      text: 'Vas a un mirador al atardecer. La carretera es estrecha y empinada. Vienen coches de frente. ¿Dónde te mantienes?',
+      answers: [
+        'A la derecha — lejos del borde.',
+        'En el centro — mejor visibilidad.',
+        'A la izquierda — es mi carril en tráfico por la izquierda.'
+      ],
+      explanation: 'Tailandia tiene tráfico por la izquierda. Tu carril es el izquierdo. En carreteras de montaña esto es crítico. En bajada, frena con el motor, no con la mano 🏔️'
+    }
+  },
+  rtQ4: {
+    ru: {
+      text: 'Отличный вечер в Патонге, несколько коктейлей, до отеля 15 минут по знакомой дороге. Что делаешь?',
+      answers: [
+        'Еду — я в норме, дорога пустая.',
+        'Еду очень медленно и осторожно.',
+        'Беру Grab или тук-тук, байк забираю утром.'
+      ],
+      explanation: 'В Таиланде есть допустимый минимум алкоголя. Но если попал в любую аварию выпившим — страховка не работает вообще. Grab стоит 100 бат. Спокойный сон бесценен 😴'
+    },
+    en: {
+      text: 'Great evening in Patong, a few cocktails, 15 minutes to the hotel on a familiar road. What do you do?',
+      answers: [
+        'Ride — I\'m fine, the road is empty.',
+        'Ride very slowly and carefully.',
+        'Take a Grab or tuk-tuk, pick up the bike in the morning.'
+      ],
+      explanation: 'Thailand has a minimum alcohol limit. But if you\'re in any accident while drinking — insurance doesn\'t work at all. Grab costs 100 baht. A peaceful sleep is priceless 😴'
+    },
+    de: {
+      text: 'Toller Abend in Patong, ein paar Cocktails, 15 Minuten zum Hotel auf bekannter Straße. Was machst du?',
+      answers: [
+        'Fahren — mir geht\'s gut, die Straße ist leer.',
+        'Sehr langsam und vorsichtig fahren.',
+        'Ein Grab oder Tuk-Tuk nehmen, das Bike morgens abholen.'
+      ],
+      explanation: 'Thailand hat eine Alkoholgrenze. Aber bei jedem Unfall unter Alkoholeinfluss — die Versicherung greift überhaupt nicht. Grab kostet 100 Baht. Ruhiger Schlaf ist unbezahlbar 😴'
+    },
+    fr: {
+      text: 'Super soirée à Patong, quelques cocktails, 15 minutes jusqu\'à l\'hôtel sur une route connue. Que fais-tu ?',
+      answers: [
+        'Je roule — je suis bien, la route est vide.',
+        'Je roule très lentement et prudemment.',
+        'Je prends un Grab ou un tuk-tuk, je récupère la moto le matin.'
+      ],
+      explanation: 'La Thaïlande a un seuil d\'alcoolémie. Mais en cas d\'accident sous alcool — l\'assurance ne fonctionne pas du tout. Grab coûte 100 bahts. Un sommeil tranquille n\'a pas de prix 😴'
+    },
+    es: {
+      text: 'Gran noche en Patong, unos cócteles, 15 minutos al hotel por una carretera conocida. ¿Qué haces?',
+      answers: [
+        'Conduzco — estoy bien, la carretera está vacía.',
+        'Conduzco muy lento y con cuidado.',
+        'Tomo un Grab o tuk-tuk, recojo la moto por la mañana.'
+      ],
+      explanation: 'Tailandia tiene un límite mínimo de alcohol. Pero si tienes cualquier accidente habiendo bebido — el seguro no funciona en absoluto. Grab cuesta 100 baht. Dormir tranquilo no tiene precio 😴'
+    }
+  },
+  rtQ5: {
+    ru: {
+      text: 'На въезде в Патонг полицейский машет жезлом. Ты ничего не нарушал. Как себя ведёшь?',
+      answers: [
+        'Останавливаюсь и объясняю что ни в чём не виноват.',
+        'Останавливаюсь, улыбаюсь, спокойно показываю документы.',
+        'Делаю вид что не заметил.'
+      ],
+      explanation: 'Золотое правило Таиланда: улыбка решает всё. Саватди крап — и атмосфера сразу другая. Тайцы не понимают конфликт — споришь, делаешь хуже себе даже если прав 😊'
+    },
+    en: {
+      text: 'At the entrance to Patong, a policeman waves his baton. You haven\'t violated anything. How do you behave?',
+      answers: [
+        'Stop and explain I\'ve done nothing wrong.',
+        'Stop, smile, calmly show my documents.',
+        'Pretend I didn\'t notice.'
+      ],
+      explanation: 'The golden rule of Thailand: a smile solves everything. Sawadee krap — and the atmosphere changes immediately. Thai people don\'t understand conflict — argue, and you make it worse even if you\'re right 😊'
+    },
+    de: {
+      text: 'Am Eingang von Patong winkt ein Polizist mit dem Stab. Du hast nichts falsch gemacht. Wie verhältst du dich?',
+      answers: [
+        'Anhalten und erklären, dass ich nichts falsch gemacht habe.',
+        'Anhalten, lächeln, ruhig die Dokumente zeigen.',
+        'So tun, als hätte ich es nicht bemerkt.'
+      ],
+      explanation: 'Die goldene Regel Thailands: Ein Lächeln löst alles. Sawadee krap — und die Atmosphäre ändert sich sofort. Thais verstehen keinen Konflikt — streitest du, machst du es schlimmer, selbst wenn du recht hast 😊'
+    },
+    fr: {
+      text: 'À l\'entrée de Patong, un policier fait signe avec son bâton. Tu n\'as rien fait de mal. Comment te comportes-tu ?',
+      answers: [
+        'Je m\'arrête et j\'explique que je n\'ai rien fait.',
+        'Je m\'arrête, je souris, je montre calmement mes documents.',
+        'Je fais semblant de ne pas avoir vu.'
+      ],
+      explanation: 'La règle d\'or de la Thaïlande : le sourire résout tout. Sawadee krap — et l\'atmosphère change immédiatement. Les Thaïs ne comprennent pas le conflit — si tu te disputes, tu aggraves la situation même si tu as raison 😊'
+    },
+    es: {
+      text: 'En la entrada a Patong, un policía agita su bastón. No has infringido nada. ¿Cómo te comportas?',
+      answers: [
+        'Paro y explico que no hice nada malo.',
+        'Paro, sonrío, muestro mis documentos con calma.',
+        'Hago como que no lo vi.'
+      ],
+      explanation: 'La regla de oro de Tailandia: una sonrisa lo resuelve todo. Sawadee krap — y la atmósfera cambia inmediatamente. Los tailandeses no entienden el conflicto — si discutes, lo empeoras incluso si tienes razón 😊'
+    }
+  },
+  rtQ6: {
+    ru: {
+      text: 'Тебя подрезал тук-тук, ты упал. Тук-тукер что-то говорит по-тайски. Что делаешь первым делом?',
+      answers: [
+        'Говорю sorry — это же вежливо.',
+        'Объясняю что виноват тук-тукер.',
+        'Ничего не говорю и сразу звоню в прокатную контору.'
+      ],
+      explanation: 'Мы твои главные друзья в этой ситуации. Звони нам первым — до полиции, до любых разговоров. Мы говорим по-тайски и знаем как это работает. Именно за это нас и ценят 🤙 А sorry в Таиланде = признание вины юридически.'
+    },
+    en: {
+      text: 'A tuk-tuk cut you off, you fell. The driver is saying something in Thai. What do you do first?',
+      answers: [
+        'Say sorry — it\'s polite.',
+        'Explain that the tuk-tuk driver is at fault.',
+        'Say nothing and immediately call the rental company.'
+      ],
+      explanation: 'We are your best friends in this situation. Call us first — before police, before any conversations. We speak Thai and know how this works. That\'s exactly why people value us 🤙 And sorry in Thailand = legal admission of guilt.'
+    },
+    de: {
+      text: 'Ein Tuk-Tuk hat dich geschnitten, du bist gestürzt. Der Fahrer sagt etwas auf Thai. Was machst du zuerst?',
+      answers: [
+        'Sage sorry — das ist höflich.',
+        'Erkläre, dass der Tuk-Tuk-Fahrer schuld ist.',
+        'Sage nichts und rufe sofort die Verleihfirma an.'
+      ],
+      explanation: 'Wir sind deine besten Freunde in dieser Situation. Ruf uns zuerst an — vor der Polizei, vor allen Gesprächen. Wir sprechen Thai und wissen, wie es funktioniert. Genau dafür schätzen uns die Leute 🤙 Und sorry in Thailand = rechtliches Schuldeingeständnis.'
+    },
+    fr: {
+      text: 'Un tuk-tuk t\'a coupé la route, tu es tombé. Le conducteur dit quelque chose en thaï. Que fais-tu en premier ?',
+      answers: [
+        'Dire sorry — c\'est poli.',
+        'Expliquer que le conducteur de tuk-tuk est en tort.',
+        'Ne rien dire et appeler immédiatement l\'agence de location.'
+      ],
+      explanation: 'Nous sommes tes meilleurs amis dans cette situation. Appelle-nous en premier — avant la police, avant toute conversation. Nous parlons thaï et savons comment ça fonctionne. C\'est exactement pour ça qu\'on nous apprécie 🤙 Et sorry en Thaïlande = aveu de culpabilité juridique.'
+    },
+    es: {
+      text: 'Un tuk-tuk te cortó el paso, te caíste. El conductor dice algo en tailandés. ¿Qué haces primero?',
+      answers: [
+        'Digo sorry — es educado.',
+        'Explico que el culpable es el tuk-tuk.',
+        'No digo nada y llamo inmediatamente a la empresa de alquiler.'
+      ],
+      explanation: 'Somos tus mejores amigos en esta situación. Llámanos primero — antes que la policía, antes de cualquier conversación. Hablamos tailandés y sabemos cómo funciona. Es exactamente por eso que nos valoran 🤙 Y sorry en Tailandia = admisión legal de culpa.'
+    }
+  },
+  rtQ7: {
+    ru: {
+      text: 'Видишь удобное место у бордюра. Он красно-белый. Что делаешь?',
+      answers: [
+        'Паркуюсь — байк маленький, никому не мешает.',
+        'Паркуюсь на секунду, быстро сбегаю.',
+        'Ищу место с белым бордюром или нормальную парковку.'
+      ],
+      explanation: 'Красно-белый бордюр — на колесо наденут металлический замок. Это реально происходит каждый день. Не пытайся его снять — у полиции всё зафиксировано. Белый бордюр — паркуйся. Красно-белый — едь дальше 🔒'
+    },
+    en: {
+      text: 'You see a convenient spot by the curb. It\'s red and white. What do you do?',
+      answers: [
+        'Park — the bike is small, not in anyone\'s way.',
+        'Park for a second, run in quickly.',
+        'Look for a spot with a white curb or a proper parking area.'
+      ],
+      explanation: 'Red and white curb — they\'ll put a metal clamp on your wheel. This literally happens every day. Don\'t try to remove it — the police have everything recorded. White curb — park. Red and white — move on 🔒'
+    },
+    de: {
+      text: 'Du siehst einen bequemen Platz am Bordstein. Er ist rot-weiß. Was machst du?',
+      answers: [
+        'Parken — das Bike ist klein, stört niemanden.',
+        'Kurz parken, schnell reinlaufen.',
+        'Einen Platz mit weißem Bordstein oder einen richtigen Parkplatz suchen.'
+      ],
+      explanation: 'Rot-weißer Bordstein — sie setzen eine Metallkralle ans Rad. Das passiert wirklich jeden Tag. Versuche nicht, sie zu entfernen — die Polizei hat alles dokumentiert. Weißer Bordstein — parken. Rot-weiß — weiterfahren 🔒'
+    },
+    fr: {
+      text: 'Tu vois un endroit pratique le long du trottoir. Il est rouge et blanc. Que fais-tu ?',
+      answers: [
+        'Me garer — la moto est petite, elle ne gêne personne.',
+        'Me garer une seconde, faire un saut rapide.',
+        'Chercher un endroit avec un trottoir blanc ou un parking normal.'
+      ],
+      explanation: 'Trottoir rouge et blanc — ils mettront un sabot sur ta roue. Ça arrive littéralement tous les jours. N\'essaie pas de l\'enlever — la police a tout enregistré. Trottoir blanc — gare-toi. Rouge et blanc — continue 🔒'
+    },
+    es: {
+      text: 'Ves un lugar conveniente junto al bordillo. Es rojo y blanco. ¿Qué haces?',
+      answers: [
+        'Aparco — la moto es pequeña, no molesta a nadie.',
+        'Aparco un segundo, voy rápido.',
+        'Busco un lugar con bordillo blanco o un estacionamiento adecuado.'
+      ],
+      explanation: 'Bordillo rojo y blanco — pondrán una abrazadera metálica en tu rueda. Esto pasa literalmente todos los días. No intentes quitarla — la policía tiene todo registrado. Bordillo blanco — aparca. Rojo y blanco — sigue adelante 🔒'
+    }
+  },
+  rtQ8: {
+    ru: {
+      text: 'Едешь на байке. В кармане айкос. Тебя останавливают на плановой проверке. Что будет?',
+      answers: [
+        'Ничего страшного — это личная вещь.',
+        'Небольшой штраф, заплачу и поеду.',
+        'Серьёзные проблемы — в Таиланде это уголовное нарушение.'
+      ],
+      explanation: 'Айкосы, вейпы, электронные сигареты — в Таиланде это не административка, а уголовное нарушение. При проверках байкеров это ищут целенаправленно. Просто имей это в виду перед выездом 🙏'
+    },
+    en: {
+      text: 'You\'re riding a bike. You have an IQOS in your pocket. You\'re stopped at a routine check. What happens?',
+      answers: [
+        'Nothing serious — it\'s a personal item.',
+        'A small fine, pay and go.',
+        'Serious trouble — in Thailand this is a criminal offense.'
+      ],
+      explanation: 'IQOS, vapes, e-cigarettes — in Thailand this is not administrative but a criminal offense. During bike checks they specifically look for these. Just keep this in mind before heading out 🙏'
+    },
+    de: {
+      text: 'Du fährst Bike. In deiner Tasche ist ein IQOS. Du wirst bei einer Routinekontrolle angehalten. Was passiert?',
+      answers: [
+        'Nichts Schlimmes — das ist ein persönlicher Gegenstand.',
+        'Eine kleine Strafe, bezahlen und weiterfahren.',
+        'Ernsthafte Probleme — in Thailand ist das eine Straftat.'
+      ],
+      explanation: 'IQOS, Vapes, E-Zigaretten — in Thailand ist das keine Ordnungswidrigkeit, sondern eine Straftat. Bei Bike-Kontrollen wird gezielt danach gesucht. Behalte das einfach im Hinterkopf vor der Abfahrt 🙏'
+    },
+    fr: {
+      text: 'Tu roules en moto. Tu as un IQOS dans ta poche. Tu es arrêté lors d\'un contrôle de routine. Que se passe-t-il ?',
+      answers: [
+        'Rien de grave — c\'est un objet personnel.',
+        'Une petite amende, je paie et je repars.',
+        'De gros ennuis — en Thaïlande c\'est un délit pénal.'
+      ],
+      explanation: 'IQOS, vapoteuses, cigarettes électroniques — en Thaïlande ce n\'est pas administratif mais un délit pénal. Lors des contrôles de motards, ils cherchent spécifiquement cela. Garde-le simplement à l\'esprit avant de partir 🙏'
+    },
+    es: {
+      text: 'Vas en moto. Tienes un IQOS en el bolsillo. Te detienen en un control rutinario. ¿Qué pasa?',
+      answers: [
+        'Nada grave — es un objeto personal.',
+        'Una pequeña multa, pago y sigo.',
+        'Problemas serios — en Tailandia es un delito penal.'
+      ],
+      explanation: 'IQOS, vapeadores, cigarrillos electrónicos — en Tailandia no es una infracción administrativa sino un delito penal. En los controles de motos los buscan específicamente. Solo tenlo en cuenta antes de salir 🙏'
+    }
   }
 };
 

@@ -69,6 +69,7 @@ let placeSearch = '';
 let route = [];
 let sheetBike = null;
 let sheetDays = 3;
+let sheetInsurancePlus = false;
 
 // ══════════════════════════════════════════════
 // DOM refs
@@ -115,6 +116,14 @@ const sheetWa = $('sheetWa');
 const sheetTg = $('sheetTg');
 const sheetImgWrap = $('sheetImgWrap');
 const sheetImgDots = $('sheetImgDots');
+const sheetInsuranceEl = $('sheetInsurance');
+const insBasicChip = $('insBasicChip');
+const insPlusChip = $('insPlusChip');
+const insPlusCostLabel = $('insPlusCostLabel');
+const insInfoBtn = $('insInfoBtn');
+const insInfoSheet = $('insInfoSheet');
+const insPlusDescText = $('insPlusDescText');
+const insPlusPriceInfo = $('insPlusPriceInfo');
 const lbOverlay = $('lbOverlay');
 const lbTrack = $('lbTrack');
 const lbCounter = $('lbCounter');
@@ -592,6 +601,7 @@ let lbDeltaX = 0;
 function openBookingSheet(bike) {
   sheetBike = bike;
   sheetDays = 3;
+  sheetInsurancePlus = false;
 
   const emoji = BIKE_EMOJI[bike.category] || '\u{1F6F5}';
   const catClass = `cat-${bike.category}`;
@@ -695,15 +705,66 @@ function getTierName(days) {
   return 'day1';
 }
 
+// ── Insurance pricing ──
+const MAXI_BIG_IDS = ['xmax-300', 'forza-350', 'adv-350'];
+
+function getInsuranceTier(bike) {
+  if (bike.category === 'moto') return null; // no insurance+ for motorcycles
+  if (MAXI_BIG_IDS.includes(bike.id)) return 'maxi_big';
+  return 'scooter'; // scooters + regular maxi
+}
+
+function getInsurancePlusCost(bike, days) {
+  const tier = getInsuranceTier(bike);
+  if (!tier) return 0;
+  if (tier === 'maxi_big') {
+    if (days <= 10) return 1000;
+    if (days <= 20) return 2000;
+    return 3000;
+  }
+  // scooter tier (scooters + regular maxi)
+  if (days <= 10) return 500;
+  if (days <= 20) return 1000;
+  return 1500;
+}
+
+function getInsuranceFranchise(bike) {
+  const tier = getInsuranceTier(bike);
+  if (!tier) return 0;
+  return tier === 'maxi_big' ? 6000 : 3000;
+}
+
 function updateSheetCalc() {
   if (!sheetBike) return;
   const daysEl = $('sheetDays');
   if (daysEl) daysEl.textContent = sheetDays;
 
   const perDay = getPerDay(sheetBike, sheetDays);
-  const total = sheetDays >= 30
+  let total = sheetDays >= 30
     ? sheetBike.prices.month
     : Math.round(perDay * sheetDays);
+
+  // Insurance+ cost
+  const insTier = getInsuranceTier(sheetBike);
+  const insCost = getInsurancePlusCost(sheetBike, sheetDays);
+
+  // Show/hide insurance+ chip for motorcycles
+  if (insTier === null) {
+    sheetInsurancePlus = false;
+    sheetInsuranceEl.style.display = 'none';
+  } else {
+    sheetInsuranceEl.style.display = '';
+    insPlusChip.style.display = '';
+    insPlusCostLabel.textContent = `+ ${insCost.toLocaleString()} ฿`;
+  }
+
+  if (sheetInsurancePlus && insTier) {
+    total += insCost;
+  }
+
+  // Update chip states
+  insBasicChip.classList.toggle('active', !sheetInsurancePlus);
+  insPlusChip.classList.toggle('active', sheetInsurancePlus);
 
   const totalEl = document.querySelector('.sheet-total');
   if (totalEl) totalEl.innerHTML = `${t('sheetTotal')} <strong id="sheetTotal">${total.toLocaleString()} \u0E3F</strong>`;
@@ -715,15 +776,43 @@ function updateSheetCalc() {
     td.classList.toggle('active-tier', tierMap[i] === tierName);
   });
 
-  const msg = encodeURIComponent(tpl('waMsgBike', { name: sheetBike.name, days: sheetDays }));
+  const insText = sheetInsurancePlus && insTier ? ` + ${t('insPlus')}` : '';
+  const msg = encodeURIComponent(tpl('waMsgBike', { name: sheetBike.name, days: sheetDays }) + insText);
   sheetWa.href = `https://wa.me/66822545737?text=${msg}`;
-  sheetTg.href = `https://t.me/ThaiGoSale1`;
+  sheetTg.href = `https://t.me/ThaiGoSale1?text=${msg}`;
 }
 
 sheetDaySlider.addEventListener('input', () => {
   sheetDays = parseInt(sheetDaySlider.value);
   updateSheetCalc();
 });
+
+// Insurance chip listeners
+insBasicChip.addEventListener('click', () => {
+  sheetInsurancePlus = false;
+  updateSheetCalc();
+});
+
+insPlusChip.addEventListener('click', () => {
+  sheetInsurancePlus = true;
+  updateSheetCalc();
+});
+
+insInfoBtn.addEventListener('click', () => {
+  if (!sheetBike) return;
+  const franchise = getInsuranceFranchise(sheetBike);
+  const cost = getInsurancePlusCost(sheetBike, sheetDays);
+  insPlusDescText.textContent = tpl('insPlusDesc', { franchise: franchise.toLocaleString() });
+  insPlusPriceInfo.textContent = `${t('insPlusPriceLabel')} ${cost.toLocaleString()} ฿`;
+  insInfoSheet.classList.add('open');
+});
+
+insInfoSheet.addEventListener('click', (e) => {
+  if (e.target === insInfoSheet) insInfoSheet.classList.remove('open');
+});
+
+// Close insurance info sheet on handle drag or tap outside
+setupDragDismiss(insInfoSheet, () => insInfoSheet.classList.remove('open'));
 
 sheetOverlay.addEventListener('click', closeBookingSheet);
 

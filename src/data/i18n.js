@@ -435,6 +435,46 @@ export const T = {
     ru: 'Итого:', en: 'Total:', de: 'Gesamt:', fr: 'Total :', es: 'Total:'
   },
 
+  // ── Insurance ──
+  insBasic: {
+    ru: 'Страховка', en: 'Insurance', de: 'Versicherung', fr: 'Assurance', es: 'Seguro'
+  },
+  insPlus: {
+    ru: 'Страховка+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+'
+  },
+  insIncluded: {
+    ru: 'включена', en: 'included', de: 'inkl.', fr: 'incluse', es: 'incluido'
+  },
+  insPlusCost: {
+    ru: '+ ${cost} ฿', en: '+ ${cost} ฿', de: '+ ${cost} ฿', fr: '+ ${cost} ฿', es: '+ ${cost} ฿'
+  },
+  insInfoTitle: {
+    ru: 'Что покрывает страховка', en: 'Insurance coverage', de: 'Versicherungsschutz', fr: 'Couverture d\'assurance', es: 'Cobertura del seguro'
+  },
+  insBasicTitle: {
+    ru: 'Страховка (включена)', en: 'Insurance (included)', de: 'Versicherung (inkl.)', fr: 'Assurance (incluse)', es: 'Seguro (incluido)'
+  },
+  insBasicDesc: {
+    ru: 'Базовая страховка от повреждений третьих лиц. Покрывает ущерб чужому транспорту и имуществу при ДТП.',
+    en: 'Basic third-party liability insurance. Covers damage to other vehicles and property in an accident.',
+    de: 'Basis-Haftpflichtversicherung. Deckt Schäden an Fahrzeugen und Eigentum Dritter bei einem Unfall.',
+    fr: 'Assurance responsabilité civile de base. Couvre les dommages aux véhicules et biens tiers en cas d\'accident.',
+    es: 'Seguro básico de responsabilidad civil. Cubre daños a vehículos y propiedades de terceros en un accidente.'
+  },
+  insPlusTitle: {
+    ru: 'Страховка+ (расширенная)', en: 'Insurance+ (extended)', de: 'Versicherung+ (erweitert)', fr: 'Assurance+ (étendue)', es: 'Seguro+ (extendido)'
+  },
+  insPlusDesc: {
+    ru: 'Покрытие повреждений арендованного байка. Франшиза ${franchise} ฿ — вы платите не более этой суммы при любом повреждении.',
+    en: 'Covers damage to the rented bike. Deductible ${franchise} ฿ — you pay no more than this amount for any damage.',
+    de: 'Deckt Schäden am gemieteten Bike. Selbstbeteiligung ${franchise} ฿ — Sie zahlen höchstens diesen Betrag bei Schäden.',
+    fr: 'Couvre les dommages au véhicule loué. Franchise ${franchise} ฿ — vous ne payez pas plus que ce montant pour tout dommage.',
+    es: 'Cubre daños a la moto alquilada. Franquicia ${franchise} ฿ — no pagas más de esta cantidad por cualquier daño.'
+  },
+  insPlusPriceLabel: {
+    ru: 'Стоимость:', en: 'Cost:', de: 'Kosten:', fr: 'Coût :', es: 'Coste:'
+  },
+
   // ── Booking WA message ──
   waMsgBike: {
     ru: 'Хочу арендовать ${name} на ${days} дн.',

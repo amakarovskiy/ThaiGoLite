@@ -70,6 +70,46 @@ export const T = {
     ru: 'Все \u2192', en: 'All \u2192', de: 'Alle \u2192', fr: 'Tout \u2192', es: 'Todos \u2192'
   },
 
+  // ── Steps (How it works) ──
+  step1: { ru: 'Выбери байк', en: 'Choose a bike', de: 'Bike wählen', fr: 'Choisis un scooter', es: 'Elige una moto' },
+  step2: { ru: 'Мы привезём', en: 'We deliver', de: 'Wir liefern', fr: 'On livre', es: 'Lo entregamos' },
+  step3: { ru: 'Езди и кайфуй', en: 'Ride & enjoy', de: 'Fahre & genieße', fr: 'Roule et profite', es: 'Conduce y disfruta' },
+
+  // ── Reviews ──
+  reviewsTitle: { ru: 'Что говорят клиенты', en: 'What clients say', de: 'Was Kunden sagen', fr: 'Avis clients', es: 'Lo que dicen los clientes' },
+  reviews: [
+    {
+      text: {
+        ru: 'Взяли PCX на неделю — привезли прямо к отелю, всё чисто и заправлено. Когда поцарапали зеркало — позвонили ребятам, решили вопрос за 10 минут без скандалов. Рекомендую.',
+        en: 'Rented a PCX for a week — delivered right to our hotel, clean and fueled. When we scratched the mirror, called the guys and they sorted it in 10 minutes, no drama. Highly recommend.',
+        de: 'PCX für eine Woche gemietet — direkt zum Hotel geliefert, sauber und betankt. Als wir den Spiegel zerkratzten, haben die Jungs das in 10 Minuten geklärt. Empfehlenswert.',
+        fr: 'Loué un PCX pour une semaine — livré à l\'hôtel, propre et plein. Quand on a rayé le rétro, les gars ont réglé ça en 10 min sans stress. Je recommande.',
+        es: 'Alquilamos un PCX por una semana — lo trajeron al hotel, limpio y con tanque lleno. Cuando rayamos el espejo, lo resolvieron en 10 minutos sin drama. Recomendado.'
+      },
+      author: { ru: 'Михаил, Москва', en: 'Mikhail, Moscow', de: 'Mikhail, Moskau', fr: 'Mikhaïl, Moscou', es: 'Mikhail, Moscú' }
+    },
+    {
+      text: {
+        ru: 'Брали две Scoopy на 10 дней, объездили весь остров. Цены честные, договор нормальный, паспорт не забирали. Будем брать снова в следующий раз.',
+        en: 'Rented two Scoopys for 10 days, explored the whole island. Fair prices, proper contract, no passport held. Will rent again next time.',
+        de: 'Zwei Scoopys für 10 Tage gemietet, die ganze Insel erkundet. Faire Preise, ordentlicher Vertrag, kein Pass einbehalten. Nächstes Mal wieder.',
+        fr: 'Loué deux Scoopy pour 10 jours, on a fait tout l\'île. Prix honnêtes, contrat correct, pas de passeport retenu. On reviendra.',
+        es: 'Alquilamos dos Scoopy por 10 días, recorrimos toda la isla. Precios justos, contrato normal, sin retener pasaporte. Volveremos.'
+      },
+      author: { ru: 'Анна и Дима, Санкт-Петербург', en: 'Anna & Dima, St. Petersburg', de: 'Anna & Dima, St. Petersburg', fr: 'Anna & Dima, Saint-Pétersbourg', es: 'Anna y Dima, San Petersburgo' }
+    },
+    {
+      text: {
+        ru: 'Первый раз арендовала байк вообще в жизни, очень переживала. Ребята всё объяснили, помогли выбрать модель под мой рост и опыт. Каталась без проблем всю поездку.',
+        en: 'First time renting a bike ever, I was really nervous. The guys explained everything, helped me choose the right model for my height and experience. Rode the whole trip without issues.',
+        de: 'Zum ersten Mal ein Bike gemietet, war sehr nervös. Die Jungs haben alles erklärt und mir das passende Modell empfohlen. Die ganze Reise problemlos gefahren.',
+        fr: 'Première location de scooter de ma vie, j\'étais stressée. Les gars ont tout expliqué, m\'ont aidée à choisir le bon modèle. J\'ai roulé sans souci pendant tout le séjour.',
+        es: 'Primera vez alquilando una moto en mi vida, estaba muy nerviosa. Los chicos me explicaron todo y me ayudaron a elegir el modelo adecuado. Conduje sin problemas todo el viaje.'
+      },
+      author: { ru: 'Лера, Екатеринбург', en: 'Lera, Yekaterinburg', de: 'Lera, Jekaterinburg', fr: 'Lera, Iekaterinbourg', es: 'Lera, Ekaterimburgo' }
+    }
+  ],
+
   // ── Delivery districts ──
   deliveryTitle: {
     ru: 'Доставка по Пхукету', en: 'Delivery across Phuket', de: 'Lieferung auf Phuket', fr: 'Livraison à Phuket', es: 'Entrega en Phuket'

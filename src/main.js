@@ -201,6 +201,20 @@ function applyTranslations() {
   const dlvNote = document.querySelector('.dlv-note');
   if (dlvNote) dlvNote.textContent = t('deliveryNote');
 
+  // Steps
+  const stepTexts = document.querySelectorAll('.step-text');
+  ['step1', 'step2', 'step3'].forEach((k, i) => { if (stepTexts[i]) stepTexts[i].textContent = t(k); });
+
+  // Reviews
+  const reviewsTitle = $('reviewsTitle');
+  if (reviewsTitle) reviewsTitle.textContent = t('reviewsTitle');
+  const reviewsScroll = $('reviewsScroll');
+  if (reviewsScroll) {
+    reviewsScroll.innerHTML = T.reviews.map(r =>
+      `<div class="review-card"><div class="review-stars">⭐⭐⭐⭐⭐</div><div class="review-text">${r.text[lang] || r.text.en}</div><div class="review-author">${r.author[lang] || r.author.en}</div></div>`
+    ).join('');
+  }
+
   // Tab bar
   const tabLabels = document.querySelectorAll('.tab .tab-label');
   const tabKeys = ['tabHome', 'tabBikes', 'tabGuide', 'tabContacts'];

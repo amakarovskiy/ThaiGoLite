@@ -109,11 +109,11 @@ export const T = {
     },
     {
       name: { ru: 'Чалонг / Пхукет-таун', en: 'Chalong / Phuket Town', de: 'Chalong / Phuket Town', fr: 'Chalong / Phuket Town', es: 'Chalong / Phuket Town' },
-      cond: { ru: '300 ฿', en: '300 ฿', de: '300 ฿', fr: '300 ฿', es: '300 ฿' },
+      cond: { ru: '300 ฿ · бесплатно от 7 дней', en: '300 ฿ · free from 7 days', de: '300 ฿ · kostenlos ab 7 Tagen', fr: '300 ฿ · gratuit dès 7 jours', es: '300 ฿ · gratis desde 7 días' },
       color: 'yellow'
     },
     {
-      name: { ru: 'Аэропорт / Най Янг / Бангтао', en: 'Airport / Nai Yang / Bangtao', de: 'Flughafen / Nai Yang / Bangtao', fr: 'Aéroport / Nai Yang / Bangtao', es: 'Aeropuerto / Nai Yang / Bangtao' },
+      name: { ru: 'Аэропорт / Най Янг', en: 'Airport / Nai Yang', de: 'Flughafen / Nai Yang', fr: 'Aéroport / Nai Yang', es: 'Aeropuerto / Nai Yang' },
       cond: { ru: '500 ฿ · бесплатно от 10 дней', en: '500 ฿ · free from 10 days', de: '500 ฿ · kostenlos ab 10 Tagen', fr: '500 ฿ · gratuit dès 10 jours', es: '500 ฿ · gratis desde 10 días' },
       color: 'blue'
     },

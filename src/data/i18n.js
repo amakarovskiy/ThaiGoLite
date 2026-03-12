@@ -442,34 +442,53 @@ export const T = {
   insPlus: {
     ru: 'Страховка+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+'
   },
-  insIncluded: {
-    ru: 'включена', en: 'included', de: 'inkl.', fr: 'incluse', es: 'incluido'
-  },
-  insPlusCost: {
-    ru: '+ ${cost} ฿', en: '+ ${cost} ฿', de: '+ ${cost} ฿', fr: '+ ${cost} ฿', es: '+ ${cost} ฿'
-  },
-  insInfoTitle: {
-    ru: 'Что покрывает страховка', en: 'Insurance coverage', de: 'Versicherungsschutz', fr: 'Couverture d\'assurance', es: 'Cobertura del seguro'
-  },
   insBasicTitle: {
     ru: 'Страховка (включена)', en: 'Insurance (included)', de: 'Versicherung (inkl.)', fr: 'Assurance (incluse)', es: 'Seguro (incluido)'
   },
   insBasicDesc: {
-    ru: 'Базовая страховка от повреждений третьих лиц. Покрывает ущерб чужому транспорту и имуществу при ДТП.',
-    en: 'Basic third-party liability insurance. Covers damage to other vehicles and property in an accident.',
-    de: 'Basis-Haftpflichtversicherung. Deckt Schäden an Fahrzeugen und Eigentum Dritter bei einem Unfall.',
-    fr: 'Assurance responsabilité civile de base. Couvre les dommages aux véhicules et biens tiers en cas d\'accident.',
-    es: 'Seguro básico de responsabilidad civil. Cubre daños a vehículos y propiedades de terceros en un accidente.'
+    ru: 'Здоровье водителя и пассажира. Покрытие до 30 000 ฿ на госпитализацию. Действует без прав категории А. Включена бесплатно.',
+    en: 'Rider and passenger health coverage. Up to 30,000 ฿ hospitalization. Valid without category A license. Included free.',
+    de: 'Fahrer- und Beifahrerschutz. Bis zu 30.000 ฿ Krankenhauskosten. Gültig ohne Klasse-A-Führerschein. Kostenlos inklusive.',
+    fr: 'Santé du conducteur et passager. Jusqu\'à 30 000 ฿ d\'hospitalisation. Valable sans permis catégorie A. Incluse gratuitement.',
+    es: 'Salud del conductor y pasajero. Hasta 30.000 ฿ de hospitalización. Válido sin licencia categoría A. Incluido gratis.'
   },
   insPlusTitle: {
     ru: 'Страховка+ (расширенная)', en: 'Insurance+ (extended)', de: 'Versicherung+ (erweitert)', fr: 'Assurance+ (étendue)', es: 'Seguro+ (extendido)'
   },
   insPlusDesc: {
-    ru: 'Покрытие повреждений арендованного байка. Франшиза ${franchise} ฿ — вы платите не более этой суммы при любом повреждении.',
-    en: 'Covers damage to the rented bike. Deductible ${franchise} ฿ — you pay no more than this amount for any damage.',
-    de: 'Deckt Schäden am gemieteten Bike. Selbstbeteiligung ${franchise} ฿ — Sie zahlen höchstens diesen Betrag bei Schäden.',
-    fr: 'Couvre les dommages au véhicule loué. Franchise ${franchise} ฿ — vous ne payez pas plus que ce montant pour tout dommage.',
-    es: 'Cubre daños a la moto alquilada. Franquicia ${franchise} ฿ — no pagas más de esta cantidad por cualquier daño.'
+    ru: 'Защита байка от расходов на ремонт сверх депозита. Франшиза клиента — ${franchise} ฿.',
+    en: 'Bike damage protection beyond deposit. Client deductible — ${franchise} ฿.',
+    de: 'Bike-Schadenschutz über die Kaution hinaus. Selbstbeteiligung — ${franchise} ฿.',
+    fr: 'Protection du véhicule au-delà de la caution. Franchise client — ${franchise} ฿.',
+    es: 'Protección de la moto más allá del depósito. Franquicia del cliente — ${franchise} ฿.'
+  },
+  insPlusExclude: {
+    ru: 'Не покрывает: шины, аккумулятор, ДТП по вине третьих лиц',
+    en: 'Does not cover: tires, battery, accidents caused by third parties',
+    de: 'Nicht abgedeckt: Reifen, Batterie, Unfälle durch Dritte',
+    fr: 'Non couvert : pneus, batterie, accidents causés par des tiers',
+    es: 'No cubre: neumáticos, batería, accidentes causados por terceros'
+  },
+  insPlusCall: {
+    ru: 'При страховом случае: позвоните нам сразу — не покидайте место инцидента',
+    en: 'In case of incident: call us immediately — do not leave the scene',
+    de: 'Im Schadensfall: rufen Sie uns sofort an — verlassen Sie nicht den Unfallort',
+    fr: 'En cas d\'incident : appelez-nous immédiatement — ne quittez pas les lieux',
+    es: 'En caso de incidente: llámenos de inmediato — no abandone el lugar'
+  },
+  insPlusPhoto: {
+    ru: 'Отправьте фото байка с четырёх сторон и снимите видео инцидента',
+    en: 'Send photos of the bike from four sides and record a video of the incident',
+    de: 'Senden Sie Fotos des Bikes von vier Seiten und nehmen Sie ein Video des Vorfalls auf',
+    fr: 'Envoyez des photos du véhicule de quatre côtés et filmez l\'incident',
+    es: 'Envíe fotos de la moto desde cuatro lados y grabe un video del incidente'
+  },
+  insPlusPrice: {
+    ru: 'Оценка ущерба по утверждённому прайс-листу',
+    en: 'Damage assessment based on the approved price list',
+    de: 'Schadensbewertung gemäß genehmigter Preisliste',
+    fr: 'Évaluation des dommages selon le tarif approuvé',
+    es: 'Evaluación de daños según la lista de precios aprobada'
   },
   insPlusPriceLabel: {
     ru: 'Стоимость:', en: 'Cost:', de: 'Kosten:', fr: 'Coût :', es: 'Coste:'

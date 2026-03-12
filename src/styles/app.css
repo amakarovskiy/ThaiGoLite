@@ -10,10 +10,16 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .header-title .accent { color: var(--color-primary); }
 
 /* ===== Rating Chip ===== */
-.rating-chip { display: flex; align-items: center; gap: 4px; padding: 5px 10px; border-radius: var(--radius-full); background: var(--color-surface); border: 1px solid var(--color-border); text-decoration: none; flex-shrink: 0; box-shadow: var(--shadow-sm); transition: all .15s; }
+.rating-chip { display: flex; align-items: center; padding: 0; border-radius: 100px; background: #fff; border: 1px solid var(--color-border); text-decoration: none; flex-shrink: 0; box-shadow: var(--shadow-sm); transition: all .15s; overflow: hidden; }
 .rating-chip:active { transform: scale(0.96); }
+.rating-left { display: flex; align-items: center; gap: 4px; padding: 5px 8px 5px 10px; }
+.rating-pin { flex-shrink: 0; }
+.rating-label { font-size: 11px; font-weight: 600; color: var(--color-text-muted); white-space: nowrap; }
+.rating-divider { width: 1px; align-self: stretch; background: var(--color-border); }
+.rating-right { display: flex; align-items: center; gap: 3px; padding: 5px 10px 5px 8px; }
 .rating-star { flex-shrink: 0; }
-.rating-text { font-size: 12px; font-weight: 600; color: var(--color-text-muted); white-space: nowrap; }
+.rating-score { font-size: 12px; font-weight: 700; color: var(--color-text); white-space: nowrap; }
+.rating-count { font-size: 11px; font-weight: 500; color: var(--color-text-muted); white-space: nowrap; }
 
 /* ===== Lang Switcher ===== */
 .lang-switcher { position: relative; flex-shrink: 0; }

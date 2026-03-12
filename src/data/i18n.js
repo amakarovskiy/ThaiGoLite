@@ -161,15 +161,20 @@ export const T = {
   step3: { ru: 'Езди и кайфуй', en: 'Ride & enjoy', de: 'Fahre & genieße', fr: 'Roule et profite', es: 'Conduce y disfruta', th: 'ขับสนุก' },
   stepsTitle: { ru: 'Как это работает', en: 'How it works', de: 'So funktioniert\'s', fr: 'Comment ça marche', es: 'Cómo funciona', th: 'ขั้นตอนการใช้งาน' },
 
-  // ── Cost Calculator ──
-  calcTitle: { ru: 'Сколько стоит?', en: 'How much?', de: 'Was kostet es?', fr: 'Combien ça coûte ?', es: '¿Cuánto cuesta?', th: 'ราคาเท่าไหร่?' },
-  calcCatScooter: { ru: 'Скутер', en: 'Scooter', de: 'Roller', fr: 'Scooter', es: 'Scooter', th: 'สกู๊ตเตอร์' },
-  calcCatStandard: { ru: 'Стандарт', en: 'Standard', de: 'Standard', fr: 'Standard', es: 'Estándar', th: 'มาตรฐาน' },
-  calcCatMaxi: { ru: 'Макси', en: 'Maxi', de: 'Maxi', fr: 'Maxi', es: 'Maxi', th: 'แม็กซี่' },
-  calcCatMoto: { ru: 'Мото', en: 'Moto', de: 'Moto', fr: 'Moto', es: 'Moto', th: 'มอเตอร์ไซค์' },
-  calcDaysUnit: { ru: 'дн.', en: 'days', de: 'Tage', fr: 'jours', es: 'días', th: 'วัน' },
-  calcDiscountText: { ru: 'скидка при аренде от', en: 'discount for rental from', de: 'Rabatt ab', fr: 'remise à partir de', es: 'descuento desde', th: 'ส่วนลดเมื่อเช่าตั้งแต่' },
-  calcViewBikes: { ru: 'Смотреть байки →', en: 'View bikes →', de: 'Bikes ansehen →', fr: 'Voir les motos →', es: 'Ver motos →', th: 'ดูรถ →' },
+  // ── Popular Bikes Block ──
+  popTitle: { ru: 'Популярные байки', en: 'Popular bikes', de: 'Beliebte Bikes', fr: 'Motos populaires', es: 'Motos populares', th: 'รถยอดนิยม' },
+  popAll: { ru: 'Все →', en: 'All →', de: 'Alle →', fr: 'Tout →', es: 'Todos →', th: 'ทั้งหมด →' },
+  popEconomy: { ru: 'Эконом', en: 'Economy', de: 'Economy', fr: 'Économique', es: 'Económico', th: 'ประหยัด' },
+  popComfort: { ru: 'Комфорт', en: 'Comfort', de: 'Komfort', fr: 'Confort', es: 'Confort', th: 'สะดวกสบาย' },
+  popPremium: { ru: 'Премиум', en: 'Premium', de: 'Premium', fr: 'Premium', es: 'Premium', th: 'พรีเมียม' },
+  popDays: { ru: 'дней', en: 'days', de: 'Tage', fr: 'jours', es: 'días', th: 'วัน' },
+  popFrom: { ru: 'от', en: 'from', de: 'ab', fr: 'à partir de', es: 'desde', th: 'ตั้งแต่' },
+  popHint: { ru: 'Чем дольше — тем дешевле', en: 'The longer — the cheaper', de: 'Je länger — desto günstiger', fr: 'Plus longtemps — moins cher', es: 'Cuanto más tiempo — más barato', th: 'ยิ่งนาน ยิ่งถูก' },
+  popDiscount3: { ru: 'скидка от 3 дней', en: 'discount from 3 days', de: 'Rabatt ab 3 Tagen', fr: 'remise dès 3 jours', es: 'descuento desde 3 días', th: 'ส่วนลดตั้งแต่ 3 วัน' },
+  popDiscount7: { ru: 'скидка за длительный срок', en: 'long-term discount', de: 'Langzeitrabatt', fr: 'remise longue durée', es: 'descuento larga duración', th: 'ส่วนลดระยะยาว' },
+  popDiscount20: { ru: '🔥 максимальная скидка', en: '🔥 maximum discount', de: '🔥 maximaler Rabatt', fr: '🔥 remise maximale', es: '🔥 descuento máximo', th: '🔥 ส่วนลดสูงสุด' },
+  popTotal: { ru: 'итого', en: 'total', de: 'gesamt', fr: 'total', es: 'total', th: 'รวม' },
+  popViewAll: { ru: 'Смотреть все байки →', en: 'View all bikes →', de: 'Alle Bikes ansehen →', fr: 'Voir toutes les motos →', es: 'Ver todas las motos →', th: 'ดูรถทั้งหมด →' },
 
   // ── Reviews ──
   // ── Bike Picker ──

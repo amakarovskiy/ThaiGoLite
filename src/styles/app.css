@@ -9,6 +9,12 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .header-title { font-size: 18px; font-weight: 800; flex: 1; }
 .header-title .accent { color: var(--color-primary); }
 
+/* ===== Rating Chip ===== */
+.rating-chip { display: flex; align-items: center; gap: 4px; padding: 5px 10px; border-radius: var(--radius-full); background: var(--color-surface); border: 1px solid var(--color-border); text-decoration: none; flex-shrink: 0; box-shadow: var(--shadow-sm); transition: all .15s; }
+.rating-chip:active { transform: scale(0.96); }
+.rating-star { flex-shrink: 0; }
+.rating-text { font-size: 12px; font-weight: 600; color: var(--color-text-muted); white-space: nowrap; }
+
 /* ===== Lang Switcher ===== */
 .lang-switcher { position: relative; flex-shrink: 0; }
 .lang-btn { display: flex; align-items: center; gap: 4px; padding: 6px 10px; border-radius: var(--radius-full); background: var(--color-surface); border: 1px solid var(--color-border); font-size: 13px; font-weight: 600; cursor: pointer; color: var(--color-text); font-family: inherit; box-shadow: var(--shadow-sm); transition: all .15s; }

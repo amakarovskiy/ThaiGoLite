@@ -13,7 +13,53 @@ import { calcStats, formatTime, haversine, TAXI_RATE_PER_KM } from './utils/stat
 import { LANGS, detectLang, saveLang, T, translateFeature, BIKE_CAT_TR } from './data/i18n.js';
 import { PLACE_TR } from './data/place-translations.js';
 import { RIDER_QUESTIONS, CONFETTI_EMOJIS } from './data/rider-test.js';
-import { getPricePerDay, getTotalPrice, getCurrentSeason } from './utils/pricing.js';
+import { getPricePerDay, getTotalPrice, getCurrentSeason, getInsurancePerDay, getInsuranceTotal } from './utils/pricing.js';
+
+// ══════════════════════════════════════════════
+// Lucide-style inline SVG icons for bike picker
+// ══════════════════════════════════════════════
+const BP_ICONS = {
+  // Step 1 — Who
+  solo: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  couple: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  child: '<path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/>',
+  girl: '<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/><path d="M12 13v8"/><path d="m9 18 3-3 3 3"/>',
+  // Step 2 — Experience
+  newbie: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+  beginner: '<path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>',
+  confident: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+  expert: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+  // Step 3 — Type
+  auto: '<circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3.5-3.5 2-2 4 3h3"/>',
+  manual: '<circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3.5-3.5 2-2 4 3h3"/>',
+  // Step 4 — Priorities
+  easy: '<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/>',
+  comfort: '<path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0Z"/><path d="M4 18v2"/><path d="M20 18v2"/>',
+  sport: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  style: '<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
+  economy: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+  // Step 5 — Destination
+  beach: '<path d="M17.5 21H9a7 7 0 0 1 6.71-5h0a7 7 0 0 1 6.79 5"/><path d="M12 3a4.5 4.5 0 0 0-4.5 4.5c0 1.66.9 3.12 2.24 3.9"/><path d="M12 3a4.5 4.5 0 0 1 4.5 4.5c0 1.66-.9 3.12-2.24 3.9"/><path d="M12 3v8.35"/><path d="M2 21h20"/>',
+  island: '<path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4"/><path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-4"/><path d="M5.89 9.71c-2.15 2.15-2.3 5.47-.35 7.43l4.24-4.25.7-.7.71-.71 4.24-4.24c-1.96-1.96-5.27-1.8-7.43.35l-.7.7-.71.71-.7.71Z"/><path d="M2 21h20"/>',
+  mountain: '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>',
+  beyond: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+  // Step 6 — Budget
+  budgetAll: '<circle cx="12" cy="12" r="10"/>',
+  budgetEconomy: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><path d="M14.5 9.5H11a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4H9.5"/>',
+  budgetComfort: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+  budgetPremium: '<path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>',
+  // Results
+  scooter: '<circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3.5-3.5 2-2 4 3h3"/>',
+  moto: '<circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3.5-3.5 2-2 4 3h3"/>',
+  // Promise line
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+};
+
+function bpIcon(name, size = 22) {
+  const d = BP_ICONS[name];
+  if (!d) return '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+}
 
 // ══════════════════════════════════════════════
 // i18n helper
@@ -930,7 +976,8 @@ function updateSheetCalc() {
   } else {
     sheetInsuranceEl.style.display = '';
     insPlusChip.style.display = '';
-    insPlusCostLabel.textContent = ` · ${insCost.toLocaleString()} ฿`;
+    const insPerDay = Math.ceil(insCost / sheetDays);
+    insPlusCostLabel.textContent = ` · ${insPerDay} ${t('bpInsPerDay')}`;
   }
 
   if (sheetInsurancePlus && insTier) {
@@ -997,7 +1044,8 @@ insPlusInfo.addEventListener('click', (e) => {
   const franchise = getInsuranceFranchise(sheetBike);
   const cost = getInsurancePlusCost(sheetBike, sheetDays);
   insPlusDescText.textContent = tpl('insPlusDesc', { franchise: franchise.toLocaleString() });
-  insPlusPriceInfo.textContent = `${t('insPlusPriceLabel')} ${cost.toLocaleString()} ฿`;
+  const costPerDay = Math.ceil(cost / sheetDays);
+  insPlusPriceInfo.textContent = `${t('insPlusPriceLabel')} ${costPerDay} ${t('bpInsPerDay')}`;
   openInsSheet(insPlusSheet, insPlusOverlay);
 });
 
@@ -2191,8 +2239,8 @@ function renderBpStep() {
   steps[bpStep]();
 }
 
-function bpMakeOption(emoji, labelKey, descKey, value) {
-  return { emoji, label: t(labelKey), desc: t(descKey), value };
+function bpMakeOption(iconName, labelKey, descKey, value) {
+  return { icon: bpIcon(iconName), label: t(labelKey), desc: t(descKey), value };
 }
 
 function bpRenderMultiStep(question, options, currentSelection, onNext) {
@@ -2201,7 +2249,7 @@ function bpRenderMultiStep(question, options, currentSelection, onNext) {
       <div class="bp-step-question">${question}</div>
       <div class="bp-options">${options.map(o => `
         <div class="bp-option${currentSelection.includes(o.value) ? ' selected' : ''}" data-val="${o.value}">
-          <span class="bp-option-emoji">${o.emoji}</span>
+          <span class="bp-option-icon">${o.icon}</span>
           <div class="bp-option-text">
             <div class="bp-option-label">${o.label}</div>
             <div class="bp-option-desc">${o.desc}</div>
@@ -2210,6 +2258,7 @@ function bpRenderMultiStep(question, options, currentSelection, onNext) {
         </div>
       `).join('')}</div>
       <button class="bp-next${currentSelection.length > 0 ? ' enabled' : ''}" id="bpNextBtn">${t('bpNext')}</button>
+      <div class="bp-promise">${bpIcon('shield', 16)}<span>${t('bpPromise')}</span></div>
     </div>`;
   bpBody.querySelectorAll('.bp-option').forEach(el => {
     el.addEventListener('click', () => {
@@ -2235,7 +2284,7 @@ function bpRenderSingleStep(question, options, currentValue, onCommit) {
       <div class="bp-step-question">${question}</div>
       <div class="bp-options">${options.map(o => `
         <div class="bp-option${currentValue === o.value ? ' selected' : ''}" data-val="${o.value}">
-          <span class="bp-option-emoji">${o.emoji}</span>
+          <span class="bp-option-icon">${o.icon}</span>
           <div class="bp-option-text">
             <div class="bp-option-label">${o.label}</div>
             <div class="bp-option-desc">${o.desc}</div>
@@ -2243,6 +2292,7 @@ function bpRenderSingleStep(question, options, currentValue, onCommit) {
           <span class="bp-option-check"></span>
         </div>
       `).join('')}</div>
+      <div class="bp-promise">${bpIcon('shield', 16)}<span>${t('bpPromise')}</span></div>
     </div>`;
   bpBody.querySelectorAll('.bp-option').forEach(el => {
     el.addEventListener('click', () => {
@@ -2257,10 +2307,10 @@ function bpRenderSingleStep(question, options, currentValue, onCommit) {
 // Step 1 — Who is riding? (multi)
 function renderBpStep1() {
   const opts = [
-    bpMakeOption('🙋', 'bpSolo', 'bpSoloDesc', 'solo'),
-    bpMakeOption('👫', 'bpCouple', 'bpCoupleDesc', 'couple'),
-    bpMakeOption('👨‍👩‍👦', 'bpChild', 'bpChildDesc', 'child'),
-    bpMakeOption('👩', 'bpGirl', 'bpGirlDesc', 'girl')
+    bpMakeOption('solo', 'bpSolo', 'bpSoloDesc', 'solo'),
+    bpMakeOption('couple', 'bpCouple', 'bpCoupleDesc', 'couple'),
+    bpMakeOption('child', 'bpChild', 'bpChildDesc', 'child'),
+    bpMakeOption('girl', 'bpGirl', 'bpGirlDesc', 'girl')
   ];
   bpRenderMultiStep(t('bpStep1Q'), opts, bpAnswers.who, {
     updateSelection(sel) { bpAnswers.who = sel; },
@@ -2271,10 +2321,10 @@ function renderBpStep1() {
 // Step 2 — Experience (single)
 function renderBpStep2() {
   const opts = [
-    bpMakeOption('🐣', 'bpNewbie', 'bpNewbieDesc', 'newbie'),
-    bpMakeOption('🌱', 'bpBeginner', 'bpBeginnerDesc', 'beginner'),
-    bpMakeOption('✅', 'bpConfident', 'bpConfidentDesc', 'confident'),
-    bpMakeOption('🏆', 'bpExpert', 'bpExpertDesc', 'expert')
+    bpMakeOption('newbie', 'bpNewbie', 'bpNewbieDesc', 'newbie'),
+    bpMakeOption('beginner', 'bpBeginner', 'bpBeginnerDesc', 'beginner'),
+    bpMakeOption('confident', 'bpConfident', 'bpConfidentDesc', 'confident'),
+    bpMakeOption('expert', 'bpExpert', 'bpExpertDesc', 'expert')
   ];
   bpRenderSingleStep(t('bpStep2Q'), opts, bpAnswers.experience, val => {
     bpAnswers.experience = val;
@@ -2284,8 +2334,8 @@ function renderBpStep2() {
 // Step 3 — Bike type (single, only for confident/expert)
 function renderBpStep3() {
   const opts = [
-    bpMakeOption('🛵', 'bpAutoOnly', 'bpAutoOnlyDesc', 'auto'),
-    bpMakeOption('🏍️', 'bpManualOk', 'bpManualOkDesc', 'any')
+    bpMakeOption('auto', 'bpAutoOnly', 'bpAutoOnlyDesc', 'auto'),
+    bpMakeOption('manual', 'bpManualOk', 'bpManualOkDesc', 'any')
   ];
   bpRenderSingleStep(t('bpStep3Q'), opts, bpAnswers.bikeType, val => {
     bpAnswers.bikeType = val;
@@ -2295,11 +2345,11 @@ function renderBpStep3() {
 // Step 4 — Priorities (multi)
 function renderBpStep4() {
   const opts = [
-    bpMakeOption('🪶', 'bpEasy', 'bpEasyDesc', 'easy'),
-    bpMakeOption('🛋️', 'bpComfort', 'bpComfortDesc', 'comfort'),
-    bpMakeOption('⚡', 'bpSport', 'bpSportDesc', 'sport'),
-    bpMakeOption('📸', 'bpStyle', 'bpStyleDesc', 'style'),
-    bpMakeOption('💰', 'bpEconomy', 'bpEconomyDesc', 'economy')
+    bpMakeOption('easy', 'bpEasy', 'bpEasyDesc', 'easy'),
+    bpMakeOption('comfort', 'bpComfort', 'bpComfortDesc', 'comfort'),
+    bpMakeOption('sport', 'bpSport', 'bpSportDesc', 'sport'),
+    bpMakeOption('style', 'bpStyle', 'bpStyleDesc', 'style'),
+    bpMakeOption('economy', 'bpEconomy', 'bpEconomyDesc', 'economy')
   ];
   bpRenderMultiStep(t('bpStep4Q'), opts, bpAnswers.priorities, {
     updateSelection(sel) { bpAnswers.priorities = sel; },
@@ -2310,10 +2360,10 @@ function renderBpStep4() {
 // Step 5 — Destination (multi)
 function renderBpStep5() {
   const opts = [
-    bpMakeOption('🏖️', 'bpBeach', 'bpBeachDesc', 'beach'),
-    bpMakeOption('🌴', 'bpIsland', 'bpIslandDesc', 'island'),
-    bpMakeOption('⛰️', 'bpMountain', 'bpMountainDesc', 'mountain'),
-    bpMakeOption('🧭', 'bpBeyond', 'bpBeyondDesc', 'beyond')
+    bpMakeOption('beach', 'bpBeach', 'bpBeachDesc', 'beach'),
+    bpMakeOption('island', 'bpIsland', 'bpIslandDesc', 'island'),
+    bpMakeOption('mountain', 'bpMountain', 'bpMountainDesc', 'mountain'),
+    bpMakeOption('beyond', 'bpBeyond', 'bpBeyondDesc', 'beyond')
   ];
   bpRenderMultiStep(t('bpStep5Q'), opts, bpAnswers.destination, {
     updateSelection(sel) { bpAnswers.destination = sel; },
@@ -2324,10 +2374,10 @@ function renderBpStep5() {
 // Step 6 — Days + Budget
 function renderBpStep6() {
   const budgets = [
-    { key: null, label: t('bpBudgetAll'), emoji: '🔘' },
-    { key: 'economy', label: t('bpBudgetEconomy'), emoji: '💚' },
-    { key: 'comfort', label: t('bpBudgetComfort'), emoji: '💙' },
-    { key: 'premium', label: t('bpBudgetPremium'), emoji: '💜' }
+    { key: null, label: t('bpBudgetAll'), icon: bpIcon('budgetAll', 18) },
+    { key: 'economy', label: t('bpBudgetEconomy'), icon: bpIcon('budgetEconomy', 18) },
+    { key: 'comfort', label: t('bpBudgetComfort'), icon: bpIcon('budgetComfort', 18) },
+    { key: 'premium', label: t('bpBudgetPremium'), icon: bpIcon('budgetPremium', 18) }
   ];
   const cheapest = BIKES.reduce((min, b) => {
     const p = getTotalPrice(b, bpAnswers.days);
@@ -2346,10 +2396,11 @@ function renderBpStep6() {
       </div>
       <div class="bp-budget-row">${budgets.map(b => `
         <button class="bp-budget-btn${bpAnswers.budget === b.key ? ' active' : ''}${b.key === null && bpAnswers.budget === null ? ' active' : ''}" data-budget="${b.key || ''}">
-          <span class="bp-budget-emoji">${b.emoji}</span>${b.label}
+          <span class="bp-budget-icon">${b.icon}</span>${b.label}
         </button>
       `).join('')}</div>
       <button class="bp-next enabled" id="bpNextBtn">${t('bpNext')}</button>
+      <div class="bp-promise">${bpIcon('shield', 16)}<span>${t('bpPromise')}</span></div>
     </div>`;
 
   const slider = $('bpDaySlider');
@@ -2422,63 +2473,133 @@ function scoreBikes() {
   }).sort((a, b) => b.score - a.score).slice(0, 3);
 }
 
+let bpSelectedBike = null;
+let bpInsurancePlus = false;
+
 function renderBpResults() {
   updateBpProgress();
   bpProgressFill.style.width = '100%';
   const results = scoreBikes();
   const days = bpAnswers.days;
-  const emoji = { scooter: '🛵', maxi: '🏍', moto: '🏍' };
+  const catIcon = { scooter: bpIcon('scooter', 28), maxi: bpIcon('moto', 28), moto: bpIcon('moto', 28) };
 
-  bpBody.innerHTML = `
-    <div class="bp-results">
-      <div class="bp-results-title">${t('bpResultTitle')}</div>
-      <div class="bp-results-sub">${t('bpResultSub')}</div>
-      ${results.map((r, i) => {
-        const b = r.bike;
-        const perDay = getPricePerDay(b, days);
-        const total = getTotalPrice(b, days);
-        const whyText = b.why[lang] || b.why.en;
-        const transType = b.transmission === 'auto' ? t('bpAutoType') : t('bpManualType');
-        return `
-        <div class="bp-result-card" data-bike-id="${b.id}">
-          ${i === 0 ? `<div class="bp-result-badge">${t('bpBestChoice')}</div>` : ''}
-          <div class="bp-result-header">
-            <div class="bp-result-emoji cat-${b.category}">${emoji[b.category] || '🛵'}</div>
-            <div>
-              <div class="bp-result-name">${b.name}</div>
-              <div class="bp-result-cc">${b.cc} cc · ${transType}</div>
+  // Default select first bike
+  bpSelectedBike = results[0]?.bike || null;
+  bpInsurancePlus = false;
+
+  function renderResultsContent() {
+    const selectedId = bpSelectedBike?.id;
+    const insPerDay = bpSelectedBike ? getInsurancePerDay(days, bpSelectedBike) : null;
+    const insTotal = bpSelectedBike ? getInsuranceTotal(days, bpSelectedBike) : null;
+    const bikeTotal = bpSelectedBike ? getTotalPrice(bpSelectedBike, days) : 0;
+    const grandTotal = bikeTotal + (bpInsurancePlus && insTotal ? insTotal : 0);
+    const isManual = bpSelectedBike?.category === 'moto';
+
+    // Build WA/TG message
+    const insText = bpInsurancePlus && insTotal ? ` + ${t('bpInsPlus')}` : '';
+    const waMsg = bpSelectedBike ? encodeURIComponent(
+      tpl('bpWaMsg', { name: bpSelectedBike.name, days, total: grandTotal.toLocaleString(), ins: insText })
+    ) : '';
+
+    bpBody.innerHTML = `
+      <div class="bp-results">
+        <div class="bp-results-title">${t('bpResultTitle')}</div>
+        <div class="bp-results-sub">${t('bpResultSub')}</div>
+        ${results.map((r, i) => {
+          const b = r.bike;
+          const perDay = getPricePerDay(b, days);
+          const total = getTotalPrice(b, days);
+          const whyText = b.why[lang] || b.why.en;
+          const transType = b.transmission === 'auto' ? t('bpAutoType') : t('bpManualType');
+          const isSelected = b.id === selectedId;
+          return `
+          <div class="bp-result-card${isSelected ? ' selected' : ''}" data-bike-id="${b.id}">
+            ${i === 0 ? `<div class="bp-result-badge">${t('bpBestChoice')}</div>` : ''}
+            <div class="bp-result-header">
+              <div class="bp-result-emoji cat-${b.category}">${catIcon[b.category] || bpIcon('scooter', 28)}</div>
+              <div>
+                <div class="bp-result-name">${b.name}</div>
+                <div class="bp-result-cc">${b.cc} cc · ${transType}</div>
+              </div>
             </div>
-          </div>
-          <div class="bp-result-why">${whyText}</div>
-          <div class="bp-result-tags">${(b.tags || []).map(tag => `<span class="bp-result-tag">${tag}</span>`).join('')}</div>
-          <div class="bp-result-price">
-            <span class="bp-result-perday">${perDay} ${t('bpPerDay')}</span>
-            <span class="bp-result-total">${t('bpTotalFor')} ${days} ${t('bpDaysUnit')}: ${total.toLocaleString()} ฿</span>
-          </div>
-          <button class="bp-result-rent" data-rent-id="${b.id}">${t('bpRent')}</button>
-        </div>`;
-      }).join('')}
-      <button class="bp-restart" id="bpRestartBtn">${t('bpRestart')}</button>
-    </div>`;
+            <div class="bp-result-why">${whyText}</div>
+            <div class="bp-result-tags">${(b.tags || []).map(tag => `<span class="bp-result-tag">${tag}</span>`).join('')}</div>
+            <div class="bp-result-price">
+              <span class="bp-result-perday">${perDay} ${t('bpPerDay')}</span>
+              <span class="bp-result-total">${t('bpTotalFor')} ${days} ${t('bpDaysUnit')}: ${total.toLocaleString()} ฿</span>
+            </div>
+          </div>`;
+        }).join('')}
 
-  // Rent button handlers
-  bpBody.querySelectorAll('.bp-result-rent').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const bike = BIKES.find(b => b.id === btn.dataset.rentId);
-      if (bike) {
-        closeBikePicker();
-        switchTab('bikes');
-        openBookingSheet(bike);
-      }
+        <div class="bp-insurance-block">
+          <div class="bp-ins-option active" data-ins="basic">
+            <span class="bp-ins-radio"></span>
+            <span class="bp-ins-label">${t('bpInsBasic')}</span>
+            <span class="bp-ins-price">${t('bpInsBasicFree')}</span>
+          </div>
+          <div class="bp-ins-option${isManual ? ' disabled' : ''}${bpInsurancePlus ? ' active' : ''}" data-ins="plus">
+            <span class="bp-ins-radio"></span>
+            <span class="bp-ins-label">${t('bpInsPlus')}</span>
+            <span class="bp-ins-price">${isManual ? t('bpInsPlusManual') : (insPerDay + ' ' + t('bpInsPerDay'))}</span>
+          </div>
+        </div>
+
+        <div class="bp-total-line">
+          <span>${t('bpTotal')}</span>
+          <strong>${grandTotal.toLocaleString()} ฿</strong>
+        </div>
+
+        <a class="bp-wa-btn" href="https://wa.me/66822545737?text=${waMsg}" target="_blank" rel="noopener">
+          ${bpIcon('shield', 18)}
+          <span>${t('bpWhatsApp')}</span>
+        </a>
+        <a class="bp-tg-btn" href="https://t.me/ThaiGoSale1?text=${waMsg}" target="_blank" rel="noopener">
+          ${bpIcon('shield', 18)}
+          <span>${t('bpTelegram')}</span>
+        </a>
+
+        <button class="bp-restart" id="bpRestartBtn">${t('bpRestart')}</button>
+      </div>`;
+
+    // Card selection handlers
+    bpBody.querySelectorAll('.bp-result-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const bike = results.find(r => r.bike.id === card.dataset.bikeId)?.bike;
+        if (bike) {
+          bpSelectedBike = bike;
+          bpInsurancePlus = false;
+          renderResultsContent();
+        }
+      });
     });
-  });
 
-  // Restart
-  $('bpRestartBtn').addEventListener('click', () => {
-    bpStep = 0;
-    bpAnswers = { who: [], experience: null, bikeType: null, priorities: [], destination: [], days: 7, budget: null };
-    renderBpStep();
-  });
+    // Insurance option handlers
+    bpBody.querySelectorAll('.bp-ins-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        if (opt.classList.contains('disabled')) return;
+        if (opt.dataset.ins === 'plus') {
+          bpInsurancePlus = true;
+        } else {
+          bpInsurancePlus = false;
+        }
+        renderResultsContent();
+      });
+    });
+
+    // Restart handler
+    const restartBtn = bpBody.querySelector('#bpRestartBtn');
+    if (restartBtn) {
+      restartBtn.addEventListener('click', () => {
+        bpStep = 0;
+        bpSelectedBike = null;
+        bpInsurancePlus = false;
+        bpAnswers = { who: [], experience: null, bikeType: null, priorities: [], destination: [], days: 7, budget: null };
+        renderBpStep();
+      });
+    }
+  }
+
+  renderResultsContent();
 }
 
 // ══════════════════════════════════════════════

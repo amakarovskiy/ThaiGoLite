@@ -239,6 +239,30 @@ export const T = {
   bpDaysUnit: { ru: 'дн.', en: 'days', de: 'Tage', fr: 'jours', es: 'días', th: 'วัน' },
   bpRent: { ru: 'Арендовать', en: 'Rent', de: 'Mieten', fr: 'Louer', es: 'Alquilar', th: 'เช่า' },
   bpRestart: { ru: 'Подобрать заново', en: 'Start over', de: 'Nochmal auswählen', fr: 'Recommencer', es: 'Empezar de nuevo', th: 'เริ่มใหม่' },
+  bpPromise: {
+    ru: 'Результат сразу — без регистрации и SMS',
+    en: 'Results instantly — no registration required',
+    de: 'Ergebnis sofort — ohne Registrierung',
+    fr: 'Résultat immédiat — sans inscription',
+    es: 'Resultado al instante — sin registro',
+    th: 'ผลลัพธ์ทันที — ไม่ต้องลงทะเบียน'
+  },
+  bpInsBasic: { ru: 'Базовая', en: 'Basic', de: 'Basis', fr: 'Base', es: 'Básico', th: 'พื้นฐาน' },
+  bpInsBasicFree: { ru: 'бесплатно', en: 'free', de: 'kostenlos', fr: 'gratuit', es: 'gratis', th: 'ฟรี' },
+  bpInsPlus: { ru: 'Страховка+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+', th: 'ประกัน+' },
+  bpInsPlusManual: { ru: 'Недоступна', en: 'Not available', de: 'Nicht verfügbar', fr: 'Non disponible', es: 'No disponible', th: 'ไม่มี' },
+  bpInsPerDay: { ru: '฿/день', en: '฿/day', de: '฿/Tag', fr: '฿/jour', es: '฿/día', th: '฿/วัน' },
+  bpTotal: { ru: 'Итого:', en: 'Total:', de: 'Gesamt:', fr: 'Total :', es: 'Total:', th: 'รวม:' },
+  bpWhatsApp: { ru: 'Написать в WhatsApp', en: 'Message on WhatsApp', de: 'Nachricht auf WhatsApp', fr: 'Écrire sur WhatsApp', es: 'Escribir en WhatsApp', th: 'ส่งข้อความ WhatsApp' },
+  bpTelegram: { ru: 'Написать в Telegram', en: 'Message on Telegram', de: 'Nachricht auf Telegram', fr: 'Écrire sur Telegram', es: 'Escribir en Telegram', th: 'ส่งข้อความ Telegram' },
+  bpWaMsg: {
+    ru: 'Привет! По результатам квиза выбрал: ${name}, ${days} дн., ${total} ฿${ins}',
+    en: 'Hi! Based on the quiz I chose: ${name}, ${days} days, ${total} ฿${ins}',
+    de: 'Hallo! Laut Quiz habe ich gewählt: ${name}, ${days} Tage, ${total} ฿${ins}',
+    fr: 'Bonjour ! D\'après le quiz j\'ai choisi : ${name}, ${days} jours, ${total} ฿${ins}',
+    es: '¡Hola! Según el quiz elegí: ${name}, ${days} días, ${total} ฿${ins}',
+    th: 'สวัสดี! จากแบบทดสอบ เลือก: ${name}, ${days} วัน, ${total} ฿${ins}'
+  },
   bpAutoType: { ru: 'Автомат', en: 'Automatic', de: 'Automatik', fr: 'Automatique', es: 'Automático', th: 'ออโต้' },
   bpManualType: { ru: 'Механика', en: 'Manual', de: 'Schaltung', fr: 'Manuelle', es: 'Manual', th: 'เกียร์ธรรมดา' },
 
@@ -517,7 +541,7 @@ export const T = {
     ru: [
       { q: 'Сколько стоит аренда байка?', a: 'Honda Scoopy от 180 \u0E3F/день, Honda Click от 200 \u0E3F/день, PCX/NMAX от 300 \u0E3F/день. Чем дольше срок — тем дешевле.' },
       { q: 'Какие документы нужны?', a: 'Загранпаспорт и международные права (категория А). Залог от 2000 \u0E3F или копия паспорта.' },
-      { q: 'Есть ли страховка?', a: 'Да, каждый байк застрахован. Аренда оформляется договором по законам Таиланда.' },
+      { q: 'Есть ли страховка?', a: 'Да, базовая страховка включена бесплатно. Дополнительная Страховка+ — от 50 ฿/день.' },
       { q: 'Безопасно ли ездить?', a: 'Движение левостороннее. Шлем обязателен (штраф 500 \u0E3F). Не превышайте 60 км/ч в городе.' },
       { q: 'Сколько стоит бензин?', a: '~43 \u0E3F/литр. Расход скутера — 2 л/100 км. Маршрут 50 км обойдётся в ~45 \u0E3F бензина.' },
       { q: 'Как пользоваться планировщиком?', a: 'Откройте вкладку «Маршруты», добавьте места, получите расчёт км, времени и бензина.' },
@@ -529,7 +553,7 @@ export const T = {
     en: [
       { q: 'How much does it cost to rent a bike?', a: 'Honda Scoopy from 180 \u0E3F/day, Honda Click from 200 \u0E3F/day, PCX/NMAX from 300 \u0E3F/day. Longer rental = lower price.' },
       { q: 'What documents do I need?', a: 'Passport and international driving permit (category A). Deposit from 2000 \u0E3F or passport copy.' },
-      { q: 'Is there insurance?', a: 'Yes, every bike is insured. Rental is formalized with a contract under Thai law.' },
+      { q: 'Is there insurance?', a: 'Yes, basic insurance is included free. Extended Insurance+ — from 50 ฿/day.' },
       { q: 'Is it safe to ride?', a: 'Left-hand traffic. Helmet is mandatory (500 \u0E3F fine). Don\'t exceed 60 km/h in town.' },
       { q: 'How much is fuel?', a: '~43 \u0E3F/liter. Scooter uses ~2 L/100 km. A 50 km trip costs ~45 \u0E3F in fuel.' },
       { q: 'How to use the route planner?', a: 'Open the Routes tab, add places, get distance, time, and fuel estimates.' },
@@ -541,7 +565,7 @@ export const T = {
     de: [
       { q: 'Was kostet die Miete?', a: 'Honda Scoopy ab 180 \u0E3F/Tag, Honda Click ab 200 \u0E3F/Tag, PCX/NMAX ab 300 \u0E3F/Tag. Längere Miete = günstigerer Preis.' },
       { q: 'Welche Dokumente brauche ich?', a: 'Reisepass und internationaler Führerschein (Klasse A). Kaution ab 2000 \u0E3F oder Passkopie.' },
-      { q: 'Gibt es eine Versicherung?', a: 'Ja, jedes Bike ist versichert. Die Miete wird mit einem Vertrag nach thailändischem Recht formalisiert.' },
+      { q: 'Gibt es eine Versicherung?', a: 'Ja, die Basisversicherung ist kostenlos inklusive. Erweiterte Versicherung+ — ab 50 ฿/Tag.' },
       { q: 'Ist es sicher zu fahren?', a: 'Linksverkehr. Helm ist Pflicht (500 \u0E3F Strafe). Nicht über 60 km/h in der Stadt.' },
       { q: 'Was kostet Benzin?', a: '~43 \u0E3F/Liter. Roller verbraucht ~2 L/100 km. Eine 50-km-Fahrt kostet ~45 \u0E3F Benzin.' },
       { q: 'Wie nutze ich den Routenplaner?', a: 'Öffne den Tab Routen, füge Orte hinzu, erhalte Entfernung, Zeit und Benzinkosten.' },
@@ -553,7 +577,7 @@ export const T = {
     fr: [
       { q: 'Combien coûte la location ?', a: 'Honda Scoopy dès 180 \u0E3F/jour, Honda Click dès 200 \u0E3F/jour, PCX/NMAX dès 300 \u0E3F/jour. Plus longue la location, plus bas le prix.' },
       { q: 'Quels documents faut-il ?', a: 'Passeport et permis international (catégorie A). Caution à partir de 2000 \u0E3F ou copie de passeport.' },
-      { q: 'Y a-t-il une assurance ?', a: 'Oui, chaque moto est assurée. La location est formalisée par un contrat selon la loi thaïlandaise.' },
+      { q: 'Y a-t-il une assurance ?', a: 'Oui, l\'assurance de base est incluse gratuitement. Assurance+ étendue — à partir de 50 ฿/jour.' },
       { q: 'Est-ce sûr de conduire ?', a: 'Conduite à gauche. Le casque est obligatoire (amende de 500 \u0E3F). Ne dépassez pas 60 km/h en ville.' },
       { q: 'Combien coûte l\'essence ?', a: '~43 \u0E3F/litre. Un scooter consomme ~2 L/100 km. Un trajet de 50 km coûte ~45 \u0E3F.' },
       { q: 'Comment utiliser le planificateur ?', a: 'Ouvrez l\'onglet Itinéraires, ajoutez des lieux, obtenez distance, temps et coût carburant.' },
@@ -565,7 +589,7 @@ export const T = {
     es: [
       { q: '¿Cuánto cuesta alquilar una moto?', a: 'Honda Scoopy desde 180 \u0E3F/día, Honda Click desde 200 \u0E3F/día, PCX/NMAX desde 300 \u0E3F/día. Más días = precio más bajo.' },
       { q: '¿Qué documentos necesito?', a: 'Pasaporte y permiso internacional (categoría A). Depósito desde 2000 \u0E3F o copia de pasaporte.' },
-      { q: '¿Hay seguro?', a: 'Sí, cada moto está asegurada. El alquiler se formaliza con contrato según la ley tailandesa.' },
+      { q: '¿Hay seguro?', a: 'Sí, el seguro básico está incluido gratis. Seguro+ extendido — desde 50 ฿/día.' },
       { q: '¿Es seguro conducir?', a: 'Tráfico por la izquierda. Casco obligatorio (multa de 500 \u0E3F). No superar 60 km/h en ciudad.' },
       { q: '¿Cuánto cuesta la gasolina?', a: '~43 \u0E3F/litro. Un scooter consume ~2 L/100 km. Un viaje de 50 km cuesta ~45 \u0E3F.' },
       { q: '¿Cómo usar el planificador de rutas?', a: 'Abre la pestaña Rutas, añade lugares y obtén distancia, tiempo y coste de combustible.' },
@@ -577,7 +601,7 @@ export const T = {
     th: [
       { q: 'เช่ามอเตอร์ไซค์ราคาเท่าไหร่?', a: 'Honda Scoopy ตั้งแต่ 180 ฿/วัน, Honda Click ตั้งแต่ 200 ฿/วัน, PCX/NMAX ตั้งแต่ 300 ฿/วัน ยิ่งเช่านานยิ่งถูก' },
       { q: 'ต้องใช้เอกสารอะไรบ้าง?', a: 'พาสปอร์ตและใบขับขี่สากล (ประเภท A) มัดจำตั้งแต่ 2000 ฿ หรือสำเนาพาสปอร์ต' },
-      { q: 'มีประกันไหม?', a: 'มี ทุกคันมีประกัน การเช่าทำสัญญาตามกฎหมายไทย' },
+      { q: 'มีประกันไหม?', a: 'มี ประกันพื้นฐานรวมฟรี ประกัน+ ขยาย — ตั้งแต่ 50 ฿/วัน' },
       { q: 'ขับขี่ปลอดภัยไหม?', a: 'ขับซ้าย หมวกกันน็อคบังคับ (ปรับ 500 ฿) ห้ามเกิน 60 กม./ชม. ในเมือง' },
       { q: 'น้ำมันราคาเท่าไหร่?', a: '~43 ฿/ลิตร สกู๊ตเตอร์ใช้ ~2 ลิตร/100 กม. เดินทาง 50 กม. ใช้น้ำมัน ~45 ฿' },
       { q: 'ใช้แผนเส้นทางอย่างไร?', a: 'เปิดแท็บเส้นทาง เพิ่มสถานที่ ดูระยะทาง เวลา และค่าน้ำมัน' },

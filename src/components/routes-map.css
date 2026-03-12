@@ -43,6 +43,10 @@
   opacity: 0.4 !important;
 }
 
+.poi-emoji {
+  pointer-events: none;
+}
+
 /* Office pulse animation */
 .office-pulse-svg {
   animation: svgPulse 2s ease-out infinite;

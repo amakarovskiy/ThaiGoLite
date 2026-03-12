@@ -1089,14 +1089,15 @@ function renderMapMarkers() {
     const inRoute = route.some(r => r.id === p.id);
     const routeIdx = route.findIndex(r => r.id === p.id);
     const isOffice = cat === 'office';
-    const r = isOffice ? 10 : 6;
+    const r = isOffice ? 12 : 11;
+    const emoji = p.icon || '';
 
     html += `<g class="poi-marker ${inRoute ? 'in-route' : ''}" data-id="${p.id}" transform="translate(${x.toFixed(1)},${y.toFixed(1)})">
       <circle class="poi-glow" r="${r * 2}" fill="${color}" opacity="${inRoute ? '0.35' : '0.15'}"/>
       <circle class="poi-dot" r="${r}" fill="${color}" opacity="${inRoute ? '1' : '0.75'}"
         stroke="${inRoute ? '#BBFF46' : isOffice ? '#BBFF46' : 'rgba(255,255,255,0.3)'}"
         stroke-width="${inRoute ? '2.5' : isOffice ? '2' : '1'}"/>
-      <circle r="${r * 0.4}" fill="#fff" opacity="0.8"/>
+      <text class="poi-emoji" text-anchor="middle" dominant-baseline="central" font-size="${isOffice ? 12 : 10}">${emoji}</text>
       ${isOffice ? `<circle r="${r + 4}" fill="none" stroke="#BBFF46" stroke-width="1.5" opacity="0" class="office-pulse-svg"/>` : ''}
       ${inRoute ? `<circle cx="${r + 2}" cy="${-(r + 2)}" r="8" fill="#BBFF46"/>
       <text x="${r + 2}" y="${-(r - 1)}" text-anchor="middle" font-size="8" font-weight="900" fill="#0A0A0A">${routeIdx + 1}</text>` : ''}

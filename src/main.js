@@ -374,7 +374,24 @@ function renderFAQ() {
 // ══════════════════════════════════════════════
 // Tab switching
 // ══════════════════════════════════════════════
+function closeAllModals() {
+  if (bookingSheet.classList.contains('open')) closeBookingSheet();
+  closeInsSheet(insBasicSheet, insBasicOverlay);
+  closeInsSheet(insPlusSheet, insPlusOverlay);
+  if (lbOverlay.classList.contains('open')) closeLightbox();
+  // placeSheet, sharePopover, riderTest are defined later but hoisted/initialized before any click
+  const ps = $('placeSheet');
+  if (ps && ps.classList.contains('open')) closePlaceSheet();
+  const sp = $('rsSharePop');
+  if (sp && sp.classList.contains('open')) closeSharePopover();
+  const rt = $('riderTestOverlay');
+  if (rt && rt.classList.contains('active')) closeRiderTest();
+}
+
 function switchTab(tab) {
+  // Close any open modals/sheets when switching tabs
+  closeAllModals();
+
   // "guide" tab opens micro-menu instead of switching page
   if (tab === 'guide') {
     openGuideMenu();
@@ -450,7 +467,7 @@ function toggleSheet() {
   else setSheetState('collapsed');
 }
 
-// Handle drag
+// Handle drag (touch + mouse for desktop support)
 {
   let startY = 0, startTranslate = 0, isDragging = false;
   function getTranslateY() {
@@ -458,27 +475,38 @@ function toggleSheet() {
     const matrix = new DOMMatrix(style.transform);
     return matrix.m42;
   }
-  function onTouchStart(e) {
-    if (e.touches.length !== 1) return;
+
+  // Unified helpers that extract clientY from touch or mouse events
+  function getClientY(e) {
+    if (e.touches) return e.touches[0].clientY;
+    return e.clientY;
+  }
+  function getEndClientY(e) {
+    if (e.changedTouches) return e.changedTouches[0].clientY;
+    return e.clientY;
+  }
+
+  function onDragStart(e) {
+    if (e.touches && e.touches.length !== 1) return;
     isDragging = true;
-    startY = e.touches[0].clientY;
+    startY = getClientY(e);
     startTranslate = getTranslateY();
     routeSheet.classList.add('sheet-dragging');
   }
-  function onTouchMove(e) {
+  function onDragMove(e) {
     if (!isDragging) return;
-    const dy = e.touches[0].clientY - startY;
+    const dy = getClientY(e) - startY;
     const h = routeSheet.offsetHeight;
     const newY = Math.max(0, Math.min(h - 40, startTranslate + dy));
     routeSheet.style.transform = 'translateY(' + newY + 'px)';
     e.preventDefault();
   }
-  function onTouchEnd(e) {
+  function onDragEnd(e) {
     if (!isDragging) return;
     isDragging = false;
     routeSheet.classList.remove('sheet-dragging');
     routeSheet.style.transform = '';
-    const dy = e.changedTouches[0].clientY - startY;
+    const dy = getEndClientY(e) - startY;
     const threshold = 60;
     if (dy < -threshold) {
       if (rsState === 'collapsed') setSheetState('half');
@@ -488,10 +516,19 @@ function toggleSheet() {
       else if (rsState === 'half') setSheetState('collapsed');
     }
   }
-  rsHandle.addEventListener('touchstart', onTouchStart, { passive: true });
-  rsTabs.addEventListener('touchstart', onTouchStart, { passive: true });
-  document.addEventListener('touchmove', onTouchMove, { passive: false });
-  document.addEventListener('touchend', onTouchEnd, { passive: true });
+
+  // Touch events
+  rsHandle.addEventListener('touchstart', onDragStart, { passive: true });
+  rsTabs.addEventListener('touchstart', onDragStart, { passive: true });
+  document.addEventListener('touchmove', onDragMove, { passive: false });
+  document.addEventListener('touchend', onDragEnd, { passive: true });
+
+  // Mouse events for desktop
+  rsHandle.addEventListener('mousedown', (e) => { e.preventDefault(); onDragStart(e); });
+  rsTabs.addEventListener('mousedown', (e) => { e.preventDefault(); onDragStart(e); });
+  document.addEventListener('mousemove', onDragMove);
+  document.addEventListener('mouseup', onDragEnd);
+
   rsHandle.addEventListener('click', toggleSheet);
 
   // Pull-down from content when scrolled to top
@@ -501,17 +538,36 @@ function toggleSheet() {
     let moved = false;
     const moveH = (ev) => {
       const dy = ev.touches[0].clientY - touchY;
-      if (!moved && dy > 10) { moved = true; onTouchStart(e); }
-      if (moved) onTouchMove(ev);
+      if (!moved && dy > 10) { moved = true; onDragStart(e); }
+      if (moved) onDragMove(ev);
     };
     const endH = (ev) => {
       document.removeEventListener('touchmove', moveH);
       document.removeEventListener('touchend', endH);
-      if (moved) onTouchEnd(ev);
+      if (moved) onDragEnd(ev);
     };
     document.addEventListener('touchmove', moveH, { passive: false });
     document.addEventListener('touchend', endH, { passive: true });
   }, { passive: true });
+
+  // Mouse pull-down from content when scrolled to top (desktop)
+  rsContent.addEventListener('mousedown', (e) => {
+    if (rsContent.scrollTop > 0 || rsState === 'collapsed') return;
+    const mouseY = e.clientY;
+    let moved = false;
+    const moveH = (ev) => {
+      const dy = ev.clientY - mouseY;
+      if (!moved && dy > 10) { moved = true; onDragStart(e); }
+      if (moved) onDragMove(ev);
+    };
+    const endH = (ev) => {
+      document.removeEventListener('mousemove', moveH);
+      document.removeEventListener('mouseup', endH);
+      if (moved) onDragEnd(ev);
+    };
+    document.addEventListener('mousemove', moveH);
+    document.addEventListener('mouseup', endH);
+  });
 }
 
 // Sheet tabs
@@ -837,24 +893,32 @@ insPlusClose.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlus
 insBasicOverlay.addEventListener('click', () => closeInsSheet(insBasicSheet, insBasicOverlay));
 insPlusOverlay.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlusOverlay));
 
+// Drag-dismiss + tap-on-handle for info sheets
+setupDragDismiss(insBasicSheet, () => closeInsSheet(insBasicSheet, insBasicOverlay));
+setupDragDismiss(insPlusSheet, () => closeInsSheet(insPlusSheet, insPlusOverlay));
+
 sheetOverlay.addEventListener('click', closeBookingSheet);
 
 function setupDragDismiss(sheetEl, closeFn) {
-  const handle = sheetEl.querySelector('.sheet-handle');
+  const handle = sheetEl.querySelector('.sheet-handle') || sheetEl.querySelector('.ins-handle');
   if (!handle) return;
   let startY = 0;
   let currentY = 0;
   let dragging = false;
+  let moved = false;
 
   handle.addEventListener('touchstart', e => {
     startY = e.touches[0].clientY;
+    currentY = startY;
     dragging = true;
+    moved = false;
     sheetEl.style.transition = 'none';
   }, { passive: true });
 
   handle.addEventListener('touchmove', e => {
     if (!dragging) return;
     currentY = e.touches[0].clientY;
+    moved = true;
     const dy = Math.max(0, currentY - startY);
     sheetEl.style.transform = `translateX(-50%) translateY(${dy}px)`;
   }, { passive: true });
@@ -865,6 +929,10 @@ function setupDragDismiss(sheetEl, closeFn) {
     sheetEl.style.transition = '';
     const dy = currentY - startY;
     if (dy > 80) {
+      sheetEl.style.transform = '';
+      closeFn();
+    } else if (handle.classList.contains('ins-handle') && (!moved || dy < 5)) {
+      // Tap on ins-handle (no significant movement) — close info sheet
       sheetEl.style.transform = '';
       closeFn();
     } else {

@@ -77,6 +77,62 @@ export const T = {
   whyContract: {
     ru: 'Договор + страховка', en: 'Contract + insurance', de: 'Vertrag + Versicherung', fr: 'Contrat + assurance', es: 'Contrato + seguro'
   },
+  whyNoDepositSub: {
+    ru: 'Берём залог деньгами, паспорт остаётся у вас',
+    en: 'Cash deposit only — your passport stays with you',
+    de: 'Nur Barkaution — Ihr Pass bleibt bei Ihnen',
+    fr: 'Caution en espèces — votre passeport reste avec vous',
+    es: 'Depósito en efectivo — tu pasaporte se queda contigo'
+  },
+  whyDeliverySub: {
+    ru: 'Привезём байк к вашему отелю или вилле',
+    en: 'We deliver the bike to your hotel or villa',
+    de: 'Wir liefern das Bike zu Ihrem Hotel oder Villa',
+    fr: 'On livre le scooter à votre hôtel ou villa',
+    es: 'Entregamos la moto en tu hotel o villa'
+  },
+  whyPriceSub: {
+    ru: 'Чем дольше аренда — тем ниже цена за день',
+    en: 'Longer rental = lower daily rate',
+    de: 'Längere Miete = niedrigerer Tagespreis',
+    fr: 'Plus longue la location, plus bas le prix',
+    es: 'Más días = precio más bajo por día'
+  },
+  whySupportSub: {
+    ru: 'Звонок, WhatsApp или Telegram — всегда на связи',
+    en: 'Call, WhatsApp, or Telegram — always available',
+    de: 'Anruf, WhatsApp oder Telegram — immer erreichbar',
+    fr: 'Appel, WhatsApp ou Telegram — toujours joignable',
+    es: 'Llamada, WhatsApp o Telegram — siempre disponibles'
+  },
+  whyReplaceSub: {
+    ru: 'Сломался байк — заменим бесплатно в течение дня',
+    en: 'Bike broke down? Free replacement within the day',
+    de: 'Bike kaputt? Kostenloser Ersatz am selben Tag',
+    fr: 'Panne ? Remplacement gratuit dans la journée',
+    es: '¿Moto averiada? Reemplazo gratis en el día'
+  },
+  whyContractSub: {
+    ru: 'Официальный договор и страховка здоровья включены',
+    en: 'Official contract and health insurance included',
+    de: 'Offizieller Vertrag und Krankenversicherung inklusive',
+    fr: 'Contrat officiel et assurance santé inclus',
+    es: 'Contrato oficial y seguro de salud incluidos'
+  },
+  heroSeo: {
+    ru: 'Прокат скутеров и мотоциклов в Кате, Патонге, Карон, Бангтао и по всему Пхукету. Honda, Yamaha, Vespa — новые байки с регулярным обслуживанием.',
+    en: 'Scooter and motorbike rental in Kata, Patong, Karon, Bangtao and across Phuket. Honda, Yamaha, Vespa — new bikes with regular maintenance.',
+    de: 'Roller- und Motorradverleih in Kata, Patong, Karon, Bangtao und ganz Phuket. Honda, Yamaha, Vespa — neue Bikes mit regelmäßiger Wartung.',
+    fr: 'Location de scooters et motos à Kata, Patong, Karon, Bangtao et partout à Phuket. Honda, Yamaha, Vespa — motos neuves et entretenues.',
+    es: 'Alquiler de scooters y motos en Kata, Patong, Karon, Bangtao y todo Phuket. Honda, Yamaha, Vespa — motos nuevas con mantenimiento regular.'
+  },
+  footerSeo: {
+    ru: 'ThaiGo Rent — официальная аренда байков и скутеров на Пхукете. Офис в Кате. Доставка в Патонг, Карон, Камала, Бангтао, Раваи, Чалонг, аэропорт Пхукета и другие районы острова. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza и другие модели. Работаем ежедневно 8:00–20:00, поддержка на русском языке 24/7.',
+    en: 'ThaiGo Rent — official bike and scooter rental in Phuket. Office in Kata. Delivery to Patong, Karon, Kamala, Bangtao, Rawai, Chalong, Phuket Airport and other areas. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza and more. Open daily 8:00–20:00, 24/7 support.',
+    de: 'ThaiGo Rent — offizieller Bike- und Rollerverleih auf Phuket. Büro in Kata. Lieferung nach Patong, Karon, Kamala, Bangtao, Rawai, Chalong, Flughafen Phuket und weitere Gebiete. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza u.a. Täglich 8:00–20:00, 24/7 Support.',
+    fr: 'ThaiGo Rent — location officielle de motos et scooters à Phuket. Bureau à Kata. Livraison à Patong, Karon, Kamala, Bangtao, Rawai, Chalong, aéroport de Phuket et autres zones. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza et plus. Ouvert 8h–20h, support 24/7.',
+    es: 'ThaiGo Rent — alquiler oficial de motos y scooters en Phuket. Oficina en Kata. Entrega en Patong, Karon, Kamala, Bangtao, Rawai, Chalong, aeropuerto de Phuket y más zonas. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza y más. Abierto 8:00–20:00, soporte 24/7.'
+  },
 
   // ── Popular bikes ──
   popularTitle: {
@@ -365,7 +421,11 @@ export const T = {
       { q: 'Есть ли страховка?', a: 'Да, каждый байк застрахован. Аренда оформляется договором по законам Таиланда.' },
       { q: 'Безопасно ли ездить?', a: 'Движение левостороннее. Шлем обязателен (штраф 500 \u0E3F). Не превышайте 60 км/ч в городе.' },
       { q: 'Сколько стоит бензин?', a: '~43 \u0E3F/литр. Расход скутера — 2 л/100 км. Маршрут 50 км обойдётся в ~45 \u0E3F бензина.' },
-      { q: 'Как пользоваться планировщиком?', a: 'Откройте вкладку «Маршруты», добавьте места, получите расчёт км, времени и бензина.' }
+      { q: 'Как пользоваться планировщиком?', a: 'Откройте вкладку «Маршруты», добавьте места, получите расчёт км, времени и бензина.' },
+      { q: 'Нужны ли права для аренды скутера на Пхукете?', a: 'Формально полиция требует международные права категории А. На практике для скутеров до 125 cc проверяют редко, но при ДТП отсутствие прав усложняет страховой случай. Рекомендуем оформить МВУ заранее.' },
+      { q: 'Можно ли арендовать байк в Патонге?', a: 'Да, мы доставляем байки в Патонг бесплатно от 3 дней аренды. Привезём прямо к отелю или вилле — звоните или пишите в WhatsApp.' },
+      { q: 'Сколько стоит аренда байка на месяц на Пхукете?', a: 'Honda Scoopy — 4 500 \u0E3F/мес, Honda Click — 5 000 \u0E3F/мес, PCX/NMAX — 7 000 \u0E3F/мес, Forza 350 — 14 000 \u0E3F/мес. Чем дольше срок — тем выгоднее.' },
+      { q: 'Какой байк выбрать новичку?', a: 'Honda Scoopy или Yamaha Fino — лёгкие (96–99 кг), низкое сиденье, простое управление. Для уверенных — Honda Click 125i: чуть мощнее, но всё ещё комфортный.' }
     ],
     en: [
       { q: 'How much does it cost to rent a bike?', a: 'Honda Scoopy from 180 \u0E3F/day, Honda Click from 200 \u0E3F/day, PCX/NMAX from 300 \u0E3F/day. Longer rental = lower price.' },
@@ -373,7 +433,11 @@ export const T = {
       { q: 'Is there insurance?', a: 'Yes, every bike is insured. Rental is formalized with a contract under Thai law.' },
       { q: 'Is it safe to ride?', a: 'Left-hand traffic. Helmet is mandatory (500 \u0E3F fine). Don\'t exceed 60 km/h in town.' },
       { q: 'How much is fuel?', a: '~43 \u0E3F/liter. Scooter uses ~2 L/100 km. A 50 km trip costs ~45 \u0E3F in fuel.' },
-      { q: 'How to use the route planner?', a: 'Open the Routes tab, add places, get distance, time, and fuel estimates.' }
+      { q: 'How to use the route planner?', a: 'Open the Routes tab, add places, get distance, time, and fuel estimates.' },
+      { q: 'Do I need a license to rent a scooter in Phuket?', a: 'Officially, police require an international driving permit (category A). For scooters under 125cc checks are rare, but without a license insurance claims get complicated. We recommend getting an IDP before your trip.' },
+      { q: 'Can I rent a bike in Patong?', a: 'Yes, we deliver bikes to Patong for free from 3+ days rental. Right to your hotel or villa — call or message us on WhatsApp.' },
+      { q: 'How much is a monthly bike rental in Phuket?', a: 'Honda Scoopy — 4,500 \u0E3F/mo, Honda Click — 5,000 \u0E3F/mo, PCX/NMAX — 7,000 \u0E3F/mo, Forza 350 — 14,000 \u0E3F/mo. Longer term = better price.' },
+      { q: 'Which bike is best for beginners?', a: 'Honda Scoopy or Yamaha Fino — lightweight (96–99 kg), low seat, easy handling. For more confident riders — Honda Click 125i: a bit more power but still comfortable.' }
     ],
     de: [
       { q: 'Was kostet die Miete?', a: 'Honda Scoopy ab 180 \u0E3F/Tag, Honda Click ab 200 \u0E3F/Tag, PCX/NMAX ab 300 \u0E3F/Tag. Längere Miete = günstigerer Preis.' },
@@ -381,7 +445,11 @@ export const T = {
       { q: 'Gibt es eine Versicherung?', a: 'Ja, jedes Bike ist versichert. Die Miete wird mit einem Vertrag nach thailändischem Recht formalisiert.' },
       { q: 'Ist es sicher zu fahren?', a: 'Linksverkehr. Helm ist Pflicht (500 \u0E3F Strafe). Nicht über 60 km/h in der Stadt.' },
       { q: 'Was kostet Benzin?', a: '~43 \u0E3F/Liter. Roller verbraucht ~2 L/100 km. Eine 50-km-Fahrt kostet ~45 \u0E3F Benzin.' },
-      { q: 'Wie nutze ich den Routenplaner?', a: 'Öffne den Tab Routen, füge Orte hinzu, erhalte Entfernung, Zeit und Benzinkosten.' }
+      { q: 'Wie nutze ich den Routenplaner?', a: 'Öffne den Tab Routen, füge Orte hinzu, erhalte Entfernung, Zeit und Benzinkosten.' },
+      { q: 'Brauche ich einen Führerschein für einen Roller auf Phuket?', a: 'Offiziell verlangt die Polizei einen internationalen Führerschein (Klasse A). Bei Rollern unter 125cc wird selten kontrolliert, aber ohne Führerschein wird der Versicherungsfall kompliziert. Wir empfehlen, den IDP vorab zu beantragen.' },
+      { q: 'Kann ich ein Bike in Patong mieten?', a: 'Ja, wir liefern Bikes kostenlos nach Patong ab 3 Tagen Miete. Direkt zu Ihrem Hotel oder Villa — rufen Sie an oder schreiben Sie uns auf WhatsApp.' },
+      { q: 'Was kostet eine monatliche Bike-Miete auf Phuket?', a: 'Honda Scoopy — 4.500 \u0E3F/Monat, Honda Click — 5.000 \u0E3F/Monat, PCX/NMAX — 7.000 \u0E3F/Monat, Forza 350 — 14.000 \u0E3F/Monat.' },
+      { q: 'Welches Bike ist für Anfänger am besten?', a: 'Honda Scoopy oder Yamaha Fino — leicht (96–99 kg), niedriger Sitz, einfache Handhabung. Für sicherere Fahrer — Honda Click 125i.' }
     ],
     fr: [
       { q: 'Combien coûte la location ?', a: 'Honda Scoopy dès 180 \u0E3F/jour, Honda Click dès 200 \u0E3F/jour, PCX/NMAX dès 300 \u0E3F/jour. Plus longue la location, plus bas le prix.' },
@@ -389,7 +457,11 @@ export const T = {
       { q: 'Y a-t-il une assurance ?', a: 'Oui, chaque moto est assurée. La location est formalisée par un contrat selon la loi thaïlandaise.' },
       { q: 'Est-ce sûr de conduire ?', a: 'Conduite à gauche. Le casque est obligatoire (amende de 500 \u0E3F). Ne dépassez pas 60 km/h en ville.' },
       { q: 'Combien coûte l\'essence ?', a: '~43 \u0E3F/litre. Un scooter consomme ~2 L/100 km. Un trajet de 50 km coûte ~45 \u0E3F.' },
-      { q: 'Comment utiliser le planificateur ?', a: 'Ouvrez l\'onglet Itinéraires, ajoutez des lieux, obtenez distance, temps et coût carburant.' }
+      { q: 'Comment utiliser le planificateur ?', a: 'Ouvrez l\'onglet Itinéraires, ajoutez des lieux, obtenez distance, temps et coût carburant.' },
+      { q: 'Faut-il un permis pour louer un scooter à Phuket ?', a: 'Officiellement la police exige un permis international (catégorie A). Pour les scooters de moins de 125cc les contrôles sont rares, mais sans permis l\'assurance se complique. Nous recommandons d\'obtenir un PCI avant le voyage.' },
+      { q: 'Peut-on louer un scooter à Patong ?', a: 'Oui, nous livrons gratuitement à Patong à partir de 3 jours. Directement à votre hôtel ou villa — appelez ou écrivez sur WhatsApp.' },
+      { q: 'Combien coûte la location mensuelle à Phuket ?', a: 'Honda Scoopy — 4 500 \u0E3F/mois, Honda Click — 5 000 \u0E3F/mois, PCX/NMAX — 7 000 \u0E3F/mois, Forza 350 — 14 000 \u0E3F/mois.' },
+      { q: 'Quel scooter pour un débutant ?', a: 'Honda Scoopy ou Yamaha Fino — légers (96–99 kg), selle basse, maniement facile. Pour les plus confiants — Honda Click 125i.' }
     ],
     es: [
       { q: '¿Cuánto cuesta alquilar una moto?', a: 'Honda Scoopy desde 180 \u0E3F/día, Honda Click desde 200 \u0E3F/día, PCX/NMAX desde 300 \u0E3F/día. Más días = precio más bajo.' },
@@ -397,7 +469,11 @@ export const T = {
       { q: '¿Hay seguro?', a: 'Sí, cada moto está asegurada. El alquiler se formaliza con contrato según la ley tailandesa.' },
       { q: '¿Es seguro conducir?', a: 'Tráfico por la izquierda. Casco obligatorio (multa de 500 \u0E3F). No superar 60 km/h en ciudad.' },
       { q: '¿Cuánto cuesta la gasolina?', a: '~43 \u0E3F/litro. Un scooter consume ~2 L/100 km. Un viaje de 50 km cuesta ~45 \u0E3F.' },
-      { q: '¿Cómo usar el planificador de rutas?', a: 'Abre la pestaña Rutas, añade lugares y obtén distancia, tiempo y coste de combustible.' }
+      { q: '¿Cómo usar el planificador de rutas?', a: 'Abre la pestaña Rutas, añade lugares y obtén distancia, tiempo y coste de combustible.' },
+      { q: '¿Necesito licencia para alquilar un scooter en Phuket?', a: 'Oficialmente la policía exige permiso internacional (categoría A). Para scooters de menos de 125cc los controles son raros, pero sin licencia el seguro se complica. Recomendamos obtener el PIC antes del viaje.' },
+      { q: '¿Puedo alquilar una moto en Patong?', a: 'Sí, entregamos motos en Patong gratis desde 3 días de alquiler. Directamente a tu hotel o villa — llama o escríbenos por WhatsApp.' },
+      { q: '¿Cuánto cuesta alquilar una moto por mes en Phuket?', a: 'Honda Scoopy — 4.500 \u0E3F/mes, Honda Click — 5.000 \u0E3F/mes, PCX/NMAX — 7.000 \u0E3F/mes, Forza 350 — 14.000 \u0E3F/mes.' },
+      { q: '¿Qué moto es mejor para principiantes?', a: 'Honda Scoopy o Yamaha Fino — ligeras (96–99 kg), asiento bajo, manejo fácil. Para más confiados — Honda Click 125i.' }
     ]
   },
 

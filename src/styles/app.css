@@ -32,6 +32,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .hero::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 40px; background: var(--color-bg); clip-path: ellipse(55% 100% at 50% 100%); }
 .hero-h1 { font-size: 26px; font-weight: 900; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.02em; }
 .hero-sub { font-size: 14px; opacity: 0.85; line-height: 1.5; margin-bottom: 20px; }
+.hero-seo { font-size: 11px; opacity: 0.55; line-height: 1.5; margin-bottom: 18px; max-width: 340px; margin-left: auto; margin-right: auto; }
 .hero-cta { display: flex; gap: 10px; justify-content: center; }
 
 /* ===== Buttons ===== */
@@ -63,6 +64,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .why-item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 8px; background: var(--color-surface); border: none; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-card); }
 .why-icon { font-size: 22px; line-height: 1; display: flex; align-items: center; justify-content: center; }
 .why-text { font-size: 12px; font-weight: 600; color: var(--color-text-secondary); line-height: 1.3; }
+.why-sub { font-size: 10px; color: var(--color-text-muted); line-height: 1.35; }
 
 /* ===== Popular Scroll ===== */
 .popular-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 0 0 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -188,6 +190,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item p { padding: 0 14px 12px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
 .contacts-footer { text-align: center; padding: 24px 0; font-size: 12px; color: var(--color-text-muted); }
+.footer-seo { font-size: 10px; opacity: 0.7; line-height: 1.5; margin-top: 10px; }
 
 /* ===== Toasts ===== */
 #toasts { position: fixed; bottom: calc(var(--tab-bar-height) + var(--safe-bottom) + 12px); left: 50%; transform: translateX(-50%); z-index: 9000; display: flex; flex-direction: column-reverse; gap: 8px; pointer-events: none; max-width: 400px; }

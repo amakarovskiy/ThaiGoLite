@@ -179,6 +179,19 @@ langDropdown.addEventListener('click', (e) => {
 function applyTranslations() {
   renderLangSwitcher();
 
+  // SEO meta tags
+  document.title = t('seoTitle');
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.content = t('seoDescription');
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.content = t('seoTitle');
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.content = t('seoDescription');
+  const twTitle = document.querySelector('meta[name="twitter:title"]');
+  if (twTitle) twTitle.content = t('seoTitle');
+  const twDesc = document.querySelector('meta[name="twitter:description"]');
+  if (twDesc) twDesc.content = t('seoDescription');
+
   // Hero
   document.querySelector('.hero-h1').innerHTML = t('heroTitle');
   document.querySelector('.hero-sub').innerHTML = t('heroSub');

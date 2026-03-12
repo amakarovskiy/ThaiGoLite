@@ -210,6 +210,8 @@ function applyTranslations() {
   // Hero
   document.querySelector('.hero-h1').innerHTML = t('heroTitle');
   document.querySelector('.hero-sub').innerHTML = t('heroSub');
+  const heroSeo = document.querySelector('.hero-seo');
+  if (heroSeo) heroSeo.textContent = t('heroSeo');
 
   // Why ThaiGo
   const whyTitle = document.querySelector('#page-home .section-title');
@@ -217,6 +219,9 @@ function applyTranslations() {
   const whyTexts = document.querySelectorAll('.why-text');
   const whyKeys = ['whyNoDeposit', 'whyDelivery', 'whyPrice', 'whySupport', 'whyReplace', 'whyContract'];
   whyTexts.forEach((el, i) => { if (whyKeys[i]) el.textContent = t(whyKeys[i]); });
+  const whySubs = document.querySelectorAll('.why-sub');
+  const whySubKeys = ['whyNoDepositSub', 'whyDeliverySub', 'whyPriceSub', 'whySupportSub', 'whyReplaceSub', 'whyContractSub'];
+  whySubs.forEach((el, i) => { if (whySubKeys[i]) el.textContent = t(whySubKeys[i]); });
 
   // Popular bikes section
   const popHeader = document.querySelector('#page-home .section-header .section-title');
@@ -315,6 +320,8 @@ function applyTranslations() {
   // Footer
   const footer = document.querySelector('.contacts-footer p');
   if (footer) footer.textContent = t('contactsFooter');
+  const footerSeo = document.querySelector('.footer-seo');
+  if (footerSeo) footerSeo.textContent = t('footerSeo');
 
   // Booking sheet headers
   const pricingTitle = document.querySelector('.sheet-pricing-title');

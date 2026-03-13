@@ -251,7 +251,8 @@
 }
 
 /* ========== Insurance Block (mockup v3.8) ========== */
-.sheet-insurance-block { margin: 0 0 14px; border: 1.5px solid rgba(99,102,241,.25); border-radius: 12px; overflow: hidden; }
+.sheet-insurance-block { margin: 0 0 14px; border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color .2s ease; }
+.sheet-insurance-block.ins-active { border-color: rgba(99,102,241,.25); }
 .ins-basic-row { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--green-l); border-bottom: 1px solid rgba(22,163,74,.15); }
 .ins-basic-row svg { flex-shrink: 0; }
 .ins-basic-info { flex: 1; }
@@ -262,20 +263,17 @@
 .ins-plus-row {
   padding: 10px 14px;
   background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  margin: 0 14px 8px;
+  border-top: 1px solid var(--border);
   cursor: pointer;
   transition: all .2s ease;
   overflow: hidden;
   max-height: 200px;
 }
-.ins-plus-row.hidden { opacity: 0; max-height: 0; padding: 0; margin: 0 14px; border-width: 0; pointer-events: none; }
+.ins-plus-row.hidden { opacity: 0; max-height: 0; padding: 0; border-top-width: 0; pointer-events: none; }
 
 /* Insurance+ ON state */
 .ins-plus-row.active {
   background: var(--primary-l);
-  border-color: rgba(99,102,241,.25);
 }
 
 /* Title: OFF=text2 fw600, ON=primary-m fw700 */

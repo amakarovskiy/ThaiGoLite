@@ -1167,6 +1167,8 @@ function openBookingSheet(bike) {
   if (insPlusRow) {
     insTierInit === null ? insPlusRow.classList.add('hidden') : insPlusRow.classList.remove('hidden');
     insPlusRow.classList.remove('active');
+    const insBlock = insPlusRow.closest('.sheet-insurance-block');
+    if (insBlock) insBlock.classList.remove('ins-active');
   }
 
   updateSheetCalc();
@@ -1439,6 +1441,9 @@ if (insPlusRowEl) {
     if (e.target.closest('.ins-plus-info-btn')) return;
     sheetInsurancePlus = !sheetInsurancePlus;
     insPlusRowEl.classList.toggle('active', sheetInsurancePlus);
+    // Toggle container border color
+    const block = insPlusRowEl.closest('.sheet-insurance-block');
+    if (block) block.classList.toggle('ins-active', sheetInsurancePlus);
     pulseToggle(insPlusRowEl);
     updateSheetCalc();
   });

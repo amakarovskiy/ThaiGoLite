@@ -119,20 +119,23 @@ function bikeCatName(cat) {
  * @param {number} duration — ms (default 250)
  * @param {string} suffix — text appended after number (e.g. ' ฿')
  */
-function animateValue(el, from, to, duration = 250, suffix = ' ฿') {
+function animateValue(el, from, to, duration = 600, suffix = ' ฿') {
   if (!el || from === to) { if (el) el.textContent = to.toLocaleString() + suffix; return; }
-  // Respect reduced-motion preference
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     el.textContent = to.toLocaleString() + suffix;
     return;
   }
+  // scale(1.02) bump at start
+  el.style.transition = 'transform 150ms ease';
+  el.style.transform = 'scale(1.02)';
+  setTimeout(() => { el.style.transform = ''; }, 150);
   const start = performance.now();
   const diff = to - from;
   function tick(now) {
     const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
-    // ease-out quad
-    const eased = 1 - (1 - progress) * (1 - progress);
+    // easeOutCubic
+    const eased = 1 - Math.pow(1 - progress, 3);
     const current = Math.round(from + diff * eased);
     el.textContent = current.toLocaleString() + suffix;
     if (progress < 1) requestAnimationFrame(tick);
@@ -1331,34 +1334,33 @@ function updateSheetCalc() {
     }
   }
 
-  // Total breakdown
+  // Total breakdown — reactive lines
   const totalBreakdownEl = $('sheetBreakdown');
   if (totalBreakdownEl) {
+    const insPerDay = sheetDays > 0 ? Math.round(insCost / sheetDays) : 0;
     let html = '';
-    html += `<div class="breakdown-row"><span>${t('sheetBike') || '\u0411\u0430\u0439\u043A'} ${perDay} \u0E3F \xD7 ${sheetDays} ${t('popDays') || '\u0434\u043D\u0435\u0439'}</span><span>${rentalTotal.toLocaleString()} \u0E3F</span></div>`;
+    html += `<div class="breakdown-row"><span>${t('sheetBike') || 'Байк'}: ${perDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays') || 'дн'}</span><span>${rentalTotal.toLocaleString()} ฿</span></div>`;
     if (sheetInsurancePlus && insTier) {
-      html += `<div class="breakdown-row"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>${t('insPlus') || 'Страхование+'}</span><span>${insCost.toLocaleString()} \u0E3F</span></div>`;
+      html += `<div class="breakdown-row"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>${t('insPlus') || 'Страхование+'}: ${insPerDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays') || 'дн'}</span><span>${insCost.toLocaleString()} ฿</span></div>`;
     }
     html += `<div class="breakdown-divider"></div>`;
-    html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal') || '\u0418\u0442\u043E\u0433\u043E'}</span><span class="breakdown-total-value" id="sheetTotalValue">${prevSheetTotal === 0 ? total.toLocaleString() + ' \u0E3F' : prevSheetTotal.toLocaleString() + ' \u0E3F'}</span></div>`;
+    html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal') || 'Итого'}</span><span class="breakdown-total-value" id="sheetTotalValue">${prevSheetTotal === 0 ? total.toLocaleString() + ' ฿' : prevSheetTotal.toLocaleString() + ' ฿'}</span></div>`;
     totalBreakdownEl.innerHTML = html;
 
-    // Animate total value count-up and flash
+    // Animate total value: 600ms easeOutCubic
     const totalValEl = document.getElementById('sheetTotalValue');
     if (prevSheetTotal !== total && prevSheetTotal !== 0) {
-      animateValue(totalValEl, prevSheetTotal, total, 250, ' \u0E3F');
+      animateValue(totalValEl, prevSheetTotal, total, 600, ' ฿');
       flashClass(totalValEl, 'flash', 350);
-      // Brief highlight on breakdown container
-      flashClass(totalBreakdownEl, 'highlight', 400);
     }
     prevSheetTotal = total;
   }
 
-  // Saving row
+  // Saving row — only show when days > 2 and there's actual savings
   const savingRow = $('sheetSavingRow');
   if (savingRow) {
-    if (savings > 0) {
-      savingRow.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg> ${t('sheetSavingCompare') || '\u042D\u043A\u043E\u043D\u043E\u043C\u0438\u0448\u044C'} ${savings.toLocaleString()} \u0E3F ${t('sheetSavingVs') || '\u043F\u043E \u0441\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u044E \u0441 \u0446\u0435\u043D\u043E\u0439 1\u20132 \u0434\u043D\u0435\u0439'}`;
+    if (sheetDays > 2 && savings > 0) {
+      savingRow.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg> ${t('sheetSavingCompare') || 'Экономишь'} ${savings.toLocaleString()} ฿ ${t('sheetSavingVs') || 'по сравнению с ценой 1–2 дней'}`;
       savingRow.classList.remove('hidden');
     } else {
       savingRow.classList.add('hidden');
@@ -1396,13 +1398,15 @@ function addDaysToDate(dateStr, days) {
   return d.toISOString().split('T')[0];
 }
 
+let sliderDebounceTimer = null;
 sheetDaySlider.addEventListener('input', () => {
   sheetDays = parseInt(sheetDaySlider.value);
   if (sheetDateStart && sheetDateStartEl.value) {
     sheetDateEnd = addDaysToDate(sheetDateStart, sheetDays);
     sheetDateEndEl.value = sheetDateEnd;
   }
-  updateSheetCalc();
+  clearTimeout(sliderDebounceTimer);
+  sliderDebounceTimer = setTimeout(updateSheetCalc, 50);
 });
 
 // DatePicker sync
@@ -1427,15 +1431,14 @@ sheetDateEndEl.addEventListener('change', () => {
   updateSheetCalc();
 });
 
-// Insurance+ row click — toggle insurance (with UX feedback)
+// Insurance+ row click — toggle insurance via toggle switch
 const insPlusRowEl = $('insPlusRow');
 if (insPlusRowEl) {
-  // Add reusable selectable-option class
-  insPlusRowEl.classList.add('selectable-option');
-  insPlusRowEl.addEventListener('click', () => {
+  insPlusRowEl.addEventListener('click', (e) => {
+    // Don't toggle when clicking info icon
+    if (e.target.closest('.ins-plus-info-btn')) return;
     sheetInsurancePlus = !sheetInsurancePlus;
     insPlusRowEl.classList.toggle('active', sheetInsurancePlus);
-    // Micro-animation: pulse on toggle
     pulseToggle(insPlusRowEl);
     updateSheetCalc();
   });

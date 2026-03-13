@@ -224,6 +224,13 @@
   background: var(--color-border);
 }
 
+/* Bottom Sheet Hint */
+.rs-hint { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 4px; }
+.rs-hint-arrow { font-size: 18px; color: var(--color-primary); animation: bounce-up 1.5s infinite; }
+.rs-hint-text { font-size: 12px; color: var(--color-text-secondary); }
+.rs-hint.hidden { display: none; }
+@keyframes bounce-up { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
 /* Tabs */
 .rs-tabs {
   display: flex;

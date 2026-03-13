@@ -118,6 +118,22 @@ let route = [];
 let sheetBike = null;
 let sheetDays = 3;
 let sheetInsurancePlus = false;
+let sheetDateStart = '';
+let sheetDateEnd = '';
+
+// Messenger priority based on user language
+function getPrimaryMessenger() {
+  const userLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  const telegramFirst = ['ru', 'uk', 'be', 'kk'];
+  return telegramFirst.includes(userLang) ? 'telegram' : 'whatsapp';
+}
+const PRIMARY_MESSENGER = getPrimaryMessenger();
+
+function openMessenger(type, message) {
+  const encoded = encodeURIComponent(message);
+  if (type === 'whatsapp') window.open(`https://wa.me/66822545737?text=${encoded}`, '_blank');
+  if (type === 'telegram') window.open(`https://t.me/ThaiGoSale1?text=${encoded}`, '_blank');
+}
 
 // ══════════════════════════════════════════════
 // DOM refs
@@ -156,8 +172,9 @@ const sheetP1 = $('sheetP1');
 const sheetP3 = $('sheetP3');
 const sheetP7 = $('sheetP7');
 const sheetP14 = $('sheetP14');
-const sheetPM = $('sheetPM');
 const sheetDaySlider = $('sheetDaySlider');
+const sheetDateStartEl = $('sheetDateStart');
+const sheetDateEndEl = $('sheetDateEnd');
 const sheetDaysDisplay = $('sheetDays');
 const sheetTotal = $('sheetTotal');
 const sheetWa = $('sheetWa');
@@ -258,8 +275,20 @@ function applyTranslations() {
   // Hero
   document.querySelector('.hero-h1').innerHTML = t('heroTitle');
   document.querySelector('.hero-sub').innerHTML = t('heroSub');
+  const heroDelivery = document.querySelector('.hero-delivery');
+  if (heroDelivery) heroDelivery.textContent = t('heroDelivery');
   const heroSeo = document.querySelector('.hero-seo');
   if (heroSeo) heroSeo.textContent = t('heroSeo');
+
+  // Hero CTA — dynamic messenger order
+  const heroCta = $('heroCta');
+  if (heroCta) {
+    const waBtn = `<a href="https://wa.me/66822545737?text=${encodeURIComponent(t('waMsgGeneral') || '')}" target="_blank" rel="noopener" class="btn btn-wa btn-full">${t('ctaWhatsapp')}</a>`;
+    const tgBtn = `<a href="https://t.me/ThaiGoSale1" target="_blank" rel="noopener" class="btn btn-tg btn-full">${t('ctaTelegram')}</a>`;
+    const primary = PRIMARY_MESSENGER === 'telegram' ? tgBtn : waBtn;
+    const secondary = PRIMARY_MESSENGER === 'telegram' ? waBtn : tgBtn;
+    heroCta.innerHTML = primary + secondary;
+  }
 
   // Steps title
   const stepsTitle = $('stepsTitle');
@@ -300,9 +329,11 @@ function applyTranslations() {
   if (reviewsTitle) reviewsTitle.textContent = t('reviewsTitle');
   const reviewsScroll = $('reviewsScroll');
   if (reviewsScroll) {
-    reviewsScroll.innerHTML = T.reviews.map(r =>
-      `<div class="review-card"><div class="review-stars">⭐⭐⭐⭐⭐</div><div class="review-text">${r.text[lang] || r.text.en}</div><div class="review-author">${r.author[lang] || r.author.en}</div></div>`
-    ).join('');
+    reviewsScroll.innerHTML = T.reviews.map(r => {
+      const avatar = r.initials ? `<div class="review-avatar" style="background:${r.bgColor}">${r.initials}</div>` : '';
+      const date = r.date ? `<div class="review-date">${r.date[lang] || r.date.en}</div>` : '';
+      return `<div class="review-card">${avatar}<div class="review-stars">\u2B50\u2B50\u2B50\u2B50\u2B50</div><div class="review-text">${r.text[lang] || r.text.en}</div><div class="review-author">${r.author[lang] || r.author.en}</div>${date}</div>`;
+    }).join('');
   }
 
   // Tab bar
@@ -394,7 +425,7 @@ function applyTranslations() {
   const pricingTitle = document.querySelector('.sheet-pricing-title');
   if (pricingTitle) pricingTitle.textContent = t('sheetTariffs');
   const ths = document.querySelectorAll('.sheet-price-table th');
-  const thKeys = ['sheetDays12', 'sheetDays36', 'sheetDays713', 'sheetDays1429', 'sheetDays30'];
+  const thKeys = ['sheetDays12', 'sheetDays36', 'sheetDays719', 'sheetDays2030'];
   ths.forEach((el, i) => { if (thKeys[i]) el.textContent = t(thKeys[i]); });
   const calcLabel = document.querySelector('.sheet-calc-label');
   if (calcLabel) calcLabel.innerHTML = `${t('sheetRentalDays')} <strong id="sheetDays">${sheetDays}</strong>`;
@@ -402,6 +433,10 @@ function applyTranslations() {
   if (totalLabel && sheetBike) {
     updateSheetCalc();
   }
+
+  // Update messenger button texts
+  if (sheetWa) sheetWa.textContent = t('ctaWhatsapp');
+  if (sheetTg) sheetTg.textContent = t('ctaTelegram');
 
   // Re-render dynamic content
   renderBikes();
@@ -480,6 +515,10 @@ function switchTab(tab) {
   tabs.forEach(t => {
     t.classList.toggle('tab--active', t.dataset.tab === tab);
   });
+
+  // Hide sticky CTA on routes page
+  const sc = $('stickyCta');
+  if (sc) sc.style.display = tab === 'routes' ? 'none' : '';
 }
 
 tabs.forEach(t => {
@@ -514,6 +553,13 @@ $('menuRoutes').addEventListener('click', () => {
   tabs.forEach(t => {
     t.classList.toggle('tab--active', t.dataset.tab === 'guide');
   });
+  // Show hint on first visit
+  if (!sessionStorage.getItem('tg_hint_shown')) {
+    const hint = $('rsHint');
+    if (hint) { hint.classList.remove('hidden'); setTimeout(dismissRsHint, 3000); }
+  } else {
+    dismissRsHint();
+  }
 });
 
 $('menuRiderTest').addEventListener('click', () => {
@@ -537,7 +583,14 @@ function setSheetState(state) {
   routeSheet.classList.add('rs-' + state);
 }
 
+function dismissRsHint() {
+  const hint = $('rsHint');
+  if (hint) hint.classList.add('hidden');
+  sessionStorage.setItem('tg_hint_shown', '1');
+}
+
 function toggleSheet() {
+  dismissRsHint();
   if (rsState === 'collapsed') setSheetState('half');
   else if (rsState === 'half') setSheetState('expanded');
   else setSheetState('collapsed');
@@ -670,19 +723,28 @@ function renderBikes() {
     ? BIKES
     : BIKES.filter(b => b.category === bikeFilter);
 
-  bikeGrid.innerHTML = filtered.map(b => `
+  bikeGrid.innerHTML = filtered.map(b => {
+    const whyText = (b.why && (b.why[lang] || b.why.en)) || '';
+    const hint = whyText.split('.')[0].trim();
+    const shortHint = hint.length > 45 ? hint.slice(0, 42) + '...' : hint;
+    const badge = b.popular
+      ? '<span class="bike-badge">\u{1F525} ' + t('badgePopular') + '</span>'
+      : (b.tags && b.tags.includes('light') ? '<span class="bike-badge">\u{1F44D} ' + t('badgeBeginner') + '</span>' : '');
+    return `
     <div class="bike-card" data-bike="${b.id}">
+      ${badge}
       <div class="bike-card-img cat-${b.category}" role="img" aria-label="${b.name} аренда Пхукет">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
       <div class="bike-card-body">
         <div class="bike-card-name">${b.name}</div>
+        ${shortHint ? `<div class="bike-card-hint">${shortHint}</div>` : ''}
         <div class="bike-card-cc">${b.cc} cc</div>
         <div class="bike-card-footer">
           <span class="bike-card-price">${t('priceFrom')} ${getPricePerDay(b, 7)} \u0E3F</span>
           <button class="bike-card-btn">${t('bikeBtnRent')}</button>
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 
   bikeGrid.querySelectorAll('.bike-card').forEach(card => {
     card.addEventListener('click', () => {
@@ -868,14 +930,24 @@ function openBookingSheet(bike) {
   sheetP3.textContent = sp[1] + ' \u0E3F';
   sheetP7.textContent = sp[2] + ' \u0E3F';
   sheetP14.textContent = sp[3] + ' \u0E3F';
-  sheetPM.textContent = sp[3] + ' \u0E3F';
 
   sheetDaySlider.value = sheetDays;
+
+  // Reset date picker
+  const today = new Date().toISOString().split('T')[0];
+  sheetDateStart = '';
+  sheetDateEnd = '';
+  sheetDateStartEl.value = '';
+  sheetDateEndEl.value = '';
+  sheetDateStartEl.min = today;
+  sheetDateEndEl.min = today;
+
   updateSheetCalc();
 
   bookingSheet.classList.add('open');
   sheetOverlay.classList.add('active');
   document.body.style.overflow = 'hidden';
+  const sc = $('stickyCta'); if (sc) sc.classList.add('hidden');
 }
 
 function closeBookingSheet() {
@@ -883,6 +955,7 @@ function closeBookingSheet() {
   sheetOverlay.classList.remove('active');
   document.body.style.overflow = '';
   sheetBike = null;
+  const sc = $('stickyCta'); if (sc) sc.classList.remove('hidden');
 }
 
 // ══════════════════════════════════════════════
@@ -1004,19 +1077,67 @@ function updateSheetCalc() {
 
   const tierName = getTierName(sheetDays);
   const tds = document.querySelectorAll('.sheet-price-table td');
-  const tierMap = ['day1', 'day3', 'day7', 'day14', 'day14'];
+  const tierMap = ['day1', 'day3', 'day7', 'day14'];
   tds.forEach((td, i) => {
     td.classList.toggle('active-tier', tierMap[i] === tierName);
   });
 
   const insText = sheetInsurancePlus && insTier ? ` + ${t('insPlus')}` : '';
-  const msg = encodeURIComponent(tpl('waMsgBike', { name: sheetBike.name, days: sheetDays }) + insText);
+  const dates = sheetDateStart && sheetDateEnd
+    ? ` с ${formatDateField(sheetDateStart)} по ${formatDateField(sheetDateEnd)}`
+    : '';
+  const msg = encodeURIComponent(tpl('waMsgBike', { name: sheetBike.name, days: sheetDays, total, dates }) + insText);
   sheetWa.href = `https://wa.me/66822545737?text=${msg}`;
   sheetTg.href = `https://t.me/ThaiGoSale1?text=${msg}`;
 }
 
+function calcDaysBetween(startStr, endStr) {
+  const start = new Date(startStr);
+  const end = new Date(endStr);
+  const diff = Math.round((end - start) / (1000 * 60 * 60 * 24));
+  return Math.max(1, diff);
+}
+
+function formatDateField(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+}
+
+function addDaysToDate(dateStr, days) {
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + days);
+  return d.toISOString().split('T')[0];
+}
+
 sheetDaySlider.addEventListener('input', () => {
   sheetDays = parseInt(sheetDaySlider.value);
+  if (sheetDateStart && sheetDateStartEl.value) {
+    sheetDateEnd = addDaysToDate(sheetDateStart, sheetDays);
+    sheetDateEndEl.value = sheetDateEnd;
+  }
+  updateSheetCalc();
+});
+
+// DatePicker sync
+sheetDateStartEl.addEventListener('change', () => {
+  sheetDateStart = sheetDateStartEl.value;
+  if (!sheetDateEnd || sheetDateEnd < sheetDateStart) {
+    sheetDateEnd = addDaysToDate(sheetDateStart, sheetDays);
+    sheetDateEndEl.value = sheetDateEnd;
+  } else {
+    sheetDays = Math.min(30, Math.max(1, calcDaysBetween(sheetDateStart, sheetDateEnd)));
+    sheetDaySlider.value = sheetDays;
+  }
+  updateSheetCalc();
+});
+
+sheetDateEndEl.addEventListener('change', () => {
+  sheetDateEnd = sheetDateEndEl.value;
+  if (sheetDateStart && sheetDateEnd >= sheetDateStart) {
+    sheetDays = Math.min(30, Math.max(1, calcDaysBetween(sheetDateStart, sheetDateEnd)));
+    sheetDaySlider.value = sheetDays;
+  }
   updateSheetCalc();
 });
 
@@ -2045,7 +2166,7 @@ function renderRiderQuestion(qIndex, slideIn) {
       <div class="rider-situation">${situation.text || ''}</div>
       <div class="rider-answers">
         ${(situation.answers || []).map((a, i) => `
-          <button class="rider-answer-btn" data-idx="${i}">${String.fromCharCode(1040 + i)}) ${a}</button>
+          <button class="rider-answer-btn" data-idx="${i}">${lang === 'ru' ? String.fromCharCode(1040 + i) : String.fromCharCode(65 + i)}) ${a}</button>
         `).join('')}
       </div>
       <div class="rider-explanation" id="riderExplanation">
@@ -2555,6 +2676,15 @@ function renderBpResults() {
           <strong>${grandTotal.toLocaleString()} ฿</strong>
         </div>
 
+        ${PRIMARY_MESSENGER === 'telegram' ? `
+        <a class="bp-tg-btn" href="https://t.me/ThaiGoSale1?text=${waMsg}" target="_blank" rel="noopener">
+          ${bpIcon('shield', 18)}
+          <span>${t('bpTelegram')}</span>
+        </a>
+        <a class="bp-wa-btn" href="https://wa.me/66822545737?text=${waMsg}" target="_blank" rel="noopener">
+          ${bpIcon('shield', 18)}
+          <span>${t('bpWhatsApp')}</span>
+        </a>` : `
         <a class="bp-wa-btn" href="https://wa.me/66822545737?text=${waMsg}" target="_blank" rel="noopener">
           ${bpIcon('shield', 18)}
           <span>${t('bpWhatsApp')}</span>
@@ -2562,7 +2692,7 @@ function renderBpResults() {
         <a class="bp-tg-btn" href="https://t.me/ThaiGoSale1?text=${waMsg}" target="_blank" rel="noopener">
           ${bpIcon('shield', 18)}
           <span>${t('bpTelegram')}</span>
-        </a>
+        </a>`}
 
         <button class="bp-restart" id="bpRestartBtn">${t('bpRestart')}</button>
       </div>`;
@@ -2628,6 +2758,49 @@ if (routeParam) {
 drawIslandMap();
 initMapPanZoom();
 applyTranslations();
+
+// Reorder sheet messenger buttons based on PRIMARY_MESSENGER
+if (PRIMARY_MESSENGER === 'telegram') {
+  const sheetActions = $('sheetActions');
+  if (sheetActions && sheetTg && sheetWa) {
+    sheetActions.insertBefore(sheetTg, sheetWa);
+  }
+}
+
+// ══════════════════════════════════════════════
+// Sticky CTA
+// ══════════════════════════════════════════════
+(function initStickyCta() {
+  const stickyCta = $('stickyCta');
+  if (!stickyCta) return;
+
+  function renderStickyCta() {
+    const isTg = PRIMARY_MESSENGER === 'telegram';
+    const href = isTg ? 'https://t.me/ThaiGoSale1' : 'https://wa.me/66822545737';
+    const cls = isTg ? 'btn btn-tg' : 'btn btn-wa';
+    const text = t(isTg ? 'ctaTelegram' : 'ctaWhatsapp');
+    stickyCta.innerHTML = `<a href="${href}" target="_blank" rel="noopener" class="${cls}">${text}</a>`;
+  }
+  renderStickyCta();
+
+  // Show/hide based on Hero visibility
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    const observer = new IntersectionObserver(([e]) => {
+      if (currentTab === 'routes') {
+        stickyCta.style.display = 'none';
+      } else {
+        stickyCta.style.display = e.isIntersecting ? 'none' : 'block';
+      }
+    });
+    observer.observe(hero);
+  }
+})();
+
+// BikePickerCTA click handlers
+document.querySelectorAll('.bike-picker-cta .bpc-btn').forEach(btn => {
+  btn.addEventListener('click', () => openBikePicker());
+});
 
 // ══════════════════════════════════════════════
 // Floating "Directions" button — show only for TH users

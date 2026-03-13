@@ -1082,27 +1082,27 @@ function openBookingSheet(bike) {
     const translated = trFeature(f);
     if (!featureTags.includes(translated)) featureTags.push(translated);
   });
-  sheetFeatures.innerHTML = featureTags.map(f =>
-    `<span class="sheet-feature-tag feature-tag">${f}</span>`
-  ).join('');
-
-  const season = getCurrentSeason();
-  const sp = bike.prices[season];
-  sheetP1.textContent = sp[0] + ' \u0E3F';
-  sheetP3.textContent = sp[1] + ' \u0E3F';
-  sheetP7.textContent = sp[2] + ' \u0E3F';
-  sheetP14.textContent = sp[3] + ' \u0E3F';
+  // Feature tags with icons
+  const featureIcons = {
+    'ABS': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.64 5.64l1.41 1.41M16.95 16.95l1.41 1.41M5.64 18.36l1.41-1.41M16.95 7.05l1.41-1.41"/></svg>',
+    'Keyless': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>',
+    'USB': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v11"/><path d="M8 8l4-4 4 4"/><path d="M8 13h8"/><rect x="9" y="13" width="2" height="3" rx="1"/><rect x="13" y="13" width="2" height="3" rx="1"/><path d="M10 16v2a1 1 0 001 1h2a1 1 0 001-1v-2"/></svg>',
+  };
+  sheetFeatures.innerHTML = featureTags.map(f => {
+    const icon = featureIcons[f] || '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>';
+    return `<span class="sheet-feature-tag feature-tag">${icon} ${f}</span>`;
+  }).join('');
 
   sheetDaySlider.value = sheetDays;
 
-  // Reset date picker
-  const today = new Date().toISOString().split('T')[0];
-  sheetDateStart = '';
-  sheetDateEnd = '';
-  sheetDateStartEl.value = '';
-  sheetDateEndEl.value = '';
-  sheetDateStartEl.min = today;
-  sheetDateEndEl.min = today;
+  // Update insurance franchise
+  const franchise = getInsuranceFranchiseLocal(bike);
+  const franchiseEl = $('insPlusFranchise');
+  if (franchiseEl) franchiseEl.textContent = franchise ? `${t('insFranchise') || 'Франшиза'} ${franchise.toLocaleString()} ฿` : '';
+  // Hide insurance+ row for motorcycles
+  const insPlusRow = $('insPlusRow');
+  const insTierInit = getInsuranceTier(bike);
+  if (insPlusRow) insPlusRow.style.display = insTierInit === null ? 'none' : '';
 
   updateSheetCalc();
 
@@ -1210,96 +1210,102 @@ function updateSheetCalc() {
   const daysEl = $('sheetDays');
   if (daysEl) daysEl.textContent = sheetDays;
 
+  // Days word (дней/день)
+  const daysWordEl = $('sheetDaysWord');
+  if (daysWordEl) daysWordEl.textContent = t('popDays') || 'дней';
+
   const perDay = getPerDay(sheetBike, sheetDays);
-  let total = getTotalPrice(sheetBike, sheetDays);
+  const rentalTotal = getTotalPrice(sheetBike, sheetDays);
+  let total = rentalTotal;
 
   // Insurance+ cost
   const insTier = getInsuranceTier(sheetBike);
   const insCost = getInsurancePlusCost(sheetBike, sheetDays);
 
-  // Show/hide insurance+ chip for motorcycles
-  if (insTier === null) {
-    sheetInsurancePlus = false;
-    sheetInsuranceEl.style.display = 'none';
-  } else {
-    sheetInsuranceEl.style.display = '';
-    insPlusChip.style.display = '';
+  // Update insurance+ per-day label
+  if (insTier !== null) {
     const insPerDay = Math.ceil(insCost / sheetDays);
-    insPlusCostLabel.textContent = ` · ${insPerDay} ${t('bpInsPerDay')}`;
+    const costLabel = $('insPlusCostLabel');
+    if (costLabel) costLabel.innerHTML = `${t('popFrom') || 'от'} ${insPerDay} \u0E3F<span>/\u0434</span>`;
   }
 
   if (sheetInsurancePlus && insTier) {
     total += insCost;
   }
 
-  // Update chip states
-  insBasicChip.classList.toggle('active', !sheetInsurancePlus);
-  insPlusChip.classList.toggle('active', sheetInsurancePlus);
-
-  // Discount display: base price = tier 0, show strikethrough + savings
-  const basePerDay = getPerDay(sheetBike, 1); // tier 0 price (1-2 days)
+  // Discount calculations
+  const basePerDay = getPerDay(sheetBike, 1); // tier 0 (1-2 days)
   const baseTotal = basePerDay * sheetDays;
-  const rentalOnly = getTotalPrice(sheetBike, sheetDays);
-  const savings = baseTotal - rentalOnly;
+  const savings = baseTotal - rentalTotal;
   const discountPct = baseTotal > 0 ? Math.round((savings / baseTotal) * 100) : 0;
 
-  // Discount hint from getNextDiscountHint
+  // Discount badge
+  const discountBadge = $('sheetDiscountBadge');
+  if (discountBadge) {
+    if (discountPct > 0) {
+      discountBadge.textContent = `\u2212${discountPct}% \xB7 ${t('sheetSave') || '\u044D\u043A\u043E\u043D\u043E\u043C\u0438\u044F'} ${savings.toLocaleString()} \u0E3F`;
+      discountBadge.style.display = '';
+    } else {
+      discountBadge.style.display = 'none';
+    }
+  }
+
+  // Slider endpoint labels
+  const minPrice = getPerDay(sheetBike, 1);
+  const maxPrice = getPerDay(sheetBike, 30);
+  const sliderMin = $('sheetSliderMin');
+  const sliderMax = $('sheetSliderMax');
+  if (sliderMin) sliderMin.textContent = `1 \u0434 \xB7 ${minPrice} \u0E3F/\u0434`;
+  if (sliderMax) sliderMax.textContent = `30 \u0434 \xB7 ${maxPrice} \u0E3F/\u0434`;
+
+  // Discount hint (next threshold)
   const discountHintEl = $('sheetDiscountHint');
-  if (discountHintEl) {
+  const discountHintText = $('sheetDiscountHintText');
+  if (discountHintEl && discountHintText) {
     const hint = getNextDiscountHint(sheetDays, sheetBike);
-    discountHintEl.textContent = hint || '';
-    discountHintEl.style.display = hint ? '' : 'none';
+    if (hint && hint.daysNeeded) {
+      const moreDays = hint.daysNeeded - sheetDays;
+      discountHintText.textContent = `${t('hintMore') || '\u0415\u0449\u0451'} ${moreDays} ${t('popDays') || '\u0434\u043D\u0435\u0439'} \u2014 \u0438 \u0431\u0443\u0434\u0435\u0442 \u2212${hint.discountPercent}% (${hint.pricePerDay} \u0E3F/${t('perDay') || '\u0434\u0435\u043D\u044C'})`;
+      discountHintEl.style.display = '';
+    } else {
+      discountHintEl.style.display = 'none';
+    }
   }
 
   // Total breakdown
   const totalBreakdownEl = $('sheetBreakdown');
   if (totalBreakdownEl) {
-    let breakdownHtml = '';
-    breakdownHtml += `<div class="breakdown-row"><span>${t('sheetRentalDays') || '\u0410\u0440\u0435\u043D\u0434\u0430'} ${sheetDays} ${t('popDays') || '\u0434\u043D.'}</span><span>${rentalOnly.toLocaleString()} \u0E3F</span></div>`;
-    if (sheetInsurancePlus && insTier) {
-      breakdownHtml += `<div class="breakdown-row"><span>${t('insPlus') || '\u0417\u0430\u0449\u0438\u0442\u0430 \u0431\u0430\u0439\u043A\u0430+'}</span><span>${insCost.toLocaleString()} \u0E3F</span></div>`;
-    }
-    if (savings > 0) {
-      breakdownHtml += `<div class="breakdown-row saving-row"><span>${t('sheetSave') || '\u042D\u043A\u043E\u043D\u043E\u043C\u0438\u044F'}</span><span>-${savings.toLocaleString()} \u0E3F</span></div>`;
-    }
-    totalBreakdownEl.innerHTML = breakdownHtml;
-  }
-
-  const totalEl = document.querySelector('.sheet-total');
-  if (totalEl) {
     let html = '';
-    if (discountPct > 0) {
-      html += `<span class="sheet-base-price">${baseTotal.toLocaleString()} &#3647;</span> `;
-      html += `<span class="sheet-discount-badge">-${discountPct}%</span><br>`;
+    html += `<div class="breakdown-row"><span>${t('sheetBike') || '\u0411\u0430\u0439\u043A'} ${perDay} \u0E3F \xD7 ${sheetDays} ${t('popDays') || '\u0434\u043D\u0435\u0439'}</span><span>${rentalTotal.toLocaleString()} \u0E3F</span></div>`;
+    if (sheetInsurancePlus && insTier) {
+      html += `<div class="breakdown-row"><span>${t('insPlus') || '\u0417\u0430\u0449\u0438\u0442\u0430 \u0431\u0430\u0439\u043A\u0430+'}</span><span>${insCost.toLocaleString()} \u0E3F</span></div>`;
     }
-    html += `<strong class="sheet-final-price" id="sheetTotal">${total.toLocaleString()} &#3647;</strong>`;
-    if (savings > 0) {
-      html += ` <span class="sheet-savings">${t('sheetSave') || '\u044D\u043A\u043E\u043D\u043E\u043C\u0438\u044F'} ${savings.toLocaleString()} &#3647;</span>`;
-    }
-    totalEl.innerHTML = html;
+    html += `<div class="breakdown-divider"></div>`;
+    html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal') || '\u0418\u0442\u043E\u0433\u043E'}</span><span class="breakdown-total-value">${total.toLocaleString()} \u0E3F</span></div>`;
+    totalBreakdownEl.innerHTML = html;
   }
 
-  const tierName = getTierName(sheetDays);
-  const tds = document.querySelectorAll('.sheet-price-table td');
-  const tierMap = ['day1', 'day3', 'day7', 'day14'];
-  tds.forEach((td, i) => {
-    td.classList.toggle('active-tier', tierMap[i] === tierName);
-  });
+  // Saving row
+  const savingRow = $('sheetSavingRow');
+  if (savingRow) {
+    if (savings > 0) {
+      savingRow.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg> ${t('sheetSavingCompare') || '\u042D\u043A\u043E\u043D\u043E\u043C\u0438\u0448\u044C'} ${savings.toLocaleString()} \u0E3F ${t('sheetSavingVs') || '\u043F\u043E \u0441\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u044E \u0441 \u0446\u0435\u043D\u043E\u0439 1\u20132 \u0434\u043D\u0435\u0439'}`;
+      savingRow.style.display = '';
+    } else {
+      savingRow.style.display = 'none';
+    }
+  }
 
-  // CTA: two buttons TG + WA side by side (sheet-cta grid)
+  // CTA links
   const insText = sheetInsurancePlus && insTier ? ` + ${t('insPlus')}` : '';
   const dates = sheetDateStart && sheetDateEnd
     ? ` \u0441 ${formatDateField(sheetDateStart)} \u043F\u043E ${formatDateField(sheetDateEnd)}`
     : '';
   const msg = encodeURIComponent(tpl('waMsgBike', { name: sheetBike.name, days: sheetDays, total, dates }) + insText);
-  sheetWa.href = `https://wa.me/66822545737?text=${msg}`;
-  sheetTg.href = `https://t.me/ThaiGoSale1?text=${msg}`;
-
-  // Order hint text below CTA
-  const orderHintEl = $('sheetOrderHint');
-  if (orderHintEl) {
-    orderHintEl.textContent = t('sheetOrderHint') || '\u041E\u0442\u0432\u0435\u0442\u0438\u043C \u0437\u0430 5 \u043C\u0438\u043D\u0443\u0442. \u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u0430\u044F \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0430!';
-  }
+  const sheetWaEl = $('sheetWa');
+  const sheetTgEl = $('sheetTg');
+  if (sheetWaEl) sheetWaEl.href = `https://wa.me/66822545737?text=${msg}`;
+  if (sheetTgEl) sheetTgEl.href = `https://t.me/ThaiGoSale1?text=${msg}`;
 }
 
 function calcDaysBetween(startStr, endStr) {
@@ -1352,18 +1358,15 @@ sheetDateEndEl.addEventListener('change', () => {
   updateSheetCalc();
 });
 
-// Insurance chip listeners — select chip on click (but not on info icon)
-insBasicChip.addEventListener('click', (e) => {
-  if (e.target.closest('.ins-chip-info')) return;
-  sheetInsurancePlus = false;
-  updateSheetCalc();
-});
-
-insPlusChip.addEventListener('click', (e) => {
-  if (e.target.closest('.ins-chip-info')) return;
-  sheetInsurancePlus = true;
-  updateSheetCalc();
-});
+// Insurance+ row click — toggle insurance
+const insPlusRowEl = $('insPlusRow');
+if (insPlusRowEl) {
+  insPlusRowEl.addEventListener('click', () => {
+    sheetInsurancePlus = !sheetInsurancePlus;
+    insPlusRowEl.classList.toggle('active', sheetInsurancePlus);
+    updateSheetCalc();
+  });
+}
 
 // Info icon handlers — open per-chip sheet
 function openInsSheet(sheet, overlay) {
@@ -1376,26 +1379,26 @@ function closeInsSheet(sheet, overlay) {
   overlay.classList.remove('active');
 }
 
-insBasicInfo.addEventListener('click', (e) => {
+if (insBasicInfo) insBasicInfo.addEventListener('click', (e) => {
   e.stopPropagation();
   openInsSheet(insBasicSheet, insBasicOverlay);
 });
 
-insPlusInfo.addEventListener('click', (e) => {
+if (insPlusInfo) insPlusInfo.addEventListener('click', (e) => {
   e.stopPropagation();
   if (!sheetBike) return;
   const franchise = getInsuranceFranchiseLocal(sheetBike);
   const cost = getInsurancePlusCost(sheetBike, sheetDays);
-  insPlusDescText.textContent = tpl('insPlusDesc', { franchise: franchise.toLocaleString() });
+  if (insPlusDescText) insPlusDescText.textContent = tpl('insPlusDesc', { franchise: franchise.toLocaleString() });
   const costPerDay = Math.ceil(cost / sheetDays);
-  insPlusPriceInfo.textContent = `${t('insPlusPriceLabel')} ${costPerDay} ${t('bpInsPerDay')}`;
+  if (insPlusPriceInfo) insPlusPriceInfo.textContent = `${t('insPlusPriceLabel')} ${costPerDay} ${t('bpInsPerDay')}`;
   openInsSheet(insPlusSheet, insPlusOverlay);
 });
 
-insBasicClose.addEventListener('click', () => closeInsSheet(insBasicSheet, insBasicOverlay));
-insPlusClose.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlusOverlay));
-insBasicOverlay.addEventListener('click', () => closeInsSheet(insBasicSheet, insBasicOverlay));
-insPlusOverlay.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlusOverlay));
+if (insBasicClose) insBasicClose.addEventListener('click', () => closeInsSheet(insBasicSheet, insBasicOverlay));
+if (insPlusClose) insPlusClose.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlusOverlay));
+if (insBasicOverlay) insBasicOverlay.addEventListener('click', () => closeInsSheet(insBasicSheet, insBasicOverlay));
+if (insPlusOverlay) insPlusOverlay.addEventListener('click', () => closeInsSheet(insPlusSheet, insPlusOverlay));
 
 // Drag-dismiss + tap-on-handle for info sheets
 setupDragDismiss(insBasicSheet, () => closeInsSheet(insBasicSheet, insBasicOverlay));
@@ -2959,15 +2962,17 @@ applyTranslations();
 
 // Reorder sheet messenger buttons and apply primary/secondary styles
 {
-  const sheetActions = $('sheetActions');
-  if (sheetActions && sheetTg && sheetWa) {
+  // Sheet CTA button order based on primary messenger
+  const sheetCtaWrap = document.querySelector('.sheet-cta');
+  if (sheetCtaWrap && sheetTg && sheetWa) {
     if (PRIMARY_MESSENGER === 'telegram') {
-      sheetActions.insertBefore(sheetTg, sheetWa);
-      sheetTg.className = 'btn btn-tg btn-full';
-      sheetWa.className = 'btn btn-wa btn-full';
+      sheetCtaWrap.insertBefore(sheetTg, sheetWa);
+      sheetTg.className = 'sheet-btn-tg';
+      sheetWa.className = 'sheet-btn-wa';
     } else {
-      sheetWa.className = 'btn btn-wa-solid btn-full';
-      sheetTg.className = 'btn btn-tg-outline btn-full';
+      sheetCtaWrap.insertBefore(sheetWa, sheetTg);
+      sheetWa.className = 'sheet-btn-tg'; // solid style for primary
+      sheetTg.className = 'sheet-btn-wa'; // outline style for secondary
     }
   }
 }

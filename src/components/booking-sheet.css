@@ -173,259 +173,59 @@
   white-space: nowrap;
 }
 
-/* Pricing — mockup v3.8 pricing grid style */
-.sheet-pricing {
-  padding: 14px 0;
-  border-bottom: 1px solid var(--color-border);
-}
+/* ========== Slider Section (mockup v3.8) ========== */
+.slider-section { padding: 14px 0; }
+.slider-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.slider-days { font-size: 14px; font-weight: 600; color: var(--text); }
+.slider-days strong { color: var(--primary-m); font-size: 15px; }
+.slider-discount-badge { font-size: 11px; font-weight: 700; color: var(--green); background: var(--green-l); padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+.slider-endpoints { display: flex; justify-content: space-between; font-size: 10px; color: var(--text3); margin-top: 4px; }
+.slider-hint { display: flex; align-items: center; gap: 5px; margin-top: 8px; padding: 7px 10px; background: var(--primary-l); border-radius: 8px; }
+.slider-hint svg { color: var(--primary-m); flex-shrink: 0; }
+.slider-hint span { font-size: 11px; font-weight: 600; color: var(--primary-m); }
 
-.sheet-pricing-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--color-text-muted);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  margin: 0 0 10px;
-}
+.sheet-slider { width: 100%; height: 6px; -webkit-appearance: none; appearance: none; border-radius: 3px; background: var(--border); outline: none; }
+.sheet-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--primary-m); cursor: pointer; box-shadow: 0 2px 6px rgba(67,56,202,.3); }
+.sheet-slider::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--primary-m); border: none; cursor: pointer; }
 
-.sheet-price-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 6px;
-}
+/* ========== Insurance Block (mockup v3.8) ========== */
+.sheet-insurance-block { margin: 0 0 14px; border: 1.5px solid rgba(99,102,241,.25); border-radius: 12px; overflow: hidden; }
+.ins-basic-row { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--green-l); border-bottom: 1px solid rgba(22,163,74,.15); }
+.ins-basic-row svg { flex-shrink: 0; }
+.ins-basic-info { flex: 1; }
+.ins-basic-title { font-size: 12px; font-weight: 700; color: #16A34A; }
+.ins-basic-desc { font-size: 10px; color: #166534; margin-top: 1px; }
+.ins-basic-cost { font-size: 11px; font-weight: 700; color: #16A34A; flex-shrink: 0; }
+.ins-plus-row { padding: 10px 14px; background: var(--surface); }
+.ins-plus-top { display: flex; align-items: flex-start; gap: 10px; }
+.ins-plus-info { flex: 1; }
+.ins-plus-title { font-size: 12px; font-weight: 700; color: var(--primary-m); }
+.ins-plus-franchise { font-size: 10px; color: var(--text2); margin-top: 3px; line-height: 1.5; }
+.ins-plus-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.ins-cover-tag { font-size: 10px; font-weight: 600; color: #16A34A; background: #DCFCE7; border: 1px solid rgba(22,163,74,.2); padding: 2px 7px; border-radius: 20px; }
+.ins-plus-cost { text-align: right; flex-shrink: 0; }
+.ins-plus-price { font-size: 12px; font-weight: 800; color: var(--primary-m); }
+.ins-plus-price span { font-size: 10px; font-weight: 500; }
+.ins-plus-note { font-size: 9px; color: var(--text3); margin-top: 2px; }
 
-.sheet-price-table th {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-align: center;
-  padding: 4px 2px;
-}
+/* ========== Total Section (mockup v3.8) ========== */
+.total-section { padding: 0; }
+.total-breakdown { background: var(--surface2); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+.breakdown-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text2); padding: 3px 0; }
+.breakdown-divider { height: 1px; background: var(--border); margin: 6px 0; }
+.breakdown-total-label { font-size: 14px; font-weight: 800; color: var(--text); }
+.breakdown-total-value { font-size: 16px; font-weight: 800; color: var(--primary-m); }
+.saving-row { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #16A34A; margin-bottom: 12px; }
+.saving-row svg { flex-shrink: 0; }
 
-.sheet-price-table td {
-  font-size: 15px;
-  font-weight: 800;
-  text-align: center;
-  padding: 10px 6px;
-  color: var(--color-text);
-  border: 1.5px solid var(--color-border);
-  border-radius: 10px;
-  cursor: pointer;
-}
+/* CTA buttons */
+.sheet-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.sheet-btn-tg { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; background: var(--tg); color: #fff; border-radius: 12px; font-family: inherit; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; }
+.sheet-btn-wa { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; background: var(--surface); color: var(--wa); border: 2px solid var(--wa); border-radius: 12px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; }
 
-.sheet-price-table td.active-tier {
-  color: var(--color-primary);
-  background: var(--color-primary-light);
-  border-color: var(--color-primary);
-}
-
-/* Date picker */
-.date-picker-row { display: flex; gap: 12px; margin: 12px 0; }
-.date-field { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.date-field label { font-size: 13px; font-weight: 600; color: var(--color-text-secondary); }
-.date-field input[type="date"] { padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 15px; font-family: inherit; background: var(--color-surface); color: var(--color-text); }
-
-/* Day calculator */
-.sheet-calc {
-  margin-bottom: 14px;
-}
-
-.sheet-calc-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: var(--color-text-secondary);
-}
-
-.sheet-calc-label strong {
-  color: var(--color-primary);
-  font-size: 16px;
-}
-
-.sheet-slider {
-  width: 100%;
-  height: 6px;
-  -webkit-appearance: none;
-  appearance: none;
-  border-radius: 3px;
-  background: var(--color-border);
-  outline: none;
-  margin-bottom: 8px;
-}
-
-.sheet-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(67,56,202,.3);
-}
-
-.sheet-slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  border: none;
-  cursor: pointer;
-}
-
-/* Total — mockup breakdown style */
-.sheet-total {
-  background: var(--color-surface-alt);
-  border-radius: 12px;
-  padding: 10px 14px;
-  margin-bottom: 10px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.sheet-total strong,
-.sheet-final-price {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--color-primary);
-}
-.sheet-base-price {
-  font-size: 14px;
-  color: var(--color-text-muted);
-  text-decoration: line-through;
-}
-.sheet-discount-badge {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 6px;
-  background: #dcfce7;
-  color: #16a34a;
-  font-size: 13px;
-  font-weight: 700;
-  margin-left: 4px;
-}
-.sheet-savings {
-  display: block;
-  font-size: 13px;
-  color: #16a34a;
-  font-weight: 600;
-  margin-top: 4px;
-}
-
-/* Discount hint */
-.sheet-discount-hint {
-  font-size: 12px;
-  color: var(--color-primary);
-  text-align: center;
-  margin: 6px 0;
-  font-weight: 600;
-}
-
-/* Total breakdown */
-.sheet-breakdown {
-  margin-bottom: 8px;
-}
-.breakdown-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  color: var(--color-text-secondary);
-  padding: 3px 0;
-}
-.breakdown-row.saving-row {
-  color: #16a34a;
-  font-weight: 600;
-}
-
-/* Order hint */
-.sheet-order-hint {
-  text-align: center;
-  font-size: 12px;
-  color: var(--color-text-muted);
-  margin: 8px 0 4px;
-}
-
-/* ========== Insurance Chips (compact) ========== */
-.sheet-insurance {
-  margin-bottom: 14px;
-}
-
-.ins-chips {
-  display: flex;
-  gap: 8px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.ins-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1.5px solid var(--color-border);
-  background: var(--color-surface-alt);
-  cursor: pointer;
-  transition: all .15s;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  white-space: nowrap;
-}
-
-.ins-chip:active {
-  transform: scale(0.95);
-}
-
-.ins-chip.active {
-  border-color: var(--color-green);
-  background: var(--color-green-light);
-  color: var(--color-green);
-}
-.ins-chip.active.ins-plus {
-  border-color: var(--color-primary);
-  background: var(--color-primary-light);
-  color: var(--color-primary);
-}
-
-.ins-chip-text {
-  pointer-events: none;
-}
-
-.ins-chip-cost {
-  font-weight: 500;
-  opacity: .65;
-  font-size: 12px;
-}
-
-.ins-chip.active .ins-chip-cost {
-  opacity: .7;
-}
-
-.ins-chip-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  color: var(--color-text-muted);
-  opacity: .5;
-  flex-shrink: 0;
-  transition: opacity .15s;
-}
-
-.ins-chip-info:hover,
-.ins-chip.active .ins-chip-info {
-  opacity: .8;
-}
-
-.ins-chip.active .ins-chip-info {
-  color: var(--color-primary);
-}
+/* Order hint & reply */
+.sheet-order-hint { text-align: center; font-size: 12px; color: var(--text3); margin: 8px 0 4px; }
+.sheet-reply { text-align: center; font-size: 11px; color: var(--text3); margin-bottom: 4px; }
 
 /* ========== Insurance Info Sheet ========== */
 .ins-info-overlay {
@@ -557,19 +357,8 @@
   border-radius: 10px;
 }
 
-/* CTA buttons — mockup style: two buttons side by side */
-.sheet-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.sheet-actions .btn {
-  padding: 12px;
-  font-size: 13px;
-  font-weight: 700;
-  border-radius: 12px;
-  gap: 6px;
-}
+/* Legacy sheet-actions alias */
+.sheet-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
 /* ========== Place Sheet ========== */
 .place-sheet {

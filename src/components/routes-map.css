@@ -43,33 +43,47 @@
   cursor: grabbing;
 }
 
-/* POI Markers — light theme (30x30 colored circles with SVG icons) */
-.poi-marker {
+/* ===== Map Pins — teardrop (drop-shape) markers ===== */
+.map-pin {
   cursor: pointer;
-  transition: opacity .15s;
+  animation: pin-drop 300ms ease-out both;
 }
 
-.poi-marker:hover .poi-dot {
-  opacity: 1 !important;
-  stroke-width: 2.5 !important;
+/* Cascade animation delays (CSS handles up to 20, JS sets animation-delay for more) */
+@keyframes pin-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-.poi-marker:hover .poi-glow {
-  opacity: 0.3 !important;
+/* Hover lift */
+.map-pin:hover {
+  filter: brightness(1.08);
 }
 
-.poi-emoji {
-  pointer-events: none;
+/* Active state — scale up with pulse ring */
+.map-pin.active > g > path:first-child {
+  stroke: #fff;
+  stroke-width: 3;
 }
 
-/* Office pulse animation */
-.office-pulse-svg {
-  animation: svgPulse 2s ease-out infinite;
+.map-pin.active {
+  animation: none;
 }
 
-@keyframes svgPulse {
-  0%   { r: 24; opacity: 0.5; }
-  100% { r: 36; opacity: 0; }
+/* Office pin continuous pulse */
+.map-pin--office > g > path:first-child {
+  animation: office-pin-pulse 2s ease-in-out infinite;
+}
+
+@keyframes office-pin-pulse {
+  0%, 100% { filter: drop-shadow(0 2px 8px rgba(0,0,0,.25)); }
+  50% { filter: drop-shadow(0 2px 16px rgba(67,56,202,.5)); }
 }
 
 /* Route polyline — dashed indigo instead of neon green */

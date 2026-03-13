@@ -439,10 +439,8 @@ function applyTranslations() {
   const bikeFilterKeys = ['filterAll', 'popEconomy', 'popComfort', 'popPremium'];
   bikeFilterChips.forEach((el, i) => { if (bikeFilterKeys[i]) el.textContent = t(bikeFilterKeys[i]); });
 
-  // Place filters in route sheet
-  const placeFilterChips = rsFilters.querySelectorAll('.filter-chip');
-  const placeFilterKeys = ['placeTop', 'filterAll', 'placeBeach', 'placeView', 'placeTemple', 'placeNature', 'placeMarket', 'placeFood', 'placePhoto'];
-  placeFilterChips.forEach((el, i) => { if (placeFilterKeys[i]) el.textContent = t(placeFilterKeys[i]); });
+  // Place filters — re-render chips (picks up new language)
+  renderFilterChips();
 
   // Search placeholder
   rsSearchInput.placeholder = t('placeSearchPlaceholder');
@@ -1571,7 +1569,7 @@ function updateMarkerScale() {
   if (!rect.width) return;
   const pxPerUnit = rect.width / mapViewBox.w;
   const s = 1 / pxPerUnit;
-  mapMarkers.querySelectorAll('.poi-marker').forEach(m => {
+  mapMarkers.querySelectorAll('.map-pin').forEach(m => {
     m.setAttribute('transform', `translate(${m.dataset.x},${m.dataset.y}) scale(${s.toFixed(4)})`);
   });
 }
@@ -1675,76 +1673,73 @@ function drawIslandMap() {
   });
 }
 
-// Mockup v3.8 category colors — matching pin and icon styling
-const MAP_CAT_COLORS = {
-  beach: '#1D4ED8', view: '#6D28D9', temple: '#C2410C', nature: '#047857',
-  market: '#BE123C', food: '#BE123C', photo: '#0369A1', office: '#4338CA', top: '#4338CA'
+// Unified category icon mapping — single source of truth for pins, chips, place list
+const CATEGORY_ICONS = {
+  beach:   { color: '#1D4ED8', bgLight: '#EFF6FF', bgBorder: '#BFDBFE', gradient: 'linear-gradient(135deg,#EFF6FF,#BFDBFE)', label: 'Пляжи',       path: '<path d="M2 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M12 3v10"/><path d="M8 7c1.5-2 4.5-2 6 0"/>' },
+  view:    { color: '#6D28D9', bgLight: '#F5F3FF', bgBorder: '#DDD6FE', gradient: 'linear-gradient(135deg,#F5F3FF,#DDD6FE)', label: 'Смотровые',   path: '<path d="M2 22l6-10 4 6 3-4 5 8H2z"/><circle cx="18" cy="6" r="3"/>' },
+  temple:  { color: '#C2410C', bgLight: '#FFF7ED', bgBorder: '#FED7AA', gradient: 'linear-gradient(135deg,#FFF7ED,#FED7AA)', label: 'Храмы',       path: '<circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><path d="M9 11h6"/><path d="M8 11c0 3 1 5 4 6s4-3 4-6"/><path d="M6 22c1-3 2-5 6-5s5 2 6 5"/>' },
+  nature:  { color: '#047857', bgLight: '#ECFDF5', bgBorder: '#A7F3D0', gradient: 'linear-gradient(135deg,#ECFDF5,#A7F3D0)', label: 'Природа',     path: '<path d="M17 20H7l5-16 5 16z"/><path d="M12 13l-3 7"/><path d="M12 13l3 7"/><path d="M12 8l-2 5"/><path d="M12 8l2 5"/>' },
+  market:  { color: '#BE123C', bgLight: '#FFF1F2', bgBorder: '#FECDD3', gradient: 'linear-gradient(135deg,#FFF1F2,#FECDD3)', label: 'Рынки',       path: '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>' },
+  food:    { color: '#BE123C', bgLight: '#FFF1F2', bgBorder: '#FECDD3', gradient: 'linear-gradient(135deg,#FFF1F2,#FECDD3)', label: 'Еда',         path: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>' },
+  photo:   { color: '#7C3AED', bgLight: '#F5F3FF', bgBorder: '#DDD6FE', gradient: 'linear-gradient(135deg,#F5F3FF,#DDD6FE)', label: 'Фото',        path: '<path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/>' },
+  office:  { color: '#4338CA', bgLight: '#EEF2FF', bgBorder: '#C7D2FE', gradient: 'linear-gradient(135deg,#EEF2FF,#E0E7FF)', label: 'Офис',        path: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>' },
+  top:     { color: '#4338CA', bgLight: '#FFFBEB', bgBorder: '#FDE68A', gradient: 'linear-gradient(135deg,#FFFBEB,#FDE68A)', label: 'Топ',         path: '<polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>' },
 };
 
-// SVG category icons (stroke, 14x14 for map pins, 22x22 for place list)
-const CAT_SVG_ICONS = {
-  beach: '<path d="M2 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M12 3v10"/><path d="M8 7c1.5-2 4.5-2 6 0"/>',
-  view: '<path d="M2 22l6-10 4 6 3-4 5 8H2z"/><circle cx="18" cy="6" r="3"/>',
-  temple: '<circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><path d="M9 11h6"/><path d="M8 11c0 3 1 5 4 6s4-3 4-6"/><path d="M6 22c1-3 2-5 6-5s5 2 6 5"/>',
-  nature: '<path d="M17 20H7l5-16 5 16z"/><path d="M12 13l-3 7"/><path d="M12 13l3 7"/><path d="M12 8l-2 5"/><path d="M12 8l2 5"/>',
-  market: '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>',
-  food: '<path d="M3 2v7c0 2.2 1.8 4 4 4s4-1.8 4-4V2"/><path d="M7 2v20"/><path d="M21 15a3 3 0 01-3 3V2c1.7 0 3 2.7 3 6v7z"/>',
-  photo: '<path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/>',
-  office: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>',
-  top: '<polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>',
-};
-
-// Gradient backgrounds for place list icons
-const CAT_ICON_GRADIENTS = {
-  beach: 'linear-gradient(135deg,#EFF6FF,#BFDBFE)',
-  view: 'linear-gradient(135deg,#F5F3FF,#DDD6FE)',
-  temple: 'linear-gradient(135deg,#FFF7ED,#FED7AA)',
-  nature: 'linear-gradient(135deg,#ECFDF5,#A7F3D0)',
-  market: 'linear-gradient(135deg,#FFF1F2,#FECDD3)',
-  food: 'linear-gradient(135deg,#FFF1F2,#FECDD3)',
-  photo: 'linear-gradient(135deg,#F0F9FF,#BAE6FD)',
-  office: 'linear-gradient(135deg,#EEF2FF,#E0E7FF)',
-  top: 'linear-gradient(135deg,#FFFBEB,#FDE68A)',
-};
-
-function getCatSvgIcon(cat, size, strokeColor, strokeWidth) {
-  const paths = CAT_SVG_ICONS[cat] || CAT_SVG_ICONS.top;
-  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="${strokeWidth || '2'}" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+// Helper: get category info with fallback
+function getCatInfo(cat) {
+  return CATEGORY_ICONS[cat] || CATEGORY_ICONS.top;
 }
+
+// Helper: render SVG icon at any size/color (reused in pins, chips, place list)
+function getCatSvgIcon(cat, size, strokeColor, strokeWidth) {
+  const info = getCatInfo(cat);
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="${strokeWidth || '2'}" stroke-linecap="round" stroke-linejoin="round">${info.path}</svg>`;
+}
+
+// Teardrop pin SVG path (36×44 viewBox)
+const PIN_PATH = 'M18 44C18 44 2 26 2 16C2 7.16 9.16 0 18 0C26.84 0 34 7.16 34 16C34 26 18 44 18 44Z';
 
 function renderMapMarkers() {
   const filtered = filterPlaces();
+  // Pin dimensions in SVG units (scaled by updateMarkerScale)
+  const PW = 36, PH = 44;
+  const iconScale = (16 / 24).toFixed(3); // 16px icon inside 24-unit viewBox
+
   let html = '';
-  filtered.forEach(p => {
+  filtered.forEach((p, i) => {
     const { x, y } = latLngToSvg(p.lat, p.lng);
     const cat = getDisplayCat(p);
-    const color = MAP_CAT_COLORS[cat] || '#6b7280';
+    const info = getCatInfo(cat);
     const inRoute = route.some(r => r.id === p.id);
     const routeIdx = route.findIndex(r => r.id === p.id);
     const isOffice = cat === 'office';
+    const delay = i * 80; // cascade animation delay
 
-    // Use 15px radius circles with SVG icon inside (mockup v3.8 style: 30x30 colored circles)
-    const pinR = isOffice ? 18 : 15;
-    const iconSize = isOffice ? 14 : 14;
-    const svgPaths = CAT_SVG_ICONS[cat] || CAT_SVG_ICONS.top;
-
-    html += `<g class="poi-marker ${inRoute ? 'in-route' : ''}" data-id="${p.id}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" transform="translate(${x.toFixed(1)},${y.toFixed(1)})">
-      <circle class="poi-glow" r="${pinR + 10}" fill="${color}" opacity="${inRoute ? '0.25' : '0.1'}"/>
-      <circle class="poi-dot" r="${pinR}" fill="${color}" opacity="${inRoute ? '1' : '0.85'}"
-        stroke="${inRoute ? '#fff' : 'rgba(255,255,255,0.6)'}"
-        stroke-width="${inRoute ? '2' : '1'}"
-        style="filter:drop-shadow(0 2px 4px ${color}66);"/>
-      <g transform="scale(${(iconSize/24).toFixed(3)}) translate(${(-12).toFixed(0)},${(-12).toFixed(0)})" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${svgPaths}</g>
-      ${isOffice ? `<circle r="${pinR + 6}" fill="none" stroke="${color}" stroke-width="1.5" opacity="0" class="office-pulse-svg"/>` : ''}
-      ${inRoute ? `<circle cx="${pinR + 2}" cy="${-(pinR + 2)}" r="8" fill="${color}" stroke="#fff" stroke-width="1.5"/>
-      <text x="${pinR + 2}" y="${-(pinR - 1)}" text-anchor="middle" font-size="8" font-weight="900" fill="#fff">${routeIdx + 1}</text>` : ''}
+    html += `<g class="map-pin ${inRoute ? 'in-route' : ''} ${isOffice ? 'map-pin--office' : ''}"
+      data-id="${p.id}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}"
+      transform="translate(${x.toFixed(1)},${y.toFixed(1)})"
+      style="animation-delay:${delay}ms">
+      <g transform="translate(${-PW / 2},${-PH})">
+        <path d="${PIN_PATH}" fill="${info.color}" stroke="#fff" stroke-width="2"
+          style="filter:drop-shadow(0 2px 8px rgba(0,0,0,.25))"/>
+        <g transform="translate(${PW / 2 - 8},${16 - 8}) scale(${iconScale})"
+          fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${info.path}</g>
+      </g>
+      ${inRoute ? `<g transform="translate(10,${-PH + 2})">
+        <circle r="9" fill="${info.color}" stroke="#fff" stroke-width="1.5"/>
+        <text y="3.5" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">${routeIdx + 1}</text>
+      </g>` : ''}
     </g>`;
   });
   mapMarkers.innerHTML = html;
 
-  mapMarkers.querySelectorAll('.poi-marker').forEach(m => {
+  mapMarkers.querySelectorAll('.map-pin').forEach(m => {
     m.addEventListener('click', e => {
       e.stopPropagation();
+      // Toggle active state
+      mapMarkers.querySelectorAll('.map-pin.active').forEach(a => a.classList.remove('active'));
+      m.classList.add('active');
       const place = PLACES.find(p => p.id === m.dataset.id);
       if (place) openPlaceSheet(place);
     });
@@ -1767,7 +1762,7 @@ function updateRouteLine() {
 // Pan & Zoom
 function initMapPanZoom() {
   svgMap.addEventListener('mousedown', e => {
-    if (e.target.closest('.poi-marker')) return;
+    if (e.target.closest('.map-pin')) return;
     mapDragging = true;
     mapDragStart = { x: e.clientX, y: e.clientY, vx: mapViewBox.x, vy: mapViewBox.y };
   });
@@ -1789,7 +1784,7 @@ function initMapPanZoom() {
       pinchStartViewBox = { ...mapViewBox };
       e.preventDefault();
     } else if (e.touches.length === 1) {
-      if (e.target.closest('.poi-marker')) return;
+      if (e.target.closest('.map-pin')) return;
       mapDragging = true; pinchStartDist = 0;
       const t = e.touches[0];
       mapDragStart = { x: t.clientX, y: t.clientY, vx: mapViewBox.x, vy: mapViewBox.y };
@@ -1879,14 +1874,13 @@ function renderPlaces() {
   const routeMsg = encodeURIComponent(t('routeMsgDefault') || 'Хочу арендовать байк на Пхукете');
   const placesHtml = filtered.map(p => {
     const cat = getDisplayCat(p);
-    const color = MAP_CAT_COLORS[cat] || '#6b7280';
-    const gradient = CAT_ICON_GRADIENTS[cat] || CAT_ICON_GRADIENTS.top;
+    const info = getCatInfo(cat);
     const inRoute = route.some(r => r.id === p.id);
-    const iconSvg = getCatSvgIcon(cat, 22, color, '1.8');
+    const iconSvg = getCatSvgIcon(cat, 22, info.color, '1.8');
 
     return `
       <div class="rs-place-item" data-place="${p.id}">
-        <div class="rs-place-icon" style="background:${gradient}">${iconSvg}</div>
+        <div class="rs-place-icon" style="background:${info.gradient}">${iconSvg}</div>
         <div class="rs-place-info">
           <div class="rs-place-name">${placeName(p)}</div>
           <div class="rs-place-desc">${placeDesc(p).slice(0, 60)}...</div>
@@ -1931,6 +1925,22 @@ function renderPlaces() {
   // Also update map markers
   renderMapMarkers();
 }
+
+// Render filter chips from CATEGORY_ICONS (single source of truth)
+const FILTER_CHIP_ORDER = ['top', 'all', 'beach', 'view', 'temple', 'nature', 'market', 'food', 'photo'];
+function renderFilterChips() {
+  rsFilters.innerHTML = FILTER_CHIP_ORDER.map(cat => {
+    const info = CATEGORY_ICONS[cat];
+    const isActive = cat === placeFilter;
+    if (cat === 'top' || cat === 'all') {
+      const label = cat === 'top' ? (t('placeTop') || 'Топ') : (t('filterAll') || 'Все');
+      return `<button class="filter-chip ${isActive ? 'filter-chip--active' : ''}" data-cat="${cat}">${label}</button>`;
+    }
+    const icon = getCatSvgIcon(cat, 12, 'currentColor', '2');
+    return `<button class="filter-chip ${isActive ? 'filter-chip--active' : ''}" data-cat="${cat}">${icon}${info.label}</button>`;
+  }).join('');
+}
+renderFilterChips();
 
 rsFilters.addEventListener('click', e => {
   const chip = e.target.closest('.filter-chip');

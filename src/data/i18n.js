@@ -796,6 +796,9 @@ export const T = {
   sheetSave: {
     ru: 'экономия', en: 'you save', de: 'Ersparnis', fr: 'économie', es: 'ahorro', th: 'ประหยัด'
   },
+  sheetBike: { ru: 'Байк', en: 'Bike', de: 'Bike', fr: 'Scooter', es: 'Moto', th: 'รถ' },
+  hintMore: { ru: 'Ещё', en: 'Just', de: 'Noch', fr: 'Encore', es: 'Solo', th: 'อีก' },
+  sheetSavingVs: { ru: 'по сравнению с ценой 1–2 дней', en: 'vs 1–2 day price', de: 'im Vergleich zum 1–2-Tage-Preis', fr: 'par rapport au prix 1–2 jours', es: 'comparado con precio de 1–2 días', th: 'เทียบกับราคา 1–2 วัน' },
 
   // ── Insurance ──
   insBasic: {

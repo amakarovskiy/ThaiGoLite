@@ -495,52 +495,82 @@
           </div>
         </div>
         <div class="sheet-features" id="sheetFeatures"></div>
-        <div class="sheet-pricing">
-          <h4 class="sheet-pricing-title">Тарифы</h4>
-          <table class="sheet-price-table" id="sheetPriceTable">
-            <tr><th>1–2 дн</th><th>3–6 дн</th><th>7–19 дн</th><th>20–30 дн</th></tr>
-            <tr><td id="sheetP1"></td><td id="sheetP3"></td><td id="sheetP7"></td><td id="sheetP14"></td></tr>
-          </table>
-        </div>
-        <div class="sheet-insurance" id="sheetInsurance">
-          <div class="ins-chips">
-            <button class="ins-chip active" id="insBasicChip">
-              <span class="ins-chip-text" data-i18n="insBasic">Страховка</span>
-              <span class="ins-chip-info" id="insBasicInfo" aria-label="Info">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              </span>
-            </button>
-            <button class="ins-chip ins-plus" id="insPlusChip">
-              <span class="ins-chip-text"><span data-i18n="insPlus">Страховка+</span><span class="ins-chip-cost" id="insPlusCostLabel"> · 50 ฿/день</span></span>
-              <span class="ins-chip-info" id="insPlusInfo" aria-label="Info">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              </span>
-            </button>
+
+        <!-- Slider section (mockup v3.8) -->
+        <div class="slider-section">
+          <div class="slider-meta">
+            <div class="slider-days" data-i18n-prefix="sheetRentalDays">Срок аренды: <strong id="sheetDays">8</strong> <span id="sheetDaysWord">дней</span></div>
+            <div class="slider-discount-badge" id="sheetDiscountBadge" style="display:none;"></div>
           </div>
-        </div>
-        <div class="date-picker-row">
-          <div class="date-field">
-            <label>С</label>
-            <input type="date" id="sheetDateStart">
-          </div>
-          <div class="date-field">
-            <label>По</label>
-            <input type="date" id="sheetDateEnd">
-          </div>
-        </div>
-        <div class="sheet-calc">
-          <label class="sheet-calc-label">Дней аренды: <strong id="sheetDays">8</strong></label>
           <input type="range" id="sheetDaySlider" min="1" max="30" value="8" class="sheet-slider" />
-          <div class="sheet-discount-hint" id="sheetDiscountHint" style="display:none;"></div>
-          <div class="sheet-breakdown" id="sheetBreakdown"></div>
-          <div class="sheet-total">Итого: <strong id="sheetTotal">0 &#3647;</strong></div>
+          <div class="slider-endpoints">
+            <span id="sheetSliderMin">1 д · 0 ₿/д</span>
+            <span id="sheetSliderMax">30 д · 0 ₿/д</span>
+          </div>
+          <div class="slider-hint" id="sheetDiscountHint" style="display:none;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span id="sheetDiscountHintText"></span>
+          </div>
         </div>
-        <div class="sheet-actions" id="sheetActions">
-          <a class="btn btn-tg btn-full" id="sheetTg" href="#" target="_blank" rel="noopener">Telegram</a>
-          <a class="btn btn-wa btn-full" id="sheetWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+
+        <!-- Insurance section (mockup v3.8) -->
+        <div class="sheet-insurance-block" id="sheetInsurance">
+          <div class="ins-basic-row">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="ins-basic-info">
+              <div class="ins-basic-title" data-i18n="insBasicFree">Страховка — включена бесплатно</div>
+              <div class="ins-basic-desc" data-i18n="insBasicShort">Здоровье водителя и пассажира · до 30 000 ฿</div>
+            </div>
+            <div class="ins-basic-cost">0 ฿</div>
+          </div>
+          <div class="ins-plus-row" id="insPlusRow">
+            <div class="ins-plus-top">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="2.2" style="margin-top:1px;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              <div class="ins-plus-info">
+                <div class="ins-plus-title" data-i18n="insPlusName">Защита байка+</div>
+                <div class="ins-plus-franchise" id="insPlusFranchise">Франшиза 3 000 ฿</div>
+                <div class="ins-plus-tags">
+                  <span class="ins-cover-tag" data-i18n="insCoverScratches">✓ Царапины</span>
+                  <span class="ins-cover-tag" data-i18n="insCoverDents">✓ Вмятины</span>
+                  <span class="ins-cover-tag" data-i18n="insCoverFall">✓ Падение</span>
+                  <span class="ins-cover-tag" data-i18n="insCoverOverturn">✓ Опрокидывание</span>
+                </div>
+              </div>
+              <div class="ins-plus-cost">
+                <div class="ins-plus-price" id="insPlusCostLabel">от 50 ฿<span>/д</span></div>
+                <div class="ins-plus-note" data-i18n="insPlusNote">зависит от срока</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="sheet-order-hint" id="sheetOrderHint" data-i18n="sheetOrderHint">Мы пришлём готовый расчёт — вам только подтвердить</div>
-        <p class="reply-time" data-i18n="ctaReplyTime">&#9889; Отвечаем быстро</p>
+
+        <!-- Total section (mockup v3.8) -->
+        <div class="total-section">
+          <div class="total-breakdown" id="sheetBreakdown"></div>
+          <div class="saving-row" id="sheetSavingRow" style="display:none;"></div>
+          <div class="sheet-cta">
+            <a class="sheet-btn-tg" id="sheetTg" href="#" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>
+              Telegram
+            </a>
+            <a class="sheet-btn-wa" id="sheetWa" href="#" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.08-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+          <div class="sheet-order-hint" id="sheetOrderHint">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px;color:var(--green);"><polyline points="20,6 9,17 4,12"/></svg>
+            <span data-i18n="sheetOrderHint">Мы пришлём готовый расчёт — вам только подтвердить</span>
+          </div>
+          <div class="sheet-reply">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="color:#F59E0B;vertical-align:middle;margin-right:3px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span data-i18n="ctaReplyTime">Отвечаем быстро</span>
+          </div>
+        </div>
+
+        <!-- Hidden date fields for JS compatibility -->
+        <input type="hidden" id="sheetDateStart">
+        <input type="hidden" id="sheetDateEnd">
       </div>
     </div>
 

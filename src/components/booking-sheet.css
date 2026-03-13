@@ -178,9 +178,11 @@
 .slider-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .slider-days { font-size: 14px; font-weight: 600; color: var(--text); }
 .slider-days strong { color: var(--primary-m); font-size: 15px; }
-.slider-discount-badge { font-size: 11px; font-weight: 700; color: var(--green); background: var(--green-l); padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+.slider-discount-badge { font-size: 11px; font-weight: 700; color: var(--green); background: var(--green-l); padding: 2px 8px; border-radius: 20px; white-space: nowrap; transition: opacity .2s ease; }
+.slider-discount-badge.hidden { opacity: 0; pointer-events: none; }
 .slider-endpoints { display: flex; justify-content: space-between; font-size: 10px; color: var(--text3); margin-top: 4px; }
-.slider-hint { display: flex; align-items: center; gap: 5px; margin-top: 8px; padding: 7px 10px; background: var(--primary-l); border-radius: 8px; }
+.slider-hint { display: flex; align-items: center; gap: 5px; margin-top: 8px; padding: 7px 10px; background: var(--primary-l); border-radius: 8px; transition: opacity .25s ease, max-height .25s ease, margin .25s ease, padding .25s ease; overflow: hidden; max-height: 60px; }
+.slider-hint.hidden { opacity: 0; max-height: 0; margin-top: 0; padding: 0; pointer-events: none; }
 .slider-hint svg { color: var(--primary-m); flex-shrink: 0; }
 .slider-hint span { font-size: 11px; font-weight: 600; color: var(--primary-m); }
 
@@ -196,7 +198,8 @@
 .ins-basic-title { font-size: 12px; font-weight: 700; color: #16A34A; }
 .ins-basic-desc { font-size: 10px; color: #166534; margin-top: 1px; }
 .ins-basic-cost { font-size: 11px; font-weight: 700; color: #16A34A; flex-shrink: 0; }
-.ins-plus-row { padding: 10px 14px; background: var(--surface); }
+.ins-plus-row { padding: 10px 14px; background: var(--surface); transition: opacity .25s ease, max-height .25s ease, padding .25s ease; overflow: hidden; max-height: 200px; }
+.ins-plus-row.hidden { opacity: 0; max-height: 0; padding: 0; pointer-events: none; }
 .ins-plus-top { display: flex; align-items: flex-start; gap: 10px; }
 .ins-plus-info { flex: 1; }
 .ins-plus-title { font-size: 12px; font-weight: 700; color: var(--primary-m); }
@@ -215,7 +218,8 @@
 .breakdown-divider { height: 1px; background: var(--border); margin: 6px 0; }
 .breakdown-total-label { font-size: 14px; font-weight: 800; color: var(--text); }
 .breakdown-total-value { font-size: 16px; font-weight: 800; color: var(--primary-m); }
-.saving-row { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #16A34A; margin-bottom: 12px; }
+.saving-row { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #16A34A; margin-bottom: 12px; transition: opacity .25s ease, max-height .25s ease, margin .25s ease; overflow: hidden; max-height: 40px; }
+.saving-row.hidden { opacity: 0; max-height: 0; margin-bottom: 0; pointer-events: none; }
 .saving-row svg { flex-shrink: 0; }
 
 /* CTA buttons */
@@ -427,6 +431,16 @@
   border-radius: 8px;
   margin-bottom: 14px;
   line-height: 1.5;
+  transition: opacity .25s ease, max-height .25s ease, margin .25s ease, padding .25s ease;
+  overflow: hidden;
+  max-height: 200px;
+}
+.place-sheet-tips.hidden {
+  opacity: 0;
+  max-height: 0;
+  margin-bottom: 0;
+  padding: 0;
+  pointer-events: none;
 }
 
 /* ========== Bike Lightbox ========== */

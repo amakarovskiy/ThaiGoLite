@@ -367,7 +367,7 @@
           <!-- Tabs -->
           <div class="rs-tabs" id="rsTabs">
             <button class="rs-tab active" data-rs-tab="places">Места</button>
-            <button class="rs-tab" data-rs-tab="route">Маршрут <span class="rs-badge" id="rsBadge" style="display:none">0</span></button>
+            <button class="rs-tab" data-rs-tab="route">Маршрут <span class="rs-badge hidden" id="rsBadge">0</span></button>
           </div>
           <!-- Content -->
           <div class="rs-content" id="rsContent">
@@ -500,14 +500,14 @@
         <div class="slider-section">
           <div class="slider-meta">
             <div class="slider-days" data-i18n-prefix="sheetRentalDays">Срок аренды: <strong id="sheetDays">8</strong> <span id="sheetDaysWord">дней</span></div>
-            <div class="slider-discount-badge" id="sheetDiscountBadge" style="display:none;"></div>
+            <div class="slider-discount-badge hidden" id="sheetDiscountBadge"></div>
           </div>
           <input type="range" id="sheetDaySlider" min="1" max="30" value="8" class="sheet-slider" />
           <div class="slider-endpoints">
             <span id="sheetSliderMin">1 д · 0 ₿/д</span>
             <span id="sheetSliderMax">30 д · 0 ₿/д</span>
           </div>
-          <div class="slider-hint" id="sheetDiscountHint" style="display:none;">
+          <div class="slider-hint hidden" id="sheetDiscountHint">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             <span id="sheetDiscountHintText"></span>
           </div>
@@ -547,7 +547,7 @@
         <!-- Total section (mockup v3.8) -->
         <div class="total-section">
           <div class="total-breakdown" id="sheetBreakdown"></div>
-          <div class="saving-row" id="sheetSavingRow" style="display:none;"></div>
+          <div class="saving-row hidden" id="sheetSavingRow"></div>
           <div class="sheet-cta">
             <a class="sheet-btn-tg" id="sheetTg" href="#" target="_blank" rel="noopener">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>
@@ -665,7 +665,7 @@
     </div>
 
     <!-- Floating directions button (shown only for TH users) -->
-    <div class="floating-directions" id="floatingDirections" style="display:none">
+    <div class="floating-directions" id="floatingDirections">
       <a class="floating-directions-link" id="floatingDirectionsLink" href="https://www.google.com/maps/dir/?api=1&destination=7.8439,98.2977" target="_blank" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
         <span id="floatingDirectionsText">Как добраться</span>

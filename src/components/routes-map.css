@@ -265,6 +265,7 @@
   justify-content: center;
   min-width: 18px;
   height: 18px;
+  transition: opacity .2s ease, transform .2s ease;
   border-radius: 9px;
   background: var(--color-primary);
   color: #fff;
@@ -273,6 +274,8 @@
   padding: 0 5px;
   margin-left: 4px;
 }
+.rs-tab .rs-badge.hidden { opacity: 0; transform: scale(0); pointer-events: none; }
+.rs-tab .rs-badge.visible { opacity: 1; transform: scale(1); }
 
 /* Sheet content */
 .rs-content {

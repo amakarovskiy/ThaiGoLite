@@ -1675,10 +1675,42 @@ function drawIslandMap() {
   });
 }
 
+// Mockup v3.8 category colors — matching pin and icon styling
 const MAP_CAT_COLORS = {
-  beach: '#ff5a5a', view: '#44dd66', temple: '#ffaa33', nature: '#33cc88',
-  market: '#ffd34a', food: '#ff7744', photo: '#55bbff', office: '#BBFF46', top: '#eab308'
+  beach: '#1D4ED8', view: '#6D28D9', temple: '#C2410C', nature: '#047857',
+  market: '#BE123C', food: '#BE123C', photo: '#0369A1', office: '#4338CA', top: '#4338CA'
 };
+
+// SVG category icons (stroke, 14x14 for map pins, 22x22 for place list)
+const CAT_SVG_ICONS = {
+  beach: '<path d="M2 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M12 3v10"/><path d="M8 7c1.5-2 4.5-2 6 0"/>',
+  view: '<path d="M2 22l6-10 4 6 3-4 5 8H2z"/><circle cx="18" cy="6" r="3"/>',
+  temple: '<circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><path d="M9 11h6"/><path d="M8 11c0 3 1 5 4 6s4-3 4-6"/><path d="M6 22c1-3 2-5 6-5s5 2 6 5"/>',
+  nature: '<path d="M17 20H7l5-16 5 16z"/><path d="M12 13l-3 7"/><path d="M12 13l3 7"/><path d="M12 8l-2 5"/><path d="M12 8l2 5"/>',
+  market: '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>',
+  food: '<path d="M3 2v7c0 2.2 1.8 4 4 4s4-1.8 4-4V2"/><path d="M7 2v20"/><path d="M21 15a3 3 0 01-3 3V2c1.7 0 3 2.7 3 6v7z"/>',
+  photo: '<path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/>',
+  office: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>',
+  top: '<polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>',
+};
+
+// Gradient backgrounds for place list icons
+const CAT_ICON_GRADIENTS = {
+  beach: 'linear-gradient(135deg,#EFF6FF,#BFDBFE)',
+  view: 'linear-gradient(135deg,#F5F3FF,#DDD6FE)',
+  temple: 'linear-gradient(135deg,#FFF7ED,#FED7AA)',
+  nature: 'linear-gradient(135deg,#ECFDF5,#A7F3D0)',
+  market: 'linear-gradient(135deg,#FFF1F2,#FECDD3)',
+  food: 'linear-gradient(135deg,#FFF1F2,#FECDD3)',
+  photo: 'linear-gradient(135deg,#F0F9FF,#BAE6FD)',
+  office: 'linear-gradient(135deg,#EEF2FF,#E0E7FF)',
+  top: 'linear-gradient(135deg,#FFFBEB,#FDE68A)',
+};
+
+function getCatSvgIcon(cat, size, strokeColor, strokeWidth) {
+  const paths = CAT_SVG_ICONS[cat] || CAT_SVG_ICONS.top;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="${strokeWidth || '2'}" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+}
 
 function renderMapMarkers() {
   const filtered = filterPlaces();
@@ -1693,15 +1725,23 @@ function renderMapMarkers() {
     const r = isOffice ? 18 : 16;
     const emoji = p.icon || '';
 
+    // Use 15px radius circles with SVG icon inside (mockup v3.8 style: 30x30 colored circles)
+    const pinR = isOffice ? 18 : 15;
+    const iconSize = isOffice ? 14 : 14;
+    const svgPaths = CAT_SVG_ICONS[cat] || CAT_SVG_ICONS.top;
+
     html += `<g class="poi-marker ${inRoute ? 'in-route' : ''}" data-id="${p.id}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" transform="translate(${x.toFixed(1)},${y.toFixed(1)})">
-      <circle class="poi-glow" r="${r + 10}" fill="${color}" opacity="${inRoute ? '0.35' : '0.15'}"/>
-      <circle class="poi-dot" r="${r}" fill="${color}" opacity="${inRoute ? '1' : '0.75'}"
-        stroke="${inRoute ? '#BBFF46' : isOffice ? '#BBFF46' : 'rgba(255,255,255,0.3)'}"
-        stroke-width="${inRoute ? '2.5' : isOffice ? '2' : '1'}"/>
-      <text class="poi-emoji" text-anchor="middle" dominant-baseline="central" font-size="16">${emoji}</text>
-      ${isOffice ? `<circle r="${r + 6}" fill="none" stroke="#BBFF46" stroke-width="1.5" opacity="0" class="office-pulse-svg"/>` : ''}
-      ${inRoute ? `<circle cx="${r + 2}" cy="${-(r + 2)}" r="8" fill="#BBFF46"/>
-      <text x="${r + 2}" y="${-(r - 1)}" text-anchor="middle" font-size="8" font-weight="900" fill="#0A0A0A">${routeIdx + 1}</text>` : ''}
+      <circle class="poi-glow" r="${pinR + 10}" fill="${color}" opacity="${inRoute ? '0.25' : '0.1'}"/>
+      <circle class="poi-dot" r="${pinR}" fill="${color}" opacity="${inRoute ? '1' : '0.85'}"
+        stroke="${inRoute ? '#fff' : 'rgba(255,255,255,0.6)'}"
+        stroke-width="${inRoute ? '2' : '1'}"
+        style="filter:drop-shadow(0 2px 4px ${color}66);"/>
+      <g transform="translate(${-iconSize/2},${-iconSize/2})">
+        <svg width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${svgPaths}</svg>
+      </g>
+      ${isOffice ? `<circle r="${pinR + 6}" fill="none" stroke="${color}" stroke-width="1.5" opacity="0" class="office-pulse-svg"/>` : ''}
+      ${inRoute ? `<circle cx="${pinR + 2}" cy="${-(pinR + 2)}" r="8" fill="${color}" stroke="#fff" stroke-width="1.5"/>
+      <text x="${pinR + 2}" y="${-(pinR - 1)}" text-anchor="middle" font-size="8" font-weight="900" fill="#fff">${routeIdx + 1}</text>` : ''}
     </g>`;
   });
   mapMarkers.innerHTML = html;
@@ -1842,20 +1882,40 @@ function renderPlaces() {
 
   rsPlaceList.innerHTML = filtered.map(p => {
     const cat = getDisplayCat(p);
-    const color = CAT_COLORS[cat] || '#6b7280';
+    const color = MAP_CAT_COLORS[cat] || '#6b7280';
+    const gradient = CAT_ICON_GRADIENTS[cat] || CAT_ICON_GRADIENTS.top;
     const inRoute = route.some(r => r.id === p.id);
+    const iconSvg = getCatSvgIcon(cat, 22, color, '1.8');
 
     return `
       <div class="rs-place-item" data-place="${p.id}">
-        <div class="rs-place-icon" style="background:${color}20;color:${color}">${p.icon}</div>
+        <div class="rs-place-icon" style="background:${gradient}">${iconSvg}</div>
         <div class="rs-place-info">
           <div class="rs-place-name">${placeName(p)}</div>
           <div class="rs-place-desc">${placeDesc(p).slice(0, 60)}...</div>
         </div>
-        <button class="rs-place-add ${inRoute ? 'added' : ''}" data-place-add="${p.id}">${inRoute ? '\u2713' : '+'}</button>
+        <button class="rs-place-add ${inRoute ? 'added' : ''}" data-place-add="${p.id}">${inRoute ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'}</button>
       </div>
     `;
   }).join('');
+
+  // Append CTA buttons at bottom of places list (mockup v3.8)
+  const routeMsg = encodeURIComponent(t('routeMsgDefault') || 'Хочу арендовать байк на Пхукете');
+  rsPlaceList.innerHTML += `
+    <div style="padding:12px 16px 8px;">
+      <div class="rs-route-cta-hint">${t('routeWantRide') || 'Хотите проехать этот маршрут?'}</div>
+      <div class="rs-route-cta">
+        <a class="rs-route-cta-btn cta-tg" href="https://t.me/ThaiGoSale1?text=${routeMsg}" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>
+          ${t('rentTg') || 'Арендовать TG'}
+        </a>
+        <a class="rs-route-cta-btn cta-wa" href="https://wa.me/66822545737?text=${routeMsg}" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.08-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          ${t('rentWa') || 'Арендовать WA'}
+        </a>
+      </div>
+    </div>
+  `;
 
   rsPlaceList.querySelectorAll('.rs-place-item').forEach(card => {
     card.addEventListener('click', e => {
@@ -2251,22 +2311,25 @@ function renderRoutePanel() {
       </div>
     </div>`;
 
-    // Stops list
+    // Stops list — mockup v3.8 style (A/B/C letter markers)
     html += `<div class="rs-stops">`;
+    const STOP_COLORS = ['#16A34A', '#7C3AED', '#DC2626', '#0369A1', '#C2410C', '#6D28D9'];
     route.forEach((p, i) => {
       let numClass = '';
       if (i === 0) numClass = 'first';
       else if (i === route.length - 1) numClass = 'last';
+      const letter = String.fromCharCode(65 + i); // A, B, C...
+      const stopColor = STOP_COLORS[i % STOP_COLORS.length];
       html += `<div class="rs-stop" draggable="true">
         <span class="rs-stop-grip">⠿</span>
-        <span class="rs-stop-num ${numClass}">${i + 1}</span>
+        <span class="rs-stop-num" style="background:${stopColor};color:#fff;">${letter}</span>
         <span class="rs-stop-name">${placeName(p)}</span>
         <button class="rs-stop-remove" data-remove="${p.id}">&times;</button>
       </div>`;
     });
     html += `</div>`;
 
-    // Stats
+    // Stats — mockup v3.8 grid
     if (stats) {
       html += `<div class="rs-stats">
         <div class="rs-stat"><div class="rs-stat-val">${stats.km}</div><div class="rs-stat-label">${t('statKm')}</div></div>
@@ -2274,12 +2337,46 @@ function renderRoutePanel() {
         <div class="rs-stat"><div class="rs-stat-val">${stats.fuel}</div><div class="rs-stat-label">${t('statFuel')}</div></div>
       </div>`;
 
-      // Cost comparison
+      // Taxi comparison — mockup v3.8 style
       const taxiCost = Math.round(stats.km * TAXI_RATE_PER_KM);
-      html += `<div class="rs-cost">
-        <span class="rs-cost-taxi">${t('costTaxiLabel')} ~${taxiCost.toLocaleString()} ฿</span>
-        <span>→</span>
-        <span class="rs-cost-bike">${t('costBikeLabel')}</span>
+      const bikeCost = stats.fuel.replace(/[^0-9]/g, '') || '80';
+      const saving = taxiCost - parseInt(bikeCost);
+      html += `<div class="rs-taxi-compare">
+        <div class="rs-taxi-title">${t('costTaxiVsBike') || 'На байке vs на такси по этому маршруту'}</div>
+        <div class="rs-taxi-row">
+          <div class="rs-taxi-col">
+            <div class="rs-taxi-icon bike">
+              <svg width="20" height="14" viewBox="0 0 80 55" fill="none">
+                <circle cx="18" cy="42" r="10" stroke="#4338CA" stroke-width="3" fill="#EEF2FF"/><circle cx="18" cy="42" r="4" fill="#4338CA"/>
+                <circle cx="62" cy="42" r="10" stroke="#4338CA" stroke-width="3" fill="#EEF2FF"/><circle cx="62" cy="42" r="4" fill="#4338CA"/>
+                <path d="M28 42 L28 30 Q30 22 38 20 L52 20 Q60 20 65 28 L68 35 L65 38 L28 42Z" fill="#4338CA" opacity=".3" stroke="#4338CA" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="rs-taxi-label">${t('costBikeLabel') || 'Байк + бензин'}</div>
+            <div class="rs-taxi-amount bike">~500 ฿</div>
+            <div class="rs-taxi-per">${t('costPerDay') || 'за день'}</div>
+          </div>
+          <div class="rs-taxi-divider">vs</div>
+          <div class="rs-taxi-col">
+            <div class="rs-taxi-icon taxi">
+              <svg width="22" height="14" viewBox="0 0 90 55" fill="none">
+                <rect x="10" y="18" width="70" height="28" rx="6" fill="#F59E0B" opacity=".3" stroke="#F59E0B" stroke-width="2"/>
+                <rect x="20" y="10" width="50" height="16" rx="4" fill="#F59E0B" opacity=".2"/>
+                <circle cx="22" cy="46" r="8" stroke="#78716C" stroke-width="2.5" fill="white"/>
+                <circle cx="22" cy="46" r="3" fill="#78716C"/>
+                <circle cx="68" cy="46" r="8" stroke="#78716C" stroke-width="2.5" fill="white"/>
+                <circle cx="68" cy="46" r="3" fill="#78716C"/>
+              </svg>
+            </div>
+            <div class="rs-taxi-label">${t('costTaxiLabel') || 'Такси (Grab)'}</div>
+            <div class="rs-taxi-amount taxi">~${taxiCost.toLocaleString()} ฿</div>
+            <div class="rs-taxi-per">${t('costPerDay') || 'за день'}</div>
+          </div>
+        </div>
+        <div class="rs-taxi-saving">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+          ${t('costSaving') || 'Экономия'} ~${saving > 0 ? saving.toLocaleString() : '1 900'} ฿/${t('costPerDay') || 'день'} ${t('costOnBike') || 'на байке'}
+        </div>
       </div>`;
     }
 
@@ -2303,16 +2400,25 @@ function renderRoutePanel() {
       </div>`;
     }
 
-    // CTA buttons
+    // CTA buttons — mockup v3.8 dual TG+WA
     if (route.length >= 2) {
       html += `<div class="rs-cta-row">
         <button class="rs-cta-btn cta-share" id="rsShareBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> ${t('shareRoute')}</button>
         <a class="rs-cta-btn cta-gmaps" href="${buildGoogleMapsLink()}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Maps</a>
       </div>`;
 
-      html += `<div class="rs-rent-cta">
-        <div><strong>${t('routeNeedBike')}</strong><br><small>${t('routeNeedBikePrice')}</small></div>
-        <button class="btn btn-primary btn-sm" data-goto="bikes">${t('routeRentBtn')}</button>
+      const routeNames = route.map(p => placeName(p)).join(' → ');
+      const routeMsg = encodeURIComponent(`${t('routeMsgPrefix') || 'Хочу проехать маршрут'}: ${routeNames}`);
+      html += `<div class="rs-route-cta-hint">${t('routeWantRide') || 'Хотите проехать этот маршрут?'}</div>
+      <div class="rs-route-cta">
+        <a class="rs-route-cta-btn cta-tg" href="https://t.me/ThaiGoSale1?text=${routeMsg}" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>
+          ${t('rentTg') || 'Арендовать TG'}
+        </a>
+        <a class="rs-route-cta-btn cta-wa" href="https://wa.me/66822545737?text=${routeMsg}" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.08-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          ${t('rentWa') || 'Арендовать WA'}
+        </a>
       </div>`;
     }
   }

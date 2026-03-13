@@ -258,28 +258,85 @@
 .ins-basic-title { font-size: 12px; font-weight: 700; color: #16A34A; }
 .ins-basic-desc { font-size: 10px; color: #166534; margin-top: 1px; }
 .ins-basic-cost { font-size: 11px; font-weight: 700; color: #16A34A; flex-shrink: 0; }
-.ins-plus-row { padding: 10px 14px; background: var(--surface); transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease, opacity .25s ease, max-height .25s ease, padding .25s ease; overflow: hidden; max-height: 200px; }
-.ins-plus-row.hidden { opacity: 0; max-height: 0; padding: 0; pointer-events: none; }
+/* Insurance+ row — OFF state (default) */
+.ins-plus-row {
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  margin: 0 14px 8px;
+  cursor: pointer;
+  transition: all .2s ease;
+  overflow: hidden;
+  max-height: 200px;
+}
+.ins-plus-row.hidden { opacity: 0; max-height: 0; padding: 0; margin: 0 14px; border-width: 0; pointer-events: none; }
 
-/* Insurance+ selected state */
+/* Insurance+ ON state */
 .ins-plus-row.active {
   background: var(--primary-l);
-  box-shadow: inset 0 0 0 1.5px var(--primary-m);
+  border-color: rgba(99,102,241,.25);
 }
-.ins-plus-row.active::after {
-  top: 50%;
-  transform: translateY(-50%);
+
+/* Title: OFF=text2 fw600, ON=primary-m fw700 */
+.ins-plus-title { font-size: 12px; font-weight: 600; color: var(--text2); transition: all .2s ease; }
+.ins-plus-row.active .ins-plus-title { font-weight: 700; color: var(--primary-m); }
+
+/* Price: OFF=text3, ON=primary-m fw800 */
+.ins-plus-price { font-size: 12px; font-weight: 600; color: var(--text3); transition: all .2s ease; }
+.ins-plus-row.active .ins-plus-price { font-weight: 800; color: var(--primary-m); }
+
+/* Tags: OFF=grey, ON=green */
+.ins-cover-tag {
+  font-size: 10px; font-weight: 600;
+  color: var(--text3); background: var(--surface2); border: 1px solid var(--border);
+  padding: 2px 7px; border-radius: 20px;
+  transition: all .2s ease;
+}
+.ins-plus-row.active .ins-cover-tag {
+  color: #16A34A; background: #DCFCE7; border-color: rgba(22,163,74,.2);
 }
 
 .ins-plus-top { display: flex; align-items: flex-start; gap: 10px; }
 .ins-plus-info { flex: 1; }
-.ins-plus-title { font-size: 12px; font-weight: 700; color: var(--primary-m); }
 .ins-plus-franchise { font-size: 10px; color: var(--text2); margin-top: 3px; line-height: 1.5; }
 .ins-plus-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-.ins-cover-tag { font-size: 10px; font-weight: 600; color: #16A34A; background: #DCFCE7; border: 1px solid rgba(22,163,74,.2); padding: 2px 7px; border-radius: 20px; }
-.ins-plus-cost { text-align: right; flex-shrink: 0; }
-.ins-plus-price { font-size: 12px; font-weight: 800; color: var(--primary-m); }
-.ins-plus-price span { font-size: 10px; font-weight: 500; }
+
+/* Right column: toggle on top, price below */
+.ins-plus-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Toggle switch */
+.ins-toggle { flex-shrink: 0; }
+.ins-toggle-track {
+  width: 40px; height: 22px;
+  background: #D1D5DB;
+  border-radius: 11px;
+  position: relative;
+  transition: background .2s ease;
+  cursor: pointer;
+}
+.ins-plus-row.active .ins-toggle-track {
+  background: var(--primary-m);
+}
+.ins-toggle-thumb {
+  width: 18px; height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px; left: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  transition: transform .2s ease;
+}
+.ins-plus-row.active .ins-toggle-thumb {
+  transform: translateX(18px);
+}
+
 .ins-plus-note { font-size: 9px; color: var(--text3); margin-top: 2px; }
 
 /* ========== Total Section (mockup v3.8) ========== */

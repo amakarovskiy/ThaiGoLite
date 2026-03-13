@@ -128,11 +128,6 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .btn-tg-outline { background: transparent; color: var(--color-tg); border-color: var(--color-tg); }
 .btn-primary { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 
-/* ===== Sticky CTA ===== */
-.sticky-cta { position: fixed; bottom: calc(var(--tab-bar-height) + var(--safe-bottom) + 8px); left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 398px; z-index: 90; opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease; transform: translateX(-50%) translateY(12px); }
-.sticky-cta.visible { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
-.sticky-cta .btn { width: 100%; padding: 14px 20px; font-size: 16px; font-weight: 600; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-
 /* ===== CTA Reply Time ===== */
 .cta-reply-time { font-size: 12px; color: var(--color-text-muted); text-align: center; margin-top: 6px; }
 .btn-full { width: 100%; }

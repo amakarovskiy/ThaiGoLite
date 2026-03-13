@@ -845,8 +845,13 @@ function renderBikes() {
   catOrder.forEach(cat => {
     const bikes = grouped[cat];
     if (!bikes || bikes.length === 0) return;
+    const catIcons = {
+      scooter: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>',
+      maxi: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>',
+      moto: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>'
+    };
     html += `<div class="category-section">
-      <div class="category-title">${bikeCatName(cat)}</div>
+      <div class="category-title">${catIcons[cat] || ''}${bikeCatName(cat)}</div>
       <div class="bikes-grid-2">`;
     bikes.forEach(b => {
       const whyText = (b.why && (b.why[lang] || b.why.en)) || '';
@@ -931,6 +936,10 @@ function renderPopular() {
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" style="margin-left:4px;flex-shrink:0;align-self:center;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>`;
     dealBarEl.style.display = '';
+    dealBarEl.onclick = () => {
+      switchTab('bikes');
+      openBookingSheet(cheapest30.bike);
+    };
   } else if (dealBarEl) {
     dealBarEl.style.display = 'none';
   }

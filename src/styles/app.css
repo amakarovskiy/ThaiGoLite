@@ -43,7 +43,6 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .page { display: none; }
 .page--active { display: block; }
 .page-title { font-size: 20px; font-weight: 800; padding: 16px 16px 12px; }
-#page-bikes { background: var(--surface2); }
 #page-contacts .contacts-content { background: var(--surface2); }
 #page-home { background: var(--surface2); }
 

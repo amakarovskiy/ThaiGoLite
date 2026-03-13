@@ -255,21 +255,28 @@
 
     <!-- ══════ TAB 2: БАЙКИ ══════ -->
     <main id="page-bikes" class="page">
-      <div class="filter-chips bike-filters" id="bikeFilters">
-        <button class="chip filter-chip filter-chip--active active" data-cat="all">Все</button>
-        <button class="chip filter-chip" data-cat="economy">Эконом</button>
-        <button class="chip filter-chip" data-cat="comfort">Комфорт</button>
-        <button class="chip filter-chip" data-cat="premium">Премиум</button>
-      </div>
-      <div class="picker-banner bike-picker-cta bike-picker-cta--compact" id="bikePickerCtaBikes">
-        <div class="bpc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-        <div class="bpc-text">
-          <div class="bpc-title" data-i18n="bpcTitle">Не знаете, какой байк выбрать?</div>
-          <div class="bpc-sub" data-i18n="bpcSub">Ответьте на 5 вопросов — сразу покажем байк и цену</div>
+      <div class="bikes-page-content">
+      <div style="padding:10px 16px 6px;">
+        <div class="filter-chips bike-filters" id="bikeFilters" style="margin-bottom:0;">
+          <div class="chip filter-chip filter-chip--active active" data-cat="all">Все</div>
+          <div class="chip filter-chip" data-cat="economy">Эконом</div>
+          <div class="chip filter-chip" data-cat="comfort">Комфорт</div>
+          <div class="chip filter-chip" data-cat="premium">Премиум</div>
         </div>
-        <button class="btn btn-primary btn-sm bpc-btn" data-i18n="bpcBtn">Подобрать байк за 1 минуту</button>
       </div>
-      <div class="bikes-grid-2 bike-grid" id="bikeGrid">
+      <div style="padding:8px 16px;">
+        <div class="picker-banner" id="bikePickerCtaBikes" style="margin:0;">
+          <div class="picker-banner-text">
+            <h4 data-i18n="bpcTitle">Не знаете какой выбрать?</h4>
+            <p data-i18n="bpcSub">Ответьте на 5 вопросов — сразу покажем байк и цену</p>
+          </div>
+          <button class="btn-picker" data-i18n="bpcBtn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:3px;vertical-align:middle;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Подобрать
+          </button>
+        </div>
+      </div>
+      <div id="bikeGrid">
         <!-- Static SEO content — replaced by JS on load -->
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-scooter" role="img" aria-label="Honda Scoopy 110 аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Honda Scoopy 110</div><div class="bike-card-cc">110 cc</div><div class="bike-card-footer"><span class="bike-card-price">от 130 &#3647;</span></div></div></div>
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-scooter" role="img" aria-label="Honda Click 125 аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Honda Click 125</div><div class="bike-card-cc">125 cc</div><div class="bike-card-footer"><span class="bike-card-price">от 130 &#3647;</span></div></div></div>
@@ -299,6 +306,7 @@
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-moto" role="img" aria-label="Honda CBR500R аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda CBR500R</div><div class="bike-card-cc">500 cc — Спортбайк</div><div class="bike-card-footer"><span class="bike-card-price">от 600 &#3647;</span></div></div></div>
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-moto" role="img" aria-label="Honda Rebel 500 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda Rebel 500</div><div class="bike-card-cc">500 cc — Круизер</div><div class="bike-card-footer"><span class="bike-card-price">от 600 &#3647;</span></div></div></div>
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-moto" role="img" aria-label="Kawasaki Vulcan 650S аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Kawasaki Vulcan 650S</div><div class="bike-card-cc">650 cc — Круизер</div><div class="bike-card-footer"><span class="bike-card-price">от 700 &#3647;</span></div></div></div>
+      </div>
       </div>
     </main>
 

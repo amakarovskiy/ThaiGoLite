@@ -34,13 +34,81 @@ export function getPricePerDay(bike, days) {
 }
 
 /**
+ * Returns the Short Rental Fee (SRF) for 1–2 day rentals.
+ * SRF = (tier0_rate - tier1_rate) * 2, based on current season.
+ */
+export function getShortRentalFee(bike) {
+  const season = getCurrentSeason();
+  const rates = bike.prices[season];
+  return (rates[0] - rates[1]) * 2;
+}
+
+/**
  * Returns total rental price for a bike for given days.
+ * For 1–2 day rentals, uses the 3-day rate plus the Short Rental Fee.
  */
 export function getTotalPrice(bike, days) {
+  if (days <= 2) {
+    return getPricePerDay(bike, 3) * days + getShortRentalFee(bike);
+  }
   return getPricePerDay(bike, days) * days;
 }
 
 export const MAXI_BIG_IDS = ['xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'];
+
+export const INSURANCE_STANDARD_FRANCHISE = 3000; // Standard bikes
+export const INSURANCE_PREMIUM_FRANCHISE = 6000; // Premium bikes (ADV 160, Xmax, Forza, ADV 350)
+
+const PREMIUM_IDS = ['adv-160', 'xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'];
+
+/**
+ * Returns the insurance franchise amount for a bike.
+ */
+export function getInsuranceFranchise(bike) {
+  return PREMIUM_IDS.includes(bike.id) ? INSURANCE_PREMIUM_FRANCHISE : INSURANCE_STANDARD_FRANCHISE;
+}
+
+const PREMIUM_MAXI_IDS = ['xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'];
+
+/**
+ * Returns the deposit amount for a bike.
+ * Premium maxi bikes: 7000, all others: 3000.
+ */
+export function getDeposit(bike) {
+  return PREMIUM_MAXI_IDS.includes(bike.id) ? 7000 : 3000;
+}
+
+/**
+ * Returns approximate discount percentage for a given rental duration.
+ */
+export function getDiscountPercent(days) {
+  if (days >= 20) return 45;
+  if (days >= 7) return 25;
+  if (days >= 3) return 17;
+  return 0;
+}
+
+/**
+ * Returns a hint about the next discount threshold, or null if already at max.
+ * { daysNeeded, discountPercent, pricePerDay }
+ */
+export function getNextDiscountHint(days, bike) {
+  const thresholds = [
+    { minDays: 3, discount: 17 },
+    { minDays: 7, discount: 25 },
+    { minDays: 20, discount: 45 },
+  ];
+  for (const t of thresholds) {
+    if (days < t.minDays) {
+      return {
+        daysNeeded: t.minDays,
+        discountPercent: t.discount,
+        pricePerDay: getPricePerDay(bike, t.minDays),
+      };
+    }
+  }
+  return null;
+}
 
 /**
  * Returns insurance+ total cost for a bike over given days.

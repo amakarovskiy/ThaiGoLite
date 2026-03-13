@@ -9,6 +9,13 @@ export const BIKE_CATEGORIES = {
   moto:    'Мотоциклы'
 };
 
+export const BUDGET_GROUPS = {
+  all:     'Все',
+  economy: 'Эконом',
+  comfort: 'Комфорт',
+  premium: 'Премиум'
+};
+
 export const BIKES = [
   // ── Economy Scooters ──
   {
@@ -19,6 +26,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'economy',
+    deposit: 3000,
+    featureFlags: { abs: false, keyless: false, usb: false },
     prices: {
       high:     [400, 350, 300, 250],
       shoulder: [400, 300, 250, 200],
@@ -38,6 +47,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'economy',
+    deposit: 3000,
+    featureFlags: { abs: false, keyless: false, usb: false },
     prices: {
       high:     [400, 350, 300, 250],
       shoulder: [400, 300, 250, 200],
@@ -57,6 +68,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'economy',
+    deposit: 3000,
+    featureFlags: { abs: false, keyless: false, usb: false },
     prices: {
       high:     [500, 450, 400, 300],
       shoulder: [500, 400, 300, 200],
@@ -76,6 +89,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'economy',
+    deposit: 3000,
+    featureFlags: { abs: false, keyless: false, usb: false },
     prices: {
       high:     [500, 450, 400, 300],
       shoulder: [500, 400, 300, 200],
@@ -95,6 +110,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'economy',
+    deposit: 3000,
+    featureFlags: { abs: false, keyless: false, usb: false },
     prices: {
       high:     [500, 450, 400, 300],
       shoulder: [500, 400, 300, 200],
@@ -114,6 +131,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'economy',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [500, 450, 400, 300],
       shoulder: [500, 400, 300, 200],
@@ -135,6 +154,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [600, 450, 450, 350],
       shoulder: [600, 500, 400, 250],
@@ -154,6 +175,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: true, usb: false },
     prices: {
       high:     [500, 450, 400, 300],
       shoulder: [500, 400, 300, 250],
@@ -173,6 +196,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: true, usb: true },
     prices: {
       high:     [600, 500, 450, 400],
       shoulder: [600, 500, 400, 250],
@@ -192,6 +217,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: true },
     prices: {
       high:     [600, 500, 450, 400],
       shoulder: [600, 500, 400, 250],
@@ -211,6 +238,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [600, 500, 450, 400],
       shoulder: [600, 500, 400, 250],
@@ -232,6 +261,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'premium',
+    deposit: 7000,
+    featureFlags: { abs: true, keyless: true, usb: true },
     prices: {
       high:     [1100, 800, 700, 600],
       shoulder: [900, 700, 600, 500],
@@ -251,6 +282,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'premium',
+    deposit: 7000,
+    featureFlags: { abs: true, keyless: true, usb: true },
     prices: {
       high:     [1200, 900, 800, 700],
       shoulder: [1000, 800, 700, 600],
@@ -270,6 +303,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'premium',
+    deposit: 7000,
+    featureFlags: { abs: true, keyless: true, usb: true },
     prices: {
       high:     [1200, 900, 800, 700],
       shoulder: [1000, 800, 700, 600],
@@ -289,6 +324,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'premium',
+    deposit: 7000,
+    featureFlags: { abs: true, keyless: true, usb: true },
     prices: {
       high:     [1200, 900, 800, 700],
       shoulder: [1000, 800, 700, 600],
@@ -308,6 +345,8 @@ export const BIKES = [
     type: 'scooter',
     transmission: 'auto',
     budgetGroup: 'premium',
+    deposit: 7000,
+    featureFlags: { abs: true, keyless: false, usb: true },
     prices: {
       high:     [1200, 900, 800, 700],
       shoulder: [1000, 800, 700, 600],
@@ -329,6 +368,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'economy',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [500, 400, 350, 300],
       shoulder: [500, 400, 300, 250],
@@ -348,6 +389,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'economy',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [500, 400, 350, 300],
       shoulder: [500, 400, 300, 250],
@@ -367,6 +410,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'economy',
+    deposit: 3000,
+    featureFlags: { abs: false, keyless: false, usb: false },
     prices: {
       high:     [500, 400, 350, 300],
       shoulder: [400, 350, 250, 200],
@@ -388,6 +433,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [600, 500, 450, 400],
       shoulder: [600, 500, 400, 350],
@@ -407,6 +454,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [600, 500, 450, 400],
       shoulder: [600, 500, 350, 300],
@@ -426,6 +475,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [600, 500, 450, 400],
       shoulder: [800, 500, 400, 350],
@@ -445,6 +496,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [600, 500, 450, 400],
       shoulder: [500, 400, 350, 300],
@@ -464,6 +517,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [600, 500, 450, 400],
       shoulder: [500, 400, 350, 300],
@@ -483,6 +538,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'comfort',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [1000, 600, 500, 450],
       shoulder: [900, 700, 500, 400],
@@ -504,6 +561,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'premium',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [1400, 1000, 900, 700],
       shoulder: [1300, 900, 700, 600],
@@ -523,6 +582,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'premium',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [1400, 1200, 900, 800],
       shoulder: [1400, 1000, 800, 700],
@@ -542,6 +603,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'premium',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [1400, 1000, 900, 800],
       shoulder: [1400, 1000, 800, 700],
@@ -561,6 +624,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'premium',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [1400, 1000, 900, 700],
       shoulder: [1400, 1000, 900, 700],
@@ -580,6 +645,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'premium',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [1300, 700, 600, 550],
       shoulder: [1100, 800, 600, 500],
@@ -599,6 +666,8 @@ export const BIKES = [
     type: 'motorcycle',
     transmission: 'manual',
     budgetGroup: 'premium',
+    deposit: 3000,
+    featureFlags: { abs: true, keyless: false, usb: false },
     prices: {
       high:     [1600, 1100, 1000, 900],
       shoulder: [1600, 1200, 900, 700],

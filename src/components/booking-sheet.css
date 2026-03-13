@@ -269,10 +269,33 @@
   margin-bottom: 14px;
 }
 
-.sheet-total strong {
-  font-size: 20px;
+.sheet-total strong,
+.sheet-final-price {
+  font-size: 22px;
   font-weight: 800;
   color: var(--color-primary);
+}
+.sheet-base-price {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+.sheet-discount-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 4px;
+}
+.sheet-savings {
+  display: block;
+  font-size: 13px;
+  color: #16a34a;
+  font-weight: 600;
+  margin-top: 4px;
 }
 
 /* ========== Insurance Chips (compact) ========== */

@@ -694,6 +694,9 @@ export const T = {
   sheetTotal: {
     ru: 'Итого:', en: 'Total:', de: 'Gesamt:', fr: 'Total :', es: 'Total:', th: 'รวม:'
   },
+  sheetSave: {
+    ru: 'экономия', en: 'you save', de: 'Ersparnis', fr: 'économie', es: 'ahorro', th: 'ประหยัด'
+  },
 
   // ── Insurance ──
   insBasic: {

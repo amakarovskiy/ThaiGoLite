@@ -1286,11 +1286,12 @@ function updateSheetCalc() {
   // Insurance+ cost
   const insTier = getInsuranceTier(sheetBike);
   const insCost = getInsurancePlusCost(sheetBike, sheetDays);
+  const insPerDay = sheetDays > 0 ? Math.round(insCost / sheetDays) : 0;
 
-  // Update insurance+ total cost label
+  // Update insurance+ per-day price label in the box
   if (insTier !== null) {
     const costLabel = $('insPlusCostLabel');
-    if (costLabel) costLabel.textContent = `${insCost.toLocaleString()} ฿`;
+    if (costLabel) costLabel.textContent = `${insPerDay.toLocaleString()} ฿/д`;
   }
 
   if (sheetInsurancePlus && insTier) {
@@ -1339,11 +1340,10 @@ function updateSheetCalc() {
   // Total breakdown — reactive lines
   const totalBreakdownEl = $('sheetBreakdown');
   if (totalBreakdownEl) {
-    const insPerDay = sheetDays > 0 ? Math.round(insCost / sheetDays) : 0;
     let html = '';
-    html += `<div class="breakdown-row"><span>${t('sheetBike') || 'Байк'}: ${perDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays') || 'дн'}</span><span>${rentalTotal.toLocaleString()} ฿</span></div>`;
+    html += `<div class="breakdown-row"><span>${t('sheetBike') || 'Байк'} ${perDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays') || 'дн'}</span><span>${rentalTotal.toLocaleString()} ฿</span></div>`;
     if (sheetInsurancePlus && insTier) {
-      html += `<div class="breakdown-row"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>${t('insPlus') || 'Страхование+'}: ${insPerDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays') || 'дн'}</span><span>${insCost.toLocaleString()} ฿</span></div>`;
+      html += `<div class="breakdown-row"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>${t('insPlus') || 'Страхование+'} ${insPerDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays') || 'дн'}</span><span>${insCost.toLocaleString()} ฿</span></div>`;
     }
     html += `<div class="breakdown-divider"></div>`;
     html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal') || 'Итого'}</span><span class="breakdown-total-value" id="sheetTotalValue">${prevSheetTotal === 0 ? total.toLocaleString() + ' ฿' : prevSheetTotal.toLocaleString() + ' ฿'}</span></div>`;

@@ -106,55 +106,70 @@
 <body>
   <div id="app">
 
-    <!-- HEADER -->
-    <header class="app-header">
-      <img src="https://thaigo.rent/wp-content/themes/wordpress-theme/img/logo.svg" alt="ThaiGo" class="header-logo" height="26" />
-      <span class="header-title">ThaiGo <span class="accent">Lite</span></span>
-      <a class="rating-chip" href="https://maps.app.goo.gl/WkyZdNwr2bvUk3Zh9" target="_blank" rel="noopener">
-        <span class="rating-left">
-          <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        </span>
-        <span class="rating-divider"></span>
-        <span class="rating-right">
-          <svg class="rating-star" width="13" height="13" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <span class="rating-score">4.9</span>
-          <span class="rating-count">/ 275+</span>
-        </span>
-      </a>
-      <div class="lang-switcher" id="langSwitcher">
-        <button class="lang-btn" id="langBtn"><span class="lang-flag" id="langFlag"></span><span id="langCode"></span></button>
-        <div class="lang-dropdown" id="langDropdown"></div>
+    <!-- TOPBAR (mockup v3.8) -->
+    <div class="topbar" id="topbar">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4"/><path d="M4 12a8 8 0 0116 0"/><path d="M2 12h2M20 12h2"/></svg>
+        ThaiGo <span class="logo-lite">Lite</span>
       </div>
-    </header>
+      <div class="topbar-right">
+        <a class="rating-chip" href="https://maps.app.goo.gl/WkyZdNwr2bvUk3Zh9" target="_blank" rel="noopener">
+          <svg class="g-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          <span class="star">★</span>4.9<span class="reviews">/ 275+</span>
+        </a>
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn lang-chip" id="langBtn"><span class="lang-flag" id="langFlag"></span><span id="langCode"></span></button>
+          <div class="lang-dropdown" id="langDropdown"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- ══════ TAB 1: ГЛАВНАЯ ══════ -->
     <main id="page-home" class="page page--active">
-      <!-- Hero -->
-      <section class="hero">
-        <h1 class="hero-h1">Аренда байков<br>на Пхукете</h1>
-        <p class="hero-sub">Договор, страховка, замена при поломке. Без скрытых платежей.</p>
+      <!-- Hero (mockup v3.8 — gradient block) -->
+      <div class="hero-block">
+        <div class="hero-h1" data-i18n="heroTitle">Аренда байков<br>на Пхукете</div>
+        <div class="hero-sub" data-i18n="heroSub">Договор, страховка, замена при поломке.<br>Без скрытых платежей.</div>
 
         <div class="proof-row">
-          <span class="proof-item"><span class="proof-dot">&#10003;</span> Без залога паспорта</span>
-          <span class="proof-item"><span class="proof-dot">&#10003;</span> Доставка к отелю</span>
-          <span class="proof-item"><span class="proof-dot">&#10003;</span> Договор и страховка</span>
-          <span class="proof-item"><span class="proof-dot">&#10003;</span> Новые байки</span>
+          <div class="proof-item">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+            <span data-i18n="proofNoDeposit">Без залога паспорта</span>
+          </div>
+          <div class="proof-dot">·</div>
+          <div class="proof-item">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/></svg>
+            <span data-i18n="proofDelivery">Доставка к отелю</span>
+          </div>
+          <div class="proof-dot">·</div>
+          <div class="proof-item">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span data-i18n="proofInsurance">Договор и страховка</span>
+          </div>
+          <div class="proof-dot">·</div>
+          <div class="proof-item">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span data-i18n="proofNewBikes">Новые байки</span>
+          </div>
         </div>
 
         <div class="cta-stack">
           <div class="messenger-cta-row" id="heroCta">
-            <a class="btn-messenger-icon btn-msg-tg" href="https://t.me/ThaiGoSale1" target="_blank" rel="noopener">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            <a class="btn-messenger-icon tg" href="https://t.me/ThaiGoSale1" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>
               <span data-i18n="ctaTelegram">Telegram</span>
             </a>
-            <a class="btn-messenger-icon btn-msg-wa" href="https://wa.me/66822545737" target="_blank" rel="noopener">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <a class="btn-messenger-icon wa" href="https://wa.me/66822545737" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.08-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
               <span data-i18n="ctaWhatsapp">WhatsApp</span>
             </a>
           </div>
-          <p class="reply-time" data-i18n="ctaReplyTime">&#9889; Отвечаем быстро</p>
+          <div class="reply-time">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="color:#F59E0B;vertical-align:middle;margin-right:3px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span data-i18n="ctaReplyTime">Отвечаем быстро</span>
+          </div>
         </div>
-      </section>
+      </div>
 
       <!-- TrustStrip -->
       <div class="trust-strip">
@@ -168,7 +183,7 @@
           <div class="trust-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
           </div>
-          <span class="trust-label" data-i18n="trustNoDeposit">Без залога</span>
+          <span class="trust-label" data-i18n="trustNoDeposit">Без залога паспорта</span>
         </div>
         <div class="trust-item">
           <div class="trust-icon">
@@ -180,39 +195,37 @@
           <div class="trust-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </div>
-          <span class="trust-label" data-i18n="trustDelivery">Доставка</span>
+          <span class="trust-label" data-i18n="trustDelivery">Доставка к отелю</span>
         </div>
         <div class="trust-item">
           <div class="trust-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           </div>
-          <span class="trust-label" data-i18n="trustSupport">24/7</span>
+          <span class="trust-label" data-i18n="trustSupport">Поддержка 24/7</span>
         </div>
       </div>
 
-      <p class="hero-delivery" data-i18n="heroDelivery">📍 Доставляем: Ката · Карон · Патонг · Раваи · Чалонг и весь остров</p>
-
       <!-- Популярные байки (объединённый блок) -->
       <section class="section pop-section" id="popSection">
-        <div class="pop-header">
-          <h2 class="section-title" id="popTitle">Популярные байки</h2>
-          <button class="pop-all-link" id="popAllLink">Все &rarr;</button>
+        <div class="section-header">
+          <div class="section-title" id="popTitle">Популярные байки</div>
+          <div class="section-link" id="popAllLink">Все →</div>
         </div>
-        <div class="pop-chips" id="popChips">
-          <button class="pop-chip pop-chip--active" data-pop-group="economy">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+        <div class="filter-chips" id="popChips" style="margin-bottom:14px;">
+          <div class="chip active" data-pop-group="economy">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             <span>Эконом</span>
-          </button>
-          <button class="pop-chip" data-pop-group="comfort">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="chip" data-pop-group="comfort">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
             <span>Комфорт</span>
-          </button>
-          <button class="pop-chip" data-pop-group="premium">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="chip" data-pop-group="premium">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             <span>Премиум</span>
-          </button>
+          </div>
         </div>
-        <div id="popDealBar"><span class="deal-bar">&#127942; Лучшее предложение</span></div>
+        <div id="popDealBar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:12px;background:var(--green-l);cursor:pointer;gap:8px;margin-bottom:14px;border:1px solid rgba(22,163,74,.15);"><span class="deal-bar">Лучшее предложение</span></div>
         <!-- hidden slider elements kept for JS compatibility -->
         <div style="display:none">
           <span id="popDaysLabel"></span>
@@ -225,124 +238,45 @@
         <button class="pop-view-all" id="popViewAll">Смотреть все байки &rarr;</button>
       </section>
 
-      <!-- BikePickerCTA -->
-      <div class="bike-picker-cta" id="bikePickerCtaHome">
-        <div class="bpc-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-        <div class="bpc-text">
-          <div class="bpc-title" data-i18n="bpcTitle">Не знаете, какой байк выбрать?</div>
-          <div class="bpc-sub" data-i18n="bpcSub">Ответьте на 5 вопросов — сразу покажем байк и цену</div>
-        </div>
-        <button class="btn btn-primary bpc-btn" data-i18n="bpcBtn">Подобрать байк за 1 минуту</button>
-      </div>
-
-      <!-- Почему мы -->
-      <section class="section">
-        <h2 class="section-title" id="whyTitle">Почему ThaiGo</h2>
-        <div class="why-grid">
-          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span><span class="why-text">Без залога паспорта</span><span class="why-sub">Берём залог деньгами, паспорт остаётся у вас</span></div>
-          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="why-text">Доставка в отель</span><span class="why-sub">Привезём байк к вашему отелю или вилле</span></div>
-          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span><span class="why-text">От 130 &#3647;/сутки</span><span class="why-sub">Чем дольше аренда — тем ниже цена за день</span></div>
-          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></span><span class="why-text">24/7 на русском</span><span class="why-sub">Звонок, WhatsApp или Telegram — всегда на связи</span></div>
-          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></span><span class="why-text">Замена при поломке</span><span class="why-sub">Сломался байк — заменим бесплатно в течение дня</span></div>
-          <div class="why-item"><span class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span><span class="why-text">Договор + страховка</span><span class="why-sub">Официальный договор и страховка здоровья включены</span></div>
-        </div>
-      </section>
-
-      <!-- TaxiComparison -->
-      <div class="taxi-comparison">
-        <div class="taxi-col taxi-col--taxi">
-          <div class="taxi-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14v-5H5z"/><path d="M19 12l-1.5-5H6.5L5 12"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/><path d="M5 12V7h14v5"/></svg></div>
-          <div class="taxi-title">Такси Ката → Патонг</div>
-          <div class="taxi-price">\u2248 200–300 \u0E3F</div>
-          <div class="taxi-note">в одну сторону</div>
-        </div>
-        <div class="taxi-vs">vs</div>
-        <div class="taxi-col taxi-col--bike">
-          <div class="taxi-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg></div>
-          <div class="taxi-title">Наш байк</div>
-          <div class="taxi-price">от 130 \u0E3F</div>
-          <div class="taxi-note">за весь день</div>
+      <!-- Picker banner (mockup v3.8) -->
+      <div style="padding:12px;" id="bikePickerCtaHome">
+        <div class="picker-banner">
+          <div class="picker-banner-text">
+            <h4 data-i18n="bpcTitle">Не знаете какой выбрать?</h4>
+            <p data-i18n="bpcSub">Ответьте на 5 вопросов — сразу покажем байк и цену</p>
+          </div>
+          <button class="btn-picker" data-i18n="bpcBtn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:3px;vertical-align:middle;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Подобрать
+          </button>
         </div>
       </div>
-
-      <!-- Отзывы -->
-      <section class="section">
-        <h2 class="section-title" id="reviewsTitle">Что говорят клиенты</h2>
-        <div class="reviews-rating-line">
-          <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <span class="reviews-rating-text">4.9 / 275+</span>
-        </div>
-        <div class="reviews-scroll" id="reviewsScroll"></div>
-      </section>
-
-      <!-- Как это работает -->
-      <section class="steps-section">
-        <h2 class="section-title" id="stepsTitle">Как это работает</h2>
-        <div class="steps-grid">
-          <div class="step-item">
-            <svg class="step-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Choose a bike"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
-            <span class="step-num">1</span>
-            <span class="step-text">Выбери байк</span>
-          </div>
-          <span class="step-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          <div class="step-item">
-            <svg class="step-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Delivery"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-            <span class="step-num">2</span>
-            <span class="step-text">Мы привезём</span>
-          </div>
-          <span class="step-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          <div class="step-item">
-            <svg class="step-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Ride and enjoy"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.78 7.78 5.5 5.5 0 017.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
-            <span class="step-num">3</span>
-            <span class="step-text">Езди и кайфуй</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Rider Test Teaser -->
-      <section class="section" style="padding-bottom:0">
-        <div class="rider-teaser" id="riderTeaser">
-          <div class="rider-teaser-title">Ты уверен что готов ездить на Пхукете?</div>
-          <div class="rider-teaser-sub">Пройди Райдер-тест за 3 минуты</div>
-          <button class="rider-teaser-btn" id="teaserStartBtn">Начать тест</button>
-        </div>
-      </section>
-
-      <!-- Районы доставки -->
-      <section class="section">
-        <h2 class="section-title" id="deliveryTitle">Доставка по Пхукету</h2>
-        <div class="dlv-grid" id="dlvGrid">
-          <div class="dlv-card"><div class="dlv-name">Ката / Карон</div><div class="dlv-cond dlv-green">Бесплатно от 3 дней</div></div>
-          <div class="dlv-card"><div class="dlv-name">Патонг</div><div class="dlv-cond dlv-green">Бесплатно от 3 дней</div></div>
-          <div class="dlv-card"><div class="dlv-name">Камала / Сурин</div><div class="dlv-cond dlv-yellow">300 ฿ · бесплатно от 7 дней</div></div>
-          <div class="dlv-card"><div class="dlv-name">Бангтао</div><div class="dlv-cond dlv-yellow">300 ฿ · бесплатно от 7 дней</div></div>
-          <div class="dlv-card"><div class="dlv-name">Раваи / Най Харн</div><div class="dlv-cond dlv-yellow">300 ฿ · бесплатно от 7 дней</div></div>
-          <div class="dlv-card"><div class="dlv-name">Чалонг / Пхукет-таун</div><div class="dlv-cond dlv-yellow">300 ฿ · бесплатно от 7 дней</div></div>
-          <div class="dlv-card"><div class="dlv-name">Аэропорт / Най Янг</div><div class="dlv-cond dlv-blue">500 ฿ · бесплатно от 10 дней</div></div>
-          <div class="dlv-card"><div class="dlv-name">Другой район</div><div class="dlv-cond dlv-blue">Уточняйте</div></div>
-        </div>
-        <p class="dlv-note">Доставка в отель или виллу. Возврат — туда же.</p>
-      </section>
     </main>
 
     <!-- ══════ TAB 2: БАЙКИ ══════ -->
     <main id="page-bikes" class="page">
-      <div class="filter-chips bike-filters" id="bikeFilters">
-        <button class="chip filter-chip filter-chip--active" data-cat="all">Все</button>
-        <button class="chip filter-chip" data-cat="scooter">Эконом</button>
-        <button class="chip filter-chip" data-cat="maxi">Комфорт</button>
-        <button class="chip filter-chip" data-cat="moto">Премиум</button>
-      </div>
-      <div class="picker-banner bike-picker-cta bike-picker-cta--compact" id="bikePickerCtaBikes">
-        <div class="bpc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-        <div class="bpc-text">
-          <div class="bpc-title" data-i18n="bpcTitle">Не знаете, какой байк выбрать?</div>
-          <div class="bpc-sub" data-i18n="bpcSub">Ответьте на 5 вопросов — сразу покажем байк и цену</div>
+      <div class="bikes-page-content">
+      <div style="padding:10px 16px 6px;">
+        <div class="filter-chips bike-filters" id="bikeFilters" style="margin-bottom:0;">
+          <div class="chip filter-chip filter-chip--active active" data-cat="all">Все</div>
+          <div class="chip filter-chip" data-cat="economy">Эконом</div>
+          <div class="chip filter-chip" data-cat="comfort">Комфорт</div>
+          <div class="chip filter-chip" data-cat="premium">Премиум</div>
         </div>
-        <button class="btn btn-primary btn-sm bpc-btn" data-i18n="bpcBtn">Подобрать байк за 1 минуту</button>
       </div>
-      <div class="bikes-grid-2 bike-grid" id="bikeGrid">
+      <div style="padding:8px 16px;">
+        <div class="picker-banner" id="bikePickerCtaBikes" style="margin:0;">
+          <div class="picker-banner-text">
+            <h4 data-i18n="bpcTitle">Не знаете какой выбрать?</h4>
+            <p data-i18n="bpcSub">Ответьте на 5 вопросов — сразу покажем байк и цену</p>
+          </div>
+          <button class="btn-picker" data-i18n="bpcBtn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:3px;vertical-align:middle;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Подобрать
+          </button>
+        </div>
+      </div>
+      <div id="bikeGrid">
         <!-- Static SEO content — replaced by JS on load -->
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-scooter" role="img" aria-label="Honda Scoopy 110 аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Honda Scoopy 110</div><div class="bike-card-cc">110 cc</div><div class="bike-card-footer"><span class="bike-card-price">от 130 &#3647;</span></div></div></div>
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-scooter" role="img" aria-label="Honda Click 125 аренда Пхукет">🛵</div><div class="bike-card-body"><div class="bike-card-name">Honda Click 125</div><div class="bike-card-cc">125 cc</div><div class="bike-card-footer"><span class="bike-card-price">от 130 &#3647;</span></div></div></div>
@@ -372,6 +306,7 @@
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-moto" role="img" aria-label="Honda CBR500R аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda CBR500R</div><div class="bike-card-cc">500 cc — Спортбайк</div><div class="bike-card-footer"><span class="bike-card-price">от 600 &#3647;</span></div></div></div>
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-moto" role="img" aria-label="Honda Rebel 500 аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Honda Rebel 500</div><div class="bike-card-cc">500 cc — Круизер</div><div class="bike-card-footer"><span class="bike-card-price">от 600 &#3647;</span></div></div></div>
         <div class="bike-card bike-card-v"><div class="bike-card-img cat-moto" role="img" aria-label="Kawasaki Vulcan 650S аренда Пхукет">🏍</div><div class="bike-card-body"><div class="bike-card-name">Kawasaki Vulcan 650S</div><div class="bike-card-cc">650 cc — Круизер</div><div class="bike-card-footer"><span class="bike-card-price">от 700 &#3647;</span></div></div></div>
+      </div>
       </div>
     </main>
 
@@ -476,99 +411,69 @@
     </main>
 
     <!-- ══════ TAB 4: КОНТАКТЫ ══════ -->
-    <main id="page-contacts" class="page">
-      <div class="contacts-page">
-        <h2 class="page-title">Контакты</h2>
-
-        <!-- Address Hero -->
+    <main id="page-contacts" class="page" style="position:relative;">
+      <div class="contacts-content">
+        <!-- Address hero (mockup v3.8) -->
         <div class="address-hero" id="addressHero">
-          <span class="address-badge" data-i18n="contactBadge">Наш офис на Пхукете</span>
-          <h3 class="address-name">ThaiGo Rent</h3>
-          <p class="address-line address-hero-text" data-i18n="contactAddr">Ката, Пхукет, Таиланд</p>
+          <div class="address-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-i18n="contactBadge">Наш офис на Пхукете</span>
+          </div>
+          <div class="address-name">ThaiGo Rent</div>
+          <div class="address-line" data-i18n="contactAddr">Ката, Пхукет, Таиланд<br><span style="font-size:11px;color:var(--text3);">Точный адрес пришлём при заказе</span></div>
           <a class="route-btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=7.8439,98.2977" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-            <span data-i18n="contactRoute">Построить маршрут</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="3,11 22,2 13,21 11,13"/></svg>
+            <span data-i18n="contactRoute">Построить маршрут в офис</span>
           </a>
         </div>
 
-        <!-- Contact info -->
+        <!-- Contact card (mockup v3.8) -->
         <div class="contact-card" id="contactCard">
           <div class="contact-row">
-            <span class="contact-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            </span>
-            <div class="contact-info">
-              <div class="contact-meta" data-i18n="contactAddrLabel">Адрес</div>
-              <div class="contact-value" data-i18n="contactAddr">Ката, Пхукет, Таиланд</div>
-            </div>
-          </div>
-          <div class="contact-row">
-            <span class="contact-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </span>
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
             <div class="contact-info">
               <div class="contact-meta" data-i18n="contactHoursLabel">Часы работы</div>
-              <div class="contact-value" data-i18n="contactHours">Ежедневно 8:00–20:00</div>
+              <div class="contact-value" data-i18n="contactHours">Ежедневно 09:00 – 21:00</div>
             </div>
           </div>
           <div class="contact-row">
-            <span class="contact-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </span>
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 14 19.79 19.79 0 011.61 5.43 2 2 0 013.6 3.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 10.9a16 16 0 006.29 6.29l.95-.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
             <div class="contact-info">
               <div class="contact-meta" data-i18n="contactPhoneLabel">Телефон</div>
-              <div class="contact-value"><a href="tel:+66822545737">+66 82 254 5737</a></div>
+              <a href="tel:+66822545737" style="text-decoration:none;"><div class="contact-value tel">+66 82 254 5737</div></a>
             </div>
           </div>
         </div>
 
-        <!-- Messenger buttons -->
+        <!-- Messenger buttons (mockup v3.8) -->
         <div class="messenger-row" id="contactMessengerRow">
-          <a class="btn-msg-tg btn-messenger-icon" href="https://t.me/ThaiGoSale1" target="_blank" rel="noopener">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          <a class="btn-msg-tg" href="https://t.me/ThaiGoSale1" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>
             <span data-i18n="ctaTelegram">Telegram</span>
           </a>
-          <a class="btn-msg-wa btn-messenger-icon" href="https://wa.me/66822545737" target="_blank" rel="noopener">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <a class="btn-msg-wa" href="https://wa.me/66822545737" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.08-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
             <span data-i18n="ctaWhatsapp">WhatsApp</span>
           </a>
         </div>
 
-        <!-- Delivery info -->
+        <!-- Delivery info (mockup v3.8) -->
         <div class="delivery-info">
-          <h3 class="delivery-title" data-i18n="deliveryInfoTitle">Зоны доставки</h3>
+          <div class="delivery-title" data-i18n="deliveryInfoTitle">Доставка байка</div>
           <div class="delivery-free-zones">
-            <h4 class="dz-title" data-i18n="deliveryFreeTitle">Бесплатно (от 3 дней)</h4>
-            <p class="dz-list" data-i18n="deliveryFreeList">Ката, Карон, Патонг</p>
+            <div class="dz-title" data-i18n="deliveryFreeTitle">✓ Бесплатно от 3 дней</div>
+            <div class="dz-list" data-i18n="deliveryFreeList">Ката · Карон · Патонг · Чалонг · Раваи</div>
           </div>
           <div class="delivery-paid-zones">
-            <h4 class="dz-title" data-i18n="deliveryPaidTitle">300 &#3647; (бесплатно от 7 дней)</h4>
-            <p class="dz-list" data-i18n="deliveryPaidList">Камала, Сурин, Бангтао, Раваи, Чалонг</p>
+            <div class="dz-title" data-i18n="deliveryPaidTitle">Платно 300 ฿ (бесплатно от 7 дн)</div>
+            <div class="dz-list" data-i18n="deliveryPaidList">Камала · Сурин · Бангтао · Маи Кхао · весь остров</div>
           </div>
-        </div>
-
-        <!-- Delivery areas grid (kept for JS) -->
-        <section class="section" style="display:none">
-          <h3 class="section-title">Районы доставки</h3>
-          <div class="dlv-grid" id="dlvGridContacts"></div>
-        </section>
-
-        <section class="section">
-          <h3 class="section-title">FAQ</h3>
-          <details class="faq-item"><summary>Сколько стоит аренда байка?</summary><p>Honda Scoopy от 180 &#3647;/день, Honda Click от 200 &#3647;/день, PCX/NMAX от 300 &#3647;/день. Чем дольше срок — тем дешевле.</p></details>
-          <details class="faq-item"><summary>Какие документы нужны?</summary><p>Загранпаспорт и международные права (категория А). Залог от 2000 &#3647; или копия паспорта.</p></details>
-          <details class="faq-item"><summary>Есть ли страховка?</summary><p>Да, базовая страховка включена бесплатно. Дополнительная Страховка+ — от 50 &#3647;/день.</p></details>
-        </section>
-
-        <div class="contacts-footer">
-          <p>ThaiGo Rent — аренда байков на Пхукете. Офис в Кате.</p>
-          <p class="footer-seo">ThaiGo Rent — официальная аренда байков и скутеров на Пхукете. Офис в Кате. Доставка в Патонг, Карон, Камала, Бангтао, Раваи, Чалонг, аэропорт Пхукета и другие районы острова. Honda Scoopy, Click, PCX, Yamaha Nmax, Xmax, Forza и другие модели. Работаем ежедневно 8:00–20:00, поддержка на русском языке 24/7.</p>
         </div>
       </div>
 
-      <!-- Floating route button -->
+      <!-- FAB route button (mockup v3.8) -->
       <a class="fab-route" id="fabRouteToOffice" href="https://www.google.com/maps/dir/?api=1&amp;destination=7.8439,98.2977" target="_blank" rel="noopener">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="3,11 22,2 13,21 11,13"/></svg>
         <span class="fab-text" data-i18n="fabRouteToOffice">Маршрут в офис</span>
       </a>
     </main>
@@ -605,7 +510,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
               </span>
             </button>
-            <button class="ins-chip" id="insPlusChip">
+            <button class="ins-chip ins-plus" id="insPlusChip">
               <span class="ins-chip-text"><span data-i18n="insPlus">Страховка+</span><span class="ins-chip-cost" id="insPlusCostLabel"> · 50 ฿/день</span></span>
               <span class="ins-chip-info" id="insPlusInfo" aria-label="Info">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -624,14 +529,17 @@
           </div>
         </div>
         <div class="sheet-calc">
-          <label class="sheet-calc-label">Дней аренды: <strong id="sheetDays">3</strong></label>
-          <input type="range" id="sheetDaySlider" min="1" max="30" value="3" class="sheet-slider" />
+          <label class="sheet-calc-label">Дней аренды: <strong id="sheetDays">8</strong></label>
+          <input type="range" id="sheetDaySlider" min="1" max="30" value="8" class="sheet-slider" />
+          <div class="sheet-discount-hint" id="sheetDiscountHint" style="display:none;"></div>
+          <div class="sheet-breakdown" id="sheetBreakdown"></div>
           <div class="sheet-total">Итого: <strong id="sheetTotal">0 &#3647;</strong></div>
         </div>
         <div class="sheet-actions" id="sheetActions">
-          <a class="btn btn-wa btn-full" id="sheetWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
           <a class="btn btn-tg btn-full" id="sheetTg" href="#" target="_blank" rel="noopener">Telegram</a>
+          <a class="btn btn-wa btn-full" id="sheetWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
         </div>
+        <div class="sheet-order-hint" id="sheetOrderHint" data-i18n="sheetOrderHint">Мы пришлём готовый расчёт — вам только подтвердить</div>
         <p class="reply-time" data-i18n="ctaReplyTime">&#9889; Отвечаем быстро</p>
       </div>
     </div>

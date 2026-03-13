@@ -1722,8 +1722,6 @@ function renderMapMarkers() {
     const inRoute = route.some(r => r.id === p.id);
     const routeIdx = route.findIndex(r => r.id === p.id);
     const isOffice = cat === 'office';
-    const r = isOffice ? 18 : 16;
-    const emoji = p.icon || '';
 
     // Use 15px radius circles with SVG icon inside (mockup v3.8 style: 30x30 colored circles)
     const pinR = isOffice ? 18 : 15;
@@ -1736,9 +1734,7 @@ function renderMapMarkers() {
         stroke="${inRoute ? '#fff' : 'rgba(255,255,255,0.6)'}"
         stroke-width="${inRoute ? '2' : '1'}"
         style="filter:drop-shadow(0 2px 4px ${color}66);"/>
-      <g transform="translate(${-iconSize/2},${-iconSize/2})">
-        <svg width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${svgPaths}</svg>
-      </g>
+      <g transform="scale(${(iconSize/24).toFixed(3)}) translate(${(-12).toFixed(0)},${(-12).toFixed(0)})" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${svgPaths}</g>
       ${isOffice ? `<circle r="${pinR + 6}" fill="none" stroke="${color}" stroke-width="1.5" opacity="0" class="office-pulse-svg"/>` : ''}
       ${inRoute ? `<circle cx="${pinR + 2}" cy="${-(pinR + 2)}" r="8" fill="${color}" stroke="#fff" stroke-width="1.5"/>
       <text x="${pinR + 2}" y="${-(pinR - 1)}" text-anchor="middle" font-size="8" font-weight="900" fill="#fff">${routeIdx + 1}</text>` : ''}
@@ -1880,7 +1876,8 @@ function filterPlaces() {
 function renderPlaces() {
   const filtered = filterPlaces();
 
-  rsPlaceList.innerHTML = filtered.map(p => {
+  const routeMsg = encodeURIComponent(t('routeMsgDefault') || 'Хочу арендовать байк на Пхукете');
+  const placesHtml = filtered.map(p => {
     const cat = getDisplayCat(p);
     const color = MAP_CAT_COLORS[cat] || '#6b7280';
     const gradient = CAT_ICON_GRADIENTS[cat] || CAT_ICON_GRADIENTS.top;
@@ -1899,9 +1896,7 @@ function renderPlaces() {
     `;
   }).join('');
 
-  // Append CTA buttons at bottom of places list (mockup v3.8)
-  const routeMsg = encodeURIComponent(t('routeMsgDefault') || 'Хочу арендовать байк на Пхукете');
-  rsPlaceList.innerHTML += `
+  rsPlaceList.innerHTML = placesHtml + `
     <div style="padding:12px 16px 8px;">
       <div class="rs-route-cta-hint">${t('routeWantRide') || 'Хотите проехать этот маршрут?'}</div>
       <div class="rs-route-cta">
@@ -2339,7 +2334,7 @@ function renderRoutePanel() {
 
       // Taxi comparison — mockup v3.8 style
       const taxiCost = Math.round(stats.km * TAXI_RATE_PER_KM);
-      const bikeCost = stats.fuel.replace(/[^0-9]/g, '') || '80';
+      const bikeCost = String(stats.fuel).replace(/[^0-9]/g, '') || '80';
       const saving = taxiCost - parseInt(bikeCost);
       html += `<div class="rs-taxi-compare">
         <div class="rs-taxi-title">${t('costTaxiVsBike') || 'На байке vs на такси по этому маршруту'}</div>

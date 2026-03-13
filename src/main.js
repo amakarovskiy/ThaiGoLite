@@ -1697,9 +1697,11 @@ const PIN_PATH = 'M18 44C18 44 2 26 2 16C2 7.16 9.16 0 18 0C26.84 0 34 7.16 34 1
 
 function renderMapMarkers() {
   const filtered = filterPlaces();
-  // Pin dimensions in SVG units (scaled by updateMarkerScale)
+  // Pin: 36×44 SVG units; icon 16×16 centered in the circle part (cy≈16)
   const PW = 36, PH = 44;
-  const iconScale = (16 / 24).toFixed(3); // 16px icon inside 24-unit viewBox
+  const iconScale = (16 / 24).toFixed(3);
+  // Icon center offset inside the teardrop head: cx=18, cy≈15
+  const IX = PW / 2 - 8, IY = 16 - 8;
 
   let html = '';
   filtered.forEach((p, i) => {
@@ -1709,22 +1711,24 @@ function renderMapMarkers() {
     const inRoute = route.some(r => r.id === p.id);
     const routeIdx = route.findIndex(r => r.id === p.id);
     const isOffice = cat === 'office';
-    const delay = i * 80; // cascade animation delay
+    const delay = Math.min(i * 60, 1200); // cascade, cap at 1.2s
 
-    html += `<g class="map-pin ${inRoute ? 'in-route' : ''} ${isOffice ? 'map-pin--office' : ''}"
-      data-id="${p.id}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}"
-      transform="translate(${x.toFixed(1)},${y.toFixed(1)})"
-      style="animation-delay:${delay}ms">
-      <g transform="translate(${-PW / 2},${-PH})">
-        <path d="${PIN_PATH}" fill="${info.color}" stroke="#fff" stroke-width="2"
-          style="filter:drop-shadow(0 2px 8px rgba(0,0,0,.25))"/>
-        <g transform="translate(${PW / 2 - 8},${16 - 8}) scale(${iconScale})"
-          fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${info.path}</g>
+    // Outer <g> = position only (managed by updateMarkerScale), NO CSS animation
+    // Inner <g class="map-pin-body"> = visual content + CSS opacity animation
+    html += `<g class="map-pin" data-id="${p.id}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}"
+      transform="translate(${x.toFixed(1)},${y.toFixed(1)})">
+      <g class="map-pin-body ${inRoute ? 'in-route' : ''} ${isOffice ? 'map-pin--office' : ''}"
+        style="animation-delay:${delay}ms">
+        <g transform="translate(${-PW / 2},${-PH})">
+          <path class="map-pin-shape" d="${PIN_PATH}" fill="${info.color}" stroke="#fff" stroke-width="2"/>
+          <g transform="translate(${IX},${IY}) scale(${iconScale})"
+            fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${info.path}</g>
+        </g>
+        ${inRoute ? `<g transform="translate(12,${-PH})">
+          <circle r="9" fill="${info.color}" stroke="#fff" stroke-width="1.5"/>
+          <text y="3.5" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">${routeIdx + 1}</text>
+        </g>` : ''}
       </g>
-      ${inRoute ? `<g transform="translate(10,${-PH + 2})">
-        <circle r="9" fill="${info.color}" stroke="#fff" stroke-width="1.5"/>
-        <text y="3.5" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">${routeIdx + 1}</text>
-      </g>` : ''}
     </g>`;
   });
   mapMarkers.innerHTML = html;
@@ -1732,9 +1736,8 @@ function renderMapMarkers() {
   mapMarkers.querySelectorAll('.map-pin').forEach(m => {
     m.addEventListener('click', e => {
       e.stopPropagation();
-      // Toggle active state
-      mapMarkers.querySelectorAll('.map-pin.active').forEach(a => a.classList.remove('active'));
-      m.classList.add('active');
+      mapMarkers.querySelectorAll('.map-pin-body.active').forEach(a => a.classList.remove('active'));
+      m.querySelector('.map-pin-body').classList.add('active');
       const place = PLACES.find(p => p.id === m.dataset.id);
       if (place) openPlaceSheet(place);
     });

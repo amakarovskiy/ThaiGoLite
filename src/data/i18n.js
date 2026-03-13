@@ -282,7 +282,7 @@ export const T = {
   },
   bpInsBasic: { ru: 'Базовая', en: 'Basic', de: 'Basis', fr: 'Base', es: 'Básico', th: 'พื้นฐาน' },
   bpInsBasicFree: { ru: 'бесплатно', en: 'free', de: 'kostenlos', fr: 'gratuit', es: 'gratis', th: 'ฟรี' },
-  bpInsPlus: { ru: 'Страховка+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+', th: 'ประกัน+' },
+  bpInsPlus: { ru: 'Страхование+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+', th: 'ประกัน+' },
   bpInsPlusManual: { ru: 'Недоступна', en: 'Not available', de: 'Nicht verfügbar', fr: 'Non disponible', es: 'No disponible', th: 'ไม่มี' },
   bpInsPerDay: { ru: '฿/день', en: '฿/day', de: '฿/Tag', fr: '฿/jour', es: '฿/día', th: '฿/วัน' },
   bpTotal: { ru: 'Итого:', en: 'Total:', de: 'Gesamt:', fr: 'Total :', es: 'Total:', th: 'รวม:' },
@@ -316,7 +316,7 @@ export const T = {
   // ── Trust strip labels ──
   trustContract: { ru: 'Договор', en: 'Contract', de: 'Vertrag', fr: 'Contrat', es: 'Contrato', th: 'สัญญา' },
   trustNoDeposit: { ru: 'Без залога паспорта', en: 'No passport deposit', de: 'Ohne Passkaution', fr: 'Sans caution', es: 'Sin depósito', th: 'ไม่ต้องวางพาสปอร์ต' },
-  trustInsurance: { ru: 'Страховка', en: 'Insurance', de: 'Versicherung', fr: 'Assurance', es: 'Seguro', th: 'ประกัน' },
+  trustInsurance: { ru: 'Страхование', en: 'Insurance', de: 'Versicherung', fr: 'Assurance', es: 'Seguro', th: 'ประกัน' },
   trustDelivery: { ru: 'Доставка к отелю', en: 'Hotel delivery', de: 'Hotellieferung', fr: 'Livraison', es: 'Entrega', th: 'จัดส่ง' },
   trustSupport: { ru: 'Поддержка 24/7', en: '24/7 Support', de: '24/7 Support', fr: 'Support 24/7', es: 'Soporte 24/7', th: 'บริการ 24/7' },
 
@@ -329,9 +329,9 @@ export const T = {
   sheetRentalPeriod: { ru: 'Срок аренды:', en: 'Rental period:', de: 'Mietdauer:', fr: 'Durée:', es: 'Periodo:', th: 'ระยะเวลาเช่า:' },
   sheetDaysLabel: { ru: 'дней', en: 'days', de: 'Tage', fr: 'jours', es: 'días', th: 'วัน' },
   sheetSaving: { ru: 'экономия', en: 'savings', de: 'Ersparnis', fr: 'économie', es: 'ahorro', th: 'ประหยัด' },
-  sheetInsBasicTitle: { ru: 'Страховка — включена бесплатно', en: 'Insurance — included free', de: 'Versicherung — kostenlos', fr: 'Assurance — incluse', es: 'Seguro — incluido', th: 'ประกัน — ฟรี' },
+  sheetInsBasicTitle: { ru: 'Страхование — включено бесплатно', en: 'Insurance — included free', de: 'Versicherung — kostenlos', fr: 'Assurance — incluse', es: 'Seguro — incluido', th: 'ประกัน — ฟรี' },
   sheetInsBasicDesc: { ru: 'Здоровье водителя и пассажира · до 30 000 ฿', en: 'Rider & passenger health · up to 30,000 ฿', de: 'Fahrer- & Beifahrer-Gesundheit · bis 30.000 ฿', fr: 'Santé conducteur & passager · jusqu\'à 30 000 ฿', es: 'Salud conductor y pasajero · hasta 30,000 ฿', th: 'สุขภาพผู้ขับขี่และผู้โดยสาร · สูงสุด 30,000 ฿' },
-  sheetInsProtTitle: { ru: 'Защита байка+', en: 'Bike Protection+', de: 'Bike-Schutz+', fr: 'Protection moto+', es: 'Protección moto+', th: 'ความคุ้มครองรถ+' },
+  sheetInsProtTitle: { ru: 'Страхование+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+', th: 'ประกัน+' },
   sheetInsProtTags: {
     ru: ['Царапины', 'Вмятины', 'Падение', 'Опрокидывание'],
     en: ['Scratches', 'Dents', 'Falls', 'Tipping over'],
@@ -691,7 +691,7 @@ export const T = {
     ru: [
       { q: 'Сколько стоит аренда байка?', a: 'Honda Scoopy от 130 \u0E3F/день, Honda Click от 130 \u0E3F/день, PCX/NMAX от 250 \u0E3F/день. Чем дольше срок — тем дешевле.' },
       { q: 'Какие документы нужны?', a: 'Загранпаспорт и международные права (категория А). Залог от 2000 \u0E3F или копия паспорта.' },
-      { q: 'Есть ли страховка?', a: 'Да, базовая страховка включена бесплатно. Защита байка — от 500 ฿ за период до 10 дней (~50 ฿/день при 10 дн.).' },
+      { q: 'Есть ли страхование?', a: 'Да, базовое страхование включено бесплатно. Страхование+ — от 500 ฿ за период до 10 дней (~50 ฿/день при 10 дн.).' },
       { q: 'Безопасно ли ездить?', a: 'Движение левостороннее. Шлем обязателен (штраф 500 \u0E3F). Не превышайте 60 км/ч в городе.' },
       { q: 'Сколько стоит бензин?', a: '~43 \u0E3F/литр. Расход скутера — 2 л/100 км. Маршрут 50 км обойдётся в ~45 \u0E3F бензина.' },
       { q: 'Как пользоваться планировщиком?', a: 'Откройте вкладку «Маршруты», добавьте места, получите расчёт км, времени и бензина.' },
@@ -802,16 +802,16 @@ export const T = {
 
   // ── Insurance ──
   insBasic: {
-    ru: 'Страховка', en: 'Insurance', de: 'Versicherung', fr: 'Assurance', es: 'Seguro', th: 'ประกัน'
+    ru: 'Страхование', en: 'Insurance', de: 'Versicherung', fr: 'Assurance', es: 'Seguro', th: 'ประกัน'
   },
   insPlus: {
-    ru: '\u{1F6E1} Защита байка', en: '\u{1F6E1} Bike Protection', de: '\u{1F6E1} Bike-Schutz', fr: '\u{1F6E1} Protection moto', es: '\u{1F6E1} Protección de moto', th: '\u{1F6E1} การป้องกันรถ'
+    ru: 'Страхование+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+', th: 'ประกัน+'
   },
   insBasicTitle: {
-    ru: 'Страховка (включена)', en: 'Insurance (included)', de: 'Versicherung (inkl.)', fr: 'Assurance (incluse)', es: 'Seguro (incluido)', th: 'ประกัน (รวมอยู่แล้ว)'
+    ru: 'Страхование (включено)', en: 'Insurance (included)', de: 'Versicherung (inkl.)', fr: 'Assurance (incluse)', es: 'Seguro (incluido)', th: 'ประกัน (รวมอยู่แล้ว)'
   },
   insBasicDesc: {
-    ru: 'Здоровье водителя и пассажира. Покрытие до 30 000 ฿ на госпитализацию. Включена бесплатно.',
+    ru: 'Здоровье водителя и пассажира. Покрытие до 30 000 ฿ на госпитализацию. Включено бесплатно.',
     en: 'Rider and passenger health coverage. Up to 30,000 ฿ hospitalization. Included free.',
     de: 'Fahrer- und Beifahrerschutz. Bis zu 30.000 ฿ Krankenhauskosten. Kostenlos inklusive.',
     fr: 'Santé du conducteur et passager. Jusqu\'à 30 000 ฿ d\'hospitalisation. Incluse gratuitement.',
@@ -819,7 +819,7 @@ export const T = {
     th: 'คุ้มครองสุขภาพผู้ขับและผู้โดยสาร สูงสุด 30,000 ฿ ค่ารักษาพยาบาล รวมฟรี'
   },
   insPlusTitle: {
-    ru: 'Страховка+ (расширенная)', en: 'Insurance+ (extended)', de: 'Versicherung+ (erweitert)', fr: 'Assurance+ (étendue)', es: 'Seguro+ (extendido)', th: 'ประกัน+ (ขยาย)'
+    ru: 'Страхование+ (расширенное)', en: 'Insurance+ (extended)', de: 'Versicherung+ (erweitert)', fr: 'Assurance+ (étendue)', es: 'Seguro+ (extendido)', th: 'ประกัน+ (ขยาย)'
   },
   insPlusDesc: {
     ru: 'Не платишь за случайные царапины. Франшиза 3 000 ฿.',

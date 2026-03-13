@@ -1277,7 +1277,7 @@ function updateSheetCalc() {
     let html = '';
     html += `<div class="breakdown-row"><span>${t('sheetBike') || '\u0411\u0430\u0439\u043A'} ${perDay} \u0E3F \xD7 ${sheetDays} ${t('popDays') || '\u0434\u043D\u0435\u0439'}</span><span>${rentalTotal.toLocaleString()} \u0E3F</span></div>`;
     if (sheetInsurancePlus && insTier) {
-      html += `<div class="breakdown-row"><span>${t('insPlus') || '\u0417\u0430\u0449\u0438\u0442\u0430 \u0431\u0430\u0439\u043A\u0430+'}</span><span>${insCost.toLocaleString()} \u0E3F</span></div>`;
+      html += `<div class="breakdown-row"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>${t('insPlus') || 'Страхование+'}</span><span>${insCost.toLocaleString()} \u0E3F</span></div>`;
     }
     html += `<div class="breakdown-divider"></div>`;
     html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal') || '\u0418\u0442\u043E\u0433\u043E'}</span><span class="breakdown-total-value">${total.toLocaleString()} \u0E3F</span></div>`;

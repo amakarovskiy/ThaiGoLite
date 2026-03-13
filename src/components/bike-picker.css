@@ -43,7 +43,7 @@
 /* Progress bar */
 .bp-progress {
   height: 4px;
-  background: #e5e7eb;
+  background: var(--color-border);
   margin: 0 20px 8px;
   border-radius: 2px;
   flex-shrink: 0;
@@ -98,7 +98,7 @@
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  border: 2px solid #e5e7eb;
+  border: 1.5px solid var(--color-border);
   border-radius: 14px;
   background: var(--color-surface);
   cursor: pointer;
@@ -110,22 +110,22 @@
 }
 .bp-option.selected {
   border-color: var(--color-primary);
-  background: #eef2ff;
+  background: var(--color-primary-light);
 }
 .bp-option-icon {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  background: #f3f4f6;
-  color: #6b7280;
+  border-radius: 10px;
+  background: var(--color-surface-alt);
+  color: var(--color-text-secondary);
   transition: background .2s, color .2s;
 }
 .bp-option.selected .bp-option-icon {
-  background: #4338ca;
+  background: var(--color-primary);
   color: #fff;
 }
 .bp-option-text {
@@ -144,7 +144,7 @@
 .bp-option-check {
   width: 22px;
   height: 22px;
-  border: 2px solid #d1d5db;
+  border: 1.5px solid var(--color-border);
   border-radius: 50%;
   flex-shrink: 0;
   display: flex;
@@ -193,11 +193,11 @@
   gap: 6px;
   margin-top: 10px;
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--color-text-muted);
 }
 .bp-promise svg {
   flex-shrink: 0;
-  color: #9ca3af;
+  color: var(--color-text-muted);
 }
 
 /* Step 6: Budget + slider */
@@ -209,7 +209,7 @@
 .bp-budget-btn {
   flex: 1;
   padding: 10px 8px;
-  border: 2px solid #e5e7eb;
+  border: 1.5px solid var(--color-border);
   border-radius: 12px;
   background: var(--color-surface);
   cursor: pointer;
@@ -220,17 +220,17 @@
 }
 .bp-budget-btn.active {
   border-color: var(--color-primary);
-  background: #eef2ff;
+  background: var(--color-primary-light);
 }
 .bp-budget-icon {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 4px;
-  color: #6b7280;
+  color: var(--color-text-secondary);
 }
 .bp-budget-btn.active .bp-budget-icon {
-  color: #4338ca;
+  color: var(--color-primary);
 }
 
 .bp-slider-row {
@@ -303,7 +303,7 @@
   justify-content: center;
   border-radius: 12px;
   flex-shrink: 0;
-  color: #4338ca;
+  color: var(--color-primary);
 }
 .bp-result-emoji.cat-scooter { background: linear-gradient(135deg, #eef2ff, #dbeafe); }
 .bp-result-emoji.cat-maxi { background: linear-gradient(135deg, #d1fae5, #e0f2fe); }
@@ -333,7 +333,7 @@
   padding: 3px 8px;
   border-radius: 6px;
   background: #f3f4f6;
-  color: #6b7280;
+  color: var(--color-text-secondary);
 }
 .bp-result-price {
   display: flex;
@@ -372,14 +372,14 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border: 2px solid #e5e7eb;
+  border: 1.5px solid var(--color-border);
   border-radius: 12px;
   cursor: pointer;
   transition: border-color .2s, background .2s;
 }
 .bp-ins-option.active {
   border-color: var(--color-primary);
-  background: #eef2ff;
+  background: var(--color-primary-light);
 }
 .bp-ins-option.disabled {
   opacity: .45;
@@ -388,7 +388,7 @@
 .bp-ins-radio {
   width: 18px;
   height: 18px;
-  border: 2px solid #d1d5db;
+  border: 1.5px solid var(--color-border);
   border-radius: 50%;
   flex-shrink: 0;
   position: relative;
@@ -425,7 +425,7 @@
   align-items: center;
   padding: 12px 0;
   margin-bottom: 16px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border);
   font-size: 16px;
   font-weight: 600;
 }
@@ -465,7 +465,7 @@
   width: 100%;
   margin-top: 12px;
   padding: 12px;
-  border: 2px solid #e5e7eb;
+  border: 1.5px solid var(--color-border);
   border-radius: 12px;
   background: transparent;
   color: var(--color-text-secondary);

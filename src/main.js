@@ -2068,12 +2068,23 @@ function initRouteStopsDragDrop() {
 }
 
 function updateRoute() {
-  // Update badge
+  // Update badge on route tab inside sheet
   if (route.length > 0) {
     rsBadge.textContent = route.length;
     rsBadge.style.display = 'inline-flex';
   } else {
     rsBadge.style.display = 'none';
+  }
+
+  // Update guide tab badge
+  const guideBadge = $('guideRouteBadge');
+  if (guideBadge) {
+    if (route.length > 0) {
+      guideBadge.textContent = route.length;
+      guideBadge.classList.add('visible');
+    } else {
+      guideBadge.classList.remove('visible');
+    }
   }
 
   // Update route line on map
@@ -2511,11 +2522,14 @@ const bpOverlay = $('bikePickerOverlay');
 const bpBody = $('bpBody');
 const bpProgressFill = $('bpProgressFill');
 let bpStep = 0;
-let bpAnswers = { who: [], experience: null, bikeType: null, priorities: [], destination: [], days: 7, budget: null };
+const QUIZ_TOTAL_STEPS = 5;
+// Duration option → days mapping for scoring
+const QUIZ_DURATION_DAYS = { '1-2': 2, '3-6': 5, '7-19': 14, '20-30': 25 };
+let bpAnswers = { experience: null, destination: [], duration: null, priorities: [], budget: null };
 
 function openBikePicker() {
   bpStep = 0;
-  bpAnswers = { who: [], experience: null, bikeType: null, priorities: [], destination: [], days: 7, budget: null };
+  bpAnswers = { experience: null, destination: [], duration: null, priorities: [], budget: null };
   bpOverlay.classList.add('active');
   document.body.style.overflow = 'hidden';
   $('bpTitle').textContent = t('bpTitle');
@@ -2533,23 +2547,86 @@ $('menuBikePicker').addEventListener('click', () => {
   openBikePicker();
 });
 
-const BP_TOTAL_STEPS = 6;
-
 function updateBpProgress() {
-  const pct = Math.min(100, Math.round((bpStep / BP_TOTAL_STEPS) * 100));
+  const pct = Math.min(100, Math.round(((bpStep + 1) / QUIZ_TOTAL_STEPS) * 100));
   bpProgressFill.style.width = pct + '%';
 }
 
-function renderBpStep() {
+function bpMakeOption(iconName, labelKey, descKey, value) {
+  return { icon: bpIcon(iconName), label: t(labelKey), desc: t(descKey), value };
+}
+
+// Shared quiz step renderer with back/next nav
+function renderQuizQuestion(stepNum, questionKey, hintKey, options, isSingle, currentVal, onSelect) {
   updateBpProgress();
-  // Determine effective step (skip step 3 for newbie/beginner)
-  if (bpStep === 2 && (bpAnswers.experience === 'newbie' || bpAnswers.experience === 'beginner')) {
-    bpAnswers.bikeType = 'auto';
-    bpStep = 3; // skip to step 4 (priorities)
-    updateBpProgress();
+  const stepLabel = `${t('quizStep1Q').length ? '' : ''}${stepNum} ${t('quizStepOf')} ${QUIZ_TOTAL_STEPS}`;
+
+  bpBody.innerHTML = `
+    <div class="bp-step">
+      <div class="quiz-header">
+        <div class="quiz-step">${stepLabel}</div>
+        <div class="quiz-q">${t(questionKey)}</div>
+        <div class="quiz-hint">${t(hintKey)}</div>
+      </div>
+      <div class="quiz-options">${options.map(o => {
+        const sel = isSingle ? (currentVal === o.value) : (Array.isArray(currentVal) && currentVal.includes(o.value));
+        return `
+        <div class="quiz-opt${sel ? ' selected' : ''}" data-val="${o.value}">
+          <div class="quiz-opt-icon">${o.icon}</div>
+          <div class="quiz-opt-text">
+            <div class="quiz-opt-label">${o.label}</div>
+            <div class="quiz-opt-desc">${o.desc}</div>
+          </div>
+        </div>`;
+      }).join('')}</div>
+      <div class="quiz-nav">
+        ${bpStep > 0 ? `<button class="btn-quiz-back" id="quizBackBtn">${t('quizBack')}</button>` : ''}
+        ${!isSingle ? `<button class="btn-quiz-next${(Array.isArray(currentVal) && currentVal.length > 0) ? '' : ' disabled'}" id="quizNextBtn">${t('bpNext')}</button>` : ''}
+      </div>
+      <div class="bp-promise">${bpIcon('shield', 16)}<span>${t('bpPromise')}</span></div>
+    </div>`;
+
+  if (isSingle) {
+    bpBody.querySelectorAll('.quiz-opt').forEach(el => {
+      el.addEventListener('click', () => {
+        bpBody.querySelectorAll('.quiz-opt').forEach(e => e.classList.remove('selected'));
+        el.classList.add('selected');
+        onSelect(el.dataset.val);
+        setTimeout(() => { bpStep++; renderBpStep(); }, 200);
+      });
+    });
+  } else {
+    bpBody.querySelectorAll('.quiz-opt').forEach(el => {
+      el.addEventListener('click', () => {
+        el.classList.toggle('selected');
+        const selected = [...bpBody.querySelectorAll('.quiz-opt.selected')].map(e => e.dataset.val);
+        onSelect(selected);
+        const btn = $('quizNextBtn');
+        if (btn) btn.classList.toggle('disabled', selected.length === 0);
+      });
+    });
+    const nextBtn = $('quizNextBtn');
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const selected = [...bpBody.querySelectorAll('.quiz-opt.selected')].map(e => e.dataset.val);
+        if (selected.length === 0) return;
+        bpStep++;
+        renderBpStep();
+      });
+    }
   }
 
-  const steps = [renderBpStep1, renderBpStep2, renderBpStep3, renderBpStep4, renderBpStep5, renderBpStep6];
+  const backBtn = $('quizBackBtn');
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      bpStep--;
+      renderBpStep();
+    });
+  }
+}
+
+function renderBpStep() {
+  const steps = [renderQuizStep1, renderQuizStep2, renderQuizStep3, renderQuizStep4, renderQuizStep5];
   if (bpStep >= steps.length) {
     renderBpResults();
     return;
@@ -2557,111 +2634,46 @@ function renderBpStep() {
   steps[bpStep]();
 }
 
-function bpMakeOption(iconName, labelKey, descKey, value) {
-  return { icon: bpIcon(iconName), label: t(labelKey), desc: t(descKey), value };
-}
-
-function bpRenderMultiStep(question, options, currentSelection, onNext) {
-  bpBody.innerHTML = `
-    <div class="bp-step">
-      <div class="bp-step-question">${question}</div>
-      <div class="bp-options">${options.map(o => `
-        <div class="bp-option${currentSelection.includes(o.value) ? ' selected' : ''}" data-val="${o.value}">
-          <span class="bp-option-icon">${o.icon}</span>
-          <div class="bp-option-text">
-            <div class="bp-option-label">${o.label}</div>
-            <div class="bp-option-desc">${o.desc}</div>
-          </div>
-          <span class="bp-option-check"></span>
-        </div>
-      `).join('')}</div>
-      <button class="bp-next${currentSelection.length > 0 ? ' enabled' : ''}" id="bpNextBtn">${t('bpNext')}</button>
-      <div class="bp-promise">${bpIcon('shield', 16)}<span>${t('bpPromise')}</span></div>
-    </div>`;
-  bpBody.querySelectorAll('.bp-option').forEach(el => {
-    el.addEventListener('click', () => {
-      el.classList.toggle('selected');
-      const selected = [...bpBody.querySelectorAll('.bp-option.selected')].map(e => e.dataset.val);
-      onNext.updateSelection(selected);
-      const btn = $('bpNextBtn');
-      btn.classList.toggle('enabled', selected.length > 0);
-    });
-  });
-  $('bpNextBtn').addEventListener('click', () => {
-    const selected = [...bpBody.querySelectorAll('.bp-option.selected')].map(e => e.dataset.val);
-    if (selected.length === 0) return;
-    onNext.commit(selected);
-    bpStep++;
-    renderBpStep();
-  });
-}
-
-function bpRenderSingleStep(question, options, currentValue, onCommit) {
-  bpBody.innerHTML = `
-    <div class="bp-step">
-      <div class="bp-step-question">${question}</div>
-      <div class="bp-options">${options.map(o => `
-        <div class="bp-option${currentValue === o.value ? ' selected' : ''}" data-val="${o.value}">
-          <span class="bp-option-icon">${o.icon}</span>
-          <div class="bp-option-text">
-            <div class="bp-option-label">${o.label}</div>
-            <div class="bp-option-desc">${o.desc}</div>
-          </div>
-          <span class="bp-option-check"></span>
-        </div>
-      `).join('')}</div>
-      <div class="bp-promise">${bpIcon('shield', 16)}<span>${t('bpPromise')}</span></div>
-    </div>`;
-  bpBody.querySelectorAll('.bp-option').forEach(el => {
-    el.addEventListener('click', () => {
-      bpBody.querySelectorAll('.bp-option').forEach(e => e.classList.remove('selected'));
-      el.classList.add('selected');
-      onCommit(el.dataset.val);
-      setTimeout(() => { bpStep++; renderBpStep(); }, 200);
-    });
-  });
-}
-
-// Step 1 — Who is riding? (multi)
-function renderBpStep1() {
+// Step 1 — Experience (single, 3 options)
+function renderQuizStep1() {
   const opts = [
-    bpMakeOption('solo', 'bpSolo', 'bpSoloDesc', 'solo'),
-    bpMakeOption('couple', 'bpCouple', 'bpCoupleDesc', 'couple'),
-    bpMakeOption('child', 'bpChild', 'bpChildDesc', 'child'),
-    bpMakeOption('girl', 'bpGirl', 'bpGirlDesc', 'girl')
+    bpMakeOption('newbie', 'quizExpFirst', 'quizExpFirstDesc', 'first'),
+    bpMakeOption('beginner', 'quizExpSome', 'quizExpSomeDesc', 'some'),
+    bpMakeOption('expert', 'quizExpPro', 'quizExpProDesc', 'pro')
   ];
-  bpRenderMultiStep(t('bpStep1Q'), opts, bpAnswers.who, {
-    updateSelection(sel) { bpAnswers.who = sel; },
-    commit(sel) { bpAnswers.who = sel; }
-  });
-}
-
-// Step 2 — Experience (single)
-function renderBpStep2() {
-  const opts = [
-    bpMakeOption('newbie', 'bpNewbie', 'bpNewbieDesc', 'newbie'),
-    bpMakeOption('beginner', 'bpBeginner', 'bpBeginnerDesc', 'beginner'),
-    bpMakeOption('confident', 'bpConfident', 'bpConfidentDesc', 'confident'),
-    bpMakeOption('expert', 'bpExpert', 'bpExpertDesc', 'expert')
-  ];
-  bpRenderSingleStep(t('bpStep2Q'), opts, bpAnswers.experience, val => {
+  renderQuizQuestion(1, 'quizStep1Q', 'quizStep1Hint', opts, true, bpAnswers.experience, val => {
     bpAnswers.experience = val;
   });
 }
 
-// Step 3 — Bike type (single, only for confident/expert)
-function renderBpStep3() {
+// Step 2 — Trip type (multi, 4 options)
+function renderQuizStep2() {
   const opts = [
-    bpMakeOption('auto', 'bpAutoOnly', 'bpAutoOnlyDesc', 'auto'),
-    bpMakeOption('manual', 'bpManualOk', 'bpManualOkDesc', 'any')
+    bpMakeOption('beach', 'bpBeach', 'bpBeachDesc', 'beach'),
+    bpMakeOption('island', 'bpIsland', 'bpIslandDesc', 'island'),
+    bpMakeOption('mountain', 'bpMountain', 'bpMountainDesc', 'mountain'),
+    bpMakeOption('beyond', 'bpBeyond', 'bpBeyondDesc', 'beyond')
   ];
-  bpRenderSingleStep(t('bpStep3Q'), opts, bpAnswers.bikeType, val => {
-    bpAnswers.bikeType = val;
+  renderQuizQuestion(2, 'quizStep2Q', 'quizStep2Hint', opts, false, bpAnswers.destination, sel => {
+    bpAnswers.destination = sel;
   });
 }
 
-// Step 4 — Priorities (multi)
-function renderBpStep4() {
+// Step 3 — Duration (single, 4 options with discount info)
+function renderQuizStep3() {
+  const opts = [
+    { icon: bpIcon('budgetAll', 18), label: t('quizDur1'), desc: t('quizDur1Desc'), value: '1-2' },
+    { icon: bpIcon('budgetAll', 18), label: t('quizDur2'), desc: t('quizDur2Desc'), value: '3-6' },
+    { icon: bpIcon('budgetAll', 18), label: t('quizDur3'), desc: t('quizDur3Desc'), value: '7-19' },
+    { icon: bpIcon('budgetAll', 18), label: t('quizDur4'), desc: t('quizDur4Desc'), value: '20-30' }
+  ];
+  renderQuizQuestion(3, 'quizStep3Q', 'quizStep3Hint', opts, true, bpAnswers.duration, val => {
+    bpAnswers.duration = val;
+  });
+}
+
+// Step 4 — Priorities (multi, 5 options)
+function renderQuizStep4() {
   const opts = [
     bpMakeOption('easy', 'bpEasy', 'bpEasyDesc', 'easy'),
     bpMakeOption('comfort', 'bpComfort', 'bpComfortDesc', 'comfort'),
@@ -2669,96 +2681,33 @@ function renderBpStep4() {
     bpMakeOption('style', 'bpStyle', 'bpStyleDesc', 'style'),
     bpMakeOption('economy', 'bpEconomy', 'bpEconomyDesc', 'economy')
   ];
-  bpRenderMultiStep(t('bpStep4Q'), opts, bpAnswers.priorities, {
-    updateSelection(sel) { bpAnswers.priorities = sel; },
-    commit(sel) { bpAnswers.priorities = sel; }
+  renderQuizQuestion(4, 'quizStep4Q', 'quizStep4Hint', opts, false, bpAnswers.priorities, sel => {
+    bpAnswers.priorities = sel;
   });
 }
 
-// Step 5 — Destination (multi)
-function renderBpStep5() {
+// Step 5 — Budget (single, 4 options)
+function renderQuizStep5() {
   const opts = [
-    bpMakeOption('beach', 'bpBeach', 'bpBeachDesc', 'beach'),
-    bpMakeOption('island', 'bpIsland', 'bpIslandDesc', 'island'),
-    bpMakeOption('mountain', 'bpMountain', 'bpMountainDesc', 'mountain'),
-    bpMakeOption('beyond', 'bpBeyond', 'bpBeyondDesc', 'beyond')
+    { icon: bpIcon('budgetAll', 18), label: t('bpBudgetAll'), desc: '', value: 'all' },
+    { icon: bpIcon('budgetEconomy', 18), label: t('bpBudgetEconomy'), desc: '', value: 'economy' },
+    { icon: bpIcon('budgetComfort', 18), label: t('bpBudgetComfort'), desc: '', value: 'comfort' },
+    { icon: bpIcon('budgetPremium', 18), label: t('bpBudgetPremium'), desc: '', value: 'premium' }
   ];
-  bpRenderMultiStep(t('bpStep5Q'), opts, bpAnswers.destination, {
-    updateSelection(sel) { bpAnswers.destination = sel; },
-    commit(sel) { bpAnswers.destination = sel; }
-  });
-}
-
-// Step 6 — Days + Budget
-function renderBpStep6() {
-  const budgets = [
-    { key: null, label: t('bpBudgetAll'), icon: bpIcon('budgetAll', 18) },
-    { key: 'economy', label: t('bpBudgetEconomy'), icon: bpIcon('budgetEconomy', 18) },
-    { key: 'comfort', label: t('bpBudgetComfort'), icon: bpIcon('budgetComfort', 18) },
-    { key: 'premium', label: t('bpBudgetPremium'), icon: bpIcon('budgetPremium', 18) }
-  ];
-  const cheapest = BIKES.reduce((min, b) => {
-    const p = getTotalPrice(b, bpAnswers.days);
-    return p < min ? p : min;
-  }, Infinity);
-
-  bpBody.innerHTML = `
-    <div class="bp-step">
-      <div class="bp-step-question">${t('bpStep6Q')}</div>
-      <div class="bp-slider-row">
-        <div class="bp-slider-label">
-          <span id="bpDaysLabel">${bpAnswers.days} ${t('bpDays')}</span>
-          <span id="bpTotalPreviewLabel">${t('bpTotalFrom')} ${cheapest.toLocaleString()} ฿</span>
-        </div>
-        <input type="range" class="bp-slider" id="bpDaySlider" min="1" max="30" value="${bpAnswers.days}">
-      </div>
-      <div class="bp-budget-row">${budgets.map(b => `
-        <button class="bp-budget-btn${bpAnswers.budget === b.key ? ' active' : ''}${b.key === null && bpAnswers.budget === null ? ' active' : ''}" data-budget="${b.key || ''}">
-          <span class="bp-budget-icon">${b.icon}</span>${b.label}
-        </button>
-      `).join('')}</div>
-      <button class="bp-next enabled" id="bpNextBtn">${t('bpNext')}</button>
-      <div class="bp-promise">${bpIcon('shield', 16)}<span>${t('bpPromise')}</span></div>
-    </div>`;
-
-  const slider = $('bpDaySlider');
-  function updateStep6() {
-    const days = parseInt(slider.value);
-    bpAnswers.days = days;
-    $('bpDaysLabel').textContent = days + ' ' + t('bpDays');
-    const filtered = bpAnswers.budget ? BIKES.filter(b => b.budgetGroup === bpAnswers.budget) : BIKES;
-    const min = filtered.reduce((m, b) => { const p = getTotalPrice(b, days); return p < m ? p : m; }, Infinity);
-    $('bpTotalPreviewLabel').textContent = t('bpTotalFrom') + ' ' + min.toLocaleString() + ' ฿';
-  }
-  slider.addEventListener('input', updateStep6);
-
-  bpBody.querySelectorAll('.bp-budget-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      bpBody.querySelectorAll('.bp-budget-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const val = btn.dataset.budget;
-      bpAnswers.budget = val || null;
-      updateStep6();
-    });
-  });
-
-  $('bpNextBtn').addEventListener('click', () => {
-    bpStep++;
-    renderBpStep();
+  renderQuizQuestion(5, 'quizStep5Q', 'quizStep5Hint', opts, true, bpAnswers.budget, val => {
+    bpAnswers.budget = val === 'all' ? null : val;
   });
 }
 
 // Scoring & Results
 function scoreBikes() {
   const a = bpAnswers;
-  // Map answer values to score keys
-  const whoMap = { solo: 'solo', couple: 'couple', child: 'child', girl: 'girl' };
   const prioMap = { easy: 'easy', comfort: 'comfort', sport: 'sport', style: 'style', economy: 'economy' };
   const destMap = { beach: 'beach', island: 'island', mountain: 'mountain', beyond: 'beyond' };
 
   let candidates = BIKES.filter(b => {
-    // Filter by transmission
-    if (a.bikeType === 'auto' && b.transmission === 'manual') return false;
+    // For first-timers, only auto transmission
+    if (a.experience === 'first' && b.transmission === 'manual') return false;
     // Filter by budget
     if (a.budget && b.budgetGroup !== a.budget) return false;
     return true;
@@ -2767,14 +2716,25 @@ function scoreBikes() {
   return candidates.map(bike => {
     let score = 0;
     const s = bike.scores;
-    // Who
-    a.who.forEach(w => { if (whoMap[w] && s[whoMap[w]]) score += s[whoMap[w]]; });
+
+    // Experience scoring
+    if (a.experience === 'first') {
+      if (s.easy) score += s.easy;
+      if (s.solo) score += s.solo;
+    } else if (a.experience === 'some') {
+      if (s.solo) score += s.solo;
+      if (s.comfort) score += s.comfort;
+    } else if (a.experience === 'pro') {
+      if (s.sport) score += (s.sport || 0);
+      if (s.couple) score += (s.couple || 0);
+    }
+
     // Priorities
     a.priorities.forEach(p => { if (prioMap[p] && s[prioMap[p]]) score += s[prioMap[p]]; });
     // Destinations
     a.destination.forEach(d => { if (destMap[d] && s[destMap[d]]) score += s[destMap[d]]; });
 
-    // Bonus: "Драйв" + "Комфорт" without "Лёгкость" → premium maxi bonus
+    // Bonus: "Драйв" + "Комфорт" → premium maxi bonus
     if (a.priorities.includes('sport') && a.priorities.includes('comfort') && !a.priorities.includes('easy')) {
       if (['xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'].includes(bike.id)) {
         score += 2;
@@ -2795,59 +2755,72 @@ let bpSelectedBike = null;
 let bpInsurancePlus = false;
 
 function renderBpResults() {
-  updateBpProgress();
   bpProgressFill.style.width = '100%';
   const results = scoreBikes();
-  const days = bpAnswers.days;
-  const catIcon = { scooter: bpIcon('scooter', 28), maxi: bpIcon('moto', 28), moto: bpIcon('moto', 28) };
+  const days = QUIZ_DURATION_DAYS[bpAnswers.duration] || 14;
+  const top = results[0]?.bike;
+  const alts = results.slice(1);
 
-  // Default select first bike
-  bpSelectedBike = results[0]?.bike || null;
+  bpSelectedBike = top || null;
   bpInsurancePlus = false;
 
   function renderResultsContent() {
-    const selectedId = bpSelectedBike?.id;
-    const insPerDay = bpSelectedBike ? getInsurancePerDay(days, bpSelectedBike) : null;
-    const insTotal = bpSelectedBike ? getInsuranceTotal(days, bpSelectedBike) : null;
-    const bikeTotal = bpSelectedBike ? getTotalPrice(bpSelectedBike, days) : 0;
-    const grandTotal = bikeTotal + (bpInsurancePlus && insTotal ? insTotal : 0);
-    const isManual = bpSelectedBike?.category === 'moto';
+    if (!bpSelectedBike) return;
+    const b = bpSelectedBike;
+    const perDay = getPricePerDay(b, days);
+    const total = getTotalPrice(b, days);
+    const basePerDay = getPricePerDay(b, 1);
+    const disc = getDiscountPercent(b, days);
+    const whyText = b.why[lang] || b.why.en;
+    const insPerDay = getInsurancePerDay(days, b);
+    const insTotal = getInsuranceTotal(days, b);
+    const grandTotal = total + (bpInsurancePlus && insTotal ? insTotal : 0);
+    const isManual = b.category === 'moto';
 
-    // Build WA/TG message
+    // Why reasons from bike features
+    const whyReasons = [];
+    if (b.featureFlags?.abs) whyReasons.push('ABS');
+    if (b.featureFlags?.keyless) whyReasons.push('Keyless');
+    if (b.featureFlags?.usb) whyReasons.push('USB');
+    if (b.cc >= 150) whyReasons.push(`${b.cc} cc`);
+
     const insText = bpInsurancePlus && insTotal ? ` + ${t('bpInsPlus')}` : '';
-    const waMsg = bpSelectedBike ? encodeURIComponent(
-      tpl('bpWaMsg', { name: bpSelectedBike.name, days, total: grandTotal.toLocaleString(), ins: insText })
-    ) : '';
+    const waMsg = encodeURIComponent(
+      tpl('bpWaMsg', { name: b.name, days, total: grandTotal.toLocaleString(), ins: insText })
+    );
 
     bpBody.innerHTML = `
-      <div class="bp-results">
-        <div class="bp-results-title">${t('bpResultTitle')}</div>
-        <div class="bp-results-sub">${t('bpResultSub')}</div>
-        ${results.map((r, i) => {
-          const b = r.bike;
-          const perDay = getPricePerDay(b, days);
-          const total = getTotalPrice(b, days);
-          const whyText = b.why[lang] || b.why.en;
-          const transType = b.transmission === 'auto' ? t('bpAutoType') : t('bpManualType');
-          const isSelected = b.id === selectedId;
-          return `
-          <div class="bp-result-card${isSelected ? ' selected' : ''}" data-bike-id="${b.id}">
-            ${i === 0 ? `<div class="bp-result-badge">${t('bpBestChoice')}</div>` : ''}
-            <div class="bp-result-header">
-              <div class="bp-result-emoji cat-${b.category}">${catIcon[b.category] || bpIcon('scooter', 28)}</div>
-              <div>
-                <div class="bp-result-name">${b.name}</div>
-                <div class="bp-result-cc">${b.cc} cc · ${transType}</div>
-              </div>
-            </div>
-            <div class="bp-result-why">${whyText}</div>
-            <div class="bp-result-tags">${(b.tags || []).map(tag => `<span class="bp-result-tag">${tag}</span>`).join('')}</div>
-            <div class="bp-result-price">
-              <span class="bp-result-perday">${perDay} ${t('bpPerDay')}</span>
-              <span class="bp-result-total">${t('bpTotalFor')} ${days} ${t('bpDaysUnit')}: ${total.toLocaleString()} ฿</span>
-            </div>
-          </div>`;
-        }).join('')}
+      <div class="quiz-result">
+        <div class="result-card">
+          <div class="result-label">${t('quizResultLabel')}</div>
+          <div class="result-name">${b.name}</div>
+          <div class="result-desc">${whyText}</div>
+          <div class="result-price-card">
+            <div class="result-bike-svg">${getBikeSvg(b.category)}</div>
+            <div class="result-price">${perDay} <span class="result-price-per">${t('bpPerDay')}</span></div>
+            ${disc > 0 ? `<div class="result-price-old">${basePerDay} ฿</div>` : ''}
+            ${disc > 0 ? `<div class="result-match">${t('quizDiscountBadge')} -${disc}% · ${days} ${t('bpDaysUnit')}</div>` : ''}
+          </div>
+          ${whyReasons.length > 0 ? `
+          <div class="result-why-box">
+            <div class="result-why-title">${t('quizWhyTitle')}</div>
+            ${whyReasons.map(r => `<div class="result-why-item">${r}</div>`).join('')}
+          </div>` : ''}
+        </div>
+
+        ${alts.length > 0 ? `
+        <div class="result-alts">
+          <div class="result-alts-title">${t('quizAlsoFits')}</div>
+          ${alts.map(r => {
+            const ab = r.bike;
+            const aPerDay = getPricePerDay(ab, days);
+            return `
+            <div class="result-alt-item" data-bike-id="${ab.id}">
+              <div class="result-alt-name">${ab.name}</div>
+              <div class="result-alt-price">${t('quizFromPrice')} ${aPerDay} ${t('bpPerDay')}</div>
+            </div>`;
+          }).join('')}
+        </div>` : ''}
 
         <div class="bp-insurance-block">
           <div class="bp-ins-option active" data-ins="basic">
@@ -2867,31 +2840,24 @@ function renderBpResults() {
           <strong>${grandTotal.toLocaleString()} ฿</strong>
         </div>
 
-        ${PRIMARY_MESSENGER === 'telegram' ? `
-        <a class="bp-tg-btn" href="https://t.me/ThaiGoSale1?text=${waMsg}" target="_blank" rel="noopener">
-          ${bpIcon('shield', 18)}
-          <span>${t('bpTelegram')}</span>
-        </a>
-        <a class="bp-wa-btn" href="https://wa.me/66822545737?text=${waMsg}" target="_blank" rel="noopener">
-          ${bpIcon('shield', 18)}
-          <span>${t('bpWhatsApp')}</span>
-        </a>` : `
-        <a class="bp-wa-btn" href="https://wa.me/66822545737?text=${waMsg}" target="_blank" rel="noopener">
-          ${bpIcon('shield', 18)}
-          <span>${t('bpWhatsApp')}</span>
-        </a>
-        <a class="bp-tg-btn" href="https://t.me/ThaiGoSale1?text=${waMsg}" target="_blank" rel="noopener">
-          ${bpIcon('shield', 18)}
-          <span>${t('bpTelegram')}</span>
-        </a>`}
+        <div class="messenger-cta-row">
+          <a class="btn btn-tg btn-full" href="https://t.me/ThaiGoSale1?text=${waMsg}" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            <span>Telegram</span>
+          </a>
+          <a class="btn btn-wa btn-full" href="https://wa.me/66822545737?text=${waMsg}" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span>WhatsApp</span>
+          </a>
+        </div>
 
         <button class="bp-restart" id="bpRestartBtn">${t('bpRestart')}</button>
       </div>`;
 
-    // Card selection handlers
-    bpBody.querySelectorAll('.bp-result-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const bike = results.find(r => r.bike.id === card.dataset.bikeId)?.bike;
+    // Alternative bike click → select
+    bpBody.querySelectorAll('.result-alt-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const bike = results.find(r => r.bike.id === el.dataset.bikeId)?.bike;
         if (bike) {
           bpSelectedBike = bike;
           bpInsurancePlus = false;
@@ -2900,27 +2866,23 @@ function renderBpResults() {
       });
     });
 
-    // Insurance option handlers
+    // Insurance handlers
     bpBody.querySelectorAll('.bp-ins-option').forEach(opt => {
       opt.addEventListener('click', () => {
         if (opt.classList.contains('disabled')) return;
-        if (opt.dataset.ins === 'plus') {
-          bpInsurancePlus = true;
-        } else {
-          bpInsurancePlus = false;
-        }
+        bpInsurancePlus = opt.dataset.ins === 'plus';
         renderResultsContent();
       });
     });
 
-    // Restart handler
-    const restartBtn = bpBody.querySelector('#bpRestartBtn');
+    // Restart
+    const restartBtn = $('bpRestartBtn');
     if (restartBtn) {
       restartBtn.addEventListener('click', () => {
         bpStep = 0;
         bpSelectedBike = null;
         bpInsurancePlus = false;
-        bpAnswers = { who: [], experience: null, bikeType: null, priorities: [], destination: [], days: 7, budget: null };
+        bpAnswers = { experience: null, destination: [], duration: null, priorities: [], budget: null };
         renderBpStep();
       });
     }
@@ -2944,6 +2906,19 @@ if (routeParam) {
       route.push(place);
     }
   });
+}
+
+// Deep link: ?bike=pcx160&days=8 → open booking sheet
+const bikeParam = urlParams.get('bike');
+const daysParam = urlParams.get('days');
+if (bikeParam) {
+  const bike = BIKES.find(b => b.id === bikeParam || b.id.replace(/-/g, '') === bikeParam.replace(/-/g, ''));
+  if (bike) {
+    setTimeout(() => {
+      if (daysParam) sheetDays = Math.max(1, Math.min(30, parseInt(daysParam) || 8));
+      openBookingSheet(bike);
+    }, 300);
+  }
 }
 
 drawIslandMap();

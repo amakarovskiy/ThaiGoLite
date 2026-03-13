@@ -43,33 +43,47 @@
   cursor: grabbing;
 }
 
-/* POI Markers — light theme (30x30 colored circles with SVG icons) */
-.poi-marker {
+/* ===== Map Pins — teardrop (drop-shape) markers ===== */
+.map-pin {
   cursor: pointer;
-  transition: opacity .15s;
+  animation: pin-drop 300ms ease-out both;
 }
 
-.poi-marker:hover .poi-dot {
-  opacity: 1 !important;
-  stroke-width: 2.5 !important;
+/* Cascade animation delays (CSS handles up to 20, JS sets animation-delay for more) */
+@keyframes pin-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-.poi-marker:hover .poi-glow {
-  opacity: 0.3 !important;
+/* Hover lift */
+.map-pin:hover {
+  filter: brightness(1.08);
 }
 
-.poi-emoji {
-  pointer-events: none;
+/* Active state — scale up with pulse ring */
+.map-pin.active > g > path:first-child {
+  stroke: #fff;
+  stroke-width: 3;
 }
 
-/* Office pulse animation */
-.office-pulse-svg {
-  animation: svgPulse 2s ease-out infinite;
+.map-pin.active {
+  animation: none;
 }
 
-@keyframes svgPulse {
-  0%   { r: 24; opacity: 0.5; }
-  100% { r: 36; opacity: 0; }
+/* Office pin continuous pulse */
+.map-pin--office > g > path:first-child {
+  animation: office-pin-pulse 2s ease-in-out infinite;
+}
+
+@keyframes office-pin-pulse {
+  0%, 100% { filter: drop-shadow(0 2px 8px rgba(0,0,0,.25)); }
+  50% { filter: drop-shadow(0 2px 16px rgba(67,56,202,.5)); }
 }
 
 /* Route polyline — dashed indigo instead of neon green */
@@ -550,7 +564,7 @@
   margin-top: 2px;
 }
 
-/* ===== Taxi Comparison — mockup v3.8 ===== */
+/* ===== Taxi Comparison — compact inline ===== */
 .rs-taxi-compare {
   background: var(--surface2);
   border-radius: 12px;
@@ -560,61 +574,49 @@
 }
 
 .rs-taxi-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--text2);
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 8px;
 }
 
-.rs-taxi-row {
+.rs-taxi-row-inline {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-.rs-taxi-col {
+.rs-taxi-val {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  flex: 1;
+  gap: 2px;
 }
 
-.rs-taxi-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.rs-taxi-val svg {
+  margin-bottom: 2px;
 }
 
-.rs-taxi-icon.bike { background: var(--primary-l); }
-.rs-taxi-icon.taxi { background: #FEF3C7; }
-
-.rs-taxi-label {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text3);
-}
-
-.rs-taxi-amount {
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.rs-taxi-amount.bike { color: var(--primary-m); }
-.rs-taxi-amount.taxi { color: var(--accent); }
-
-.rs-taxi-per {
-  font-size: 9px;
-  color: var(--text3);
-}
-
-.rs-taxi-divider {
+.rs-taxi-price {
   font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.rs-taxi-price.bike { color: var(--primary-m); }
+.rs-taxi-price.taxi { color: var(--accent); }
+
+.rs-taxi-sub {
+  font-size: 10px;
   color: var(--text3);
+}
+
+.rs-taxi-vs {
+  font-size: 14px;
   font-weight: 300;
+  color: var(--text3);
 }
 
 .rs-taxi-saving {

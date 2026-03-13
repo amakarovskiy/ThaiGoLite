@@ -9,11 +9,11 @@ import './components/bike-picker.css';
 import './components/routes-map.css';
 import { BIKES, BIKE_CATEGORIES } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
-import { calcStats, formatTime, haversine, TAXI_RATE_PER_KM } from './utils/stats.js';
+import { calcStats, formatTime, haversine, TAXI_RATE_PER_KM, KM_FACTOR } from './utils/stats.js';
 import { LANGS, detectLang, saveLang, T, translateFeature, BIKE_CAT_TR } from './data/i18n.js';
 import { PLACE_TR } from './data/place-translations.js';
 import { RIDER_QUESTIONS, CONFETTI_EMOJIS } from './data/rider-test.js';
-import { getPricePerDay, getTotalPrice, getCurrentSeason, getInsurancePerDay, getInsuranceTotal } from './utils/pricing.js';
+import { getPricePerDay, getTotalPrice, getCurrentSeason, getInsurancePerDay, getInsuranceTotal, MAXI_BIG_IDS } from './utils/pricing.js';
 
 // ══════════════════════════════════════════════
 // Lucide-style inline SVG icons for bike picker
@@ -868,7 +868,7 @@ function openBookingSheet(bike) {
   sheetP3.textContent = sp[1] + ' \u0E3F';
   sheetP7.textContent = sp[2] + ' \u0E3F';
   sheetP14.textContent = sp[3] + ' \u0E3F';
-  sheetPM.textContent = (sp[3] * 30) + ' \u0E3F';
+  sheetPM.textContent = sp[3] + ' \u0E3F';
 
   sheetDaySlider.value = sheetDays;
   updateSheetCalc();
@@ -942,8 +942,6 @@ function getTierName(days) {
 }
 
 // ── Insurance pricing ──
-const MAXI_BIG_IDS = ['xmax-300-2022', 'xmax-300-new', 'forza-350-black', 'forza-350-new', 'adv-350-new'];
-
 function getInsuranceTier(bike) {
   if (bike.category === 'moto') return null; // no insurance+ for motorcycles
   if (MAXI_BIG_IDS.includes(bike.id)) return 'maxi_big';
@@ -1070,8 +1068,6 @@ insPlusOverlay.addEventListener('click', () => closeInsSheet(insPlusSheet, insPl
 // Drag-dismiss + tap-on-handle for info sheets
 setupDragDismiss(insBasicSheet, () => closeInsSheet(insBasicSheet, insBasicOverlay));
 setupDragDismiss(insPlusSheet, () => closeInsSheet(insPlusSheet, insPlusOverlay));
-
-sheetOverlay.addEventListener('click', closeBookingSheet);
 
 function setupDragDismiss(sheetEl, closeFn) {
   const handle = sheetEl.querySelector('.sheet-handle') || sheetEl.querySelector('.ins-handle');
@@ -1548,7 +1544,6 @@ function loadPreset(preset) {
 // ══════════════════════════════════════════════
 // Random route generator
 // ══════════════════════════════════════════════
-const KM_FACTOR = 1.35;
 
 function generateRandomRoute(maxMins) {
   const maxKm = maxMins / 1.5;
@@ -2095,8 +2090,6 @@ function renderRiderQuestion(qIndex, slideIn) {
           b.classList.add('correct');
           b.textContent = '✅ ' + b.textContent;
         } else if (i === idx && idx !== correct) {
-          b.classList.add('wrong');
-        } else {
           b.classList.add('wrong');
         }
       });
@@ -2654,7 +2647,12 @@ applyTranslations();
   // Don't show if already dismissed this session
   if (sessionStorage.getItem('tg_fab_hidden')) return;
 
-  // Geo-check via ipapi.co
+  // Geo-check: timezone fallback + ipapi.co
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  if (tz === 'Asia/Bangkok') {
+    fab.style.display = 'flex';
+    return;
+  }
   fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) })
     .then(r => r.json())
     .then(data => {

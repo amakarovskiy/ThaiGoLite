@@ -13,8 +13,13 @@ export const LANGS = [
 const LS_KEY = 'thaigo_lang';
 
 export function detectLang() {
+  // 1. URL parameter ?lang= (for hreflang / shared links)
+  const urlLang = new URLSearchParams(window.location.search).get('lang');
+  if (urlLang && LANGS.some(l => l.code === urlLang)) return urlLang;
+  // 2. Previously saved preference
   const saved = localStorage.getItem(LS_KEY);
   if (saved && LANGS.some(l => l.code === saved)) return saved;
+  // 3. Browser language
   const nav = (navigator.language || '').slice(0, 2).toLowerCase();
   return LANGS.some(l => l.code === nav) ? nav : 'en';
 }
@@ -27,19 +32,19 @@ export const T = {
   // ── SEO Meta ──
   seoTitle: {
     ru: 'Аренда байков Пхукет — без залога паспорта, доставка в отель | ThaiGo Rent',
-    en: 'ThaiGo Lite — Bike Rental in Phuket | From 180 ฿/day',
-    de: 'ThaiGo Lite — Motorradverleih auf Phuket | Ab 180 ฿/Tag',
-    fr: 'ThaiGo Lite — Location de motos à Phuket | Dès 180 ฿/jour',
-    es: 'ThaiGo Lite — Alquiler de motos en Phuket | Desde 180 ฿/día',
-    th: 'ThaiGo Lite — เช่ามอเตอร์ไซค์ภูเก็ต | ตั้งแต่ 180 ฿/วัน'
+    en: 'ThaiGo Lite — Bike Rental in Phuket | From 130 ฿/day',
+    de: 'ThaiGo Lite — Motorradverleih auf Phuket | Ab 130 ฿/Tag',
+    fr: 'ThaiGo Lite — Location de motos à Phuket | Dès 130 ฿/jour',
+    es: 'ThaiGo Lite — Alquiler de motos en Phuket | Desde 130 ฿/día',
+    th: 'ThaiGo Lite — เช่ามอเตอร์ไซค์ภูเก็ต | ตั้งแต่ 130 ฿/วัน'
   },
   seoDescription: {
-    ru: 'Аренда байков и скутеров на Пхукете от 180 ฿/день. Без залога паспорта, доставка в отель, договор и страховка. Звоните 24/7 на русском.',
-    en: 'Rent bikes and scooters in Phuket without passport deposit. Honda Scoopy from 180 ฿/day. Hotel delivery, contract and insurance.',
-    de: 'Motorrad- und Rollerverleih auf Phuket ohne Reisepass-Kaution. Honda Scoopy ab 180 ฿/Tag. Hotellieferung, Vertrag und Versicherung.',
-    fr: 'Location de motos et scooters à Phuket sans caution de passeport. Honda Scoopy à partir de 180 ฿/jour. Livraison à l\'hôtel, contrat et assurance.',
-    es: 'Alquiler de motos y scooters en Phuket sin depósito de pasaporte. Honda Scoopy desde 180 ฿/día. Entrega en hotel, contrato y seguro.',
-    th: 'เช่ามอเตอร์ไซค์และสกู๊ตเตอร์ภูเก็ต ไม่ต้องวางพาสปอร์ต Honda Scoopy ตั้งแต่ 180 ฿/วัน ส่งถึงโรงแรม สัญญาและประกัน'
+    ru: 'Аренда байков и скутеров на Пхукете от 130 ฿/день. Без залога паспорта, доставка в отель, договор и страховка. Звоните 24/7 на русском.',
+    en: 'Rent bikes and scooters in Phuket without passport deposit. Honda Scoopy from 130 ฿/day. Hotel delivery, contract and insurance.',
+    de: 'Motorrad- und Rollerverleih auf Phuket ohne Reisepass-Kaution. Honda Scoopy ab 130 ฿/Tag. Hotellieferung, Vertrag und Versicherung.',
+    fr: 'Location de motos et scooters à Phuket sans caution de passeport. Honda Scoopy à partir de 130 ฿/jour. Livraison à l\'hôtel, contrat et assurance.',
+    es: 'Alquiler de motos y scooters en Phuket sin depósito de pasaporte. Honda Scoopy desde 130 ฿/día. Entrega en hotel, contrato y seguro.',
+    th: 'เช่ามอเตอร์ไซค์และสกู๊ตเตอร์ภูเก็ต ไม่ต้องวางพาสปอร์ต Honda Scoopy ตั้งแต่ 130 ฿/วัน ส่งถึงโรงแรม สัญญาและประกัน'
   },
 
   // ── Hero ──
@@ -52,12 +57,12 @@ export const T = {
     th: 'เช่ามอเตอร์ไซค์<br>ภูเก็ต'
   },
   heroSub: {
-    ru: 'Без залога паспорта. Доставка по острову.<br>От 180 \u0E3F/сутки. Договор и страховка.',
-    en: 'No passport deposit. Island-wide delivery.<br>From 180 \u0E3F/day. Contract & insurance.',
-    de: 'Ohne Passkaution. Inselweite Lieferung.<br>Ab 180 \u0E3F/Tag. Vertrag & Versicherung.',
-    fr: 'Sans caution de passeport. Livraison sur l\u2019\u00eele.<br>\u00C0 partir de 180 \u0E3F/jour. Contrat & assurance.',
-    es: 'Sin dep\u00f3sito de pasaporte. Entrega en toda la isla.<br>Desde 180 \u0E3F/d\u00eda. Contrato y seguro.',
-    th: 'ไม่ต้องวางพาสปอร์ต ส่งถึงที่ทั่วเกาะ<br>ตั้งแต่ 180 \u0E3F/วัน สัญญาและประกัน'
+    ru: 'Без залога паспорта. Доставка по острову.<br>От 130 \u0E3F/сутки. Договор и страховка.',
+    en: 'No passport deposit. Island-wide delivery.<br>From 130 \u0E3F/day. Contract & insurance.',
+    de: 'Ohne Passkaution. Inselweite Lieferung.<br>Ab 130 \u0E3F/Tag. Vertrag & Versicherung.',
+    fr: 'Sans caution de passeport. Livraison sur l\u2019\u00eele.<br>\u00C0 partir de 130 \u0E3F/jour. Contrat & assurance.',
+    es: 'Sin dep\u00f3sito de pasaporte. Entrega en toda la isla.<br>Desde 130 \u0E3F/d\u00eda. Contrato y seguro.',
+    th: 'ไม่ต้องวางพาสปอร์ต ส่งถึงที่ทั่วเกาะ<br>ตั้งแต่ 130 \u0E3F/วัน สัญญาและประกัน'
   },
 
   // ── Why ThaiGo ──
@@ -71,7 +76,7 @@ export const T = {
     ru: 'Доставка в отель', en: 'Hotel delivery', de: 'Hotellieferung', fr: 'Livraison hôtel', es: 'Entrega al hotel', th: 'ส่งถึงโรงแรม'
   },
   whyPrice: {
-    ru: 'От 180 \u0E3F/сутки', en: 'From 180 \u0E3F/day', de: 'Ab 180 \u0E3F/Tag', fr: 'Dès 180 \u0E3F/jour', es: 'Desde 180 \u0E3F/día', th: 'ตั้งแต่ 180 \u0E3F/วัน'
+    ru: 'От 130 \u0E3F/сутки', en: 'From 130 \u0E3F/day', de: 'Ab 130 \u0E3F/Tag', fr: 'Dès 130 \u0E3F/jour', es: 'Desde 130 \u0E3F/día', th: 'ตั้งแต่ 130 \u0E3F/วัน'
   },
   whySupport: {
     ru: '24/7 на русском', en: '24/7 Support', de: '24/7 Support', fr: '24/7 Support', es: '24/7 Soporte', th: 'บริการ 24/7'
@@ -452,13 +457,13 @@ export const T = {
   statFuel: { ru: '\u0E3F бензин', en: '\u0E3F fuel', de: '\u0E3F Benzin', fr: '\u0E3F carburant', es: '\u0E3F gasolina', th: '\u0E3F น้ำมัน' },
   costTaxiLabel: { ru: 'Такси:', en: 'Taxi:', de: 'Taxi:', fr: 'Taxi :', es: 'Taxi:', th: 'แท็กซี่:' },
   costBikeLabel: {
-    ru: 'Байк: ~180 \u0E3F/день', en: 'Bike: ~180 \u0E3F/day', de: 'Bike: ~180 \u0E3F/Tag', fr: 'Moto : ~180 \u0E3F/jour', es: 'Moto: ~180 \u0E3F/día', th: 'มอเตอร์ไซค์: ~180 \u0E3F/วัน'
+    ru: 'Байк: ~130 \u0E3F/день', en: 'Bike: ~130 \u0E3F/day', de: 'Bike: ~130 \u0E3F/Tag', fr: 'Moto : ~130 \u0E3F/jour', es: 'Moto: ~130 \u0E3F/día', th: 'มอเตอร์ไซค์: ~130 \u0E3F/วัน'
   },
   routeNeedBike: {
     ru: 'Для маршрута нужен байк', en: 'You need a bike for this route', de: 'Für die Route brauchst du ein Bike', fr: 'Un scooter est nécessaire', es: 'Necesitas una moto para esta ruta', th: 'ต้องมีมอเตอร์ไซค์สำหรับเส้นทางนี้'
   },
   routeNeedBikePrice: {
-    ru: 'от 180 \u0E3F в день', en: 'from 180 \u0E3F/day', de: 'ab 180 \u0E3F/Tag', fr: 'dès 180 \u0E3F/jour', es: 'desde 180 \u0E3F/día', th: 'ตั้งแต่ 180 \u0E3F/วัน'
+    ru: 'от 130 \u0E3F в день', en: 'from 130 \u0E3F/day', de: 'ab 130 \u0E3F/Tag', fr: 'dès 130 \u0E3F/jour', es: 'desde 130 \u0E3F/día', th: 'ตั้งแต่ 130 \u0E3F/วัน'
   },
   routeRentBtn: {
     ru: 'Арендовать', en: 'Rent a bike', de: 'Mieten', fr: 'Louer', es: 'Alquilar', th: 'เช่ารถ'
@@ -566,7 +571,7 @@ export const T = {
   faqTitle: { ru: 'FAQ', en: 'FAQ', de: 'FAQ', fr: 'FAQ', es: 'FAQ', th: 'คำถามที่พบบ่อย' },
   faq: {
     ru: [
-      { q: 'Сколько стоит аренда байка?', a: 'Honda Scoopy от 180 \u0E3F/день, Honda Click от 200 \u0E3F/день, PCX/NMAX от 300 \u0E3F/день. Чем дольше срок — тем дешевле.' },
+      { q: 'Сколько стоит аренда байка?', a: 'Honda Scoopy от 130 \u0E3F/день, Honda Click от 130 \u0E3F/день, PCX/NMAX от 250 \u0E3F/день. Чем дольше срок — тем дешевле.' },
       { q: 'Какие документы нужны?', a: 'Загранпаспорт и международные права (категория А). Залог от 2000 \u0E3F или копия паспорта.' },
       { q: 'Есть ли страховка?', a: 'Да, базовая страховка включена бесплатно. Дополнительная Страховка+ — от 50 ฿/день.' },
       { q: 'Безопасно ли ездить?', a: 'Движение левостороннее. Шлем обязателен (штраф 500 \u0E3F). Не превышайте 60 км/ч в городе.' },
@@ -578,7 +583,7 @@ export const T = {
       { q: 'Какой байк выбрать новичку?', a: 'Honda Scoopy или Yamaha Fino — лёгкие (96–99 кг), низкое сиденье, простое управление. Для уверенных — Honda Click 125i: чуть мощнее, но всё ещё комфортный.' }
     ],
     en: [
-      { q: 'How much does it cost to rent a bike?', a: 'Honda Scoopy from 180 \u0E3F/day, Honda Click from 200 \u0E3F/day, PCX/NMAX from 300 \u0E3F/day. Longer rental = lower price.' },
+      { q: 'How much does it cost to rent a bike?', a: 'Honda Scoopy from 130 \u0E3F/day, Honda Click from 130 \u0E3F/day, PCX/NMAX from 250 \u0E3F/day. Longer rental = lower price.' },
       { q: 'What documents do I need?', a: 'Passport and international driving permit (category A). Deposit from 2000 \u0E3F or passport copy.' },
       { q: 'Is there insurance?', a: 'Yes, basic insurance is included free. Extended Insurance+ — from 50 ฿/day.' },
       { q: 'Is it safe to ride?', a: 'Left-hand traffic. Helmet is mandatory (500 \u0E3F fine). Don\'t exceed 60 km/h in town.' },
@@ -590,7 +595,7 @@ export const T = {
       { q: 'Which bike is best for beginners?', a: 'Honda Scoopy or Yamaha Fino — lightweight (96–99 kg), low seat, easy handling. For more confident riders — Honda Click 125i: a bit more power but still comfortable.' }
     ],
     de: [
-      { q: 'Was kostet die Miete?', a: 'Honda Scoopy ab 180 \u0E3F/Tag, Honda Click ab 200 \u0E3F/Tag, PCX/NMAX ab 300 \u0E3F/Tag. Längere Miete = günstigerer Preis.' },
+      { q: 'Was kostet die Miete?', a: 'Honda Scoopy ab 130 \u0E3F/Tag, Honda Click ab 130 \u0E3F/Tag, PCX/NMAX ab 250 \u0E3F/Tag. Längere Miete = günstigerer Preis.' },
       { q: 'Welche Dokumente brauche ich?', a: 'Reisepass und internationaler Führerschein (Klasse A). Kaution ab 2000 \u0E3F oder Passkopie.' },
       { q: 'Gibt es eine Versicherung?', a: 'Ja, die Basisversicherung ist kostenlos inklusive. Erweiterte Versicherung+ — ab 50 ฿/Tag.' },
       { q: 'Ist es sicher zu fahren?', a: 'Linksverkehr. Helm ist Pflicht (500 \u0E3F Strafe). Nicht über 60 km/h in der Stadt.' },
@@ -602,7 +607,7 @@ export const T = {
       { q: 'Welches Bike ist für Anfänger am besten?', a: 'Honda Scoopy oder Yamaha Fino — leicht (96–99 kg), niedriger Sitz, einfache Handhabung. Für sicherere Fahrer — Honda Click 125i.' }
     ],
     fr: [
-      { q: 'Combien coûte la location ?', a: 'Honda Scoopy dès 180 \u0E3F/jour, Honda Click dès 200 \u0E3F/jour, PCX/NMAX dès 300 \u0E3F/jour. Plus longue la location, plus bas le prix.' },
+      { q: 'Combien coûte la location ?', a: 'Honda Scoopy dès 130 \u0E3F/jour, Honda Click dès 130 \u0E3F/jour, PCX/NMAX dès 250 \u0E3F/jour. Plus longue la location, plus bas le prix.' },
       { q: 'Quels documents faut-il ?', a: 'Passeport et permis international (catégorie A). Caution à partir de 2000 \u0E3F ou copie de passeport.' },
       { q: 'Y a-t-il une assurance ?', a: 'Oui, l\'assurance de base est incluse gratuitement. Assurance+ étendue — à partir de 50 ฿/jour.' },
       { q: 'Est-ce sûr de conduire ?', a: 'Conduite à gauche. Le casque est obligatoire (amende de 500 \u0E3F). Ne dépassez pas 60 km/h en ville.' },
@@ -614,7 +619,7 @@ export const T = {
       { q: 'Quel scooter pour un débutant ?', a: 'Honda Scoopy ou Yamaha Fino — légers (96–99 kg), selle basse, maniement facile. Pour les plus confiants — Honda Click 125i.' }
     ],
     es: [
-      { q: '¿Cuánto cuesta alquilar una moto?', a: 'Honda Scoopy desde 180 \u0E3F/día, Honda Click desde 200 \u0E3F/día, PCX/NMAX desde 300 \u0E3F/día. Más días = precio más bajo.' },
+      { q: '¿Cuánto cuesta alquilar una moto?', a: 'Honda Scoopy desde 130 \u0E3F/día, Honda Click desde 130 \u0E3F/día, PCX/NMAX desde 250 \u0E3F/día. Más días = precio más bajo.' },
       { q: '¿Qué documentos necesito?', a: 'Pasaporte y permiso internacional (categoría A). Depósito desde 2000 \u0E3F o copia de pasaporte.' },
       { q: '¿Hay seguro?', a: 'Sí, el seguro básico está incluido gratis. Seguro+ extendido — desde 50 ฿/día.' },
       { q: '¿Es seguro conducir?', a: 'Tráfico por la izquierda. Casco obligatorio (multa de 500 \u0E3F). No superar 60 km/h en ciudad.' },
@@ -626,7 +631,7 @@ export const T = {
       { q: '¿Qué moto es mejor para principiantes?', a: 'Honda Scoopy o Yamaha Fino — ligeras (96–99 kg), asiento bajo, manejo fácil. Para más confiados — Honda Click 125i.' }
     ],
     th: [
-      { q: 'เช่ามอเตอร์ไซค์ราคาเท่าไหร่?', a: 'Honda Scoopy ตั้งแต่ 180 ฿/วัน, Honda Click ตั้งแต่ 200 ฿/วัน, PCX/NMAX ตั้งแต่ 300 ฿/วัน ยิ่งเช่านานยิ่งถูก' },
+      { q: 'เช่ามอเตอร์ไซค์ราคาเท่าไหร่?', a: 'Honda Scoopy ตั้งแต่ 130 ฿/วัน, Honda Click ตั้งแต่ 130 ฿/วัน, PCX/NMAX ตั้งแต่ 250 ฿/วัน ยิ่งเช่านานยิ่งถูก' },
       { q: 'ต้องใช้เอกสารอะไรบ้าง?', a: 'พาสปอร์ตและใบขับขี่สากล (ประเภท A) มัดจำตั้งแต่ 2000 ฿ หรือสำเนาพาสปอร์ต' },
       { q: 'มีประกันไหม?', a: 'มี ประกันพื้นฐานรวมฟรี ประกัน+ ขยาย — ตั้งแต่ 50 ฿/วัน' },
       { q: 'ขับขี่ปลอดภัยไหม?', a: 'ขับซ้าย หมวกกันน็อคบังคับ (ปรับ 500 ฿) ห้ามเกิน 60 กม./ชม. ในเมือง' },
@@ -665,7 +670,7 @@ export const T = {
     ru: '14–29', en: '14–29', de: '14–29', fr: '14–29', es: '14–29', th: '14–29'
   },
   sheetDays30: {
-    ru: '30 дн', en: '30 d', de: '30 T', fr: '30 j', es: '30 d', th: '30 วัน'
+    ru: '30+', en: '30+', de: '30+', fr: '30+', es: '30+', th: '30+'
   },
   sheetRentalDays: {
     ru: 'Дней аренды:', en: 'Rental days:', de: 'Miettage:', fr: 'Jours de location :', es: 'Días de alquiler:', th: 'จำนวนวันเช่า:'

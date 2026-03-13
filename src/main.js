@@ -867,7 +867,10 @@ function renderBikes() {
           ${shortHint ? `<div class="bike-hint-v">${shortHint}</div>` : ''}
           <div class="bike-cc">${b.cc} cc</div>
           <div class="bike-footer">
-            <span class="bike-price-v">${t('priceFrom')} ${getPricePerDay(b, 7)} \u0E3F</span>
+            <div>
+              <div class="bike-price-v">${t('priceFrom')} ${getPricePerDay(b, 7)} ฿</div>
+              <div class="bike-price-per">/${t('popDays')}</div>
+            </div>
             <button class="btn-take">${t('bikeBtnRent')}</button>
           </div>
         </div>

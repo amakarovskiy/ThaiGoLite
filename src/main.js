@@ -7,13 +7,13 @@ import './components/booking-sheet.css';
 import './components/rider-test.css';
 import './components/bike-picker.css';
 import './components/routes-map.css';
-import { BIKES, BIKE_CATEGORIES } from './data/bikes.js';
+import { BIKES, BIKE_CATEGORIES, BUDGET_GROUPS } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
 import { calcStats, formatTime, haversine, TAXI_RATE_PER_KM, KM_FACTOR } from './utils/stats.js';
 import { LANGS, detectLang, saveLang, T, translateFeature, BIKE_CAT_TR } from './data/i18n.js';
 import { PLACE_TR } from './data/place-translations.js';
 import { RIDER_QUESTIONS, CONFETTI_EMOJIS } from './data/rider-test.js';
-import { getPricePerDay, getTotalPrice, getCurrentSeason, getInsurancePerDay, getInsuranceTotal, MAXI_BIG_IDS } from './utils/pricing.js';
+import { getPricePerDay, getTotalPrice, getCurrentSeason, getInsurancePerDay, getInsuranceTotal, MAXI_BIG_IDS, getShortRentalFee, getDiscountPercent, getNextDiscountHint, getInsuranceFranchise as getInsuranceFranchiseUtil, getDeposit } from './utils/pricing.js';
 
 // ══════════════════════════════════════════════
 // Lucide-style inline SVG icons for bike picker
@@ -116,7 +116,7 @@ let placeFilter = 'top';
 let placeSearch = '';
 let route = [];
 let sheetBike = null;
-let sheetDays = 3;
+let sheetDays = 8;
 let sheetInsurancePlus = false;
 let sheetDateStart = '';
 let sheetDateEnd = '';
@@ -366,9 +366,9 @@ function applyTranslations() {
   const rtTitle = document.querySelector('.rider-test-title');
   if (rtTitle) rtTitle.textContent = t('riderTestTitle');
 
-  // Bike filters
-  const bikeFilterChips = bikeFiltersEl.querySelectorAll('.filter-chip');
-  const bikeFilterKeys = ['filterAll', 'filterScooter', 'filterMaxi', 'filterMoto'];
+  // Bike filters (budgetGroup-based: All/Economy/Comfort/Premium)
+  const bikeFilterChips = bikeFiltersEl.querySelectorAll('.filter-chip, .chip');
+  const bikeFilterKeys = ['filterAll', 'popEconomy', 'popComfort', 'popPremium'];
   bikeFilterChips.forEach((el, i) => { if (bikeFilterKeys[i]) el.textContent = t(bikeFilterKeys[i]); });
 
   // Place filters in route sheet
@@ -393,6 +393,30 @@ function applyTranslations() {
   // Contacts page
   const contactsTitle = document.querySelector('.contacts-page .page-title');
   if (contactsTitle) contactsTitle.textContent = t('contactsTitle');
+
+  // Address hero block
+  const addressHero = $('addressHero');
+  if (addressHero) {
+    const heroText = addressHero.querySelector('.address-hero-text');
+    if (heroText) heroText.textContent = t('contactsAddress') || '72/6 Moo 3, Wichit, Muang, Phuket 83000';
+  }
+
+  // Messenger row TG + WA
+  const messengerRow = $('contactMessengerRow');
+  if (messengerRow) {
+    const msgText = encodeURIComponent(t('waMsgGeneral') || '');
+    messengerRow.innerHTML = `
+      <a href="https://t.me/ThaiGoSale1?text=${msgText}" target="_blank" rel="noopener" class="btn btn-tg">${t('ctaTelegram')}</a>
+      <a href="https://wa.me/66822545737?text=${msgText}" target="_blank" rel="noopener" class="btn btn-wa">${t('ctaWhatsapp')}</a>
+    `;
+  }
+
+  // FAB "Route to office"
+  const fabRoute = $('fabRouteToOffice');
+  if (fabRoute) {
+    const fabText = fabRoute.querySelector('.fab-text');
+    if (fabText) fabText.textContent = t('fabRouteToOffice') || '\u041C\u0430\u0440\u0448\u0440\u0443\u0442 \u0432 \u043E\u0444\u0438\u0441';
+  }
 
   // Contact card rows
   const contactCard = $('contactCard');
@@ -455,9 +479,21 @@ function applyTranslations() {
 function renderDeliveryAreas() {
   const grid = document.getElementById('dlvGridContacts');
   if (!grid) return;
-  grid.innerHTML = T.dlvAreas.map(a =>
-    `<div class="dlv-card"><div class="dlv-name">${a.name[lang] || a.name.en}</div><div class="dlv-cond dlv-${a.color}">${a.cond[lang] || a.cond.en}</div></div>`
-  ).join('');
+  // Split delivery zones into free and paid
+  const freeZones = T.dlvAreas.filter(a => a.color === 'green');
+  const paidZones = T.dlvAreas.filter(a => a.color !== 'green');
+  let zonesHtml = '';
+  if (freeZones.length) {
+    zonesHtml += `<div class="delivery-zone-group"><div class="zone-label zone-free">${t('deliveryFree') || '\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E'}</div>`;
+    zonesHtml += freeZones.map(a => `<div class="dlv-card"><div class="dlv-name">${a.name[lang] || a.name.en}</div><div class="dlv-cond dlv-${a.color}">${a.cond[lang] || a.cond.en}</div></div>`).join('');
+    zonesHtml += `</div>`;
+  }
+  if (paidZones.length) {
+    zonesHtml += `<div class="delivery-zone-group"><div class="zone-label zone-paid">${t('deliveryPaid') || '\u041F\u043B\u0430\u0442\u043D\u043E'}</div>`;
+    zonesHtml += paidZones.map(a => `<div class="dlv-card"><div class="dlv-name">${a.name[lang] || a.name.en}</div><div class="dlv-cond dlv-${a.color}">${a.cond[lang] || a.cond.en}</div></div>`).join('');
+    zonesHtml += `</div>`;
+  }
+  grid.innerHTML = zonesHtml;
   const titles = document.querySelectorAll('.contacts-page .section-title');
   if (titles[0]) titles[0].textContent = t('deliveryAreasTitle');
   if (titles[1]) titles[1].textContent = t('faqTitle');
@@ -723,37 +759,110 @@ rsTabs.addEventListener('click', e => {
 const BIKE_EMOJI = { scooter: '\u{1F6F5}', maxi: '\u{1F3CD}', moto: '\u{1F3CD}', car: '\u{1F697}' };
 
 // ══════════════════════════════════════════════
+// SVG bike silhouettes (replaces emojis in cards)
+// ══════════════════════════════════════════════
+function getBikeSvg(category, width = 60, height = 43) {
+  const w = width;
+  const h = height;
+  if (category === 'scooter') {
+    return `<svg viewBox="0 0 80 55" fill="none" width="${w}" height="${h}">
+  <circle cx="18" cy="42" r="10" stroke="#4338CA" stroke-width="2.5" fill="#EEF2FF"/>
+  <circle cx="18" cy="42" r="4" fill="#4338CA"/>
+  <circle cx="62" cy="42" r="10" stroke="#4338CA" stroke-width="2.5" fill="#EEF2FF"/>
+  <circle cx="62" cy="42" r="4" fill="#4338CA"/>
+  <path d="M28 42 L28 30 Q30 22 38 20 L52 20 Q60 20 65 28 L68 35 L65 38 L28 42Z" fill="#4338CA" opacity=".15" stroke="#4338CA" stroke-width="2"/>
+  <path d="M28 32 L50 32 L55 38 L28 38Z" fill="#4338CA" opacity=".3"/>
+  <rect x="36" y="12" width="8" height="8" rx="2" fill="#4338CA" opacity=".25"/>
+</svg>`;
+  }
+  if (category === 'maxi') {
+    return `<svg viewBox="0 0 85 55" fill="none" width="${w}" height="${h}">
+  <circle cx="16" cy="42" r="11" stroke="#4338CA" stroke-width="2.5" fill="#EEF2FF"/>
+  <circle cx="16" cy="42" r="4.5" fill="#4338CA"/>
+  <circle cx="69" cy="42" r="11" stroke="#4338CA" stroke-width="2.5" fill="#EEF2FF"/>
+  <circle cx="69" cy="42" r="4.5" fill="#4338CA"/>
+  <path d="M27 42 L27 26 Q30 16 42 14 L58 14 Q68 16 74 28 L76 36 L72 40 L27 42Z" fill="#4338CA" opacity=".15" stroke="#4338CA" stroke-width="2.2"/>
+  <path d="M29 28 L58 28 L62 38 L29 38Z" fill="#4338CA" opacity=".3"/>
+  <rect x="40" y="5" width="10" height="9" rx="2" fill="#4338CA" opacity=".3"/>
+</svg>`;
+  }
+  // moto (default)
+  return `<svg viewBox="0 0 90 55" fill="none" width="${w}" height="${h}">
+  <circle cx="15" cy="42" r="11" stroke="#4338CA" stroke-width="2.5" fill="#EEF2FF"/>
+  <circle cx="15" cy="42" r="4.5" fill="#4338CA"/>
+  <circle cx="75" cy="42" r="11" stroke="#4338CA" stroke-width="2.5" fill="#EEF2FF"/>
+  <circle cx="75" cy="42" r="4.5" fill="#4338CA"/>
+  <path d="M26 40 L35 20 L55 18 L70 30 L80 38 L75 40Z" fill="#4338CA" opacity=".15" stroke="#4338CA" stroke-width="2"/>
+  <path d="M35 20 L40 12 L50 12 L55 18" fill="#4338CA" opacity=".15" stroke="#4338CA" stroke-width="1.5"/>
+  <path d="M38 38 L64 38 L68 34 L42 34Z" fill="#4338CA" opacity=".3"/>
+</svg>`;
+}
+
+// ══════════════════════════════════════════════
+// Badge helper for bike cards
+// ══════════════════════════════════════════════
+function getBikeBadge(bike) {
+  if (bike.popular && bike.budgetGroup === 'comfort') {
+    return '<span class="comfort-badge">\u{2B50} \u041A\u043E\u043C\u0444\u043E\u0440\u0442</span>';
+  }
+  if (bike.popular) {
+    return '<span class="pop-badge">\u{1F525} \u0425\u0438\u0442</span>';
+  }
+  if (bike.tags && (bike.tags.includes('light') || bike.tags.includes('girl'))) {
+    return '<span class="newbie-badge">\u{1F44D} \u041D\u043E\u0432\u0438\u0447\u043A\u0430\u043C</span>';
+  }
+  return '';
+}
+
+// ══════════════════════════════════════════════
 // Render bike catalog
 // ══════════════════════════════════════════════
 function renderBikes() {
   const filtered = bikeFilter === 'all'
     ? BIKES
-    : BIKES.filter(b => b.category === bikeFilter);
+    : BIKES.filter(b => b.budgetGroup === bikeFilter);
 
-  bikeGrid.innerHTML = filtered.map(b => {
-    const whyText = (b.why && (b.why[lang] || b.why.en)) || '';
-    const hint = whyText.split('.')[0].trim();
-    const shortHint = hint.length > 45 ? hint.slice(0, 42) + '...' : hint;
-    const badge = b.popular
-      ? '<span class="bike-badge">\u{1F525} ' + t('badgePopular') + '</span>'
-      : (b.tags && b.tags.includes('light') ? '<span class="bike-badge">\u{1F44D} ' + t('badgeBeginner') + '</span>' : '');
-    return `
-    <div class="bike-card" data-bike="${b.id}">
-      ${badge}
-      <div class="bike-card-img cat-${b.category}" role="img" aria-label="${b.name} аренда Пхукет">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
-      <div class="bike-card-body">
-        <div class="bike-card-name">${b.name}</div>
-        ${shortHint ? `<div class="bike-card-hint">${shortHint}</div>` : ''}
-        <div class="bike-card-cc">${b.cc} cc</div>
-        <div class="bike-card-footer">
-          <span class="bike-card-price">${t('priceFrom')} ${getPricePerDay(b, 7)} \u0E3F</span>
-          <button class="bike-card-btn">${t('bikeBtnRent')}</button>
+  // Group by category for section separators
+  const grouped = {};
+  filtered.forEach(b => {
+    if (!grouped[b.category]) grouped[b.category] = [];
+    grouped[b.category].push(b);
+  });
+
+  let html = '';
+  const catOrder = ['scooter', 'maxi', 'moto'];
+  catOrder.forEach(cat => {
+    const bikes = grouped[cat];
+    if (!bikes || bikes.length === 0) return;
+    html += `<div class="category-section">
+      <div class="category-title">${bikeCatName(cat)}</div>
+      <div class="bikes-grid-2">`;
+    bikes.forEach(b => {
+      const whyText = (b.why && (b.why[lang] || b.why.en)) || '';
+      const hint = whyText.split('.')[0].trim();
+      const shortHint = hint.length > 45 ? hint.slice(0, 42) + '...' : hint;
+      const badge = getBikeBadge(b);
+      html += `
+      <div class="bike-card-v" data-bike="${b.id}">
+        ${badge}
+        <div class="bike-img-v" role="img" aria-label="${b.name} аренда Пхукет">${getBikeSvg(b.category)}</div>
+        <div class="bike-body">
+          <div class="bike-name-v">${b.name}</div>
+          ${shortHint ? `<div class="bike-hint-v">${shortHint}</div>` : ''}
+          <div class="bike-cc">${b.cc} cc</div>
+          <div class="bike-footer">
+            <span class="bike-price-v">${t('priceFrom')} ${getPricePerDay(b, 7)} \u0E3F</span>
+            <button class="btn-take">${t('bikeBtnRent')}</button>
+          </div>
         </div>
-      </div>
-    </div>`;
-  }).join('');
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
 
-  bikeGrid.querySelectorAll('.bike-card').forEach(card => {
+  bikeGrid.innerHTML = html;
+
+  bikeGrid.querySelectorAll('.bike-card-v').forEach(card => {
     card.addEventListener('click', () => {
       const bike = BIKES.find(b => b.id === card.dataset.bike);
       if (bike) openBookingSheet(bike);
@@ -762,10 +871,10 @@ function renderBikes() {
 }
 
 bikeFiltersEl.addEventListener('click', e => {
-  const chip = e.target.closest('.filter-chip');
+  const chip = e.target.closest('.filter-chip, .chip');
   if (!chip) return;
   bikeFilter = chip.dataset.cat;
-  bikeFiltersEl.querySelectorAll('.filter-chip').forEach(c =>
+  bikeFiltersEl.querySelectorAll('.filter-chip, .chip').forEach(c =>
     c.classList.toggle('filter-chip--active', c.dataset.cat === bikeFilter)
   );
   renderBikes();
@@ -790,25 +899,53 @@ function renderPopular() {
   const days = popDays;
   const filtered = BIKES.filter(b => b.budgetGroup === popGroup);
 
+  // Deal bar: cheapest bike at 30 days
+  const cheapest30 = filtered.reduce((best, b) => {
+    const p = getPricePerDay(b, 30);
+    return (!best || p < best.price) ? { bike: b, price: p } : best;
+  }, null);
+  const dealBarEl = $('popDealBar');
+  if (dealBarEl && cheapest30) {
+    dealBarEl.innerHTML = `<span class="deal-bar">\u{1F389} ${cheapest30.bike.name} \u2014 ${t('priceFrom')} ${cheapest30.price} \u0E3F/${t('popDays')}</span>`;
+    dealBarEl.style.display = '';
+  } else if (dealBarEl) {
+    dealBarEl.style.display = 'none';
+  }
+
   scroll.innerHTML = filtered.map(b => {
     const season = getCurrentSeason();
     const base = b.prices[season][0];
     const cur = getPricePerDay(b, days);
     const total = getTotalPrice(b, days);
     const hasDiscount = cur < base;
+    const badge = getBikeBadge(b);
     return `
-    <div class="pop-card" data-bike="${b.id}">
-      <div class="pop-card-img cat-${b.category}">${BIKE_EMOJI[b.category] || '\u{1F6F5}'}</div>
+    <div class="bike-card-h" data-bike="${b.id}">
+      ${badge}
+      <div class="pop-card-img cat-${b.category}">${getBikeSvg(b.category)}</div>
       <div class="pop-card-name">${b.name}</div>
-      <div class="pop-card-prices">
-        <span class="pop-card-cur">${cur} \u0E3F</span>
-        ${hasDiscount ? `<span class="pop-card-base">${base} \u0E3F</span>` : ''}
+      <div class="price-row">
+        <span class="price-now">${cur} \u0E3F</span>
+        ${hasDiscount ? `<span class="price-was">${base} \u0E3F</span>` : ''}
+        <span class="price-per">/${t('popDays')}</span>
       </div>
       <div class="pop-card-total">${t('popTotal')} ${total.toLocaleString()} \u0E3F</div>
     </div>`;
   }).join('');
 
-  scroll.querySelectorAll('.pop-card').forEach(card => {
+  // "View all bikes" button
+  const viewAllBtn = $('popViewAllBtn');
+  if (!viewAllBtn) {
+    const btnEl = document.createElement('button');
+    btnEl.id = 'popViewAllBtn';
+    btnEl.className = 'btn btn-primary btn-full';
+    btnEl.textContent = t('popViewAll') || '\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435 \u0431\u0430\u0439\u043A\u0438';
+    btnEl.style.marginTop = '12px';
+    btnEl.addEventListener('click', () => switchTab('bikes'));
+    scroll.parentNode.appendChild(btnEl);
+  }
+
+  scroll.querySelectorAll('.bike-card-h').forEach(card => {
     card.addEventListener('click', () => {
       const bike = BIKES.find(b => b.id === card.dataset.bike);
       if (bike) {
@@ -821,37 +958,12 @@ function renderPopular() {
 
 function updatePopBlock() {
   const days = popDays;
-  // Update days label
-  const daysLabel = $('popDaysLabel');
-  if (daysLabel) daysLabel.textContent = days + ' ' + t('popDays');
 
-  // Min total for group
+  // Min total for group (keep for deal bar calculations)
   const filtered = BIKES.filter(b => b.budgetGroup === popGroup);
   const minTotal = filtered.reduce((m, b) => { const p = getTotalPrice(b, days); return p < m ? p : m; }, Infinity);
   const totalLabel = $('popTotalLabel');
   if (totalLabel) totalLabel.textContent = t('popFrom') + ' ' + minTotal.toLocaleString() + ' \u0E3F';
-
-  // Hint
-  const hint = $('popSliderHint');
-  if (hint) hint.textContent = t('popHint');
-
-  // Discount badge
-  const rep = filtered[0];
-  const discPct = rep ? getPopDiscount(rep, days) : 0;
-  const discEl = $('popDiscount');
-  if (discEl) {
-    if (discPct > 0) {
-      discEl.style.display = 'flex';
-      $('popDiscountBadge').textContent = '\u2212' + discPct + '%';
-      let discText = '';
-      if (days >= 20) discText = t('popDiscount20');
-      else if (days >= 7) discText = t('popDiscount7');
-      else discText = t('popDiscount3');
-      $('popDiscountText').textContent = discText;
-    } else {
-      discEl.style.display = 'none';
-    }
-  }
 
   // Title & links
   const titleEl = $('popTitle');
@@ -861,11 +973,12 @@ function updatePopBlock() {
   const viewAll = $('popViewAll');
   if (viewAll) viewAll.textContent = t('popViewAll');
 
-  // Chip labels
+  // Chip labels (group chips: Эконом/Комфорт/Премиум)
   const chipLabels = { economy: 'popEconomy', comfort: 'popComfort', premium: 'popPremium' };
   document.querySelectorAll('[data-pop-group]').forEach(el => {
     const g = el.dataset.popGroup;
-    el.querySelector('span').textContent = t(chipLabels[g]);
+    const spanEl = el.querySelector('span');
+    if (spanEl) spanEl.textContent = t(chipLabels[g]);
     el.classList.toggle('pop-chip--active', g === popGroup);
   });
 
@@ -880,7 +993,7 @@ document.querySelectorAll('[data-pop-group]').forEach(el => {
   });
 });
 
-// Pop slider
+// Pop slider (kept for backward compat; slider removed from popular section in v3.8)
 const popSlider = $('popSlider');
 if (popSlider) popSlider.addEventListener('input', () => {
   popDays = parseInt(popSlider.value);
@@ -908,16 +1021,15 @@ let lbDeltaX = 0;
 
 function openBookingSheet(bike) {
   sheetBike = bike;
-  sheetDays = 3;
+  sheetDays = 8;
   sheetInsurancePlus = false;
 
-  const emoji = BIKE_EMOJI[bike.category] || '\u{1F6F5}';
   const catClass = `cat-${bike.category}`;
   sheetBikeImg.className = `sheet-bike-img ${catClass}`;
-  sheetBikeImg.textContent = emoji;
+  sheetBikeImg.innerHTML = getBikeSvg(bike.category, 80, 58);
 
-  // Build slides for lightbox (1 emoji slide per bike for now)
-  lbSlides = [{ emoji, catClass }];
+  // Build slides for lightbox (1 SVG slide per bike for now)
+  lbSlides = [{ svg: getBikeSvg(bike.category, 120, 86), catClass }];
 
   // Render dots under thumbnail (only if >1 slide)
   sheetImgDots.innerHTML = lbSlides.length > 1
@@ -927,8 +1039,19 @@ function openBookingSheet(bike) {
   sheetBikeName.textContent = bike.name;
   sheetBikeCc.textContent = `${bike.cc} cc — ${bikeCatName(bike.category)}`;
 
-  sheetFeatures.innerHTML = bike.features.map(f =>
-    `<span class="sheet-feature-tag">${trFeature(f)}</span>`
+  // Feature tags from featureFlags + classic features
+  const featureTags = [];
+  if (bike.featureFlags) {
+    if (bike.featureFlags.abs) featureTags.push('ABS');
+    if (bike.featureFlags.keyless) featureTags.push('Keyless');
+    if (bike.featureFlags.usb) featureTags.push('USB');
+  }
+  bike.features.forEach(f => {
+    const translated = trFeature(f);
+    if (!featureTags.includes(translated)) featureTags.push(translated);
+  });
+  sheetFeatures.innerHTML = featureTags.map(f =>
+    `<span class="sheet-feature-tag feature-tag">${f}</span>`
   ).join('');
 
   const season = getCurrentSeason();
@@ -971,7 +1094,7 @@ function closeBookingSheet() {
 function openLightbox(startIndex) {
   lbIndex = startIndex || 0;
   lbTrack.innerHTML = lbSlides.map(s =>
-    `<div class="lb-slide"><div class="lb-slide-img ${s.catClass}">${s.emoji}</div></div>`
+    `<div class="lb-slide"><div class="lb-slide-img ${s.catClass}">${s.svg || s.emoji || ''}</div></div>`
   ).join('');
   lbDots.innerHTML = lbSlides.map((_, i) =>
     `<span class="dot${i === lbIndex ? ' active' : ''}"></span>`
@@ -1042,7 +1165,9 @@ function getInsurancePlusCost(bike, days) {
   return 1500;
 }
 
-function getInsuranceFranchise(bike) {
+function getInsuranceFranchiseLocal(bike) {
+  // Prefer imported getInsuranceFranchise if available, fallback to local logic
+  try { return getInsuranceFranchiseUtil(bike); } catch(e) {}
   const tier = getInsuranceTier(bike);
   if (!tier) return 0;
   return tier === 'maxi_big' ? 6000 : 3000;
@@ -1086,6 +1211,28 @@ function updateSheetCalc() {
   const savings = baseTotal - rentalOnly;
   const discountPct = baseTotal > 0 ? Math.round((savings / baseTotal) * 100) : 0;
 
+  // Discount hint from getNextDiscountHint
+  const discountHintEl = $('sheetDiscountHint');
+  if (discountHintEl) {
+    const hint = getNextDiscountHint(sheetDays, sheetBike);
+    discountHintEl.textContent = hint || '';
+    discountHintEl.style.display = hint ? '' : 'none';
+  }
+
+  // Total breakdown
+  const totalBreakdownEl = $('sheetBreakdown');
+  if (totalBreakdownEl) {
+    let breakdownHtml = '';
+    breakdownHtml += `<div class="breakdown-row"><span>${t('sheetRentalDays') || '\u0410\u0440\u0435\u043D\u0434\u0430'} ${sheetDays} ${t('popDays') || '\u0434\u043D.'}</span><span>${rentalOnly.toLocaleString()} \u0E3F</span></div>`;
+    if (sheetInsurancePlus && insTier) {
+      breakdownHtml += `<div class="breakdown-row"><span>${t('insPlus') || '\u0417\u0430\u0449\u0438\u0442\u0430 \u0431\u0430\u0439\u043A\u0430+'}</span><span>${insCost.toLocaleString()} \u0E3F</span></div>`;
+    }
+    if (savings > 0) {
+      breakdownHtml += `<div class="breakdown-row saving-row"><span>${t('sheetSave') || '\u042D\u043A\u043E\u043D\u043E\u043C\u0438\u044F'}</span><span>-${savings.toLocaleString()} \u0E3F</span></div>`;
+    }
+    totalBreakdownEl.innerHTML = breakdownHtml;
+  }
+
   const totalEl = document.querySelector('.sheet-total');
   if (totalEl) {
     let html = '';
@@ -1095,7 +1242,7 @@ function updateSheetCalc() {
     }
     html += `<strong class="sheet-final-price" id="sheetTotal">${total.toLocaleString()} &#3647;</strong>`;
     if (savings > 0) {
-      html += ` <span class="sheet-savings">${t('sheetSave') || 'экономия'} ${savings.toLocaleString()} &#3647;</span>`;
+      html += ` <span class="sheet-savings">${t('sheetSave') || '\u044D\u043A\u043E\u043D\u043E\u043C\u0438\u044F'} ${savings.toLocaleString()} &#3647;</span>`;
     }
     totalEl.innerHTML = html;
   }
@@ -1107,13 +1254,20 @@ function updateSheetCalc() {
     td.classList.toggle('active-tier', tierMap[i] === tierName);
   });
 
+  // CTA: two buttons TG + WA side by side (sheet-cta grid)
   const insText = sheetInsurancePlus && insTier ? ` + ${t('insPlus')}` : '';
   const dates = sheetDateStart && sheetDateEnd
-    ? ` с ${formatDateField(sheetDateStart)} по ${formatDateField(sheetDateEnd)}`
+    ? ` \u0441 ${formatDateField(sheetDateStart)} \u043F\u043E ${formatDateField(sheetDateEnd)}`
     : '';
   const msg = encodeURIComponent(tpl('waMsgBike', { name: sheetBike.name, days: sheetDays, total, dates }) + insText);
   sheetWa.href = `https://wa.me/66822545737?text=${msg}`;
   sheetTg.href = `https://t.me/ThaiGoSale1?text=${msg}`;
+
+  // Order hint text below CTA
+  const orderHintEl = $('sheetOrderHint');
+  if (orderHintEl) {
+    orderHintEl.textContent = t('sheetOrderHint') || '\u041E\u0442\u0432\u0435\u0442\u0438\u043C \u0437\u0430 5 \u043C\u0438\u043D\u0443\u0442. \u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u0430\u044F \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0430!';
+  }
 }
 
 function calcDaysBetween(startStr, endStr) {
@@ -1198,7 +1352,7 @@ insBasicInfo.addEventListener('click', (e) => {
 insPlusInfo.addEventListener('click', (e) => {
   e.stopPropagation();
   if (!sheetBike) return;
-  const franchise = getInsuranceFranchise(sheetBike);
+  const franchise = getInsuranceFranchiseLocal(sheetBike);
   const cost = getInsurancePlusCost(sheetBike, sheetDays);
   insPlusDescText.textContent = tpl('insPlusDesc', { franchise: franchise.toLocaleString() });
   const costPerDay = Math.ceil(cost / sheetDays);

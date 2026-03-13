@@ -271,11 +271,11 @@ export const T = {
   badgePopular: { ru: 'Популярный', en: 'Popular', de: 'Beliebt', fr: 'Populaire', es: 'Popular', th: 'ยอดนิยม' },
   badgeBeginner: { ru: 'Для новичков', en: 'For beginners', de: 'Für Anfänger', fr: 'Pour débutants', es: 'Para principiantes', th: 'สำหรับมือใหม่' },
   bpcTitle: { ru: 'Не знаете, какой байк выбрать?', en: 'Not sure which bike to pick?', de: 'Nicht sicher, welches Bike?', fr: 'Quel scooter choisir ?', es: '¿No sabes qué moto elegir?', th: 'ไม่แน่ใจว่าจะเลือกรุ่นไหน?' },
-  bpcSub: { ru: 'Ответьте на 5 вопросов — подберём идеальный вариант', en: 'Answer 5 questions — we\'ll find your perfect match', de: '5 Fragen beantworten — wir finden das perfekte Bike', fr: 'Répondez à 5 questions — on trouve le scooter idéal', es: 'Responde 5 preguntas — encontramos tu moto ideal', th: 'ตอบ 5 คำถาม — เราจะหารถที่เหมาะกับคุณ' },
+  bpcSub: { ru: 'Ответьте на 5 вопросов — сразу покажем байк и цену', en: 'Answer 5 questions — we\'ll show you the bike and price', de: '5 Fragen beantworten — wir zeigen Bike und Preis', fr: 'Répondez à 5 questions — on montre le scooter et le prix', es: 'Responde 5 preguntas — te mostramos la moto y precio', th: 'ตอบ 5 คำถาม — เราจะแนะนำรถและราคา' },
   bpcBtn: { ru: 'Подобрать байк за 1 минуту', en: 'Find your bike in 1 min', de: 'Bike in 1 Min finden', fr: 'Trouver en 1 min', es: 'Encontrar moto en 1 min', th: 'หารถใน 1 นาที' },
   ctaWhatsapp: { ru: '\u{1F4AC} Написать в WhatsApp', en: '\u{1F4AC} Message WhatsApp', de: '\u{1F4AC} WhatsApp schreiben', fr: '\u{1F4AC} Écrire sur WhatsApp', es: '\u{1F4AC} Escribir en WhatsApp', th: '\u{1F4AC} WhatsApp' },
   ctaTelegram: { ru: '\u{1F4F1} Написать в Telegram', en: '\u{1F4F1} Message Telegram', de: '\u{1F4F1} Telegram schreiben', fr: '\u{1F4F1} Écrire sur Telegram', es: '\u{1F4F1} Escribir en Telegram', th: '\u{1F4F1} Telegram' },
-  ctaReplyTime: { ru: 'Отвечаем за 5–10 минут', en: 'We reply in 5–10 minutes', de: 'Antwort in 5–10 Minuten', fr: 'Réponse en 5–10 minutes', es: 'Respondemos en 5–10 minutos', th: 'ตอบใน 5–10 นาที' },
+  ctaReplyTime: { ru: 'Отвечаем быстро', en: 'We reply fast', de: 'Schnelle Antwort', fr: 'Réponse rapide', es: 'Respondemos rápido', th: 'ตอบเร็ว' },
   bpWaMsg: {
     ru: 'Привет! По результатам квиза выбрал: ${name}, ${days} дн., ${total} ฿${ins}',
     en: 'Hi! Based on the quiz I chose: ${name}, ${days} days, ${total} ฿${ins}',
@@ -286,6 +286,67 @@ export const T = {
   },
   bpAutoType: { ru: 'Автомат', en: 'Automatic', de: 'Automatik', fr: 'Automatique', es: 'Automático', th: 'ออโต้' },
   bpManualType: { ru: 'Механика', en: 'Manual', de: 'Schaltung', fr: 'Manuelle', es: 'Manual', th: 'เกียร์ธรรมดา' },
+
+  // ── Proof row ──
+  proofNoDeposit: { ru: 'Без залога паспорта', en: 'No passport deposit', de: 'Ohne Passkaution', fr: 'Sans caution', es: 'Sin depósito', th: 'ไม่ต้องวางพาสปอร์ต' },
+  proofDelivery: { ru: 'Доставка к отелю', en: 'Hotel delivery', de: 'Hotellieferung', fr: 'Livraison hôtel', es: 'Entrega al hotel', th: 'ส่งถึงโรงแรม' },
+  proofInsurance: { ru: 'Договор и страховка', en: 'Contract & insurance', de: 'Vertrag & Versicherung', fr: 'Contrat & assurance', es: 'Contrato y seguro', th: 'สัญญาและประกัน' },
+  proofNewBikes: { ru: 'Новые байки', en: 'New bikes', de: 'Neue Bikes', fr: 'Motos neuves', es: 'Motos nuevas', th: 'รถใหม่' },
+
+  // ── Trust strip labels ──
+  trustContract: { ru: 'Договор', en: 'Contract', de: 'Vertrag', fr: 'Contrat', es: 'Contrato', th: 'สัญญา' },
+  trustNoDeposit: { ru: 'Без залога паспорта', en: 'No passport deposit', de: 'Ohne Passkaution', fr: 'Sans caution', es: 'Sin depósito', th: 'ไม่ต้องวางพาสปอร์ต' },
+  trustInsurance: { ru: 'Страховка', en: 'Insurance', de: 'Versicherung', fr: 'Assurance', es: 'Seguro', th: 'ประกัน' },
+  trustDelivery: { ru: 'Доставка к отелю', en: 'Hotel delivery', de: 'Hotellieferung', fr: 'Livraison', es: 'Entrega', th: 'จัดส่ง' },
+  trustSupport: { ru: 'Поддержка 24/7', en: '24/7 Support', de: '24/7 Support', fr: 'Support 24/7', es: 'Soporte 24/7', th: 'บริการ 24/7' },
+
+  // ── Deal bar ──
+  dealBarLabel: { ru: 'Лучшее предложение', en: 'Best deal', de: 'Bestes Angebot', fr: 'Meilleure offre', es: 'Mejor oferta', th: 'ข้อเสนอที่ดีที่สุด' },
+  dealBarDays: { ru: 'дней', en: 'days', de: 'Tage', fr: 'jours', es: 'días', th: 'วัน' },
+  dealBarPerDay: { ru: '/день', en: '/day', de: '/Tag', fr: '/jour', es: '/día', th: '/วัน' },
+
+  // ── Booking sheet new ──
+  sheetRentalPeriod: { ru: 'Срок аренды:', en: 'Rental period:', de: 'Mietdauer:', fr: 'Durée:', es: 'Periodo:', th: 'ระยะเวลาเช่า:' },
+  sheetDaysLabel: { ru: 'дней', en: 'days', de: 'Tage', fr: 'jours', es: 'días', th: 'วัน' },
+  sheetSaving: { ru: 'экономия', en: 'savings', de: 'Ersparnis', fr: 'économie', es: 'ahorro', th: 'ประหยัด' },
+  sheetInsBasicTitle: { ru: 'Страховка — включена бесплатно', en: 'Insurance — included free', de: 'Versicherung — kostenlos', fr: 'Assurance — incluse', es: 'Seguro — incluido', th: 'ประกัน — ฟรี' },
+  sheetInsBasicDesc: { ru: 'Здоровье водителя и пассажира · до 30 000 ฿', en: 'Rider & passenger health · up to 30,000 ฿', de: 'Fahrer- & Beifahrer-Gesundheit · bis 30.000 ฿', fr: 'Santé conducteur & passager · jusqu\'à 30 000 ฿', es: 'Salud conductor y pasajero · hasta 30,000 ฿', th: 'สุขภาพผู้ขับขี่และผู้โดยสาร · สูงสุด 30,000 ฿' },
+  sheetInsProtTitle: { ru: 'Защита байка+', en: 'Bike Protection+', de: 'Bike-Schutz+', fr: 'Protection moto+', es: 'Protección moto+', th: 'ความคุ้มครองรถ+' },
+  sheetInsProtTags: {
+    ru: ['Царапины', 'Вмятины', 'Падение', 'Опрокидывание'],
+    en: ['Scratches', 'Dents', 'Falls', 'Tipping over'],
+    de: ['Kratzer', 'Dellen', 'Stürze', 'Umkippen'],
+    fr: ['Rayures', 'Bosses', 'Chutes', 'Renversement'],
+    es: ['Rayones', 'Abolladuras', 'Caídas', 'Volcaduras'],
+    th: ['รอยขีดข่วน', 'รอยบุบ', 'ล้ม', 'คว่ำ']
+  },
+  sheetTotalLabel: { ru: 'Итого', en: 'Total', de: 'Gesamt', fr: 'Total', es: 'Total', th: 'รวม' },
+  sheetSavingCompare: { ru: 'Экономишь ${amount} ฿ по сравнению с ценой 1–2 дней', en: 'You save ${amount} ฿ compared to 1–2 day price', de: 'Sie sparen ${amount} ฿ im Vergleich zum 1–2 Tage-Preis', fr: 'Vous économisez ${amount} ฿ par rapport au prix 1–2 jours', es: 'Ahorras ${amount} ฿ comparado con precio de 1–2 días', th: 'ประหยัด ${amount} ฿ เทียบกับราคา 1–2 วัน' },
+  sheetOrderHint: { ru: 'Мы пришлём готовый расчёт — вам только подтвердить', en: 'We\'ll send you a ready calculation — just confirm', de: 'Wir senden Ihnen die Berechnung — einfach bestätigen', fr: 'Nous vous enverrons le calcul — confirmez simplement', es: 'Le enviaremos el cálculo — solo confirme', th: 'เราจะส่งการคำนวณให้ — แค่ยืนยัน' },
+  sheetNextDiscount: { ru: 'Ещё ${days} дней — и будет −${percent}% (${price} ฿/день)', en: '${days} more days for −${percent}% (${price} ฿/day)', de: 'Noch ${days} Tage für −${percent}% (${price} ฿/Tag)', fr: 'Encore ${days} jours pour −${percent}% (${price} ฿/jour)', es: '${days} días más para −${percent}% (${price} ฿/día)', th: 'อีก ${days} วัน จะได้ −${percent}% (${price} ฿/วัน)' },
+
+  // ── Contacts new ──
+  contactsOfficeBadge: { ru: 'Наш офис на Пхукете', en: 'Our office in Phuket', de: 'Unser Büro auf Phuket', fr: 'Notre bureau à Phuket', es: 'Nuestra oficina en Phuket', th: 'สำนักงานของเราในภูเก็ต' },
+  contactsOfficeName: { ru: 'ThaiGo Rent', en: 'ThaiGo Rent', de: 'ThaiGo Rent', fr: 'ThaiGo Rent', es: 'ThaiGo Rent', th: 'ThaiGo Rent' },
+  contactsAddrHint: { ru: 'Точный адрес пришлём при заказе', en: 'Exact address sent upon booking', de: 'Genaue Adresse bei Buchung', fr: 'Adresse exacte envoyée à la réservation', es: 'Dirección exacta al reservar', th: 'ที่อยู่แน่นอนส่งเมื่อจอง' },
+  contactsBuildRoute: { ru: 'Построить маршрут в офис', en: 'Get directions to office', de: 'Route zum Büro planen', fr: 'Itinéraire vers le bureau', es: 'Ruta a la oficina', th: 'นำทางไปสำนักงาน' },
+  contactsFabRoute: { ru: 'Маршрут в офис', en: 'Route to office', de: 'Route zum Büro', fr: 'Itinéraire bureau', es: 'Ruta oficina', th: 'เส้นทาง' },
+  deliveryTitle: { ru: 'Доставка байка', en: 'Bike delivery', de: 'Bike-Lieferung', fr: 'Livraison moto', es: 'Entrega de moto', th: 'จัดส่งมอเตอร์ไซค์' },
+  deliveryFreeTitle: { ru: 'Бесплатно от 3 дней', en: 'Free from 3 days', de: 'Kostenlos ab 3 Tagen', fr: 'Gratuit dès 3 jours', es: 'Gratis desde 3 días', th: 'ฟรีตั้งแต่ 3 วัน' },
+  deliveryFreeZones: { ru: 'Ката · Карон · Патонг · Чалонг · Раваи', en: 'Kata · Karon · Patong · Chalong · Rawai', de: 'Kata · Karon · Patong · Chalong · Rawai', fr: 'Kata · Karon · Patong · Chalong · Rawai', es: 'Kata · Karon · Patong · Chalong · Rawai', th: 'กะตะ · กะรน · ป่าตอง · ฉลอง · ราไวย์' },
+  deliveryPaidTitle: { ru: 'Платно 300 ฿ (бесплатно от 7 дн)', en: 'Paid 300 ฿ (free from 7 days)', de: '300 ฿ (kostenlos ab 7 Tagen)', fr: '300 ฿ (gratuit dès 7 jours)', es: '300 ฿ (gratis desde 7 días)', th: '300 ฿ (ฟรีตั้งแต่ 7 วัน)' },
+  deliveryPaidZones: { ru: 'Камала · Сурин · Бангтао · Маи Кхао · весь остров', en: 'Kamala · Surin · Bang Tao · Mai Khao · whole island', de: 'Kamala · Surin · Bang Tao · Mai Khao · ganze Insel', fr: 'Kamala · Surin · Bang Tao · Mai Khao · toute l\'île', es: 'Kamala · Surin · Bang Tao · Mai Khao · toda la isla', th: 'กมลา · สุรินทร์ · บางเทา · ไม้ขาว · ทั้งเกาะ' },
+
+  // ── Bike badges ──
+  badgeHit: { ru: 'Хит', en: 'Hit', de: 'Hit', fr: 'Hit', es: 'Hit', th: 'ยอดฮิต' },
+  badgeNewbie: { ru: 'Новичкам', en: 'Beginners', de: 'Anfänger', fr: 'Débutants', es: 'Principiantes', th: 'มือใหม่' },
+  badgeComfort: { ru: 'Комфорт', en: 'Comfort', de: 'Komfort', fr: 'Confort', es: 'Confort', th: 'สะดวกสบาย' },
+  bikeBtnTake: { ru: 'Взять', en: 'Rent', de: 'Mieten', fr: 'Louer', es: 'Alquilar', th: 'เช่า' },
+
+  // ── Picker banner ──
+  pickerBannerTitle: { ru: 'Не знаете какой выбрать?', en: 'Not sure which one?', de: 'Nicht sicher?', fr: 'Pas sûr du choix ?', es: '¿No sabes cuál elegir?', th: 'ไม่แน่ใจว่าเลือกรุ่นไหน?' },
+  pickerBannerSub: { ru: 'Ответьте на 5 вопросов — сразу покажем байк и цену', en: 'Answer 5 questions — we\'ll show you the bike and price', de: '5 Fragen beantworten — wir zeigen Bike und Preis', fr: 'Répondez à 5 questions — on montre le scooter et le prix', es: 'Responde 5 preguntas — te mostramos la moto y precio', th: 'ตอบ 5 คำถาม — เราจะแนะนำรถและราคา' },
+  pickerBannerBtn: { ru: 'Подобрать', en: 'Find bike', de: 'Finden', fr: 'Trouver', es: 'Buscar', th: 'ค้นหา' },
 
   reviewsTitle: { ru: 'Что говорят клиенты', en: 'What clients say', de: 'Was Kunden sagen', fr: 'Avis clients', es: 'Lo que dicen los clientes', th: 'ลูกค้าพูดว่าอะไร' },
   reviews: [
@@ -553,10 +614,16 @@ export const T = {
     ru: 'Контакты', en: 'Contacts', de: 'Kontakt', fr: 'Contact', es: 'Contacto', th: 'ติดต่อ'
   },
   contactHours: {
-    ru: 'Ежедневно 8:00–20:00', en: 'Daily 8:00–20:00', de: 'Täglich 8:00–20:00', fr: 'Tous les jours 8h–20h', es: 'Diario 8:00–20:00', th: 'ทุกวัน 8:00–20:00'
+    ru: 'Ежедневно 09:00–21:00', en: 'Daily 09:00–21:00', de: 'Täglich 09:00–21:00', fr: 'Tous les jours 9h–21h', es: 'Diario 09:00–21:00', th: 'ทุกวัน 09:00–21:00'
   },
   contactAddr: {
     ru: 'Ката, Пхукет, Таиланд', en: 'Kata, Phuket, Thailand', de: 'Kata, Phuket, Thailand', fr: 'Kata, Phuket, Thaïlande', es: 'Kata, Phuket, Tailandia', th: 'กะตะ ภูเก็ต ประเทศไทย'
+  },
+  contactBadge: {
+    ru: 'Наш офис на Пхукете', en: 'Our office in Phuket', de: 'Unser Büro auf Phuket', fr: 'Notre bureau à Phuket', es: 'Nuestra oficina en Phuket', th: 'สำนักงานของเราในภูเก็ต'
+  },
+  contactRoute: {
+    ru: 'Построить маршрут', en: 'Get directions', de: 'Route berechnen', fr: 'Itinéraire', es: 'Cómo llegar', th: 'เส้นทาง'
   },
   contactAddrLabel: {
     ru: 'Адрес', en: 'Address', de: 'Adresse', fr: 'Adresse', es: 'Dirección', th: 'ที่อยู่'
@@ -581,6 +648,18 @@ export const T = {
   },
   floatingDirections: {
     ru: 'Как добраться', en: 'Get directions', de: 'Wegbeschreibung', fr: 'Itinéraire', es: 'Cómo llegar', th: 'เส้นทาง'
+  },
+  deliveryInfoTitle: {
+    ru: 'Зоны доставки', en: 'Delivery zones', de: 'Lieferzonen', fr: 'Zones de livraison', es: 'Zonas de entrega', th: 'โซนจัดส่ง'
+  },
+  deliveryFreeList: {
+    ru: 'Ката, Карон, Патонг', en: 'Kata, Karon, Patong', de: 'Kata, Karon, Patong', fr: 'Kata, Karon, Patong', es: 'Kata, Karon, Patong', th: 'กะตะ กะรน ป่าตอง'
+  },
+  deliveryPaidList: {
+    ru: 'Камала, Сурин, Бангтао, Раваи, Чалонг', en: 'Kamala, Surin, Bangtao, Rawai, Chalong', de: 'Kamala, Surin, Bangtao, Rawai, Chalong', fr: 'Kamala, Surin, Bangtao, Rawai, Chalong', es: 'Kamala, Surin, Bangtao, Rawai, Chalong', th: 'กมลา สุรินทร์ บางเทา ราไวย์ ฉลอง'
+  },
+  fabRouteToOffice: {
+    ru: 'Маршрут в офис', en: 'Route to office', de: 'Route zum Büro', fr: 'Itinéraire au bureau', es: 'Ruta a la oficina', th: 'เส้นทางไปสำนักงาน'
   },
   deliveryAreasTitle: {
     ru: 'Районы доставки', en: 'Delivery Areas', de: 'Liefergebiete', fr: 'Zones de livraison', es: 'Zonas de entrega', th: 'พื้นที่บริการส่ง'

@@ -190,6 +190,66 @@
 .sheet-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--primary-m); cursor: pointer; box-shadow: 0 2px 6px rgba(67,56,202,.3); }
 .sheet-slider::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--primary-m); border: none; cursor: pointer; }
 
+/* ========== Reusable Selectable Option Pattern ========== */
+/* Base: any toggleable option card/row */
+.selectable-option {
+  position: relative;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+}
+
+/* Selection indicator (checkmark) — injected via ::after */
+.selectable-option::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  box-sizing: border-box;
+}
+
+.selectable-option.active::after {
+  background: var(--primary-m);
+  border-color: var(--primary-m);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+}
+
+/* Micro-animation: pulse on select */
+@keyframes selectPulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.012); }
+  100% { transform: scale(1); }
+}
+
+.selectable-option.just-toggled {
+  animation: selectPulse .25s ease;
+}
+
+/* Price highlight flash when value changes */
+@keyframes priceFlash {
+  0%   { color: var(--primary-m); }
+  30%  { color: #6366F1; transform: scale(1.06); }
+  100% { color: var(--primary-m); transform: scale(1); }
+}
+
+.price-animated {
+  display: inline-block;
+  transition: color .2s ease;
+}
+
+.price-animated.flash {
+  animation: priceFlash .35s ease;
+}
+
 /* ========== Insurance Block (mockup v3.8) ========== */
 .sheet-insurance-block { margin: 0 0 14px; border: 1.5px solid rgba(99,102,241,.25); border-radius: 12px; overflow: hidden; }
 .ins-basic-row { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--green-l); border-bottom: 1px solid rgba(22,163,74,.15); }
@@ -198,8 +258,19 @@
 .ins-basic-title { font-size: 12px; font-weight: 700; color: #16A34A; }
 .ins-basic-desc { font-size: 10px; color: #166534; margin-top: 1px; }
 .ins-basic-cost { font-size: 11px; font-weight: 700; color: #16A34A; flex-shrink: 0; }
-.ins-plus-row { padding: 10px 14px; background: var(--surface); transition: opacity .25s ease, max-height .25s ease, padding .25s ease; overflow: hidden; max-height: 200px; }
+.ins-plus-row { padding: 10px 14px; background: var(--surface); transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease, opacity .25s ease, max-height .25s ease, padding .25s ease; overflow: hidden; max-height: 200px; }
 .ins-plus-row.hidden { opacity: 0; max-height: 0; padding: 0; pointer-events: none; }
+
+/* Insurance+ selected state */
+.ins-plus-row.active {
+  background: var(--primary-l);
+  box-shadow: inset 0 0 0 1.5px var(--primary-m);
+}
+.ins-plus-row.active::after {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .ins-plus-top { display: flex; align-items: flex-start; gap: 10px; }
 .ins-plus-info { flex: 1; }
 .ins-plus-title { font-size: 12px; font-weight: 700; color: var(--primary-m); }
@@ -213,14 +284,24 @@
 
 /* ========== Total Section (mockup v3.8) ========== */
 .total-section { padding: 0; }
-.total-breakdown { background: var(--surface2); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+.total-breakdown { background: var(--surface2); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; transition: box-shadow .3s ease; }
+.total-breakdown.highlight { box-shadow: 0 0 0 2px var(--primary-m), 0 0 12px rgba(67,56,202,.15); }
 .breakdown-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text2); padding: 3px 0; }
 .breakdown-divider { height: 1px; background: var(--border); margin: 6px 0; }
 .breakdown-total-label { font-size: 14px; font-weight: 800; color: var(--text); }
-.breakdown-total-value { font-size: 16px; font-weight: 800; color: var(--primary-m); }
+.breakdown-total-value { font-size: 16px; font-weight: 800; color: var(--primary-m); display: inline-block; transition: transform .15s ease; }
+.breakdown-total-value.flash { animation: priceFlash .35s ease; }
 .saving-row { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #16A34A; margin-bottom: 12px; transition: opacity .25s ease, max-height .25s ease, margin .25s ease; overflow: hidden; max-height: 40px; }
 .saving-row.hidden { opacity: 0; max-height: 0; margin-bottom: 0; pointer-events: none; }
 .saving-row svg { flex-shrink: 0; }
+
+/* Discount badge enter animation */
+@keyframes badgePopIn {
+  0%   { transform: scale(0.7); opacity: 0; }
+  60%  { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.slider-discount-badge:not(.hidden) { animation: badgePopIn .25s ease; }
 
 /* CTA buttons */
 .sheet-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }

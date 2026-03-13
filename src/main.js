@@ -108,6 +108,69 @@ function bikeCatName(cat) {
 }
 
 // ══════════════════════════════════════════════
+// UX Helpers — reusable animation utilities
+// ══════════════════════════════════════════════
+
+/**
+ * Animate a numeric value change with count-up/down effect.
+ * @param {HTMLElement} el — target element
+ * @param {number} from — start value
+ * @param {number} to — end value
+ * @param {number} duration — ms (default 250)
+ * @param {string} suffix — text appended after number (e.g. ' ฿')
+ */
+function animateValue(el, from, to, duration = 250, suffix = ' ฿') {
+  if (!el || from === to) { if (el) el.textContent = to.toLocaleString() + suffix; return; }
+  // Respect reduced-motion preference
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = to.toLocaleString() + suffix;
+    return;
+  }
+  const start = performance.now();
+  const diff = to - from;
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // ease-out quad
+    const eased = 1 - (1 - progress) * (1 - progress);
+    const current = Math.round(from + diff * eased);
+    el.textContent = current.toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/**
+ * Flash-highlight an element briefly (adds then removes a class).
+ * @param {HTMLElement} el
+ * @param {string} cls — CSS class to toggle (default 'flash')
+ * @param {number} ms — duration before removal (default 350)
+ */
+function flashClass(el, cls = 'flash', ms = 350) {
+  if (!el) return;
+  el.classList.remove(cls);
+  // force reflow so re-adding triggers animation
+  void el.offsetWidth;
+  el.classList.add(cls);
+  setTimeout(() => el.classList.remove(cls), ms);
+}
+
+/**
+ * Micro-pulse animation on a selectable option toggle.
+ * @param {HTMLElement} el
+ */
+function pulseToggle(el) {
+  if (!el) return;
+  el.classList.remove('just-toggled');
+  void el.offsetWidth;
+  el.classList.add('just-toggled');
+  setTimeout(() => el.classList.remove('just-toggled'), 300);
+}
+
+// Previous total for count-up animation
+let prevSheetTotal = 0;
+
+// ══════════════════════════════════════════════
 // State
 // ══════════════════════════════════════════════
 let currentTab = 'home';
@@ -1055,6 +1118,7 @@ function openBookingSheet(bike) {
   sheetBike = bike;
   sheetDays = 8;
   sheetInsurancePlus = false;
+  prevSheetTotal = 0; // reset so first render doesn't animate
 
   const catClass = `cat-${bike.category}`;
   sheetBikeImg.className = `sheet-bike-img ${catClass}`;
@@ -1099,10 +1163,13 @@ function openBookingSheet(bike) {
   const franchise = getInsuranceFranchiseLocal(bike);
   const franchiseEl = $('insPlusFranchise');
   if (franchiseEl) franchiseEl.textContent = franchise ? `Франшиза ${franchise.toLocaleString()} ฿` : '';
-  // Hide insurance+ row for motorcycles
+  // Hide insurance+ row for motorcycles; reset active state
   const insPlusRow = $('insPlusRow');
   const insTierInit = getInsuranceTier(bike);
-  if (insPlusRow) { insTierInit === null ? insPlusRow.classList.add('hidden') : insPlusRow.classList.remove('hidden'); }
+  if (insPlusRow) {
+    insTierInit === null ? insPlusRow.classList.add('hidden') : insPlusRow.classList.remove('hidden');
+    insPlusRow.classList.remove('active');
+  }
 
   updateSheetCalc();
 
@@ -1280,8 +1347,18 @@ function updateSheetCalc() {
       html += `<div class="breakdown-row"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>${t('insPlus') || 'Страхование+'}</span><span>${insCost.toLocaleString()} \u0E3F</span></div>`;
     }
     html += `<div class="breakdown-divider"></div>`;
-    html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal') || '\u0418\u0442\u043E\u0433\u043E'}</span><span class="breakdown-total-value">${total.toLocaleString()} \u0E3F</span></div>`;
+    html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal') || '\u0418\u0442\u043E\u0433\u043E'}</span><span class="breakdown-total-value" id="sheetTotalValue">${prevSheetTotal === 0 ? total.toLocaleString() + ' \u0E3F' : prevSheetTotal.toLocaleString() + ' \u0E3F'}</span></div>`;
     totalBreakdownEl.innerHTML = html;
+
+    // Animate total value count-up and flash
+    const totalValEl = document.getElementById('sheetTotalValue');
+    if (prevSheetTotal !== total && prevSheetTotal !== 0) {
+      animateValue(totalValEl, prevSheetTotal, total, 250, ' \u0E3F');
+      flashClass(totalValEl, 'flash', 350);
+      // Brief highlight on breakdown container
+      flashClass(totalBreakdownEl, 'highlight', 400);
+    }
+    prevSheetTotal = total;
   }
 
   // Saving row
@@ -1357,12 +1434,16 @@ sheetDateEndEl.addEventListener('change', () => {
   updateSheetCalc();
 });
 
-// Insurance+ row click — toggle insurance
+// Insurance+ row click — toggle insurance (with UX feedback)
 const insPlusRowEl = $('insPlusRow');
 if (insPlusRowEl) {
+  // Add reusable selectable-option class
+  insPlusRowEl.classList.add('selectable-option');
   insPlusRowEl.addEventListener('click', () => {
     sheetInsurancePlus = !sheetInsurancePlus;
     insPlusRowEl.classList.toggle('active', sheetInsurancePlus);
+    // Micro-animation: pulse on toggle
+    pulseToggle(insPlusRowEl);
     updateSheetCalc();
   });
 }

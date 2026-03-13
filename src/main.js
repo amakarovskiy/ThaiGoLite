@@ -1719,6 +1719,7 @@ function renderMapMarkers() {
       transform="translate(${x.toFixed(1)},${y.toFixed(1)})">
       <g class="map-pin-body ${inRoute ? 'in-route' : ''} ${isOffice ? 'map-pin--office' : ''}"
         style="animation-delay:${delay}ms">
+        <circle class="map-pin-pulse" cx="0" cy="${-PH + 16}" r="18" fill="none" stroke="${info.color}" stroke-width="2" opacity="0"/>
         <g transform="translate(${-PW / 2},${-PH})">
           <path class="map-pin-shape" d="${PIN_PATH}" fill="${info.color}" stroke="#fff" stroke-width="2"/>
           <g transform="translate(${IX},${IY}) scale(${iconScale})"

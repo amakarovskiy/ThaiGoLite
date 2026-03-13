@@ -72,10 +72,23 @@
   stroke-width: 2.5;
 }
 
-/* Active state — bright ring + scale hint */
+/* Active state — bright ring + pulse */
 .map-pin-body.active .map-pin-shape {
   stroke-width: 3;
   filter: drop-shadow(0 3px 12px rgba(0,0,0,.35));
+}
+
+.map-pin-pulse {
+  pointer-events: none;
+}
+
+.map-pin-body.active .map-pin-pulse {
+  animation: pin-pulse-ring 1.2s ease-out infinite;
+}
+
+@keyframes pin-pulse-ring {
+  0%   { r: 18; opacity: 0.4; }
+  100% { r: 30; opacity: 0; }
 }
 
 /* In-route pins — stronger shadow */
@@ -377,7 +390,7 @@
 .filter-chip[data-cat="temple"] { background: #FFF7ED; border-color: #FED7AA; color: #C2410C; }
 .filter-chip[data-cat="food"], .filter-chip[data-cat="market"] { background: #FFF1F2; border-color: #FECDD3; color: #BE123C; }
 .filter-chip[data-cat="nature"] { background: #ECFDF5; border-color: #A7F3D0; color: #047857; }
-.filter-chip[data-cat="photo"] { background: #F0F9FF; border-color: #BAE6FD; color: #0369A1; }
+.filter-chip[data-cat="photo"] { background: #F5F3FF; border-color: #DDD6FE; color: #7C3AED; }
 
 /* Active chip overrides all category colors */
 .filter-chip--active[data-cat] {

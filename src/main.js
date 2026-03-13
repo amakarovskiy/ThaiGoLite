@@ -9,7 +9,7 @@ import './components/bike-picker.css';
 import './components/routes-map.css';
 import { BIKES, BIKE_CATEGORIES, BUDGET_GROUPS } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
-import { calcStats, formatTime, haversine, TAXI_RATE_PER_KM, KM_FACTOR } from './utils/stats.js';
+import { calcStats, formatTime, haversine, KM_FACTOR } from './utils/stats.js';
 import { LANGS, detectLang, saveLang, T, translateFeature, BIKE_CAT_TR } from './data/i18n.js';
 import { PLACE_TR } from './data/place-translations.js';
 import { RIDER_QUESTIONS, CONFETTI_EMOJIS } from './data/rider-test.js';
@@ -668,13 +668,9 @@ $('menuRoutes').addEventListener('click', () => {
   tabs.forEach(t => {
     t.classList.toggle('tab--active', t.dataset.tab === 'guide');
   });
-  // Show hint on first visit
-  if (!sessionStorage.getItem('tg_hint_shown')) {
-    const hint = $('rsHint');
-    if (hint) { hint.classList.remove('hidden'); setTimeout(dismissRsHint, 3000); }
-  } else {
-    dismissRsHint();
-  }
+  // Auto-open sheet to half so content is immediately visible
+  setTimeout(() => setSheetState('half'), 50);
+  dismissRsHint();
 });
 
 $('menuRiderTest').addEventListener('click', () => {
@@ -814,7 +810,7 @@ function toggleSheet() {
   });
 }
 
-// Sheet tabs
+// Sheet tabs — auto-resize: Route→full, Places→half
 rsTabs.addEventListener('click', e => {
   const tab = e.target.closest('.rs-tab');
   if (!tab) return;
@@ -822,7 +818,11 @@ rsTabs.addEventListener('click', e => {
   rsTabs.querySelectorAll('.rs-tab').forEach(t => t.classList.toggle('active', t === tab));
   rsPanelPlaces.classList.toggle('active', rsTab === 'places');
   rsPanelRoute.classList.toggle('active', rsTab === 'route');
-  if (rsState === 'collapsed') setSheetState('half');
+  if (rsTab === 'route') {
+    setSheetState('expanded');
+  } else {
+    if (rsState === 'collapsed' || rsState === 'expanded') setSheetState('half');
+  }
 });
 
 // ══════════════════════════════════════════════
@@ -2342,45 +2342,29 @@ function renderRoutePanel() {
         <div class="rs-stat"><div class="rs-stat-val">${stats.fuel}</div><div class="rs-stat-label">${t('statFuel')}</div></div>
       </div>`;
 
-      // Taxi comparison — mockup v3.8 style
-      const taxiCost = Math.round(stats.km * TAXI_RATE_PER_KM);
-      const bikeCost = String(stats.fuel).replace(/[^0-9]/g, '') || '80';
-      const saving = taxiCost - parseInt(bikeCost);
+      // Taxi comparison — compact inline design
+      // Fixed daily costs: bike ~500 ₿/day, taxi (Grab) ~2400 ₿/day
+      const bikeDayCost = 500;
+      const taxiDayCost = 2400;
+      const daySaving = taxiDayCost - bikeDayCost;
       html += `<div class="rs-taxi-compare">
-        <div class="rs-taxi-title">${t('costTaxiVsBike') || 'На байке vs на такси по этому маршруту'}</div>
-        <div class="rs-taxi-row">
-          <div class="rs-taxi-col">
-            <div class="rs-taxi-icon bike">
-              <svg width="20" height="14" viewBox="0 0 80 55" fill="none">
-                <circle cx="18" cy="42" r="10" stroke="#4338CA" stroke-width="3" fill="#EEF2FF"/><circle cx="18" cy="42" r="4" fill="#4338CA"/>
-                <circle cx="62" cy="42" r="10" stroke="#4338CA" stroke-width="3" fill="#EEF2FF"/><circle cx="62" cy="42" r="4" fill="#4338CA"/>
-                <path d="M28 42 L28 30 Q30 22 38 20 L52 20 Q60 20 65 28 L68 35 L65 38 L28 42Z" fill="#4338CA" opacity=".3" stroke="#4338CA" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="rs-taxi-label">${t('costBikeLabel') || 'Байк + бензин'}</div>
-            <div class="rs-taxi-amount bike">~500 ฿</div>
-            <div class="rs-taxi-per">${t('costPerDay') || 'за день'}</div>
+        <div class="rs-taxi-title">На байке vs такси по маршруту</div>
+        <div class="rs-taxi-row-inline">
+          <div class="rs-taxi-val">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/><path d="M5 19h-1a1 1 0 01-1-1v-3a4 4 0 014-4h9l3 4h1a1 1 0 011 1v2a1 1 0 01-1 1h-1"/><path d="M9 11V6a1 1 0 011-1h2"/></svg>
+            <span class="rs-taxi-price bike">~${bikeDayCost.toLocaleString()} ₿</span>
+            <span class="rs-taxi-sub">байк/день</span>
           </div>
-          <div class="rs-taxi-divider">vs</div>
-          <div class="rs-taxi-col">
-            <div class="rs-taxi-icon taxi">
-              <svg width="22" height="14" viewBox="0 0 90 55" fill="none">
-                <rect x="10" y="18" width="70" height="28" rx="6" fill="#F59E0B" opacity=".3" stroke="#F59E0B" stroke-width="2"/>
-                <rect x="20" y="10" width="50" height="16" rx="4" fill="#F59E0B" opacity=".2"/>
-                <circle cx="22" cy="46" r="8" stroke="#78716C" stroke-width="2.5" fill="white"/>
-                <circle cx="22" cy="46" r="3" fill="#78716C"/>
-                <circle cx="68" cy="46" r="8" stroke="#78716C" stroke-width="2.5" fill="white"/>
-                <circle cx="68" cy="46" r="3" fill="#78716C"/>
-              </svg>
-            </div>
-            <div class="rs-taxi-label">${t('costTaxiLabel') || 'Такси (Grab)'}</div>
-            <div class="rs-taxi-amount taxi">~${taxiCost.toLocaleString()} ฿</div>
-            <div class="rs-taxi-per">${t('costPerDay') || 'за день'}</div>
+          <span class="rs-taxi-vs">vs</span>
+          <div class="rs-taxi-val">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2.7-3.4A2 2 0 0013.7 6H5c-1.1 0-2 .9-2 2v8c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+            <span class="rs-taxi-price taxi">~${taxiDayCost.toLocaleString()} ₿</span>
+            <span class="rs-taxi-sub">такси/день</span>
           </div>
         </div>
         <div class="rs-taxi-saving">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
-          ${t('costSaving') || 'Экономия'} ~${saving > 0 ? saving.toLocaleString() : '1 900'} ฿/${t('costPerDay') || 'день'} ${t('costOnBike') || 'на байке'}
+          Экономия ~${daySaving.toLocaleString()} ₿/день на байке
         </div>
       </div>`;
     }

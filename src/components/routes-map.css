@@ -564,7 +564,7 @@
   margin-top: 2px;
 }
 
-/* ===== Taxi Comparison — mockup v3.8 ===== */
+/* ===== Taxi Comparison — compact inline ===== */
 .rs-taxi-compare {
   background: var(--surface2);
   border-radius: 12px;
@@ -574,61 +574,49 @@
 }
 
 .rs-taxi-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--text2);
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 8px;
 }
 
-.rs-taxi-row {
+.rs-taxi-row-inline {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-.rs-taxi-col {
+.rs-taxi-val {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  flex: 1;
+  gap: 2px;
 }
 
-.rs-taxi-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.rs-taxi-val svg {
+  margin-bottom: 2px;
 }
 
-.rs-taxi-icon.bike { background: var(--primary-l); }
-.rs-taxi-icon.taxi { background: #FEF3C7; }
-
-.rs-taxi-label {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text3);
-}
-
-.rs-taxi-amount {
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.rs-taxi-amount.bike { color: var(--primary-m); }
-.rs-taxi-amount.taxi { color: var(--accent); }
-
-.rs-taxi-per {
-  font-size: 9px;
-  color: var(--text3);
-}
-
-.rs-taxi-divider {
+.rs-taxi-price {
   font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.rs-taxi-price.bike { color: var(--primary-m); }
+.rs-taxi-price.taxi { color: var(--accent); }
+
+.rs-taxi-sub {
+  font-size: 10px;
   color: var(--text3);
+}
+
+.rs-taxi-vs {
+  font-size: 14px;
   font-weight: 300;
+  color: var(--text3);
 }
 
 .rs-taxi-saving {

@@ -647,3 +647,12 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 
 /* ===== Utility ===== */
 .i { display: inline-flex; align-items: center; justify-content: center; }
+
+/* ===== Reduced Motion — disable animations for accessibility ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

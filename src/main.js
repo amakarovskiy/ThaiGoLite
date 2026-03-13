@@ -926,13 +926,13 @@ function renderPopular() {
   if (dealBarEl && cheapest30) {
     dealBarEl.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:1px;">
-        <span style="font-size:10px;font-weight:600;color:var(--green);opacity:.8;">${t('bestDeal') || '\u041B\u0443\u0447\u0448\u0435\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435'}</span>
-        <span style="font-size:12px;font-weight:700;color:var(--green);">${cheapest30.bike.name} \xB7 30 ${t('popDays')}</span>
+        <span style="font-size:10px;font-weight:600;color:var(--green);opacity:.8;">${t('bestDeal')}</span>
+        <span style="font-size:12px;font-weight:700;color:var(--green);">${cheapest30.bike.name.replace(/^Honda\s+|^Yamaha\s+|\s*\d+$/g, '')} \xB7 30 ${t('popDays')}</span>
       </div>
       <div style="display:flex;align-items:baseline;gap:2px;flex-shrink:0;">
         <span style="font-size:22px;font-weight:900;color:var(--green);letter-spacing:-.5px;">${cheapest30.price}</span>
         <span style="font-size:13px;font-weight:700;color:var(--green);">\u0E3F</span>
-        <span style="font-size:10px;color:var(--text2);">/${t('popDays')}</span>
+        <span style="font-size:10px;color:var(--text2);">/${t('perDay')}</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" style="margin-left:4px;flex-shrink:0;align-self:center;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>`;
     dealBarEl.style.display = '';
@@ -973,7 +973,7 @@ function renderPopular() {
   // Update existing "View all" button text
   const viewAllBtn = $('popViewAll');
   if (viewAllBtn) {
-    viewAllBtn.textContent = (t('popViewAll') || '\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435 \u0431\u0430\u0439\u043A\u0438') + ' \u2192';
+    viewAllBtn.textContent = t('popViewAll') || '\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435 \u0431\u0430\u0439\u043A\u0438 \u2192';
   }
 
   scroll.querySelectorAll('.bike-card-h').forEach(card => {

@@ -57,12 +57,20 @@ export const T = {
     th: 'เช่ามอเตอร์ไซค์<br>ภูเก็ต'
   },
   heroSub: {
-    ru: 'Без залога паспорта. Доставка по острову.<br>От 130 \u0E3F/сутки. Договор и страховка.',
-    en: 'No passport deposit. Island-wide delivery.<br>From 130 \u0E3F/day. Contract & insurance.',
-    de: 'Ohne Passkaution. Inselweite Lieferung.<br>Ab 130 \u0E3F/Tag. Vertrag & Versicherung.',
-    fr: 'Sans caution de passeport. Livraison sur l\u2019\u00eele.<br>\u00C0 partir de 130 \u0E3F/jour. Contrat & assurance.',
-    es: 'Sin dep\u00f3sito de pasaporte. Entrega en toda la isla.<br>Desde 130 \u0E3F/d\u00eda. Contrato y seguro.',
-    th: 'ไม่ต้องวางพาสปอร์ต ส่งถึงที่ทั่วเกาะ<br>ตั้งแต่ 130 \u0E3F/วัน สัญญาและประกัน'
+    ru: 'Договор, страховка, замена при поломке. Без скрытых платежей.',
+    en: 'Contract, insurance, free replacement. No hidden fees.',
+    de: 'Vertrag, Versicherung, kostenloser Ersatz. Keine versteckten Kosten.',
+    fr: 'Contrat, assurance, remplacement gratuit. Sans frais cachés.',
+    es: 'Contrato, seguro, reemplazo gratuito. Sin costos ocultos.',
+    th: 'สัญญา ประกัน เปลี่ยนรถฟรี ไม่มีค่าใช้จ่ายแอบแฝง'
+  },
+  heroDelivery: {
+    ru: '📍 Доставляем: Ката · Карон · Патонг · Раваи · Чалонг и весь остров',
+    en: '📍 Delivery: Kata · Karon · Patong · Rawai · Chalong & island-wide',
+    de: '📍 Lieferung: Kata · Karon · Patong · Rawai · Chalong & ganze Insel',
+    fr: '📍 Livraison : Kata · Karon · Patong · Rawai · Chalong & toute l\'île',
+    es: '📍 Entrega: Kata · Karon · Patong · Rawai · Chalong y toda la isla',
+    th: '📍 จัดส่ง: กะตะ · กะรน · ป่าตอง · ราไวย์ · ฉลอง และทั่วเกาะ'
   },
 
   // ── Why ThaiGo ──
@@ -161,9 +169,9 @@ export const T = {
   },
 
   // ── Steps (How it works) ──
-  step1: { ru: 'Выбери байк', en: 'Choose a bike', de: 'Bike wählen', fr: 'Choisis un scooter', es: 'Elige una moto', th: 'เลือกรถ' },
-  step2: { ru: 'Мы привезём', en: 'We deliver', de: 'Wir liefern', fr: 'On livre', es: 'Lo entregamos', th: 'เราจะส่งให้' },
-  step3: { ru: 'Езди и кайфуй', en: 'Ride & enjoy', de: 'Fahre & genieße', fr: 'Roule et profite', es: 'Conduce y disfruta', th: 'ขับสนุก' },
+  step1: { ru: '🛵 Выбери байк и напиши нам — ответим за 5–10 минут', en: '🛵 Choose a bike & message us — we reply in 5–10 min', de: '🛵 Bike wählen & schreiben — Antwort in 5–10 Min', fr: '🛵 Choisis un scooter et écris-nous — réponse en 5–10 min', es: '🛵 Elige una moto y escríbenos — respondemos en 5–10 min', th: '🛵 เลือกรถแล้วทักเรา — ตอบใน 5–10 นาที' },
+  step2: { ru: '📍 Привезём к отелю за 1–2 часа — или в удобное время', en: '📍 Delivered to your hotel in 1–2 hours — or at your convenience', de: '📍 Lieferung zum Hotel in 1–2 Std — oder nach Wunsch', fr: '📍 Livré à l\'hôtel en 1–2h — ou à votre convenance', es: '📍 Entrega en tu hotel en 1–2 horas — o cuando prefieras', th: '📍 ส่งถึงโรงแรมใน 1–2 ชม. หรือตามเวลาที่สะดวก' },
+  step3: { ru: '🤙 Езди, мы на связи 24/7 — замена при поломке бесплатно', en: '🤙 Ride worry-free, 24/7 support — free replacement if it breaks', de: '🤙 Fahr los, 24/7 Support — kostenloser Ersatz bei Panne', fr: '🤙 Roule tranquille, support 24/7 — remplacement gratuit en cas de panne', es: '🤙 Conduce tranquilo, soporte 24/7 — reemplazo gratis si se avería', th: '🤙 ขับสบายใจ บริการ 24/7 — เปลี่ยนรถฟรีหากเสีย' },
   stepsTitle: { ru: 'Как это работает', en: 'How it works', de: 'So funktioniert\'s', fr: 'Comment ça marche', es: 'Cómo funciona', th: 'ขั้นตอนการใช้งาน' },
 
   // ── Popular Bikes Block ──
@@ -260,6 +268,14 @@ export const T = {
   bpTotal: { ru: 'Итого:', en: 'Total:', de: 'Gesamt:', fr: 'Total :', es: 'Total:', th: 'รวม:' },
   bpWhatsApp: { ru: 'Написать в WhatsApp', en: 'Message on WhatsApp', de: 'Nachricht auf WhatsApp', fr: 'Écrire sur WhatsApp', es: 'Escribir en WhatsApp', th: 'ส่งข้อความ WhatsApp' },
   bpTelegram: { ru: 'Написать в Telegram', en: 'Message on Telegram', de: 'Nachricht auf Telegram', fr: 'Écrire sur Telegram', es: 'Escribir en Telegram', th: 'ส่งข้อความ Telegram' },
+  badgePopular: { ru: 'Популярный', en: 'Popular', de: 'Beliebt', fr: 'Populaire', es: 'Popular', th: 'ยอดนิยม' },
+  badgeBeginner: { ru: 'Для новичков', en: 'For beginners', de: 'Für Anfänger', fr: 'Pour débutants', es: 'Para principiantes', th: 'สำหรับมือใหม่' },
+  bpcTitle: { ru: 'Не знаете, какой байк выбрать?', en: 'Not sure which bike to pick?', de: 'Nicht sicher, welches Bike?', fr: 'Quel scooter choisir ?', es: '¿No sabes qué moto elegir?', th: 'ไม่แน่ใจว่าจะเลือกรุ่นไหน?' },
+  bpcSub: { ru: 'Ответьте на 5 вопросов — подберём идеальный вариант', en: 'Answer 5 questions — we\'ll find your perfect match', de: '5 Fragen beantworten — wir finden das perfekte Bike', fr: 'Répondez à 5 questions — on trouve le scooter idéal', es: 'Responde 5 preguntas — encontramos tu moto ideal', th: 'ตอบ 5 คำถาม — เราจะหารถที่เหมาะกับคุณ' },
+  bpcBtn: { ru: 'Подобрать байк за 1 минуту', en: 'Find your bike in 1 min', de: 'Bike in 1 Min finden', fr: 'Trouver en 1 min', es: 'Encontrar moto en 1 min', th: 'หารถใน 1 นาที' },
+  ctaWhatsapp: { ru: '\u{1F4AC} Написать в WhatsApp', en: '\u{1F4AC} Message WhatsApp', de: '\u{1F4AC} WhatsApp schreiben', fr: '\u{1F4AC} Écrire sur WhatsApp', es: '\u{1F4AC} Escribir en WhatsApp', th: '\u{1F4AC} WhatsApp' },
+  ctaTelegram: { ru: '\u{1F4F1} Написать в Telegram', en: '\u{1F4F1} Message Telegram', de: '\u{1F4F1} Telegram schreiben', fr: '\u{1F4F1} Écrire sur Telegram', es: '\u{1F4F1} Escribir en Telegram', th: '\u{1F4F1} Telegram' },
+  ctaReplyTime: { ru: 'Отвечаем за 5–10 минут', en: 'We reply in 5–10 minutes', de: 'Antwort in 5–10 Minuten', fr: 'Réponse en 5–10 minutes', es: 'Respondemos en 5–10 minutos', th: 'ตอบใน 5–10 นาที' },
   bpWaMsg: {
     ru: 'Привет! По результатам квиза выбрал: ${name}, ${days} дн., ${total} ฿${ins}',
     en: 'Hi! Based on the quiz I chose: ${name}, ${days} days, ${total} ฿${ins}',
@@ -274,6 +290,7 @@ export const T = {
   reviewsTitle: { ru: 'Что говорят клиенты', en: 'What clients say', de: 'Was Kunden sagen', fr: 'Avis clients', es: 'Lo que dicen los clientes', th: 'ลูกค้าพูดว่าอะไร' },
   reviews: [
     {
+      initials: 'М', bgColor: '#4338CA', date: { ru: 'Январь 2025', en: 'January 2025', de: 'Januar 2025', fr: 'Janvier 2025', es: 'Enero 2025', th: 'มกราคม 2025' },
       text: {
         ru: 'Взяли PCX на неделю — привезли прямо к отелю, всё чисто и заправлено. Когда поцарапали зеркало — позвонили ребятам, решили вопрос за 10 минут без скандалов. Рекомендую.',
         en: 'Rented a PCX for a week — delivered right to our hotel, clean and fueled. When we scratched the mirror, called the guys and they sorted it in 10 minutes, no drama. Highly recommend.',
@@ -285,6 +302,7 @@ export const T = {
       author: { ru: 'Михаил, Москва', en: 'Mikhail, Moscow', de: 'Mikhail, Moskau', fr: 'Mikhaïl, Moscou', es: 'Mikhail, Moscú', th: 'Mikhail, มอสโก' }
     },
     {
+      initials: 'АД', bgColor: '#0D9488', date: { ru: 'Декабрь 2024', en: 'December 2024', de: 'Dezember 2024', fr: 'Décembre 2024', es: 'Diciembre 2024', th: 'ธันวาคม 2024' },
       text: {
         ru: 'Брали две Scoopy на 10 дней, объездили весь остров. Цены честные, договор нормальный, паспорт не забирали. Будем брать снова в следующий раз.',
         en: 'Rented two Scoopys for 10 days, explored the whole island. Fair prices, proper contract, no passport held. Will rent again next time.',
@@ -296,6 +314,7 @@ export const T = {
       author: { ru: 'Анна и Дима, Санкт-Петербург', en: 'Anna & Dima, St. Petersburg', de: 'Anna & Dima, St. Petersburg', fr: 'Anna & Dima, Saint-Pétersbourg', es: 'Anna y Dima, San Petersburgo', th: 'Anna & Dima, เซนต์ปีเตอร์สเบิร์ก' }
     },
     {
+      initials: 'Л', bgColor: '#D97706', date: { ru: 'Февраль 2025', en: 'February 2025', de: 'Februar 2025', fr: 'Février 2025', es: 'Febrero 2025', th: 'กุมภาพันธ์ 2025' },
       text: {
         ru: 'Первый раз арендовала байк вообще в жизни, очень переживала. Ребята всё объяснили, помогли выбрать модель под мой рост и опыт. Каталась без проблем всю поездку.',
         en: 'First time renting a bike ever, I was really nervous. The guys explained everything, helped me choose the right model for my height and experience. Rode the whole trip without issues.',
@@ -573,73 +592,73 @@ export const T = {
     ru: [
       { q: 'Сколько стоит аренда байка?', a: 'Honda Scoopy от 130 \u0E3F/день, Honda Click от 130 \u0E3F/день, PCX/NMAX от 250 \u0E3F/день. Чем дольше срок — тем дешевле.' },
       { q: 'Какие документы нужны?', a: 'Загранпаспорт и международные права (категория А). Залог от 2000 \u0E3F или копия паспорта.' },
-      { q: 'Есть ли страховка?', a: 'Да, базовая страховка включена бесплатно. Дополнительная Страховка+ — от 50 ฿/день.' },
+      { q: 'Есть ли страховка?', a: 'Да, базовая страховка включена бесплатно. Защита байка — от 500 ฿ за период до 10 дней (~50 ฿/день при 10 дн.).' },
       { q: 'Безопасно ли ездить?', a: 'Движение левостороннее. Шлем обязателен (штраф 500 \u0E3F). Не превышайте 60 км/ч в городе.' },
       { q: 'Сколько стоит бензин?', a: '~43 \u0E3F/литр. Расход скутера — 2 л/100 км. Маршрут 50 км обойдётся в ~45 \u0E3F бензина.' },
       { q: 'Как пользоваться планировщиком?', a: 'Откройте вкладку «Маршруты», добавьте места, получите расчёт км, времени и бензина.' },
       { q: 'Нужны ли права для аренды скутера на Пхукете?', a: 'Формально полиция требует международные права категории А. На практике для скутеров до 125 cc проверяют редко, но при ДТП отсутствие прав усложняет страховой случай. Рекомендуем оформить МВУ заранее.' },
       { q: 'Можно ли арендовать байк в Патонге?', a: 'Да, мы доставляем байки в Патонг бесплатно от 3 дней аренды. Привезём прямо к отелю или вилле — звоните или пишите в WhatsApp.' },
-      { q: 'Сколько стоит аренда байка на месяц на Пхукете?', a: 'Honda Scoopy — 4 500 \u0E3F/мес, Honda Click — 5 000 \u0E3F/мес, PCX/NMAX — 7 000 \u0E3F/мес, Forza 350 — 14 000 \u0E3F/мес. Чем дольше срок — тем выгоднее.' },
+      { q: 'Сколько стоит аренда байка на месяц на Пхукете?', a: 'Honda Scoopy — 3 900 \u0E3F/мес (130 \u0E3F/день), Honda Click — 3 900 \u0E3F/мес, PCX/NMAX — 7 500 \u0E3F/мес, Forza 350 — 16 500 \u0E3F/мес. Чем дольше срок — тем выгоднее.' },
       { q: 'Какой байк выбрать новичку?', a: 'Honda Scoopy или Yamaha Fino — лёгкие (96–99 кг), низкое сиденье, простое управление. Для уверенных — Honda Click 125i: чуть мощнее, но всё ещё комфортный.' }
     ],
     en: [
       { q: 'How much does it cost to rent a bike?', a: 'Honda Scoopy from 130 \u0E3F/day, Honda Click from 130 \u0E3F/day, PCX/NMAX from 250 \u0E3F/day. Longer rental = lower price.' },
       { q: 'What documents do I need?', a: 'Passport and international driving permit (category A). Deposit from 2000 \u0E3F or passport copy.' },
-      { q: 'Is there insurance?', a: 'Yes, basic insurance is included free. Extended Insurance+ — from 50 ฿/day.' },
+      { q: 'Is there insurance?', a: 'Yes, basic insurance is included free. Bike Protection — from 500 ฿ per period up to 10 days (~50 ฿/day for 10 days).' },
       { q: 'Is it safe to ride?', a: 'Left-hand traffic. Helmet is mandatory (500 \u0E3F fine). Don\'t exceed 60 km/h in town.' },
       { q: 'How much is fuel?', a: '~43 \u0E3F/liter. Scooter uses ~2 L/100 km. A 50 km trip costs ~45 \u0E3F in fuel.' },
       { q: 'How to use the route planner?', a: 'Open the Routes tab, add places, get distance, time, and fuel estimates.' },
       { q: 'Do I need a license to rent a scooter in Phuket?', a: 'Officially, police require an international driving permit (category A). For scooters under 125cc checks are rare, but without a license insurance claims get complicated. We recommend getting an IDP before your trip.' },
       { q: 'Can I rent a bike in Patong?', a: 'Yes, we deliver bikes to Patong for free from 3+ days rental. Right to your hotel or villa — call or message us on WhatsApp.' },
-      { q: 'How much is a monthly bike rental in Phuket?', a: 'Honda Scoopy — 4,500 \u0E3F/mo, Honda Click — 5,000 \u0E3F/mo, PCX/NMAX — 7,000 \u0E3F/mo, Forza 350 — 14,000 \u0E3F/mo. Longer term = better price.' },
+      { q: 'How much is a monthly bike rental in Phuket?', a: 'Honda Scoopy — 3,900 \u0E3F/mo (130 \u0E3F/day), Honda Click — 3,900 \u0E3F/mo, PCX/NMAX — 7,500 \u0E3F/mo, Forza 350 — 16,500 \u0E3F/mo. Longer term = better price.' },
       { q: 'Which bike is best for beginners?', a: 'Honda Scoopy or Yamaha Fino — lightweight (96–99 kg), low seat, easy handling. For more confident riders — Honda Click 125i: a bit more power but still comfortable.' }
     ],
     de: [
       { q: 'Was kostet die Miete?', a: 'Honda Scoopy ab 130 \u0E3F/Tag, Honda Click ab 130 \u0E3F/Tag, PCX/NMAX ab 250 \u0E3F/Tag. Längere Miete = günstigerer Preis.' },
       { q: 'Welche Dokumente brauche ich?', a: 'Reisepass und internationaler Führerschein (Klasse A). Kaution ab 2000 \u0E3F oder Passkopie.' },
-      { q: 'Gibt es eine Versicherung?', a: 'Ja, die Basisversicherung ist kostenlos inklusive. Erweiterte Versicherung+ — ab 50 ฿/Tag.' },
+      { q: 'Gibt es eine Versicherung?', a: 'Ja, die Basisversicherung ist kostenlos inklusive. Bike-Schutz — ab 500 ฿ pro Zeitraum bis 10 Tage (~50 ฿/Tag bei 10 Tagen).' },
       { q: 'Ist es sicher zu fahren?', a: 'Linksverkehr. Helm ist Pflicht (500 \u0E3F Strafe). Nicht über 60 km/h in der Stadt.' },
       { q: 'Was kostet Benzin?', a: '~43 \u0E3F/Liter. Roller verbraucht ~2 L/100 km. Eine 50-km-Fahrt kostet ~45 \u0E3F Benzin.' },
       { q: 'Wie nutze ich den Routenplaner?', a: 'Öffne den Tab Routen, füge Orte hinzu, erhalte Entfernung, Zeit und Benzinkosten.' },
       { q: 'Brauche ich einen Führerschein für einen Roller auf Phuket?', a: 'Offiziell verlangt die Polizei einen internationalen Führerschein (Klasse A). Bei Rollern unter 125cc wird selten kontrolliert, aber ohne Führerschein wird der Versicherungsfall kompliziert. Wir empfehlen, den IDP vorab zu beantragen.' },
       { q: 'Kann ich ein Bike in Patong mieten?', a: 'Ja, wir liefern Bikes kostenlos nach Patong ab 3 Tagen Miete. Direkt zu Ihrem Hotel oder Villa — rufen Sie an oder schreiben Sie uns auf WhatsApp.' },
-      { q: 'Was kostet eine monatliche Bike-Miete auf Phuket?', a: 'Honda Scoopy — 4.500 \u0E3F/Monat, Honda Click — 5.000 \u0E3F/Monat, PCX/NMAX — 7.000 \u0E3F/Monat, Forza 350 — 14.000 \u0E3F/Monat.' },
+      { q: 'Was kostet eine monatliche Bike-Miete auf Phuket?', a: 'Honda Scoopy — 3.900 \u0E3F/Monat (130 \u0E3F/Tag), Honda Click — 3.900 \u0E3F/Monat, PCX/NMAX — 7.500 \u0E3F/Monat, Forza 350 — 16.500 \u0E3F/Monat.' },
       { q: 'Welches Bike ist für Anfänger am besten?', a: 'Honda Scoopy oder Yamaha Fino — leicht (96–99 kg), niedriger Sitz, einfache Handhabung. Für sicherere Fahrer — Honda Click 125i.' }
     ],
     fr: [
       { q: 'Combien coûte la location ?', a: 'Honda Scoopy dès 130 \u0E3F/jour, Honda Click dès 130 \u0E3F/jour, PCX/NMAX dès 250 \u0E3F/jour. Plus longue la location, plus bas le prix.' },
       { q: 'Quels documents faut-il ?', a: 'Passeport et permis international (catégorie A). Caution à partir de 2000 \u0E3F ou copie de passeport.' },
-      { q: 'Y a-t-il une assurance ?', a: 'Oui, l\'assurance de base est incluse gratuitement. Assurance+ étendue — à partir de 50 ฿/jour.' },
+      { q: 'Y a-t-il une assurance ?', a: 'Oui, l\'assurance de base est incluse gratuitement. Protection moto — à partir de 500 ฿ par période de 10 jours (~50 ฿/jour pour 10 jours).' },
       { q: 'Est-ce sûr de conduire ?', a: 'Conduite à gauche. Le casque est obligatoire (amende de 500 \u0E3F). Ne dépassez pas 60 km/h en ville.' },
       { q: 'Combien coûte l\'essence ?', a: '~43 \u0E3F/litre. Un scooter consomme ~2 L/100 km. Un trajet de 50 km coûte ~45 \u0E3F.' },
       { q: 'Comment utiliser le planificateur ?', a: 'Ouvrez l\'onglet Itinéraires, ajoutez des lieux, obtenez distance, temps et coût carburant.' },
       { q: 'Faut-il un permis pour louer un scooter à Phuket ?', a: 'Officiellement la police exige un permis international (catégorie A). Pour les scooters de moins de 125cc les contrôles sont rares, mais sans permis l\'assurance se complique. Nous recommandons d\'obtenir un PCI avant le voyage.' },
       { q: 'Peut-on louer un scooter à Patong ?', a: 'Oui, nous livrons gratuitement à Patong à partir de 3 jours. Directement à votre hôtel ou villa — appelez ou écrivez sur WhatsApp.' },
-      { q: 'Combien coûte la location mensuelle à Phuket ?', a: 'Honda Scoopy — 4 500 \u0E3F/mois, Honda Click — 5 000 \u0E3F/mois, PCX/NMAX — 7 000 \u0E3F/mois, Forza 350 — 14 000 \u0E3F/mois.' },
+      { q: 'Combien coûte la location mensuelle à Phuket ?', a: 'Honda Scoopy — 3 900 \u0E3F/mois (130 \u0E3F/jour), Honda Click — 3 900 \u0E3F/mois, PCX/NMAX — 7 500 \u0E3F/mois, Forza 350 — 16 500 \u0E3F/mois.' },
       { q: 'Quel scooter pour un débutant ?', a: 'Honda Scoopy ou Yamaha Fino — légers (96–99 kg), selle basse, maniement facile. Pour les plus confiants — Honda Click 125i.' }
     ],
     es: [
       { q: '¿Cuánto cuesta alquilar una moto?', a: 'Honda Scoopy desde 130 \u0E3F/día, Honda Click desde 130 \u0E3F/día, PCX/NMAX desde 250 \u0E3F/día. Más días = precio más bajo.' },
       { q: '¿Qué documentos necesito?', a: 'Pasaporte y permiso internacional (categoría A). Depósito desde 2000 \u0E3F o copia de pasaporte.' },
-      { q: '¿Hay seguro?', a: 'Sí, el seguro básico está incluido gratis. Seguro+ extendido — desde 50 ฿/día.' },
+      { q: '¿Hay seguro?', a: 'Sí, el seguro básico está incluido gratis. Protección de moto — desde 500 ฿ por período de 10 días (~50 ฿/día por 10 días).' },
       { q: '¿Es seguro conducir?', a: 'Tráfico por la izquierda. Casco obligatorio (multa de 500 \u0E3F). No superar 60 km/h en ciudad.' },
       { q: '¿Cuánto cuesta la gasolina?', a: '~43 \u0E3F/litro. Un scooter consume ~2 L/100 km. Un viaje de 50 km cuesta ~45 \u0E3F.' },
       { q: '¿Cómo usar el planificador de rutas?', a: 'Abre la pestaña Rutas, añade lugares y obtén distancia, tiempo y coste de combustible.' },
       { q: '¿Necesito licencia para alquilar un scooter en Phuket?', a: 'Oficialmente la policía exige permiso internacional (categoría A). Para scooters de menos de 125cc los controles son raros, pero sin licencia el seguro se complica. Recomendamos obtener el PIC antes del viaje.' },
       { q: '¿Puedo alquilar una moto en Patong?', a: 'Sí, entregamos motos en Patong gratis desde 3 días de alquiler. Directamente a tu hotel o villa — llama o escríbenos por WhatsApp.' },
-      { q: '¿Cuánto cuesta alquilar una moto por mes en Phuket?', a: 'Honda Scoopy — 4.500 \u0E3F/mes, Honda Click — 5.000 \u0E3F/mes, PCX/NMAX — 7.000 \u0E3F/mes, Forza 350 — 14.000 \u0E3F/mes.' },
+      { q: '¿Cuánto cuesta alquilar una moto por mes en Phuket?', a: 'Honda Scoopy — 3.900 \u0E3F/mes (130 \u0E3F/día), Honda Click — 3.900 \u0E3F/mes, PCX/NMAX — 7.500 \u0E3F/mes, Forza 350 — 16.500 \u0E3F/mes.' },
       { q: '¿Qué moto es mejor para principiantes?', a: 'Honda Scoopy o Yamaha Fino — ligeras (96–99 kg), asiento bajo, manejo fácil. Para más confiados — Honda Click 125i.' }
     ],
     th: [
       { q: 'เช่ามอเตอร์ไซค์ราคาเท่าไหร่?', a: 'Honda Scoopy ตั้งแต่ 130 ฿/วัน, Honda Click ตั้งแต่ 130 ฿/วัน, PCX/NMAX ตั้งแต่ 250 ฿/วัน ยิ่งเช่านานยิ่งถูก' },
       { q: 'ต้องใช้เอกสารอะไรบ้าง?', a: 'พาสปอร์ตและใบขับขี่สากล (ประเภท A) มัดจำตั้งแต่ 2000 ฿ หรือสำเนาพาสปอร์ต' },
-      { q: 'มีประกันไหม?', a: 'มี ประกันพื้นฐานรวมฟรี ประกัน+ ขยาย — ตั้งแต่ 50 ฿/วัน' },
+      { q: 'มีประกันไหม?', a: 'มี ประกันพื้นฐานรวมฟรี การป้องกันรถ — ตั้งแต่ 500 ฿ ต่อช่วง 10 วัน (~50 ฿/วัน สำหรับ 10 วัน)' },
       { q: 'ขับขี่ปลอดภัยไหม?', a: 'ขับซ้าย หมวกกันน็อคบังคับ (ปรับ 500 ฿) ห้ามเกิน 60 กม./ชม. ในเมือง' },
       { q: 'น้ำมันราคาเท่าไหร่?', a: '~43 ฿/ลิตร สกู๊ตเตอร์ใช้ ~2 ลิตร/100 กม. เดินทาง 50 กม. ใช้น้ำมัน ~45 ฿' },
       { q: 'ใช้แผนเส้นทางอย่างไร?', a: 'เปิดแท็บเส้นทาง เพิ่มสถานที่ ดูระยะทาง เวลา และค่าน้ำมัน' },
       { q: 'ต้องมีใบขับขี่เช่าสกู๊ตเตอร์ภูเก็ตไหม?', a: 'ตำรวจต้องการใบขับขี่สากล (ประเภท A) อย่างเป็นทางการ สกู๊ตเตอร์ต่ำกว่า 125cc ตรวจไม่บ่อย แต่ไม่มีใบขับขี่ประกันจะยุ่งยาก แนะนำทำ IDP ก่อนเดินทาง' },
       { q: 'เช่ามอเตอร์ไซค์ที่ป่าตองได้ไหม?', a: 'ได้ เราส่งรถถึงป่าตองฟรีตั้งแต่ 3 วัน ส่งถึงโรงแรมหรือวิลล่า โทรหรือส่งข้อความ WhatsApp' },
-      { q: 'เช่ามอเตอร์ไซค์รายเดือนภูเก็ตราคาเท่าไหร่?', a: 'Honda Scoopy — 4,500 ฿/เดือน, Honda Click — 5,000 ฿/เดือน, PCX/NMAX — 7,000 ฿/เดือน, Forza 350 — 14,000 ฿/เดือน' },
+      { q: 'เช่ามอเตอร์ไซค์รายเดือนภูเก็ตราคาเท่าไหร่?', a: 'Honda Scoopy — 3,900 ฿/เดือน (130 ฿/วัน), Honda Click — 3,900 ฿/เดือน, PCX/NMAX — 7,500 ฿/เดือน, Forza 350 — 16,500 ฿/เดือน' },
       { q: 'มือใหม่ควรเลือกรถรุ่นไหน?', a: 'Honda Scoopy หรือ Yamaha Fino — เบา (96–99 กก.) เบาะต่ำ ขับง่าย สำหรับผู้มั่นใจ — Honda Click 125i' }
     ]
   },
@@ -658,19 +677,16 @@ export const T = {
     ru: 'Тарифы', en: 'Rates', de: 'Tarife', fr: 'Tarifs', es: 'Tarifas', th: 'อัตราค่าเช่า'
   },
   sheetDays12: {
-    ru: '1–2 дня', en: '1–2 days', de: '1–2 Tage', fr: '1–2 jours', es: '1–2 días', th: '1–2 วัน'
+    ru: '1–2 дн', en: '1–2 d', de: '1–2 T', fr: '1–2 j', es: '1–2 d', th: '1–2 วัน'
   },
   sheetDays36: {
-    ru: '3–6 дней', en: '3–6 days', de: '3–6 Tage', fr: '3–6 jours', es: '3–6 días', th: '3–6 วัน'
+    ru: '3–6 дн', en: '3–6 d', de: '3–6 T', fr: '3–6 j', es: '3–6 d', th: '3–6 วัน'
   },
-  sheetDays713: {
-    ru: '7–13', en: '7–13', de: '7–13', fr: '7–13', es: '7–13', th: '7–13'
+  sheetDays719: {
+    ru: '7–19 дн', en: '7–19 d', de: '7–19 T', fr: '7–19 j', es: '7–19 d', th: '7–19 วัน'
   },
-  sheetDays1429: {
-    ru: '14–29', en: '14–29', de: '14–29', fr: '14–29', es: '14–29', th: '14–29'
-  },
-  sheetDays30: {
-    ru: '30+', en: '30+', de: '30+', fr: '30+', es: '30+', th: '30+'
+  sheetDays2030: {
+    ru: '20–30 дн', en: '20–30 d', de: '20–30 T', fr: '20–30 j', es: '20–30 d', th: '20–30 วัน'
   },
   sheetRentalDays: {
     ru: 'Дней аренды:', en: 'Rental days:', de: 'Miettage:', fr: 'Jours de location :', es: 'Días de alquiler:', th: 'จำนวนวันเช่า:'
@@ -684,7 +700,7 @@ export const T = {
     ru: 'Страховка', en: 'Insurance', de: 'Versicherung', fr: 'Assurance', es: 'Seguro', th: 'ประกัน'
   },
   insPlus: {
-    ru: 'Страховка+', en: 'Insurance+', de: 'Versicherung+', fr: 'Assurance+', es: 'Seguro+', th: 'ประกัน+'
+    ru: '\u{1F6E1} Защита байка', en: '\u{1F6E1} Bike Protection', de: '\u{1F6E1} Bike-Schutz', fr: '\u{1F6E1} Protection moto', es: '\u{1F6E1} Protección de moto', th: '\u{1F6E1} การป้องกันรถ'
   },
   insBasicTitle: {
     ru: 'Страховка (включена)', en: 'Insurance (included)', de: 'Versicherung (inkl.)', fr: 'Assurance (incluse)', es: 'Seguro (incluido)', th: 'ประกัน (รวมอยู่แล้ว)'
@@ -701,12 +717,12 @@ export const T = {
     ru: 'Страховка+ (расширенная)', en: 'Insurance+ (extended)', de: 'Versicherung+ (erweitert)', fr: 'Assurance+ (étendue)', es: 'Seguro+ (extendido)', th: 'ประกัน+ (ขยาย)'
   },
   insPlusDesc: {
-    ru: 'Защита байка от расходов на ремонт сверх депозита. Франшиза клиента — ${franchise} ฿.',
-    en: 'Bike damage protection beyond deposit. Client deductible — ${franchise} ฿.',
-    de: 'Bike-Schadenschutz über die Kaution hinaus. Selbstbeteiligung — ${franchise} ฿.',
-    fr: 'Protection du véhicule au-delà de la caution. Franchise client — ${franchise} ฿.',
-    es: 'Protección de la moto más allá del depósito. Franquicia del cliente — ${franchise} ฿.',
-    th: 'คุ้มครองความเสียหายของรถเกินมัดจำ แฟรนไชส์ลูกค้า — ${franchise} ฿'
+    ru: 'Не платишь за случайные царапины. Франшиза 3 000 ฿.',
+    en: 'No paying for accidental scratches. Deductible 3,000 ฿.',
+    de: 'Keine Zahlung für versehentliche Kratzer. Selbstbeteiligung 3.000 ฿.',
+    fr: 'Pas de frais pour les rayures accidentelles. Franchise 3 000 ฿.',
+    es: 'Sin pagar por arañazos accidentales. Franquicia 3.000 ฿.',
+    th: 'ไม่ต้องจ่ายค่ารอยขีดข่วน แฟรนไชส์ 3,000 ฿'
   },
   insPlusExclude: {
     ru: 'Не покрывает: шины, аккумулятор, ДТП по вине третьих лиц',
@@ -746,12 +762,20 @@ export const T = {
 
   // ── Booking WA message ──
   waMsgBike: {
-    ru: 'Хочу арендовать ${name} на ${days} дн.',
-    en: 'I want to rent ${name} for ${days} days.',
-    de: 'Ich möchte ${name} für ${days} Tage mieten.',
-    fr: 'Je voudrais louer ${name} pour ${days} jours.',
-    es: 'Quiero alquilar ${name} por ${days} días.',
-    th: 'ต้องการเช่า ${name} ${days} วัน'
+    ru: 'Хочу арендовать ${name}${dates} (${days} дн.), ${total} ฿',
+    en: 'I want to rent ${name}${dates} (${days} days), ${total} ฿',
+    de: 'Ich möchte ${name}${dates} (${days} Tage), ${total} ฿ mieten',
+    fr: 'Je voudrais louer ${name}${dates} (${days} jours), ${total} ฿',
+    es: 'Quiero alquilar ${name}${dates} (${days} días), ${total} ฿',
+    th: 'ต้องการเช่า ${name}${dates} (${days} วัน), ${total} ฿'
+  },
+  waMsgGeneral: {
+    ru: 'Привет! Хочу арендовать байк на Пхукете',
+    en: 'Hi! I want to rent a bike in Phuket',
+    de: 'Hallo! Ich möchte ein Bike auf Phuket mieten',
+    fr: 'Bonjour ! Je voudrais louer un scooter à Phuket',
+    es: '¡Hola! Quiero alquilar una moto en Phuket',
+    th: 'สวัสดีครับ ต้องการเช่ามอเตอร์ไซค์ที่ภูเก็ต'
   },
   waMsgRoute: {
     ru: 'Хочу арендовать байк для маршрута: ${route} (~${km} км)',

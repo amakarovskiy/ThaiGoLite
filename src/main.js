@@ -572,7 +572,7 @@ function switchTab(tab) {
 
   // Hide sticky CTA on routes page
   const sc = $('stickyCta');
-  if (sc) sc.style.display = tab === 'routes' ? 'none' : '';
+  if (sc && tab === 'routes') sc.classList.remove('visible');
 }
 
 tabs.forEach(t => {
@@ -935,13 +935,13 @@ function renderPopular() {
         <span style="font-size:10px;color:var(--text2);">/${t('perDay')}</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" style="margin-left:4px;flex-shrink:0;align-self:center;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>`;
-    dealBarEl.style.display = '';
+    dealBarEl.classList.remove('hidden');
     dealBarEl.onclick = () => {
       switchTab('bikes');
       openBookingSheet(cheapest30.bike);
     };
   } else if (dealBarEl) {
-    dealBarEl.style.display = 'none';
+    dealBarEl.classList.add('hidden');
   }
 
   scroll.innerHTML = filtered.map(b => {
@@ -1098,11 +1098,11 @@ function openBookingSheet(bike) {
   // Update insurance franchise
   const franchise = getInsuranceFranchiseLocal(bike);
   const franchiseEl = $('insPlusFranchise');
-  if (franchiseEl) franchiseEl.textContent = franchise ? `${t('insFranchise') || 'Франшиза'} ${franchise.toLocaleString()} ฿` : '';
+  if (franchiseEl) franchiseEl.textContent = franchise ? `Франшиза ${franchise.toLocaleString()} ฿` : '';
   // Hide insurance+ row for motorcycles
   const insPlusRow = $('insPlusRow');
   const insTierInit = getInsuranceTier(bike);
-  if (insPlusRow) insPlusRow.style.display = insTierInit === null ? 'none' : '';
+  if (insPlusRow) { insTierInit === null ? insPlusRow.classList.add('hidden') : insPlusRow.classList.remove('hidden'); }
 
   updateSheetCalc();
 
@@ -1222,11 +1222,10 @@ function updateSheetCalc() {
   const insTier = getInsuranceTier(sheetBike);
   const insCost = getInsurancePlusCost(sheetBike, sheetDays);
 
-  // Update insurance+ per-day label
+  // Update insurance+ total cost label
   if (insTier !== null) {
-    const insPerDay = Math.ceil(insCost / sheetDays);
     const costLabel = $('insPlusCostLabel');
-    if (costLabel) costLabel.innerHTML = `${t('popFrom') || 'от'} ${insPerDay} \u0E3F<span>/\u0434</span>`;
+    if (costLabel) costLabel.textContent = `${insCost.toLocaleString()} ฿`;
   }
 
   if (sheetInsurancePlus && insTier) {
@@ -1244,9 +1243,9 @@ function updateSheetCalc() {
   if (discountBadge) {
     if (discountPct > 0) {
       discountBadge.textContent = `\u2212${discountPct}% \xB7 ${t('sheetSave') || '\u044D\u043A\u043E\u043D\u043E\u043C\u0438\u044F'} ${savings.toLocaleString()} \u0E3F`;
-      discountBadge.style.display = '';
+      discountBadge.classList.remove('hidden');
     } else {
-      discountBadge.style.display = 'none';
+      discountBadge.classList.add('hidden');
     }
   }
 
@@ -1266,9 +1265,9 @@ function updateSheetCalc() {
     if (hint && hint.daysNeeded) {
       const moreDays = hint.daysNeeded - sheetDays;
       discountHintText.textContent = `${t('hintMore') || '\u0415\u0449\u0451'} ${moreDays} ${t('popDays') || '\u0434\u043D\u0435\u0439'} \u2014 \u0438 \u0431\u0443\u0434\u0435\u0442 \u2212${hint.discountPercent}% (${hint.pricePerDay} \u0E3F/${t('perDay') || '\u0434\u0435\u043D\u044C'})`;
-      discountHintEl.style.display = '';
+      discountHintEl.classList.remove('hidden');
     } else {
-      discountHintEl.style.display = 'none';
+      discountHintEl.classList.add('hidden');
     }
   }
 
@@ -1278,7 +1277,7 @@ function updateSheetCalc() {
     let html = '';
     html += `<div class="breakdown-row"><span>${t('sheetBike') || '\u0411\u0430\u0439\u043A'} ${perDay} \u0E3F \xD7 ${sheetDays} ${t('popDays') || '\u0434\u043D\u0435\u0439'}</span><span>${rentalTotal.toLocaleString()} \u0E3F</span></div>`;
     if (sheetInsurancePlus && insTier) {
-      html += `<div class="breakdown-row"><span>${t('insPlus') || '\u0417\u0430\u0449\u0438\u0442\u0430 \u0431\u0430\u0439\u043A\u0430+'}</span><span>${insCost.toLocaleString()} \u0E3F</span></div>`;
+      html += `<div class="breakdown-row"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>${t('insPlus') || 'Страхование+'}</span><span>${insCost.toLocaleString()} \u0E3F</span></div>`;
     }
     html += `<div class="breakdown-divider"></div>`;
     html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal') || '\u0418\u0442\u043E\u0433\u043E'}</span><span class="breakdown-total-value">${total.toLocaleString()} \u0E3F</span></div>`;
@@ -1290,9 +1289,9 @@ function updateSheetCalc() {
   if (savingRow) {
     if (savings > 0) {
       savingRow.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg> ${t('sheetSavingCompare') || '\u042D\u043A\u043E\u043D\u043E\u043C\u0438\u0448\u044C'} ${savings.toLocaleString()} \u0E3F ${t('sheetSavingVs') || '\u043F\u043E \u0441\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u044E \u0441 \u0446\u0435\u043D\u043E\u0439 1\u20132 \u0434\u043D\u0435\u0439'}`;
-      savingRow.style.display = '';
+      savingRow.classList.remove('hidden');
     } else {
-      savingRow.style.display = 'none';
+      savingRow.classList.add('hidden');
     }
   }
 
@@ -1835,7 +1834,7 @@ function openPlaceSheet(place) {
   if (place.tips) tips.push(placeTips(place));
   if (place.warnings && place.warnings.length) tips.push('\u26A0 ' + place.warnings.join('. '));
   placeSheetTips.textContent = tips.join('\n');
-  placeSheetTips.style.display = tips.length ? '' : 'none';
+  tips.length ? placeSheetTips.classList.remove('hidden') : placeSheetTips.classList.add('hidden');
 
   const inRoute = route.some(r => r.id === place.id);
   placeSheetAdd.textContent = inRoute ? t('inRoute') : t('addToRoute');
@@ -2106,9 +2105,11 @@ function updateRoute() {
   // Update badge on route tab inside sheet
   if (route.length > 0) {
     rsBadge.textContent = route.length;
-    rsBadge.style.display = 'inline-flex';
+    rsBadge.classList.remove('hidden');
+    rsBadge.classList.add('visible');
   } else {
-    rsBadge.style.display = 'none';
+    rsBadge.classList.add('hidden');
+    rsBadge.classList.remove('visible');
   }
 
   // Update guide tab badge
@@ -3000,10 +3001,10 @@ applyTranslations();
   const hero = document.querySelector('.hero-block') || document.querySelector('.hero');
   if (hero) {
     const observer = new IntersectionObserver(([e]) => {
-      if (currentTab === 'routes') {
-        stickyCta.style.display = 'none';
+      if (currentTab === 'routes' || e.isIntersecting) {
+        stickyCta.classList.remove('visible');
       } else {
-        stickyCta.style.display = e.isIntersecting ? 'none' : 'block';
+        stickyCta.classList.add('visible');
       }
     });
     observer.observe(hero);
@@ -3026,7 +3027,7 @@ document.querySelectorAll('.bike-picker-cta .bpc-btn, .btn-picker').forEach(btn 
   // Dismiss button
   closeBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    fab.style.display = 'none';
+    fab.classList.remove('visible');
     sessionStorage.setItem('tg_fab_hidden', '1');
   });
 
@@ -3036,14 +3037,14 @@ document.querySelectorAll('.bike-picker-cta .bpc-btn, .btn-picker').forEach(btn 
   // Geo-check: timezone fallback + ipapi.co
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
   if (tz === 'Asia/Bangkok') {
-    fab.style.display = 'flex';
+    fab.classList.add('visible');
     return;
   }
   fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) })
     .then(r => r.json())
     .then(data => {
       if (data && data.country_code === 'TH') {
-        fab.style.display = 'flex';
+        fab.classList.add('visible');
       }
     })
     .catch(() => { /* silently ignore — don't show button */ });

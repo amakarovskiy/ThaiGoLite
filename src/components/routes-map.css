@@ -44,46 +44,54 @@
 }
 
 /* ===== Map Pins — teardrop (drop-shape) markers ===== */
+
+/* Outer wrapper: position only via SVG transform attribute. NO CSS transform here! */
 .map-pin {
   cursor: pointer;
-  animation: pin-drop 300ms ease-out both;
 }
 
-/* Cascade animation delays (CSS handles up to 20, JS sets animation-delay for more) */
-@keyframes pin-drop {
-  from {
-    opacity: 0;
-    transform: translateY(-15px) scale(0.7);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+/* Inner body: visual content + cascade fade-in animation (opacity only, no transform) */
+.map-pin-body {
+  animation: pin-appear 350ms ease-out both;
 }
 
-/* Hover lift */
-.map-pin:hover {
-  filter: brightness(1.08);
+@keyframes pin-appear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* Active state — scale up with pulse ring */
-.map-pin.active > g > path:first-child {
-  stroke: #fff;
+/* Teardrop shape — shadow via filter */
+.map-pin-shape {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.22));
+  transition: filter 200ms ease, stroke-width 200ms ease;
+}
+
+/* Hover — subtle glow */
+.map-pin:hover .map-pin-shape {
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,.32));
+  stroke-width: 2.5;
+}
+
+/* Active state — bright ring + scale hint */
+.map-pin-body.active .map-pin-shape {
   stroke-width: 3;
+  filter: drop-shadow(0 3px 12px rgba(0,0,0,.35));
 }
 
-.map-pin.active {
-  animation: none;
+/* In-route pins — stronger shadow */
+.map-pin-body.in-route .map-pin-shape {
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,.3));
+  stroke-width: 2.5;
 }
 
-/* Office pin continuous pulse */
-.map-pin--office > g > path:first-child {
-  animation: office-pin-pulse 2s ease-in-out infinite;
+/* Office pin continuous subtle pulse */
+.map-pin-body.map-pin--office .map-pin-shape {
+  animation: office-pin-glow 2s ease-in-out infinite;
 }
 
-@keyframes office-pin-pulse {
-  0%, 100% { filter: drop-shadow(0 2px 8px rgba(0,0,0,.25)); }
-  50% { filter: drop-shadow(0 2px 16px rgba(67,56,202,.5)); }
+@keyframes office-pin-glow {
+  0%, 100% { filter: drop-shadow(0 2px 6px rgba(0,0,0,.22)); }
+  50%      { filter: drop-shadow(0 3px 14px rgba(67,56,202,.45)); }
 }
 
 /* Route polyline — dashed indigo instead of neon green */

@@ -1,48 +1,45 @@
 :root {
-  /* ── Colors ── */
-  --color-bg:          #F5F3F0;
-  --color-surface:     #ffffff;
-  --color-surface-alt: #F9F8F6;
-  --color-border:      #E8E5E0;
-  --color-text:        #1A1614;
-  --color-text-secondary: #6B6560;
-  --color-text-muted:  #9E9894;
+  /* ── Colors (matching mockup v3.8) ── */
+  --bg:        #F5F3F0;
+  --primary:   #3730A3;
+  --primary-l: #EEF2FF;
+  --primary-m: #4338CA;
+  --accent:    #F59E0B;
+  --green:     #16A34A;
+  --green-l:   #DCFCE7;
+  --red:       #DC2626;
+  --red-l:     #FEF2F2;
+  --wa:        #25D366;
+  --tg:        #2AABEE;
+  --surface:   #FFFFFF;
+  --surface2:  #F9F8F6;
+  --border:    #E8E5E0;
+  --text:      #1A1614;
+  --text2:     #6B6560;
+  --text3:     #9E9894;
+  --radius:    16px;
+  --radius-sm: 10px;
+  --shadow:    0 2px 12px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 24px rgba(0,0,0,.10);
+  --font:      'Manrope', sans-serif;
 
-  --color-primary:     #4338ca;
-  --color-primary-light: #eef2ff;
-  --color-primary-dark: #3730a3;
-
-  --color-accent:      #f59e0b;
-  --color-danger:      #dc2626;
-
-  --color-tg:          #2aabee;
-  --color-wa:          #25d366;
-
-  --color-green:       #16a34a;
-  --color-green-light: #dcfce7;
-
-  /* ── Radius ── */
-  --radius-sm:  10px;
-  --radius-md:  14px;
-  --radius-lg:  16px;
-  --radius-xl:  24px;
-  --radius-full: 9999px;
-
-  /* ── Shadows ── */
-  --shadow-card: 0 2px 12px rgba(0,0,0,.06);
-  --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
-  --shadow-md:  0 4px 24px rgba(0,0,0,.10);
-  --shadow-lg:  0 8px 24px rgba(0,0,0,.12);
-  --shadow-sheet: 0 -4px 24px rgba(0,0,0,.15);
-
-  /* ── Spacing ── */
-  --spacing-xs:  4px;
-  --spacing-sm:  8px;
-  --spacing-md:  16px;
-  --spacing-lg:  24px;
-  --spacing-xl:  32px;
-
-  --section-gap: 40px;
+  /* ── Legacy aliases (for existing JS/CSS that uses old names) ── */
+  --color-bg:          var(--bg);
+  --color-surface:     var(--surface);
+  --color-surface-alt: var(--surface2);
+  --color-border:      var(--border);
+  --color-text:        var(--text);
+  --color-text-secondary: var(--text2);
+  --color-text-muted:  var(--text3);
+  --color-primary:     var(--primary-m);
+  --color-primary-light: var(--primary-l);
+  --color-primary-dark: var(--primary);
+  --color-accent:      var(--accent);
+  --color-danger:      var(--red);
+  --color-tg:          var(--tg);
+  --color-wa:          var(--wa);
+  --color-green:       var(--green);
+  --color-green-light: var(--green-l);
 
   /* ── Layout ── */
   --tab-bar-height: 64px;

@@ -300,6 +300,39 @@
   margin-top: 4px;
 }
 
+/* Discount hint */
+.sheet-discount-hint {
+  font-size: 12px;
+  color: var(--color-primary);
+  text-align: center;
+  margin: 6px 0;
+  font-weight: 600;
+}
+
+/* Total breakdown */
+.sheet-breakdown {
+  margin-bottom: 8px;
+}
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  padding: 3px 0;
+}
+.breakdown-row.saving-row {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* Order hint */
+.sheet-order-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 8px 0 4px;
+}
+
 /* ========== Insurance Chips (compact) ========== */
 .sheet-insurance {
   margin-bottom: 14px;

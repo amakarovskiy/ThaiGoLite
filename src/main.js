@@ -272,27 +272,32 @@ function applyTranslations() {
   const twDesc = document.querySelector('meta[name="twitter:description"]');
   if (twDesc) twDesc.content = t('seoDescription');
 
-  // Hero
-  document.querySelector('.hero-h1').innerHTML = t('heroTitle');
-  document.querySelector('.hero-sub').innerHTML = t('heroSub');
-  const heroDelivery = document.querySelector('.hero-delivery');
-  if (heroDelivery) heroDelivery.textContent = t('heroDelivery');
+  // Generic data-i18n handler — updates text of elements with [data-i18n]
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (T[key]) el.textContent = t(key);
+  });
 
-  // Hero CTA — dynamic messenger order with SVG icons
+  // Hero (innerHTML for <br> support)
+  const heroH1 = document.querySelector('.hero-h1');
+  if (heroH1) heroH1.innerHTML = t('heroTitle');
+  const heroSub = document.querySelector('.hero-sub');
+  if (heroSub) heroSub.innerHTML = t('heroSub');
+
+  // Hero CTA — mockup v3.8: two equal messenger buttons side by side
   const heroCta = $('heroCta');
   if (heroCta) {
-    const tgIcon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>';
-    const waIcon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
+    const tgSvg = '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>';
+    const waSvg = '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.08-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>';
     const msgText = encodeURIComponent(t('waMsgGeneral') || '');
-    const tgBtn = `<a href="https://t.me/ThaiGoSale1?text=${msgText}" target="_blank" rel="noopener" class="btn btn-tg btn-full">${tgIcon} ${t('ctaTelegram')}</a>`;
-    const waBtn = `<a href="https://wa.me/66822545737?text=${msgText}" target="_blank" rel="noopener" class="btn btn-wa btn-full">${waIcon} ${t('ctaWhatsapp')}</a>`;
-    if (PRIMARY_MESSENGER === 'telegram') {
-      heroCta.innerHTML = tgBtn + waBtn;
-    } else {
-      const waBtnSolid = `<a href="https://wa.me/66822545737?text=${msgText}" target="_blank" rel="noopener" class="btn btn-wa-solid btn-full">${waIcon} ${t('ctaWhatsapp')}</a>`;
-      const tgBtnOutline = `<a href="https://t.me/ThaiGoSale1?text=${msgText}" target="_blank" rel="noopener" class="btn btn-tg-outline btn-full">${tgIcon} ${t('ctaTelegram')}</a>`;
-      heroCta.innerHTML = waBtnSolid + tgBtnOutline;
-    }
+    heroCta.innerHTML = `
+      <a class="btn-messenger-icon tg" href="https://t.me/ThaiGoSale1?text=${msgText}" target="_blank" rel="noopener">
+        ${tgSvg}<span>${t('ctaTelegram')}</span>
+      </a>
+      <a class="btn-messenger-icon wa" href="https://wa.me/66822545737?text=${msgText}" target="_blank" rel="noopener">
+        ${waSvg}<span>${t('ctaWhatsapp')}</span>
+      </a>
+    `;
   }
 
   // Steps title
@@ -401,13 +406,19 @@ function applyTranslations() {
     if (heroText) heroText.textContent = t('contactsAddress') || '72/6 Moo 3, Wichit, Muang, Phuket 83000';
   }
 
-  // Messenger row TG + WA
+  // Messenger row TG + WA (contacts page — mockup v3.8)
   const messengerRow = $('contactMessengerRow');
   if (messengerRow) {
     const msgText = encodeURIComponent(t('waMsgGeneral') || '');
+    const tgSvgSmall = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>';
+    const waSvgSmall = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.08-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>';
     messengerRow.innerHTML = `
-      <a href="https://t.me/ThaiGoSale1?text=${msgText}" target="_blank" rel="noopener" class="btn btn-tg">${t('ctaTelegram')}</a>
-      <a href="https://wa.me/66822545737?text=${msgText}" target="_blank" rel="noopener" class="btn btn-wa">${t('ctaWhatsapp')}</a>
+      <a class="btn-msg-tg" href="https://t.me/ThaiGoSale1?text=${msgText}" target="_blank" rel="noopener">
+        ${tgSvgSmall}<span>${t('ctaTelegram')}</span>
+      </a>
+      <a class="btn-msg-wa" href="https://wa.me/66822545737?text=${msgText}" target="_blank" rel="noopener">
+        ${waSvgSmall}<span>${t('ctaWhatsapp')}</span>
+      </a>
     `;
   }
 
@@ -2960,7 +2971,7 @@ applyTranslations();
   renderStickyCta();
 
   // Show/hide based on Hero visibility
-  const hero = document.querySelector('.hero');
+  const hero = document.querySelector('.hero-block') || document.querySelector('.hero');
   if (hero) {
     const observer = new IntersectionObserver(([e]) => {
       if (currentTab === 'routes') {
@@ -2974,7 +2985,7 @@ applyTranslations();
 })();
 
 // BikePickerCTA click handlers
-document.querySelectorAll('.bike-picker-cta .bpc-btn').forEach(btn => {
+document.querySelectorAll('.bike-picker-cta .bpc-btn, .btn-picker').forEach(btn => {
   btn.addEventListener('click', () => openBikePicker());
 });
 

@@ -292,8 +292,8 @@ export const T = {
   bpcTitle: { ru: 'Не знаете, какой байк выбрать?', en: 'Not sure which bike to pick?', de: 'Nicht sicher, welches Bike?', fr: 'Quel scooter choisir ?', es: '¿No sabes qué moto elegir?', th: 'ไม่แน่ใจว่าจะเลือกรุ่นไหน?' },
   bpcSub: { ru: 'Ответьте на 5 вопросов — сразу покажем байк и цену', en: 'Answer 5 questions — we\'ll show you the bike and price', de: '5 Fragen beantworten — wir zeigen Bike und Preis', fr: 'Répondez à 5 questions — on montre le scooter et le prix', es: 'Responde 5 preguntas — te mostramos la moto y precio', th: 'ตอบ 5 คำถาม — เราจะแนะนำรถและราคา' },
   bpcBtn: { ru: 'Подобрать байк за 1 минуту', en: 'Find your bike in 1 min', de: 'Bike in 1 Min finden', fr: 'Trouver en 1 min', es: 'Encontrar moto en 1 min', th: 'หารถใน 1 นาที' },
-  ctaWhatsapp: { ru: '\u{1F4AC} Написать в WhatsApp', en: '\u{1F4AC} Message WhatsApp', de: '\u{1F4AC} WhatsApp schreiben', fr: '\u{1F4AC} Écrire sur WhatsApp', es: '\u{1F4AC} Escribir en WhatsApp', th: '\u{1F4AC} WhatsApp' },
-  ctaTelegram: { ru: '\u{1F4F1} Написать в Telegram', en: '\u{1F4F1} Message Telegram', de: '\u{1F4F1} Telegram schreiben', fr: '\u{1F4F1} Écrire sur Telegram', es: '\u{1F4F1} Escribir en Telegram', th: '\u{1F4F1} Telegram' },
+  ctaWhatsapp: { ru: 'WhatsApp', en: 'WhatsApp', de: 'WhatsApp', fr: 'WhatsApp', es: 'WhatsApp', th: 'WhatsApp' },
+  ctaTelegram: { ru: 'Telegram', en: 'Telegram', de: 'Telegram', fr: 'Telegram', es: 'Telegram', th: 'Telegram' },
   ctaReplyTime: { ru: 'Отвечаем быстро', en: 'We reply fast', de: 'Schnelle Antwort', fr: 'Réponse rapide', es: 'Respondemos rápido', th: 'ตอบเร็ว' },
   bpWaMsg: {
     ru: 'Привет! По результатам квиза выбрал: ${name}, ${days} дн., ${total} ฿${ins}',

@@ -207,25 +207,25 @@
 
       <!-- Популярные байки (объединённый блок) -->
       <section class="section pop-section" id="popSection">
-        <div class="pop-header">
-          <h2 class="section-title" id="popTitle">Популярные байки</h2>
-          <button class="pop-all-link" id="popAllLink">Все &rarr;</button>
+        <div class="section-header">
+          <div class="section-title" id="popTitle">Популярные байки</div>
+          <div class="section-link" id="popAllLink">Все →</div>
         </div>
-        <div class="pop-chips" id="popChips">
-          <button class="pop-chip pop-chip--active" data-pop-group="economy">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+        <div class="filter-chips" id="popChips" style="margin-bottom:14px;">
+          <div class="chip active" data-pop-group="economy">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             <span>Эконом</span>
-          </button>
-          <button class="pop-chip" data-pop-group="comfort">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="chip" data-pop-group="comfort">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
             <span>Комфорт</span>
-          </button>
-          <button class="pop-chip" data-pop-group="premium">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="chip" data-pop-group="premium">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             <span>Премиум</span>
-          </button>
+          </div>
         </div>
-        <div id="popDealBar"><span class="deal-bar">&#127942; Лучшее предложение</span></div>
+        <div id="popDealBar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:12px;background:var(--green-l);cursor:pointer;gap:8px;margin-bottom:14px;border:1px solid rgba(22,163,74,.15);"><span class="deal-bar">Лучшее предложение</span></div>
         <!-- hidden slider elements kept for JS compatibility -->
         <div style="display:none">
           <span id="popDaysLabel"></span>
@@ -256,10 +256,10 @@
     <!-- ══════ TAB 2: БАЙКИ ══════ -->
     <main id="page-bikes" class="page">
       <div class="filter-chips bike-filters" id="bikeFilters">
-        <button class="chip filter-chip filter-chip--active" data-cat="all">Все</button>
-        <button class="chip filter-chip" data-cat="scooter">Эконом</button>
-        <button class="chip filter-chip" data-cat="maxi">Комфорт</button>
-        <button class="chip filter-chip" data-cat="moto">Премиум</button>
+        <button class="chip filter-chip filter-chip--active active" data-cat="all">Все</button>
+        <button class="chip filter-chip" data-cat="economy">Эконом</button>
+        <button class="chip filter-chip" data-cat="comfort">Комфорт</button>
+        <button class="chip filter-chip" data-cat="premium">Премиум</button>
       </div>
       <div class="picker-banner bike-picker-cta bike-picker-cta--compact" id="bikePickerCtaBikes">
         <div class="bpc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
@@ -502,7 +502,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
               </span>
             </button>
-            <button class="ins-chip" id="insPlusChip">
+            <button class="ins-chip ins-plus" id="insPlusChip">
               <span class="ins-chip-text"><span data-i18n="insPlus">Страховка+</span><span class="ins-chip-cost" id="insPlusCostLabel"> · 50 ฿/день</span></span>
               <span class="ins-chip-info" id="insPlusInfo" aria-label="Info">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>

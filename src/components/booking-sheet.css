@@ -64,7 +64,9 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0;
 }
 
 /* Image wrapper with zoom pill & dots */
@@ -75,27 +77,20 @@
 }
 
 .sheet-bike-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 14px;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 38px;
   flex-shrink: 0;
   overflow: hidden;
+  background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
 }
 
 .sheet-bike-img::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
-  border-radius: 0 0 14px 14px;
-  background: linear-gradient(to top, rgba(0,0,0,.35), rgba(0,0,0,0));
-  pointer-events: none;
+  display: none;
 }
 
 .sheet-img-wrap .sheet-bike-img {
@@ -136,43 +131,61 @@
 .sheet-bike-img.cat-car { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
 
 .sheet-bike-name {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
   color: var(--color-text);
+  letter-spacing: -.2px;
   margin: 0;
 }
 
 .sheet-bike-cc {
   font-size: 13px;
+  font-weight: 500;
   color: var(--color-text-secondary);
+  margin-top: 2px;
 }
 
-/* Features tags */
+/* Features tags — horizontal scroll strip matching mockup */
 .sheet-features {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 14px;
+  flex-wrap: nowrap;
+  gap: 5px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 -20px 0;
 }
+.sheet-features::-webkit-scrollbar { display: none; }
 
 .sheet-feature-tag {
-  padding: 4px 10px;
-  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding: 3px 8px;
   background: var(--color-surface-alt);
-  font-size: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
   color: var(--color-text-secondary);
   white-space: nowrap;
 }
 
-/* Pricing */
+/* Pricing — mockup v3.8 pricing grid style */
 .sheet-pricing {
-  margin-bottom: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .sheet-pricing-title {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
-  margin: 0 0 6px;
+  color: var(--color-text-muted);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin: 0 0 10px;
 }
 
 .sheet-price-table {
@@ -183,7 +196,7 @@
 
 .sheet-price-table th {
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-muted);
   text-align: center;
   padding: 4px 2px;
@@ -197,6 +210,7 @@
   color: var(--color-text);
   border: 1.5px solid var(--color-border);
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .sheet-price-table td.active-tier {
@@ -259,16 +273,16 @@
   cursor: pointer;
 }
 
-/* Total */
+/* Total — mockup breakdown style */
 .sheet-total {
+  background: var(--color-surface-alt);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
   text-align: center;
-  padding: 10px;
-  border-radius: 10px;
-  background: var(--color-primary-light);
   font-size: 14px;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  margin-bottom: 14px;
+  font-weight: 700;
+  color: var(--color-text);
 }
 
 .sheet-total strong,
@@ -340,7 +354,9 @@
 
 .ins-chips {
   display: flex;
-  gap: 6px;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .ins-chip {
@@ -354,9 +370,9 @@
   cursor: pointer;
   transition: all .15s;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  color: #64748b;
+  color: var(--color-text-secondary);
   white-space: nowrap;
 }
 
@@ -365,8 +381,13 @@
 }
 
 .ins-chip.active {
+  border-color: var(--color-green);
+  background: var(--color-green-light);
+  color: var(--color-green);
+}
+.ins-chip.active.ins-plus {
   border-color: var(--color-primary);
-  background: rgba(67, 56, 202, 0.10);
+  background: var(--color-primary-light);
   color: var(--color-primary);
 }
 
@@ -536,10 +557,18 @@
   border-radius: 10px;
 }
 
-/* CTA buttons */
+/* CTA buttons — mockup style: two buttons side by side */
 .sheet-actions {
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.sheet-actions .btn {
+  padding: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 12px;
+  gap: 6px;
 }
 
 /* ========== Place Sheet ========== */

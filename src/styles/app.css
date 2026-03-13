@@ -43,12 +43,15 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .page { display: none; }
 .page--active { display: block; }
 .page-title { font-size: 20px; font-weight: 800; padding: 16px 16px 12px; }
+#page-bikes { background: var(--surface2); }
+#page-contacts .contacts-content { background: var(--surface2); }
+#page-home { background: var(--surface2); }
 
-/* ===== Hero Block (mockup v3.8 — gradient) ===== */
-.hero-block { background: linear-gradient(155deg, #312E81 0%, #4338CA 40%, #6366F1 100%); padding: 22px 20px 18px; position: relative; overflow: hidden; color: #fff; }
-.hero-block::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 100% 100% at 85% 15%, rgba(99,102,241,.45) 0%, transparent 70%); pointer-events: none; }
-.hero-h1 { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -.3px; line-height: 1.25; margin-bottom: 6px; position: relative; z-index: 1; }
-.hero-sub { font-size: 12.5px; font-weight: 500; color: rgba(255,255,255,.7); line-height: 1.5; margin-bottom: 12px; position: relative; z-index: 1; }
+/* ===== Hero Block (mockup v3.8 — photo with dark overlay) ===== */
+.hero-block { background: url('/hero-bg.jpg') center/cover no-repeat; padding: 32px 20px 22px; position: relative; overflow: hidden; color: #fff; }
+.hero-block::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,10,40,.95) 0%, rgba(26,16,64,.8) 40%, rgba(30,50,90,.3) 75%, transparent 100%); pointer-events: none; z-index: 0; }
+.hero-h1 { font-size: 30px; font-weight: 800; line-height: 1.1; color: #fff; letter-spacing: -.8px; margin-bottom: 6px; position: relative; z-index: 1; }
+.hero-sub { font-size: 13px; font-weight: 400; color: rgba(255,255,255,.65); line-height: 1.5; margin-bottom: 14px; position: relative; z-index: 1; }
 
 /* Proof row (mockup v3.8) */
 .proof-row { display: flex; align-items: center; gap: 6px 8px; margin-bottom: 16px; position: relative; z-index: 1; flex-wrap: wrap; }
@@ -105,11 +108,11 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .bike-picker-cta--compact .bpc-title { font-size: 13px; margin-bottom: 0; }
 .bike-picker-cta--compact .bpc-btn { width: auto; flex-shrink: 0; }
 
-/* Picker banner (new mockup layout) */
-.picker-banner { margin: 0 12px 12px; background: var(--color-primary-light); border: 1.5px solid rgba(67,56,202,.2); border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.picker-banner-text h4 { font-size: 14px; font-weight: 800; color: var(--color-primary); margin-bottom: 2px; }
-.picker-banner-text p { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); }
-.btn-picker { flex-shrink: 0; padding: 9px 14px; background: var(--color-primary); color: #fff; border-radius: 10px; font-family: inherit; font-size: 12px; font-weight: 700; border: none; cursor: pointer; white-space: nowrap; }
+/* Picker banner (mockup v3.8) */
+.picker-banner { margin: 0 12px 12px; background: var(--primary-l); border: 1.5px solid rgba(67,56,202,.2); border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.picker-banner-text h4 { font-size: 14px; font-weight: 800; color: var(--primary-m); margin-bottom: 2px; }
+.picker-banner-text p { font-size: 12px; font-weight: 500; color: var(--text2); }
+.btn-picker { flex-shrink: 0; padding: 9px 14px; background: var(--primary-m); color: #fff; border-radius: 10px; font-family: var(--font); font-size: 12px; font-weight: 700; border: none; cursor: pointer; white-space: nowrap; }
 
 /* ===== Buttons ===== */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 24px; border-radius: 14px; font-size: 16px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: all .15s; font-family: inherit; line-height: 1; }
@@ -198,17 +201,17 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 /* Bike cards horizontal (bike-card-h) */
 .bikes-scroll { display: flex; gap: 10px; padding-bottom: 16px; overflow-x: auto; position: relative; scrollbar-width: none; }
 .bikes-scroll::-webkit-scrollbar { display: none; }
-.bike-card-h { flex-shrink: 0; width: 145px; background: var(--color-surface); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-card); position: relative; }
+.bike-card-h { flex-shrink: 0; width: 145px; background: var(--surface); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); position: relative; }
 .bike-card-h .bike-img { width: 100%; height: 90px; background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); display: flex; align-items: center; justify-content: center; }
-.bike-card-h .bike-info { padding: 10px 10px 14px; border-top: 1px solid var(--color-border); }
-.bike-card-h .bike-name { font-size: 13px; font-weight: 800; color: var(--color-text); margin-bottom: 3px; }
-.bike-card-h .bike-hint { font-size: 10px; color: var(--color-text-muted); line-height: 1.35; margin-bottom: 8px; }
+.bike-card-h .bike-info { padding: 10px 10px 14px; border-top: 1px solid var(--border); }
+.bike-card-h .bike-name { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+.bike-card-h .bike-hint { font-size: 10px; color: var(--text3); line-height: 1.35; margin-bottom: 8px; }
 
 /* Price row */
 .price-row { display: flex; align-items: baseline; gap: 4px; }
-.price-now { font-size: 15px; font-weight: 900; color: var(--color-primary); letter-spacing: -0.3px; }
-.price-was { font-size: 11px; font-weight: 500; color: var(--color-text-muted); text-decoration: line-through; }
-.price-per { font-size: 10px; color: var(--color-text-muted); }
+.price-now { font-size: 15px; font-weight: 900; color: var(--primary-m); letter-spacing: -0.3px; }
+.price-was { font-size: 11px; font-weight: 500; color: var(--text3); text-decoration: line-through; }
+.price-per { font-size: 10px; color: var(--text3); }
 
 /* Badges */
 .pop-badge { position: absolute; top: 6px; right: 6px; background: var(--color-accent); color: #fff; font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 10px; letter-spacing: .02em; }
@@ -220,8 +223,8 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 
 /* Cards scroll (legacy pop-scroll) */
 .pop-scroll-wrapper { position: relative; overflow: hidden; }
-.pop-scroll-wrapper::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 60px; background: linear-gradient(to left, var(--color-bg), transparent); pointer-events: none; z-index: 1; }
-.pop-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 0 0 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; margin-bottom: 12px; }
+.pop-scroll-wrapper::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 60px; background: linear-gradient(to left, var(--surface2), transparent); pointer-events: none; z-index: 1; }
+.pop-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 0 0 16px; scrollbar-width: none; -webkit-overflow-scrolling: touch; margin-bottom: 12px; }
 .pop-scroll::-webkit-scrollbar { display: none; }
 .pop-card { flex-shrink: 0; width: 150px; background: var(--color-surface); border-radius: 14px; overflow: hidden; cursor: pointer; transition: transform .15s; box-shadow: var(--shadow-card); }
 .pop-card:active { transform: scale(0.97); }
@@ -236,7 +239,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .pop-card-total { font-size: 11px; color: var(--color-text-muted); padding: 1px 10px 8px; }
 
 /* View all button */
-.pop-view-all { display: block; width: 100%; padding: 10px; border: none; border-radius: 12px; background: rgba(67,56,202,0.08); color: var(--color-primary); font-size: 14px; font-weight: 700; text-align: center; cursor: pointer; transition: all .15s; font-family: inherit; }
+.pop-view-all { display: block; width: 100%; padding: 13px; border: 1.5px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--primary-m); font-size: 14px; font-weight: 700; text-align: center; cursor: pointer; transition: all .15s; font-family: var(--font); margin-bottom: 4px; }
 .pop-view-all:active { transform: scale(0.98); }
 
 /* ===== Steps (How it works) ===== */

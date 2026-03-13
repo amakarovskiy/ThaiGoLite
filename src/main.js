@@ -885,9 +885,11 @@ bikeFiltersEl.addEventListener('click', e => {
   const chip = e.target.closest('.filter-chip, .chip');
   if (!chip) return;
   bikeFilter = chip.dataset.cat;
-  bikeFiltersEl.querySelectorAll('.filter-chip, .chip').forEach(c =>
-    c.classList.toggle('filter-chip--active', c.dataset.cat === bikeFilter)
-  );
+  bikeFiltersEl.querySelectorAll('.filter-chip, .chip').forEach(c => {
+    const isActive = c.dataset.cat === bikeFilter;
+    c.classList.toggle('filter-chip--active', isActive);
+    c.classList.toggle('active', isActive);
+  });
   renderBikes();
 });
 
@@ -917,7 +919,17 @@ function renderPopular() {
   }, null);
   const dealBarEl = $('popDealBar');
   if (dealBarEl && cheapest30) {
-    dealBarEl.innerHTML = `<span class="deal-bar">\u{1F389} ${cheapest30.bike.name} \u2014 ${t('priceFrom')} ${cheapest30.price} \u0E3F/${t('popDays')}</span>`;
+    dealBarEl.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:1px;">
+        <span style="font-size:10px;font-weight:600;color:var(--green);opacity:.8;">${t('bestDeal') || '\u041B\u0443\u0447\u0448\u0435\u0435 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435'}</span>
+        <span style="font-size:12px;font-weight:700;color:var(--green);">${cheapest30.bike.name} \xB7 30 ${t('popDays')}</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:2px;flex-shrink:0;">
+        <span style="font-size:22px;font-weight:900;color:var(--green);letter-spacing:-.5px;">${cheapest30.price}</span>
+        <span style="font-size:13px;font-weight:700;color:var(--green);">\u0E3F</span>
+        <span style="font-size:10px;color:var(--text2);">/${t('popDays')}</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" style="margin-left:4px;flex-shrink:0;align-self:center;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>`;
     dealBarEl.style.display = '';
   } else if (dealBarEl) {
     dealBarEl.style.display = 'none';
@@ -930,30 +942,29 @@ function renderPopular() {
     const total = getTotalPrice(b, days);
     const hasDiscount = cur < base;
     const badge = getBikeBadge(b);
+    const whyText = (b.why && (b.why[lang] || b.why.en)) || '';
+    const hint = whyText.split('.')[0].trim();
+    const shortHint = hint.length > 35 ? hint.slice(0, 32) + '...' : hint;
     return `
     <div class="bike-card-h" data-bike="${b.id}">
       ${badge}
-      <div class="pop-card-img cat-${b.category}">${getBikeSvg(b.category)}</div>
-      <div class="pop-card-name">${b.name}</div>
-      <div class="price-row">
-        <span class="price-now">${cur} \u0E3F</span>
-        ${hasDiscount ? `<span class="price-was">${base} \u0E3F</span>` : ''}
-        <span class="price-per">/${t('popDays')}</span>
+      <div class="bike-img cat-${b.category}">${getBikeSvg(b.category)}</div>
+      <div class="bike-info">
+        <div class="bike-name">${b.name}</div>
+        ${shortHint ? `<div class="bike-hint">${shortHint}</div>` : ''}
+        <div class="price-row">
+          <div class="price-now">${cur} \u0E3F</div>
+          ${hasDiscount ? `<div class="price-was">${base} \u0E3F</div>` : ''}
+          <div class="price-per">/${t('popDays')}</div>
+        </div>
       </div>
-      <div class="pop-card-total">${t('popTotal')} ${total.toLocaleString()} \u0E3F</div>
     </div>`;
   }).join('');
 
-  // "View all bikes" button
-  const viewAllBtn = $('popViewAllBtn');
-  if (!viewAllBtn) {
-    const btnEl = document.createElement('button');
-    btnEl.id = 'popViewAllBtn';
-    btnEl.className = 'btn btn-primary btn-full';
-    btnEl.textContent = t('popViewAll') || '\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435 \u0431\u0430\u0439\u043A\u0438';
-    btnEl.style.marginTop = '12px';
-    btnEl.addEventListener('click', () => switchTab('bikes'));
-    scroll.parentNode.appendChild(btnEl);
+  // Update existing "View all" button text
+  const viewAllBtn = $('popViewAll');
+  if (viewAllBtn) {
+    viewAllBtn.textContent = (t('popViewAll') || '\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435 \u0431\u0430\u0439\u043A\u0438') + ' \u2192';
   }
 
   scroll.querySelectorAll('.bike-card-h').forEach(card => {
@@ -991,6 +1002,7 @@ function updatePopBlock() {
     const spanEl = el.querySelector('span');
     if (spanEl) spanEl.textContent = t(chipLabels[g]);
     el.classList.toggle('pop-chip--active', g === popGroup);
+    el.classList.toggle('active', g === popGroup);
   });
 
   renderPopular();

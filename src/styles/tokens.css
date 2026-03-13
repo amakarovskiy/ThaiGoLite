@@ -19,8 +19,14 @@
   --text3:     #9E9894;
   --radius:    16px;
   --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 100px;
   --shadow:    0 2px 12px rgba(0,0,0,.06);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
   --shadow-md: 0 4px 24px rgba(0,0,0,.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.12);
+  --shadow-card: 0 2px 12px rgba(0,0,0,.06);
   --font:      'Manrope', sans-serif;
 
   /* ── Legacy aliases (for existing JS/CSS that uses old names) ── */

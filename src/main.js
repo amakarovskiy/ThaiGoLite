@@ -1362,7 +1362,7 @@ function updateSheetCalc() {
   const savingRow = $('sheetSavingRow');
   if (savingRow) {
     if (sheetDays > 2 && savings > 0) {
-      savingRow.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg> ${t('sheetSavingCompare') || 'Экономишь'} ${savings.toLocaleString()} ฿ ${t('sheetSavingVs') || 'по сравнению с ценой 1–2 дней'}`;
+      savingRow.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg> ${tpl('sheetSavingCompare', { amount: savings.toLocaleString() }) || `Экономишь ${savings.toLocaleString()} ฿ по сравнению с ценой 1–2 дней`}`;
       savingRow.classList.remove('hidden');
     } else {
       savingRow.classList.add('hidden');

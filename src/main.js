@@ -1098,7 +1098,7 @@ function openBookingSheet(bike) {
   // Update insurance franchise
   const franchise = getInsuranceFranchiseLocal(bike);
   const franchiseEl = $('insPlusFranchise');
-  if (franchiseEl) franchiseEl.textContent = franchise ? `${t('insFranchise') || 'Франшиза'} ${franchise.toLocaleString()} ฿` : '';
+  if (franchiseEl) franchiseEl.textContent = franchise ? `Франшиза ${franchise.toLocaleString()} ฿` : '';
   // Hide insurance+ row for motorcycles
   const insPlusRow = $('insPlusRow');
   const insTierInit = getInsuranceTier(bike);
@@ -1222,11 +1222,10 @@ function updateSheetCalc() {
   const insTier = getInsuranceTier(sheetBike);
   const insCost = getInsurancePlusCost(sheetBike, sheetDays);
 
-  // Update insurance+ per-day label
+  // Update insurance+ total cost label
   if (insTier !== null) {
-    const insPerDay = Math.ceil(insCost / sheetDays);
     const costLabel = $('insPlusCostLabel');
-    if (costLabel) costLabel.innerHTML = `${t('popFrom') || 'от'} ${insPerDay} \u0E3F<span>/\u0434</span>`;
+    if (costLabel) costLabel.textContent = `${insCost.toLocaleString()} ฿`;
   }
 
   if (sheetInsurancePlus && insTier) {

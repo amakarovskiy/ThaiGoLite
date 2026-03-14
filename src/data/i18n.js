@@ -1439,7 +1439,6 @@ export const T = {
 
 // Bike feature translations
 export const FEATURE_TR = {
-  'ABS нет':  { en: 'No ABS', de: 'Kein ABS', fr: 'Pas d\'ABS', es: 'Sin ABS', th: 'ไม่มี ABS' },
   'ABS':      { en: 'ABS', de: 'ABS', fr: 'ABS', es: 'ABS', th: 'ABS' },
   'Вариатор': { en: 'CVT', de: 'CVT', fr: 'CVT', es: 'CVT', th: 'CVT' },
   'Большой багажник': { en: 'Large trunk', de: 'Großer Kofferraum', fr: 'Grand coffre', es: 'Maletero grande', th: 'กระโปรงใหญ่' },

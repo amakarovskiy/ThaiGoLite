@@ -468,7 +468,7 @@ function applyTranslations() {
   const addressHero = $('addressHero');
   if (addressHero) {
     const heroText = addressHero.querySelector('.address-hero-text');
-    if (heroText) heroText.textContent = t('contactsAddress') || '72/6 Moo 3, Wichit, Muang, Phuket 83000';
+    if (heroText) heroText.textContent = t('contactsAddress');
   }
 
   // Messenger row TG + WA (contacts page — mockup v3.8)
@@ -491,7 +491,7 @@ function applyTranslations() {
   const fabRoute = $('fabRouteToOffice');
   if (fabRoute) {
     const fabText = fabRoute.querySelector('.fab-text');
-    if (fabText) fabText.textContent = t('fabRouteToOffice') || '\u041C\u0430\u0440\u0448\u0440\u0443\u0442 \u0432 \u043E\u0444\u0438\u0441';
+    if (fabText) fabText.textContent = t('fabRouteToOffice');
   }
 
   // Contact card rows
@@ -560,12 +560,12 @@ function renderDeliveryAreas() {
   const paidZones = T.dlvAreas.filter(a => a.color !== 'green');
   let zonesHtml = '';
   if (freeZones.length) {
-    zonesHtml += `<div class="delivery-zone-group"><div class="zone-label zone-free">${t('deliveryFree') || '\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E'}</div>`;
+    zonesHtml += `<div class="delivery-zone-group"><div class="zone-label zone-free">${t('deliveryFree')}</div>`;
     zonesHtml += freeZones.map(a => `<div class="dlv-card"><div class="dlv-name">${a.name[lang] || a.name.en}</div><div class="dlv-cond dlv-${a.color}">${a.cond[lang] || a.cond.en}</div></div>`).join('');
     zonesHtml += `</div>`;
   }
   if (paidZones.length) {
-    zonesHtml += `<div class="delivery-zone-group"><div class="zone-label zone-paid">${t('deliveryPaid') || '\u041F\u043B\u0430\u0442\u043D\u043E'}</div>`;
+    zonesHtml += `<div class="delivery-zone-group"><div class="zone-label zone-paid">${t('deliveryPaid')}</div>`;
     zonesHtml += paidZones.map(a => `<div class="dlv-card"><div class="dlv-name">${a.name[lang] || a.name.en}</div><div class="dlv-cond dlv-${a.color}">${a.cond[lang] || a.cond.en}</div></div>`).join('');
     zonesHtml += `</div>`;
   }
@@ -1040,7 +1040,7 @@ function renderPopular() {
   // Update existing "View all" button text
   const viewAllBtn = $('popViewAll');
   if (viewAllBtn) {
-    viewAllBtn.textContent = t('popViewAll') || '\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u0441\u0435 \u0431\u0430\u0439\u043A\u0438 \u2192';
+    viewAllBtn.textContent = t('popViewAll');
   }
 
   scroll.querySelectorAll('.bike-card-h').forEach(card => {
@@ -1283,7 +1283,7 @@ function updateSheetCalc() {
 
   // Days word (дней/день)
   const daysWordEl = $('sheetDaysWord');
-  if (daysWordEl) daysWordEl.textContent = t('popDays') || 'дней';
+  if (daysWordEl) daysWordEl.textContent = t('popDays');
 
   const perDay = getPerDay(sheetBike, sheetDays);
   const rentalTotal = getTotalPrice(sheetBike, sheetDays);
@@ -1314,7 +1314,7 @@ function updateSheetCalc() {
   const discountBadge = $('sheetDiscountBadge');
   if (discountBadge) {
     if (discountPct > 0) {
-      discountBadge.textContent = `\u2212${discountPct}% \xB7 ${t('sheetSave') || '\u044D\u043A\u043E\u043D\u043E\u043C\u0438\u044F'} ${savings.toLocaleString()} \u0E3F`;
+      discountBadge.textContent = `\u2212${discountPct}% \xB7 ${t('sheetSave')} ${savings.toLocaleString()} \u0E3F`;
       discountBadge.classList.remove('hidden');
     } else {
       discountBadge.classList.add('hidden');
@@ -1326,8 +1326,8 @@ function updateSheetCalc() {
   const maxPrice = getPerDay(sheetBike, 30);
   const sliderMin = $('sheetSliderMin');
   const sliderMax = $('sheetSliderMax');
-  if (sliderMin) sliderMin.textContent = `1 \u0434 \xB7 ${minPrice} \u0E3F/\u0434`;
-  if (sliderMax) sliderMax.textContent = `30 \u0434 \xB7 ${maxPrice} \u0E3F/\u0434`;
+  if (sliderMin) sliderMin.textContent = `1 ${t('daysShort')} \xB7 ${minPrice} \u0E3F/${t('daysShort')}`;
+  if (sliderMax) sliderMax.textContent = `30 ${t('daysShort')} \xB7 ${maxPrice} \u0E3F/${t('daysShort')}`;
 
   // Discount hint (next threshold)
   const discountHintEl = $('sheetDiscountHint');
@@ -1336,7 +1336,7 @@ function updateSheetCalc() {
     const hint = getNextDiscountHint(sheetDays, sheetBike);
     if (hint && hint.daysNeeded) {
       const moreDays = hint.daysNeeded - sheetDays;
-      discountHintText.textContent = `${t('hintMore') || '\u0415\u0449\u0451'} ${moreDays} ${t('popDays') || '\u0434\u043D\u0435\u0439'} \u2014 \u0438 \u0431\u0443\u0434\u0435\u0442 \u2212${hint.discountPercent}% (${hint.pricePerDay} \u0E3F/${t('perDay') || '\u0434\u0435\u043D\u044C'})`;
+      discountHintText.textContent = `${t('hintMore')} ${moreDays} ${t('popDays')} ${t('hintAndGet')} \u2212${hint.discountPercent}% (${hint.pricePerDay} \u0E3F/${t('perDay')})`;
       discountHintEl.classList.remove('hidden');
     } else {
       discountHintEl.classList.add('hidden');
@@ -1347,12 +1347,12 @@ function updateSheetCalc() {
   const totalBreakdownEl = $('sheetBreakdown');
   if (totalBreakdownEl) {
     let html = '';
-    html += `<div class="breakdown-row"><span>${t('sheetBike') || 'Байк'} ${perDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays') || 'дн'}</span><span>${rentalTotal.toLocaleString()} ฿</span></div>`;
+    html += `<div class="breakdown-row"><span>${t('sheetBike')} ${perDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays')}</span><span>${rentalTotal.toLocaleString()} ฿</span></div>`;
     if (sheetInsurancePlus && insTier) {
-      html += `<div class="breakdown-row"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>${t('insPlus') || 'Страхование+'} ${insPerDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays') || 'дн'}</span><span>${insCost.toLocaleString()} ฿</span></div>`;
+      html += `<div class="breakdown-row"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" stroke-width="2.2" style="vertical-align:-1px;margin-right:3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>${t('insPlus')} ${insPerDay.toLocaleString()} ฿ × ${sheetDays} ${t('popDays')}</span><span>${insCost.toLocaleString()} ฿</span></div>`;
     }
     html += `<div class="breakdown-divider"></div>`;
-    html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal') || 'Итого'}</span><span class="breakdown-total-value" id="sheetTotalValue">${prevSheetTotal === 0 ? total.toLocaleString() + ' ฿' : prevSheetTotal.toLocaleString() + ' ฿'}</span></div>`;
+    html += `<div class="breakdown-row"><span class="breakdown-total-label">${t('sheetTotal')}</span><span class="breakdown-total-value" id="sheetTotalValue">${prevSheetTotal === 0 ? total.toLocaleString() + ' ฿' : prevSheetTotal.toLocaleString() + ' ฿'}</span></div>`;
     totalBreakdownEl.innerHTML = html;
 
     // Animate total value: 600ms easeOutCubic
@@ -1898,7 +1898,7 @@ function filterPlaces() {
 function renderPlaces() {
   const filtered = filterPlaces();
 
-  const routeMsg = encodeURIComponent(t('routeMsgDefault') || 'Хочу арендовать байк на Пхукете');
+  const routeMsg = encodeURIComponent(t('routeMsgDefault'));
   const placesHtml = filtered.map(p => {
     const cat = getDisplayCat(p);
     const info = getCatInfo(cat);
@@ -1919,15 +1919,15 @@ function renderPlaces() {
 
   rsPlaceList.innerHTML = placesHtml + `
     <div style="padding:12px 16px 8px;">
-      <div class="rs-route-cta-hint">${t('routeWantRide') || 'Хотите проехать этот маршрут?'}</div>
+      <div class="rs-route-cta-hint">${t('routeWantRide')}</div>
       <div class="rs-route-cta">
         <a class="rs-route-cta-btn cta-tg" href="https://t.me/ThaiGoSale1?text=${routeMsg}" target="_blank" rel="noopener">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>
-          ${t('rentTg') || 'Арендовать TG'}
+          ${t('rentTg')}
         </a>
         <a class="rs-route-cta-btn cta-wa" href="https://wa.me/66822545737?text=${routeMsg}" target="_blank" rel="noopener">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.08-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
-          ${t('rentWa') || 'Арендовать WA'}
+          ${t('rentWa')}
         </a>
       </div>
     </div>
@@ -1960,7 +1960,7 @@ function renderFilterChips() {
     const info = CATEGORY_ICONS[cat];
     const isActive = cat === placeFilter;
     if (cat === 'top' || cat === 'all') {
-      const label = cat === 'top' ? (t('placeTop') || 'Топ') : (t('filterAll') || 'Все');
+      const label = cat === 'top' ? t('placeTop') : t('filterAll');
       return `<button class="filter-chip ${isActive ? 'filter-chip--active' : ''}" data-cat="${cat}">${label}</button>`;
     }
     const icon = getCatSvgIcon(cat, 12, 'currentColor', '2');
@@ -2427,16 +2427,16 @@ function renderRoutePanel() {
       </div>`;
 
       const routeNames = route.map(p => placeName(p)).join(' → ');
-      const routeMsg = encodeURIComponent(`${t('routeMsgPrefix') || 'Хочу проехать маршрут'}: ${routeNames}`);
-      html += `<div class="rs-route-cta-hint">${t('routeWantRide') || 'Хотите проехать этот маршрут?'}</div>
+      const routeMsg = encodeURIComponent(`${t('routeMsgPrefix')}: ${routeNames}`);
+      html += `<div class="rs-route-cta-hint">${t('routeWantRide')}</div>
       <div class="rs-route-cta">
         <a class="rs-route-cta-btn cta-tg" href="https://t.me/ThaiGoSale1?text=${routeMsg}" target="_blank" rel="noopener">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.9c-.12.59-.45.73-.91.46l-2.5-1.84-1.21 1.16c-.13.13-.24.24-.5.24l.18-2.55 4.64-4.19c.2-.18-.04-.28-.31-.1L7.95 14.1l-2.47-.77c-.54-.17-.55-.54.11-.8l9.64-3.72c.44-.16.83.11.41.99z"/></svg>
-          ${t('rentTg') || 'Арендовать TG'}
+          ${t('rentTg')}
         </a>
         <a class="rs-route-cta-btn cta-wa" href="https://wa.me/66822545737?text=${routeMsg}" target="_blank" rel="noopener">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.08-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
-          ${t('rentWa') || 'Арендовать WA'}
+          ${t('rentWa')}
         </a>
       </div>`;
     }

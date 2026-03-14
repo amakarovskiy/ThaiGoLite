@@ -585,46 +585,56 @@
   margin-top: 2px;
 }
 
-/* ===== Taxi Comparison — compact inline ===== */
+/* ===== Taxi Comparison — card layout ===== */
 .rs-taxi-compare {
   background: var(--surface2);
-  border-radius: 14px;
-  padding: 10px 12px 8px;
+  border-radius: 16px;
+  overflow: hidden;
   border: 1px solid var(--border);
   margin-bottom: 12px;
 }
 
-.rs-taxi-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 6px;
-  text-align: center;
-}
-
-.rs-taxi-row-inline {
+.rs-taxi-cards {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  align-items: stretch;
+  position: relative;
+  padding: 0;
 }
 
-.rs-taxi-val {
+.rs-taxi-card {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1px;
+  align-items: flex-start;
+  padding: 14px 14px 12px;
+  gap: 2px;
 }
 
-.rs-taxi-val svg {
-  margin-bottom: 2px;
+.rs-taxi-card.bike { background: rgba(99,102,241,.07); }
+.rs-taxi-card.taxi { background: rgba(245,158,11,.08); }
+
+.rs-taxi-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.rs-taxi-card-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text1);
 }
 
 .rs-taxi-price {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
+  margin: 2px 0 2px;
 }
 
 .rs-taxi-price.bike { color: var(--primary-m); }
@@ -634,25 +644,51 @@
   font-size: 11px;
   color: var(--text3);
   font-weight: 500;
+  line-height: 1.3;
 }
 
 .rs-taxi-vs {
-  font-size: 13px;
-  font-weight: 400;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--text3);
-  padding: 0 2px;
+  z-index: 1;
 }
 
 .rs-taxi-saving {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 4px;
-  font-size: 12px;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(16,185,129,.1);
+}
+
+.rs-taxi-saving-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--green);
-  text-align: center;
-  margin-top: 6px;
+  line-height: 1.3;
+}
+
+.rs-taxi-saving-amount {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
 }
 
 /* ===== Route CTA — TG + WA equal buttons ===== */

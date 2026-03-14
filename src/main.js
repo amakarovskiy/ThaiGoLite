@@ -2357,23 +2357,24 @@ function renderRoutePanel() {
       const taxiCost = Math.round(stats.km * TAXI_RATE_PER_KM);
       const routeSaving = taxiCost - bikeCost;
       html += `<div class="rs-taxi-compare">
-        <div class="rs-taxi-title">Байк vs такси</div>
-        <div class="rs-taxi-row-inline">
-          <div class="rs-taxi-val">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 14l1-4h4l3-3h3"/><path d="M10 10l2 4h5l2-4"/><path d="M16 7a1 1 0 100-2 1 1 0 000 2z" fill="var(--primary-m)"/></svg>
-            <span class="rs-taxi-price bike">~${bikeCost.toLocaleString()} ₿</span>
-            <span class="rs-taxi-sub">130 + ${stats.fuel} ₿ бензин</span>
+        <div class="rs-taxi-cards">
+          <div class="rs-taxi-card bike">
+            <div class="rs-taxi-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 14l1-4h4l3-3h3"/><path d="M10 10l2 4h5l2-4"/><path d="M16 7a1 1 0 100-2 1 1 0 000 2z" fill="var(--primary-m)"/></svg></div>
+            <div class="rs-taxi-card-label">Байк + бензин</div>
+            <div class="rs-taxi-price bike">~${bikeCost.toLocaleString()} ₿</div>
+            <div class="rs-taxi-sub">${bikeRental} ₿ аренда + ${stats.fuel} ₿ бензин</div>
           </div>
           <span class="rs-taxi-vs">vs</span>
-          <div class="rs-taxi-val">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8"><rect x="3" y="14" width="18" height="5" rx="1.5" fill="none"/><path d="M5 14V10.5C5 9 6 8 7.5 8h9c1.5 0 2.5 1 2.5 2.5V14"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/><rect x="7" y="8" width="2" height="2" fill="var(--accent)" stroke="none"/><rect x="11" y="8" width="2" height="2" fill="none"/><rect x="15" y="8" width="2" height="2" fill="var(--accent)" stroke="none"/><rect x="9" y="6" width="2" height="2" fill="none"/><rect x="13" y="6" width="2" height="2" fill="var(--accent)" stroke="none"/><rect x="7" y="4" width="2" height="2" fill="none"/><rect x="11" y="4" width="2" height="2" fill="var(--accent)" stroke="none"/><rect x="15" y="4" width="2" height="2" fill="none"/></svg>
-            <span class="rs-taxi-price taxi">~${taxiCost.toLocaleString()} ₿</span>
-            <span class="rs-taxi-sub">такси за маршрут</span>
+          <div class="rs-taxi-card taxi">
+            <div class="rs-taxi-card-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="4" height="4" rx="1" fill="var(--accent)"/><rect x="10" y="4" width="4" height="4" rx="1" fill="var(--accent)" opacity=".45"/><rect x="16" y="4" width="4" height="4" rx="1" fill="var(--accent)"/><rect x="4" y="10" width="4" height="4" rx="1" fill="var(--accent)" opacity=".45"/><rect x="10" y="10" width="4" height="4" rx="1" fill="var(--accent)"/><rect x="16" y="10" width="4" height="4" rx="1" fill="var(--accent)" opacity=".45"/><rect x="4" y="16" width="4" height="4" rx="1" fill="var(--accent)"/><rect x="10" y="16" width="4" height="4" rx="1" fill="var(--accent)" opacity=".45"/><rect x="16" y="16" width="4" height="4" rx="1" fill="var(--accent)"/></svg></div>
+            <div class="rs-taxi-card-label">Такси</div>
+            <div class="rs-taxi-price taxi">~${taxiCost.toLocaleString()} ₿</div>
+            <div class="rs-taxi-sub">средняя цена по маршруту</div>
           </div>
         </div>
         <div class="rs-taxi-saving">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
-          Экономия ~${routeSaving.toLocaleString()} ₿ на байке
+          <div class="rs-taxi-saving-text"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg> Экономия на байке<br>за весь маршрут</div>
+          <div class="rs-taxi-saving-amount">~${routeSaving.toLocaleString()} ₿</div>
         </div>
       </div>`;
     }

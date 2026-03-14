@@ -329,7 +329,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 /* ===== Booking Sheet ===== */
 .sheet-overlay { background: rgba(0,0,0,.3); padding: 120px 0 0; display: flex; flex-direction: column; justify-content: flex-end; min-height: 700px; }
 .sheet { background: var(--color-surface); border-radius: 24px 24px 0 0; padding: 0 0 20px; box-shadow: 0 -8px 40px rgba(0,0,0,.12); }
-.sheet-handle { width: 36px; height: 4px; background: var(--color-border); border-radius: 2px; margin: 12px auto 16px; }
+/* .sheet-handle styles moved to booking-sheet.css */
 
 /* Sheet bike header */
 .sheet-bike-header { display: flex; align-items: center; gap: 14px; padding: 0 16px 14px; border-bottom: 1px solid var(--color-border); }

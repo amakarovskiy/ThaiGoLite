@@ -1,8 +1,8 @@
 // Stats calculation engine (from ROADMAP/js/stats.js)
 
 const KM_FACTOR = 1.35;
-const SPEED_MIN_PER_KM = 1.5;
-const FUEL_L_PER_100KM = 4;
+const SPEED_MIN_PER_KM = 2.0;
+const FUEL_L_PER_100KM = 2;
 const FUEL_PRICE_THB = 43;
 const TAXI_RATE_PER_KM = 30;
 

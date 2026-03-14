@@ -9,7 +9,7 @@ import './components/bike-picker.css';
 import './components/routes-map.css';
 import { BIKES, BIKE_CATEGORIES, BUDGET_GROUPS } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
-import { calcStats, formatTime, haversine, KM_FACTOR } from './utils/stats.js';
+import { calcStats, formatTime, haversine, KM_FACTOR, TAXI_RATE_PER_KM } from './utils/stats.js';
 import { LANGS, detectLang, saveLang, T, translateFeature, BIKE_CAT_TR } from './data/i18n.js';
 import { PLACE_TR } from './data/place-translations.js';
 import { RIDER_QUESTIONS, CONFETTI_EMOJIS } from './data/rider-test.js';
@@ -2349,29 +2349,31 @@ function renderRoutePanel() {
         <div class="rs-stat"><div class="rs-stat-val">${stats.fuel}</div><div class="rs-stat-label">${t('statFuel')}</div></div>
       </div>`;
 
-      // Taxi comparison — compact inline design
-      // Fixed daily costs: bike ~500 ₿/day, taxi (Grab) ~2400 ₿/day
-      const bikeDayCost = 500;
-      const taxiDayCost = 2400;
-      const daySaving = taxiDayCost - bikeDayCost;
+      // Taxi comparison — route-based calculation
+      // Bike: cheapest rental (130 ₿/day) + fuel for route
+      // Taxi: route distance × taxi rate (30 ₿/km)
+      const bikeRental = 130;
+      const bikeCost = bikeRental + stats.fuel;
+      const taxiCost = Math.round(stats.km * TAXI_RATE_PER_KM);
+      const routeSaving = taxiCost - bikeCost;
       html += `<div class="rs-taxi-compare">
         <div class="rs-taxi-title">Байк vs такси</div>
         <div class="rs-taxi-row-inline">
           <div class="rs-taxi-val">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 14l1-4h4l3-3h3"/><path d="M10 10l2 4h5l2-4"/><path d="M16 7a1 1 0 100-2 1 1 0 000 2z" fill="var(--primary-m)"/></svg>
-            <span class="rs-taxi-price bike">~${bikeDayCost.toLocaleString()} ₿</span>
-            <span class="rs-taxi-sub">байк/день</span>
+            <span class="rs-taxi-price bike">~${bikeCost.toLocaleString()} ₿</span>
+            <span class="rs-taxi-sub">130 + ${stats.fuel} ₿ бензин</span>
           </div>
           <span class="rs-taxi-vs">vs</span>
           <div class="rs-taxi-val">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="2" width="4" height="3" rx="1" fill="var(--accent)" stroke="none"/><path d="M3 17h18v-5c0-1-.4-1.8-1.2-2L17 9l-2-4H9L7 9l-2.8 1C3.4 10.2 3 11 3 12z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><line x1="5" y1="17" x2="15" y2="17"/></svg>
-            <span class="rs-taxi-price taxi">~${taxiDayCost.toLocaleString()} ₿</span>
-            <span class="rs-taxi-sub">такси/день</span>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8"><rect x="3" y="14" width="18" height="5" rx="1.5" fill="none"/><path d="M5 14V10.5C5 9 6 8 7.5 8h9c1.5 0 2.5 1 2.5 2.5V14"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/><rect x="7" y="8" width="2" height="2" fill="var(--accent)" stroke="none"/><rect x="11" y="8" width="2" height="2" fill="none"/><rect x="15" y="8" width="2" height="2" fill="var(--accent)" stroke="none"/><rect x="9" y="6" width="2" height="2" fill="none"/><rect x="13" y="6" width="2" height="2" fill="var(--accent)" stroke="none"/><rect x="7" y="4" width="2" height="2" fill="none"/><rect x="11" y="4" width="2" height="2" fill="var(--accent)" stroke="none"/><rect x="15" y="4" width="2" height="2" fill="none"/></svg>
+            <span class="rs-taxi-price taxi">~${taxiCost.toLocaleString()} ₿</span>
+            <span class="rs-taxi-sub">такси за маршрут</span>
           </div>
         </div>
         <div class="rs-taxi-saving">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
-          Экономия ~${daySaving.toLocaleString()} ₿/день на байке
+          Экономия ~${routeSaving.toLocaleString()} ₿ на байке
         </div>
       </div>`;
     }

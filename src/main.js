@@ -1505,6 +1505,55 @@ if (privacyClose) privacyClose.addEventListener('click', () => { closePrivacy();
 if (privacyOverlay) privacyOverlay.addEventListener('click', closePrivacy);
 setupDragDismiss(privacySheet, closePrivacy);
 
+// ══════════════════════════════════════════════
+// Cookie consent toast (one-time, auto-dismiss 5s)
+// ══════════════════════════════════════════════
+(function initCookieToast() {
+  if (localStorage.getItem('cookie_ok')) return;
+
+  const topbar = $('topbar');
+  if (!topbar) return;
+
+  const toast = document.createElement('div');
+  toast.className = 'cookie-toast';
+
+  const textSpan = document.createElement('span');
+  textSpan.className = 'cookie-toast-text';
+  textSpan.innerHTML = t('cookieText') + ' · <a href="#" class="cookie-toast-link">' + t('cookieMore') + '</a>';
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'cookie-toast-close';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.innerHTML =
+    '<svg viewBox="0 0 28 28" width="28" height="28" style="transform:rotate(-90deg)">' +
+      '<circle cx="14" cy="14" r="11" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="2.5"/>' +
+      '<circle cx="14" cy="14" r="11" fill="none" stroke="rgba(99,102,241,.8)" stroke-width="2.5" ' +
+        'stroke-linecap="round" stroke-dasharray="69.1" stroke-dashoffset="0" ' +
+        'style="animation: timerDrain 5s linear forwards"/>' +
+    '</svg>' +
+    '<svg class="cookie-toast-x" viewBox="0 0 10 10">' +
+      '<line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/>' +
+    '</svg>';
+
+  toast.appendChild(textSpan);
+  toast.appendChild(closeBtn);
+  topbar.appendChild(toast);
+
+  const link = toast.querySelector('.cookie-toast-link');
+  if (link) link.addEventListener('click', (e) => { e.preventDefault(); dismiss(); openPrivacy(); });
+
+  let timer = setTimeout(dismiss, 5000);
+
+  function dismiss() {
+    clearTimeout(timer);
+    toast.classList.add('toast-out');
+    toast.addEventListener('animationend', () => { toast.remove(); }, { once: true });
+    localStorage.setItem('cookie_ok', '1');
+  }
+
+  closeBtn.addEventListener('click', dismiss);
+})();
+
 function setupDragDismiss(sheetEl, closeFn) {
   const handle = sheetEl.querySelector('.sheet-handle') || sheetEl.querySelector('.ins-handle');
   if (!handle) return;

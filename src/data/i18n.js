@@ -526,6 +526,9 @@ export const T = {
   placePhoto: {
     ru: 'Фото', en: 'Photo', de: 'Foto', fr: 'Photo', es: 'Foto', th: 'ถ่ายรูป'
   },
+  placeOffice: {
+    ru: 'Офис', en: 'Office', de: 'Büro', fr: 'Bureau', es: 'Oficina', th: 'สำนักงาน'
+  },
   placeSearchPlaceholder: {
     ru: 'Поиск места...', en: 'Search place...', de: 'Ort suchen...', fr: 'Chercher un lieu...', es: 'Buscar lugar...', th: 'ค้นหาสถานที่...'
   },

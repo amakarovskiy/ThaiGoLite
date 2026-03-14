@@ -1698,15 +1698,15 @@ function drawIslandMap() {
 
 // Unified category icon mapping — single source of truth for pins, chips, place list
 const CATEGORY_ICONS = {
-  beach:   { color: '#1D4ED8', bgLight: '#EFF6FF', bgBorder: '#BFDBFE', gradient: 'linear-gradient(135deg,#EFF6FF,#BFDBFE)', label: 'Пляжи',       path: '<path d="M2 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M12 3v10"/><path d="M8 7c1.5-2 4.5-2 6 0"/>' },
-  view:    { color: '#6D28D9', bgLight: '#F5F3FF', bgBorder: '#DDD6FE', gradient: 'linear-gradient(135deg,#F5F3FF,#DDD6FE)', label: 'Смотровые',   path: '<path d="M2 22l6-10 4 6 3-4 5 8H2z"/><circle cx="18" cy="6" r="3"/>' },
-  temple:  { color: '#C2410C', bgLight: '#FFF7ED', bgBorder: '#FED7AA', gradient: 'linear-gradient(135deg,#FFF7ED,#FED7AA)', label: 'Храмы',       path: '<circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><path d="M9 11h6"/><path d="M8 11c0 3 1 5 4 6s4-3 4-6"/><path d="M6 22c1-3 2-5 6-5s5 2 6 5"/>' },
-  nature:  { color: '#047857', bgLight: '#ECFDF5', bgBorder: '#A7F3D0', gradient: 'linear-gradient(135deg,#ECFDF5,#A7F3D0)', label: 'Природа',     path: '<path d="M17 20H7l5-16 5 16z"/><path d="M12 13l-3 7"/><path d="M12 13l3 7"/><path d="M12 8l-2 5"/><path d="M12 8l2 5"/>' },
-  market:  { color: '#BE123C', bgLight: '#FFF1F2', bgBorder: '#FECDD3', gradient: 'linear-gradient(135deg,#FFF1F2,#FECDD3)', label: 'Рынки',       path: '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>' },
-  food:    { color: '#BE123C', bgLight: '#FFF1F2', bgBorder: '#FECDD3', gradient: 'linear-gradient(135deg,#FFF1F2,#FECDD3)', label: 'Еда',         path: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>' },
-  photo:   { color: '#7C3AED', bgLight: '#F5F3FF', bgBorder: '#DDD6FE', gradient: 'linear-gradient(135deg,#F5F3FF,#DDD6FE)', label: 'Фото',        path: '<path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/>' },
-  office:  { color: '#4338CA', bgLight: '#EEF2FF', bgBorder: '#C7D2FE', gradient: 'linear-gradient(135deg,#EEF2FF,#E0E7FF)', label: 'Офис',        path: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>' },
-  top:     { color: '#4338CA', bgLight: '#FFFBEB', bgBorder: '#FDE68A', gradient: 'linear-gradient(135deg,#FFFBEB,#FDE68A)', label: 'Топ',         path: '<polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>' },
+  beach:   { color: '#1D4ED8', bgLight: '#EFF6FF', bgBorder: '#BFDBFE', gradient: 'linear-gradient(135deg,#EFF6FF,#BFDBFE)', i18nKey: 'placeBeach',   path: '<path d="M2 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M12 3v10"/><path d="M8 7c1.5-2 4.5-2 6 0"/>' },
+  view:    { color: '#6D28D9', bgLight: '#F5F3FF', bgBorder: '#DDD6FE', gradient: 'linear-gradient(135deg,#F5F3FF,#DDD6FE)', i18nKey: 'placeView',    path: '<path d="M2 22l6-10 4 6 3-4 5 8H2z"/><circle cx="18" cy="6" r="3"/>' },
+  temple:  { color: '#C2410C', bgLight: '#FFF7ED', bgBorder: '#FED7AA', gradient: 'linear-gradient(135deg,#FFF7ED,#FED7AA)', i18nKey: 'placeTemple',  path: '<circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><path d="M9 11h6"/><path d="M8 11c0 3 1 5 4 6s4-3 4-6"/><path d="M6 22c1-3 2-5 6-5s5 2 6 5"/>' },
+  nature:  { color: '#047857', bgLight: '#ECFDF5', bgBorder: '#A7F3D0', gradient: 'linear-gradient(135deg,#ECFDF5,#A7F3D0)', i18nKey: 'placeNature',  path: '<path d="M17 20H7l5-16 5 16z"/><path d="M12 13l-3 7"/><path d="M12 13l3 7"/><path d="M12 8l-2 5"/><path d="M12 8l2 5"/>' },
+  market:  { color: '#BE123C', bgLight: '#FFF1F2', bgBorder: '#FECDD3', gradient: 'linear-gradient(135deg,#FFF1F2,#FECDD3)', i18nKey: 'placeMarket',  path: '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>' },
+  food:    { color: '#BE123C', bgLight: '#FFF1F2', bgBorder: '#FECDD3', gradient: 'linear-gradient(135deg,#FFF1F2,#FECDD3)', i18nKey: 'placeFood',    path: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>' },
+  photo:   { color: '#7C3AED', bgLight: '#F5F3FF', bgBorder: '#DDD6FE', gradient: 'linear-gradient(135deg,#F5F3FF,#DDD6FE)', i18nKey: 'placePhoto',   path: '<path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/>' },
+  office:  { color: '#4338CA', bgLight: '#EEF2FF', bgBorder: '#C7D2FE', gradient: 'linear-gradient(135deg,#EEF2FF,#E0E7FF)', i18nKey: 'placeOffice',  path: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>' },
+  top:     { color: '#4338CA', bgLight: '#FFFBEB', bgBorder: '#FDE68A', gradient: 'linear-gradient(135deg,#FFFBEB,#FDE68A)', i18nKey: 'placeTop',     path: '<polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>' },
 };
 
 // Helper: get category info with fallback
@@ -1964,7 +1964,7 @@ function renderFilterChips() {
       return `<button class="filter-chip ${isActive ? 'filter-chip--active' : ''}" data-cat="${cat}">${label}</button>`;
     }
     const icon = getCatSvgIcon(cat, 12, 'currentColor', '2');
-    return `<button class="filter-chip ${isActive ? 'filter-chip--active' : ''}" data-cat="${cat}">${icon}${info.label}</button>`;
+    return `<button class="filter-chip ${isActive ? 'filter-chip--active' : ''}" data-cat="${cat}">${icon}${t(info.i18nKey)}</button>`;
   }).join('');
 }
 renderFilterChips();

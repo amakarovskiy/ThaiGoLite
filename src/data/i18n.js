@@ -1463,6 +1463,24 @@ export const T = {
       ],
       explanation: 'IQOS, บุหรี่ไฟฟ้า, vape — ในไทยไม่ใช่แค่ปรับแต่เป็นความผิดอาญา ตอนตรวจรถจะหาโดยเฉพาะ รู้ไว้ก่อนออกเดินทาง 🙏'
     }
+  },
+
+  // ── Cookie Toast ──
+  cookieText: {
+    ru: 'Cookies для аналитики',
+    en: 'Cookies for analytics',
+    de: 'Cookies für Analysen',
+    fr: 'Cookies pour l\'analyse',
+    es: 'Cookies para análisis',
+    th: 'คุกกี้สำหรับการวิเคราะห์'
+  },
+  cookieMore: {
+    ru: 'Подробнее',
+    en: 'Learn more',
+    de: 'Mehr erfahren',
+    fr: 'En savoir plus',
+    es: 'Más información',
+    th: 'เรียนรู้เพิ่มเติม'
   }
 };
 

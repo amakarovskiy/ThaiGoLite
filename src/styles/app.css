@@ -47,9 +47,8 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .cookie-toast {
   position: absolute;
   bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 28px);
+  left: 14px;
+  right: 14px;
   background: rgba(20,17,40,.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -104,12 +103,12 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
   to   { stroke-dashoffset: 69.1; }
 }
 @keyframes toastIn {
-  0%   { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(.96); }
-  100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  0%   { opacity: 0; transform: translateY(-8px) scale(.96); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 @keyframes toastOut {
-  0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-6px) scale(.97); }
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-6px) scale(.97); }
 }
 
 /* ===== Pages ===== */

@@ -9,7 +9,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 
 /* ===== Topbar (mockup v3.8) ===== */
 .topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px 10px; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; position: sticky; top: 0; z-index: 100; }
-.logo { display: flex; align-items: center; gap: 5px; font-size: 15px; font-weight: 800; color: var(--primary-m); letter-spacing: -.2px; white-space: nowrap; }
+.logo { display: flex; align-items: center; gap: 5px; font-size: 15px; font-weight: 800; color: var(--primary-m); letter-spacing: -.2px; white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .logo svg { width: 18px; height: 18px; flex-shrink: 0; }
 .logo .logo-lite { font-weight: 400; color: #6366F1; margin-left: 1px; }
 .topbar-right { display: flex; align-items: center; gap: 10px; }

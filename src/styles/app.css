@@ -327,8 +327,8 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .bike-svg-moto { width: 68px; height: 45px; }
 
 /* ===== Booking Sheet ===== */
-.sheet-overlay { background: rgba(0,0,0,.3); padding: 120px 0 0; display: flex; flex-direction: column; justify-content: flex-end; min-height: 700px; }
-.sheet { background: var(--color-surface); border-radius: 24px 24px 0 0; padding: 0 0 20px; box-shadow: 0 -8px 40px rgba(0,0,0,.12); }
+.sheet-overlay { background: rgba(0,0,0,.48); padding: 120px 0 0; display: flex; flex-direction: column; justify-content: flex-end; min-height: 700px; }
+.sheet { background: var(--color-surface); border-radius: 24px 24px 0 0; padding: 0 0 20px; box-shadow: 0 -1px 0 rgba(255,255,255,.08), 0 -12px 48px rgba(0,0,0,.28); }
 /* .sheet-handle styles moved to booking-sheet.css */
 
 /* Sheet bike header */
@@ -477,7 +477,7 @@ h1, h2, h3, h4 { letter-spacing: -0.02em; font-weight: 700; }
 .map-label { position: absolute; padding: 4px 10px; background: rgba(255,255,255,.85); border-radius: 20px; font-size: 11px; font-weight: 700; color: var(--color-text); backdrop-filter: blur(4px); box-shadow: var(--shadow-card); }
 
 /* Sheet bottom */
-.sheet-bottom { background: var(--color-surface); border-radius: 24px 24px 0 0; padding: 0 0 80px; box-shadow: 0 -4px 20px rgba(0,0,0,.08); position: relative; z-index: 2; margin-top: -24px; }
+.sheet-bottom { background: var(--color-surface); border-radius: 24px 24px 0 0; padding: 0 0 80px; box-shadow: 0 -1px 0 rgba(255,255,255,.08), 0 -12px 48px rgba(0,0,0,.28); position: relative; z-index: 2; margin-top: -24px; }
 
 /* Sheet tabs */
 .sheet-tabs { display: flex; padding: 16px 16px 0; border-bottom: 1px solid var(--color-border); }

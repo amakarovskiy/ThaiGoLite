@@ -459,6 +459,12 @@
             <div class="dz-list" data-i18n="deliveryPaidList">Камала · Сурин · Бангтао · Маи Кхао · весь остров</div>
           </div>
         </div>
+
+        <!-- Privacy link -->
+        <button class="privacy-link" id="privacyLink">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Политика конфиденциальности
+        </button>
       </div>
 
       <!-- FAB route button (mockup v3.8) -->
@@ -467,6 +473,88 @@
         <span class="fab-text" data-i18n="fabRouteToOffice">Маршрут в офис</span>
       </a>
     </main>
+
+    <!-- PRIVACY POLICY SHEET -->
+    <div class="ins-info-overlay" id="privacyOverlay"></div>
+    <div class="privacy-sheet" id="privacySheet">
+      <div class="ins-handle"><div class="sheet-pill"></div></div>
+      <div class="privacy-header">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4"/><path d="M4 12a8 8 0 0116 0"/><path d="M2 12h2M20 12h2"/></svg>
+          ThaiGo <span class="logo-lite">Lite</span>
+        </div>
+        <button class="privacy-back" id="privacyClose">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15,18 9,12 15,6"/></svg>
+          На главную
+        </button>
+      </div>
+      <div class="privacy-body">
+        <div class="privacy-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Конфиденциальность
+        </div>
+        <h2 class="privacy-title">Политика конфиденциальности</h2>
+        <div class="privacy-date">Последнее обновление: март 2025</div>
+
+        <div class="privacy-card">
+          <div class="privacy-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <h3>О сайте</h3>
+          <p>Этот сайт принадлежит ThaiGo Rent — сервису аренды мотобайков на Пхукете, Таиланд. Сайт носит информационный характер: он не содержит форм регистрации, личных кабинетов или платёжных страниц.</p>
+          <p>Связь с нами осуществляется через мессенджеры Telegram и WhatsApp — обработка данных в них регулируется политиками этих сервисов.</p>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          </div>
+          <h3>Какие данные мы собираем</h3>
+          <p>Сайт использует Google Analytics для анонимной статистики посещений: какие страницы просматриваются, с каких устройств и регионов приходят пользователи. Эти данные не позволяют идентифицировать вас лично.</p>
+          <div class="privacy-highlight">Мы не собираем имена, email, телефоны или платёжные данные через сайт.</div>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </div>
+          <h3>Cookies</h3>
+          <p>Google Analytics устанавливает анонимные cookies для подсчёта уникальных визитов и анализа поведения на сайте. Эти файлы не используются для рекламы и не передаются третьим лицам в маркетинговых целях.</p>
+          <p>Вы можете отключить cookies в настройках браузера или установить расширение <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out</a>.</p>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3>Передача данных третьим лицам</h3>
+          <p>Мы не продаём и не передаём данные о посетителях третьим лицам. Google Analytics работает в рамках политики конфиденциальности Google.</p>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <h3>Ваши права</h3>
+          <p>Вы вправе запросить информацию о данных, которые могут быть связаны с вашим устройством, а также потребовать их удаления. Для этого напишите нам в Telegram или WhatsApp.</p>
+        </div>
+
+        <div class="privacy-card privacy-card-contact">
+          <div class="privacy-card-icon-round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 14 19.79 19.79 0 011.61 5.43 2 2 0 013.6 3.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 10.9a16 16 0 006.29 6.29l.95-.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <strong>Вопросы по конфиденциальности</strong><br>
+            <span style="color:var(--color-text-secondary);">Пишите в Telegram или WhatsApp — ответим быстро</span>
+          </div>
+        </div>
+
+        <div class="privacy-footer">
+          &copy; 2025 ThaiGo Rent &middot; Пхукет, Таиланд<br>
+          Сайт не является публичной офертой
+        </div>
+      </div>
+    </div>
 
     <!-- BOOKING SHEET (для байков) -->
     <div class="sheet-overlay" id="sheetOverlay"></div>

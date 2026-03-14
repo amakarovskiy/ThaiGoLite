@@ -7,6 +7,7 @@ import './components/booking-sheet.css';
 import './components/rider-test.css';
 import './components/bike-picker.css';
 import './components/routes-map.css';
+import './components/privacy.css';
 import { BIKES, BIKE_CATEGORIES, BUDGET_GROUPS } from './data/bikes.js';
 import { PLACES, CAT_COLORS, getDisplayCat, MAX_ROUTE_POINTS } from './data/places.js';
 import { calcStats, formatTime, haversine, KM_FACTOR, TAXI_RATE_PER_KM } from './utils/stats.js';
@@ -615,6 +616,8 @@ function closeAllModals() {
   if (bp && bp.classList.contains('active')) closeBikePicker();
   const rt = $('riderTestOverlay');
   if (rt && rt.classList.contains('active')) closeRiderTest();
+  const pv = $('privacySheet');
+  if (pv && pv.classList.contains('open')) closeInsSheet(pv, $('privacyOverlay'));
 }
 
 function switchTab(tab) {
@@ -641,7 +644,7 @@ tabs.forEach(t => {
 });
 
 // Logo → home
-document.querySelector('.logo')?.addEventListener('click', () => switchTab('home'));
+document.querySelectorAll('.logo').forEach(el => el.addEventListener('click', () => { closeAllModals(); switchTab('home'); }));
 
 // ══════════════════════════════════════════════
 // Guide Micro-Menu
@@ -1487,6 +1490,20 @@ if (insPlusOverlay) insPlusOverlay.addEventListener('click', () => closeInsSheet
 // Drag-dismiss + tap-on-handle for info sheets
 setupDragDismiss(insBasicSheet, () => closeInsSheet(insBasicSheet, insBasicOverlay));
 setupDragDismiss(insPlusSheet, () => closeInsSheet(insPlusSheet, insPlusOverlay));
+
+// Privacy policy sheet
+const privacySheet = $('privacySheet');
+const privacyOverlay = $('privacyOverlay');
+const privacyLink = $('privacyLink');
+const privacyClose = $('privacyClose');
+
+function openPrivacy() { openInsSheet(privacySheet, privacyOverlay); }
+function closePrivacy() { closeInsSheet(privacySheet, privacyOverlay); }
+
+if (privacyLink) privacyLink.addEventListener('click', openPrivacy);
+if (privacyClose) privacyClose.addEventListener('click', () => { closePrivacy(); switchTab('home'); });
+if (privacyOverlay) privacyOverlay.addEventListener('click', closePrivacy);
+setupDragDismiss(privacySheet, closePrivacy);
 
 function setupDragDismiss(sheetEl, closeFn) {
   const handle = sheetEl.querySelector('.sheet-handle') || sheetEl.querySelector('.ins-handle');

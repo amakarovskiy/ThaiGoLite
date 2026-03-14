@@ -33,7 +33,7 @@ export const BIKES = [
       shoulder: [400, 300, 250, 200],
       low:      [400, 300, 200, 130]
     },
-    features: ['ABS нет', 'Вариатор', '~99 кг', 'Расход 1.8 л/100км'],
+    features: ['Вариатор', '~99 кг', 'Расход 1.8 л/100км'],
     popular: true,
     tags: ['light', 'cheap', 'girl'],
     why: { ru: 'Лёгкий, простой и самый доступный', en: 'Light, simple and most affordable', de: 'Leicht, einfach und am günstigsten', fr: 'Léger, simple et le plus abordable', es: 'Ligero, simple y el más asequible', th: 'เบา ง่าย และราคาถูกที่สุด' },
@@ -54,7 +54,7 @@ export const BIKES = [
       shoulder: [400, 300, 250, 200],
       low:      [400, 300, 200, 130]
     },
-    features: ['ABS нет', 'Вариатор', '~108 кг', 'Расход 2 л/100км'],
+    features: ['Вариатор', '~108 кг', 'Расход 2 л/100км'],
     popular: true,
     tags: ['reliable', 'cheap'],
     why: { ru: 'Народный выбор — надёжный и экономичный', en: 'People\'s choice — reliable and economical', de: 'Volkswahl — zuverlässig und sparsam', fr: 'Choix populaire — fiable et économique', es: 'Elección popular — fiable y económico', th: 'ตัวเลือกยอดนิยม — เชื่อถือได้และประหยัด' },
@@ -75,7 +75,7 @@ export const BIKES = [
       shoulder: [500, 400, 300, 200],
       low:      [400, 300, 200, 130]
     },
-    features: ['ABS нет', 'Вариатор', '~114 кг', 'Большой багажник'],
+    features: ['Вариатор', '~114 кг', 'Большой багажник'],
     popular: false,
     tags: ['trunk', 'practical'],
     why: { ru: 'Огромный багажник — идеален для покупок', en: 'Huge trunk — perfect for shopping', de: 'Riesiger Kofferraum — perfekt zum Einkaufen', fr: 'Immense coffre — parfait pour le shopping', es: 'Maletero enorme — perfecto para compras', th: 'กล่องเก็บของขนาดใหญ่ — เหมาะสำหรับช้อปปิ้ง' },
@@ -96,7 +96,7 @@ export const BIKES = [
       shoulder: [500, 400, 300, 200],
       low:      [500, 350, 250, 200]
     },
-    features: ['ABS нет', 'Вариатор', '~96 кг', 'Расход 1.7 л/100км'],
+    features: ['Вариатор', '~96 кг', 'Расход 1.7 л/100км'],
     popular: false,
     tags: ['light', 'stylish', 'girl'],
     why: { ru: 'Стильный ретро-дизайн, очень лёгкий', en: 'Stylish retro design, very light', de: 'Stylisches Retro-Design, sehr leicht', fr: 'Design rétro stylé, très léger', es: 'Diseño retro con estilo, muy ligero', th: 'ดีไซน์เรโทรสวย เบามาก' },
@@ -117,7 +117,7 @@ export const BIKES = [
       shoulder: [500, 400, 300, 200],
       low:      [500, 350, 250, 200]
     },
-    features: ['ABS нет', 'Вариатор', '~97 кг'],
+    features: ['Вариатор', '~97 кг'],
     popular: false,
     tags: ['cute', 'girl', 'light'],
     why: { ru: 'Милый дизайн, компактный и послушный', en: 'Cute design, compact and obedient', de: 'Süßes Design, kompakt und folgsam', fr: 'Design mignon, compact et docile', es: 'Diseño bonito, compacto y dócil', th: 'ดีไซน์น่ารัก กะทัดรัด ขับง่าย' },
@@ -417,7 +417,7 @@ export const BIKES = [
       shoulder: [400, 350, 250, 200],
       low:      [350, 300, 200, 150]
     },
-    features: ['ABS нет', '5 МКПП', '~140 кг', 'Круизер', 'Низкая посадка'],
+    features: ['5 МКПП', '~140 кг', 'Круизер', 'Низкая посадка'],
     popular: false,
     tags: ['cruiser', 'style', 'photo'],
     why: { ru: 'Боббер для фото — стиль за минимальные деньги', en: 'Bobber for photos — style on a budget', de: 'Bobber für Fotos — Stil zum kleinen Preis', fr: 'Bobber pour les photos — style petit budget', es: 'Bobber para fotos — estilo a buen precio', th: 'บ็อบเบอร์สำหรับถ่ายรูป — สไตล์ในราคาย่อมเยา' },

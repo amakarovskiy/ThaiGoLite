@@ -2355,22 +2355,22 @@ function renderRoutePanel() {
       const taxiDayCost = 2400;
       const daySaving = taxiDayCost - bikeDayCost;
       html += `<div class="rs-taxi-compare">
-        <div class="rs-taxi-title">На байке vs такси по маршруту</div>
+        <div class="rs-taxi-title">Байк vs такси</div>
         <div class="rs-taxi-row-inline">
           <div class="rs-taxi-val">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/><path d="M5 19h-1a1 1 0 01-1-1v-3a4 4 0 014-4h9l3 4h1a1 1 0 011 1v2a1 1 0 01-1 1h-1"/><path d="M9 11V6a1 1 0 011-1h2"/></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-m)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 14l1-4h4l3-3h3"/><path d="M10 10l2 4h5l2-4"/><path d="M16 7a1 1 0 100-2 1 1 0 000 2z" fill="var(--primary-m)"/></svg>
             <span class="rs-taxi-price bike">~${bikeDayCost.toLocaleString()} ₿</span>
             <span class="rs-taxi-sub">байк/день</span>
           </div>
           <span class="rs-taxi-vs">vs</span>
           <div class="rs-taxi-val">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2.7-3.4A2 2 0 0013.7 6H5c-1.1 0-2 .9-2 2v8c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="2" width="4" height="3" rx="1" fill="var(--accent)" stroke="none"/><path d="M3 17h18v-5c0-1-.4-1.8-1.2-2L17 9l-2-4H9L7 9l-2.8 1C3.4 10.2 3 11 3 12z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><line x1="5" y1="17" x2="15" y2="17"/></svg>
             <span class="rs-taxi-price taxi">~${taxiDayCost.toLocaleString()} ₿</span>
             <span class="rs-taxi-sub">такси/день</span>
           </div>
         </div>
         <div class="rs-taxi-saving">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>
           Экономия ~${daySaving.toLocaleString()} ₿/день на байке
         </div>
       </div>`;

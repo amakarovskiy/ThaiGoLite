@@ -640,6 +640,9 @@ tabs.forEach(t => {
   t.addEventListener('click', () => switchTab(t.dataset.tab));
 });
 
+// Logo → home
+document.querySelector('.logo')?.addEventListener('click', () => switchTab('home'));
+
 // ══════════════════════════════════════════════
 // Guide Micro-Menu
 // ══════════════════════════════════════════════

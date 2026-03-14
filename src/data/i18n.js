@@ -270,6 +270,7 @@ export const T = {
   bpPerDay: { ru: '฿/день', en: '฿/day', de: '฿/Tag', fr: '฿/jour', es: '฿/día', th: '฿/วัน' },
   bpTotalFor: { ru: 'Итого за', en: 'Total for', de: 'Gesamt für', fr: 'Total pour', es: 'Total por', th: 'รวม' },
   bpDaysUnit: { ru: 'дн.', en: 'days', de: 'Tage', fr: 'jours', es: 'días', th: 'วัน' },
+  daysShort: { ru: 'д', en: 'd', de: 'T', fr: 'j', es: 'd', th: 'ว' },
   bpRent: { ru: 'Арендовать', en: 'Rent', de: 'Mieten', fr: 'Louer', es: 'Alquilar', th: 'เช่า' },
   bpRestart: { ru: 'Подобрать заново', en: 'Start over', de: 'Nochmal auswählen', fr: 'Recommencer', es: 'Empezar de nuevo', th: 'เริ่มใหม่' },
   bpPromise: {
@@ -525,6 +526,9 @@ export const T = {
   placePhoto: {
     ru: 'Фото', en: 'Photo', de: 'Foto', fr: 'Photo', es: 'Foto', th: 'ถ่ายรูป'
   },
+  placeOffice: {
+    ru: 'Офис', en: 'Office', de: 'Büro', fr: 'Bureau', es: 'Oficina', th: 'สำนักงาน'
+  },
   placeSearchPlaceholder: {
     ru: 'Поиск места...', en: 'Search place...', de: 'Ort suchen...', fr: 'Chercher un lieu...', es: 'Buscar lugar...', th: 'ค้นหาสถานที่...'
   },
@@ -600,6 +604,21 @@ export const T = {
   randomCreated: { ru: 'Маршрут создан', en: 'Route created', de: 'Route erstellt', fr: 'Itinéraire créé', es: 'Ruta creada', th: 'สร้างเส้นทางแล้ว' },
   optimize: { ru: 'Оптимизировать', en: 'Optimize', de: 'Optimieren', fr: 'Optimiser', es: 'Optimizar', th: 'ปรับปรุง' },
   routeOptimized: { ru: 'Маршрут оптимизирован', en: 'Route optimized', de: 'Route optimiert', fr: 'Itinéraire optimisé', es: 'Ruta optimizada', th: 'ปรับปรุงเส้นทางแล้ว' },
+  routeMsgDefault: {
+    ru: 'Хочу арендовать байк на Пхукете', en: 'I want to rent a bike in Phuket', de: 'Ich möchte ein Motorrad auf Phuket mieten', fr: 'Je veux louer un scooter à Phuket', es: 'Quiero alquilar una moto en Phuket', th: 'อยากเช่ามอเตอร์ไซค์ที่ภูเก็ต'
+  },
+  routeMsgPrefix: {
+    ru: 'Хочу проехать маршрут', en: 'I want to ride the route', de: 'Ich möchte die Route fahren', fr: 'Je veux suivre l\'itinéraire', es: 'Quiero hacer la ruta', th: 'อยากขับเส้นทาง'
+  },
+  routeWantRide: {
+    ru: 'Хотите проехать этот маршрут?', en: 'Want to ride this route?', de: 'Diese Route fahren?', fr: 'Envie de suivre cet itinéraire ?', es: '¿Quieres hacer esta ruta?', th: 'อยากขับเส้นทางนี้ไหม?'
+  },
+  rentTg: {
+    ru: 'Арендовать TG', en: 'Rent via TG', de: 'Mieten via TG', fr: 'Louer via TG', es: 'Alquilar vía TG', th: 'เช่าผ่าน TG'
+  },
+  rentWa: {
+    ru: 'Арендовать WA', en: 'Rent via WA', de: 'Mieten via WA', fr: 'Louer via WA', es: 'Alquilar vía WA', th: 'เช่าผ่าน WA'
+  },
   shareRoute: { ru: 'Поделиться', en: 'Share', de: 'Teilen', fr: 'Partager', es: 'Compartir', th: 'แชร์' },
   copyLink: { ru: 'Копировать ссылку', en: 'Copy link', de: 'Link kopieren', fr: 'Copier le lien', es: 'Copiar enlace', th: 'คัดลอกลิงก์' },
   linkCopied: { ru: 'Ссылка скопирована', en: 'Link copied', de: 'Link kopiert', fr: 'Lien copié', es: 'Enlace copiado', th: 'คัดลอกลิงก์แล้ว' },
@@ -642,6 +661,9 @@ export const T = {
   contactBadge: {
     ru: 'Наш офис на Пхукете', en: 'Our office in Phuket', de: 'Unser Büro auf Phuket', fr: 'Notre bureau à Phuket', es: 'Nuestra oficina en Phuket', th: 'สำนักงานของเราในภูเก็ต'
   },
+  contactsAddress: {
+    ru: '72/6 Moo 3, Wichit, Muang, Phuket 83000', en: '72/6 Moo 3, Wichit, Muang, Phuket 83000', de: '72/6 Moo 3, Wichit, Muang, Phuket 83000', fr: '72/6 Moo 3, Wichit, Muang, Phuket 83000', es: '72/6 Moo 3, Wichit, Muang, Phuket 83000', th: '72/6 หมู่ 3 วิชิต เมือง ภูเก็ต 83000'
+  },
   contactRoute: {
     ru: 'Построить маршрут', en: 'Get directions', de: 'Route berechnen', fr: 'Itinéraire', es: 'Cómo llegar', th: 'เส้นทาง'
   },
@@ -683,6 +705,12 @@ export const T = {
   },
   deliveryAreasTitle: {
     ru: 'Районы доставки', en: 'Delivery Areas', de: 'Liefergebiete', fr: 'Zones de livraison', es: 'Zonas de entrega', th: 'พื้นที่บริการส่ง'
+  },
+  deliveryFree: {
+    ru: 'Бесплатно', en: 'Free', de: 'Kostenlos', fr: 'Gratuit', es: 'Gratis', th: 'ฟรี'
+  },
+  deliveryPaid: {
+    ru: 'Платно', en: 'Paid', de: 'Kostenpflichtig', fr: 'Payant', es: 'De pago', th: 'มีค่าใช้จ่าย'
   },
 
   // ── FAQ ──
@@ -798,6 +826,7 @@ export const T = {
   },
   sheetBike: { ru: 'Байк', en: 'Bike', de: 'Bike', fr: 'Scooter', es: 'Moto', th: 'รถ' },
   hintMore: { ru: 'Ещё', en: 'Just', de: 'Noch', fr: 'Encore', es: 'Solo', th: 'อีก' },
+  hintAndGet: { ru: '— и будет', en: '— and get', de: '— und', fr: '— et', es: '— y será', th: '— จะได้' },
   sheetSavingVs: { ru: 'по сравнению с ценой 1–2 дней', en: 'vs 1–2 day price', de: 'im Vergleich zum 1–2-Tage-Preis', fr: 'par rapport au prix 1–2 jours', es: 'comparado con precio de 1–2 días', th: 'เทียบกับราคา 1–2 วัน' },
 
   // ── Insurance ──

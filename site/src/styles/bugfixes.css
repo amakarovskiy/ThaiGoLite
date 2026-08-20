@@ -1,0 +1,156 @@
+/* Production layout bugfixes — do not change approved visual direction
+   except to stop overflow, truncation, and overlap. */
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* 1. /prices/ at 375px: table must fit the viewport, no page-level overflow-x */
+.prices-table-wrap {
+  overflow-x: hidden !important;
+  max-width: 100%;
+}
+
+.prices-table {
+  width: 100% !important;
+  min-width: 0 !important;
+  table-layout: fixed;
+}
+
+.prices-table th,
+.prices-table td {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.price-bike-name {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+
+/* 2. $ on top, ฿ below — never on one colliding line */
+.price-val,
+.price-val-dual {
+  white-space: normal !important;
+}
+
+.price-val-dual {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  line-height: 1.2;
+}
+
+.price-val-dual .price-usd-val,
+.price-val-dual .price-thb-val {
+  display: block !important;
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .prices-table th,
+  .prices-table td {
+    padding: 6px 3px !important;
+    font-size: 10px !important;
+  }
+
+  .prices-table th:first-child,
+  .price-name-cell {
+    padding-left: 6px !important;
+  }
+
+  .price-thumb {
+    width: 28px;
+    height: 22px;
+  }
+
+  .price-val-dual .price-usd-val {
+    font-size: 11px !important;
+  }
+
+  .price-val-dual .price-thb-val {
+    font-size: 9px !important;
+  }
+
+  .prices-table-wrap::after {
+    display: none !important;
+  }
+}
+
+/* 4. Mobile tab bar must not cover the last block */
+.page-content,
+main.page-content,
+.guide-article,
+.guide-loc-related,
+body:has(.tab-bar) .page-content {
+  padding-bottom: calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 96px) !important;
+}
+
+body:has(.tab-bar) .site-footer {
+  margin-bottom: calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 24px);
+}
+
+@media (min-width: 1024px) {
+  /* Desktop has no tab bar */
+  .page-content,
+  main.page-content,
+  .guide-article,
+  .guide-loc-related,
+  body:has(.tab-bar) .page-content {
+    padding-bottom: 48px !important;
+  }
+
+  body:has(.tab-bar) .site-footer {
+    margin-bottom: 0;
+  }
+
+  /* 5. ~1280 sticky header / sticky gallery must not clip «Похожие байки» */
+  .page-content section:has(.similar-scroll) {
+    position: relative;
+    z-index: 3;
+    margin-top: 28px !important;
+    padding-top: calc(var(--topbar-h, 64px) + 12px) !important;
+    scroll-margin-top: calc(var(--topbar-h, 64px) + 16px);
+    background: var(--bg, #f5f3f0);
+  }
+
+  .page-content section:has(.similar-scroll) > .section-title,
+  .page-content section:has(.similar-scroll) > h2 {
+    overflow: visible !important;
+    scroll-margin-top: calc(var(--topbar-h, 64px) + 12px);
+  }
+}
+
+/* 6. Do not truncate «Автомобили» (or any spec value) */
+.bike-quick-specs {
+  min-width: 0;
+}
+
+.bike-spec-item {
+  min-width: 0;
+  overflow: visible !important;
+}
+
+.bike-spec-label,
+.bike-spec-value {
+  overflow: visible !important;
+  text-overflow: unset !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: none !important;
+}
+
+/* 3. Broken photos: hide the img, keep the fallback */
+.price-thumb.no-photo img,
+img[data-photo-missing='1'] {
+  display: none !important;
+}
+
+.photo-slide--placeholder img {
+  display: none !important;
+}

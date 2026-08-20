@@ -1,0 +1,10 @@
+{
+  "name": "thaigo-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "validate": "node scripts/build.mjs && node scripts/validate.mjs",
+    "validate:only": "node scripts/validate.mjs"
+  }
+}

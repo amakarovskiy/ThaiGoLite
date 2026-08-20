@@ -7,41 +7,20 @@ body {
   max-width: 100%;
 }
 
-/* 1. /prices/ at 375px: table must fit the viewport, no page-level overflow-x */
+/* 1–2. /prices/ at 375px: four duration columns fit; names wrap at spaces only */
 .prices-table-wrap {
   overflow-x: hidden !important;
   max-width: 100%;
 }
 
-.prices-table {
-  width: 100% !important;
-  min-width: 0 !important;
-  table-layout: fixed;
-}
-
-.prices-table th,
-.prices-table td {
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.price-bike-name {
-  white-space: normal !important;
-  overflow-wrap: anywhere;
-}
-
-/* 2. $ on top, ฿ below — never on one colliding line */
 .price-val,
 .price-val-dual {
   white-space: normal !important;
 }
 
+/* Keep <td> as table-cell. Flex on the cell collapses the 4 duration columns. */
 .price-val-dual {
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1px;
+  text-align: center;
   line-height: 1.2;
 }
 
@@ -52,20 +31,55 @@ body {
 }
 
 @media (max-width: 420px) {
+  .prices-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed;
+  }
+
   .prices-table th,
   .prices-table td {
-    padding: 6px 3px !important;
-    font-size: 10px !important;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    -webkit-hyphens: none;
   }
 
   .prices-table th:first-child,
-  .price-name-cell {
-    padding-left: 6px !important;
+  .prices-table td.price-name-cell {
+    width: 40%;
+    padding: 6px 4px 6px 8px !important;
+  }
+
+  .prices-table th:not(:first-child),
+  .prices-table td.price-val {
+    width: 15%;
+    padding: 6px 2px !important;
+    font-size: 9px !important;
+  }
+
+  .price-bike-link {
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
   }
 
   .price-thumb {
-    width: 28px;
-    height: 22px;
+    width: 24px;
+    height: 20px;
+  }
+
+  .price-bike-name {
+    min-width: 0;
+    flex: 1;
+    font-size: 11px !important;
+    font-weight: 600;
+    line-height: 1.25;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
   }
 
   .price-val-dual .price-usd-val {

@@ -91,9 +91,14 @@ check('no-photo models listed, never invent images', () => {
 check('prices table: no min-width overflow, dual stack', () => {
   const css = `${read('assets/bikes-9TOdqJe5.css')}\n${read('assets/bugfixes.css')}`;
   assert.match(css, /price-val-dual/);
-  assert.match(css, /flex-direction:\s*column/);
+  assert.match(css, /\.price-usd-val/);
+  assert.match(css, /display:\s*block/);
   assert.match(css, /overflow-x:\s*hidden/);
-  assert.match(read('assets/bugfixes.css'), /table-layout:\s*fixed/);
+  const fixes = read('assets/bugfixes.css');
+  assert.match(fixes, /table-layout:\s*fixed/);
+  assert.match(fixes, /word-break:\s*normal/);
+  assert.equal(fixes.includes('overflow-wrap: anywhere'), false);
+  assert.equal(fixes.includes('word-break: break-word'), false);
 });
 
 check('tab bar does not highlight Guide on /prices/', () => {

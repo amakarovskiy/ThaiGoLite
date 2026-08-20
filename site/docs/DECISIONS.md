@@ -26,4 +26,4 @@ Do not generate or retouch vehicle photos. If `1.webp` is missing, hide the imag
 
 ## Tab bar
 
-`/prices/` is not Guide. Do not mark the Guide tab active on `/prices/`.
+`/prices/` is not Guide. The bottom tab bar includes a Prices item (`tabPrices`). On `/prices/`, mark that Prices item active. Do not mark the Guide tab active.

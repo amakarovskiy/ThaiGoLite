@@ -112,16 +112,28 @@ function stripMissingPhotos(html) {
 }
 
 function patchTabBarJs(js) {
-  return js
-    .replace(/([,\s])k=d\.startsWith\("\/prices"\)\?"\/guide\/":d/, '$1k=d')
-    .replace(
-      /t\.startsWith\("\/guide"\)\|\|t\.startsWith\("\/prices"\)\?a="guide"/g,
-      't.startsWith("/guide")?a="guide"',
-    )
-    .replace(
-      /src="\/bikes\/\$\{o\.id\}\/1\.webp"/g,
-      'src="${["stallions-sm250","mt-15","haval","everest"].includes(o.id)?"":`/bikes/${o.id}/1.webp`}"',
-    );
+  let next = js.replace(/([,\s])k=d\.startsWith\("\/prices"\)\?"\/guide\/":d/, '$1k=d');
+  next = next.replace(
+    '{id:"bikes",path:"/bikes/",i18n:"tabBikes",iconKey:"motorcycle"},{id:"guide"',
+    '{id:"bikes",path:"/bikes/",i18n:"tabBikes",iconKey:"motorcycle"},{id:"prices",path:"/prices/",i18n:"tabPrices",iconKey:"dollar-sign"},{id:"guide"',
+  );
+  if (!next.includes('startsWith("/prices")?a="prices"')) {
+    if (next.includes('t.startsWith("/guide")||t.startsWith("/prices")?a="guide"')) {
+      next = next.replace(
+        't.startsWith("/guide")||t.startsWith("/prices")?a="guide"',
+        't.startsWith("/prices")?a="prices":t.startsWith("/guide")?a="guide"',
+      );
+    } else {
+      next = next.replace(
+        't.startsWith("/guide")?a="guide":t.startsWith("/contacts")?a="contacts"',
+        't.startsWith("/prices")?a="prices":t.startsWith("/guide")?a="guide":t.startsWith("/contacts")?a="contacts"',
+      );
+    }
+  }
+  return next.replace(
+    /src="\/bikes\/\$\{o\.id\}\/1\.webp"/g,
+    'src="${["stallions-sm250","mt-15","haval","everest"].includes(o.id)?"":`/bikes/${o.id}/1.webp`}"',
+  );
 }
 
 const ABOUT = {

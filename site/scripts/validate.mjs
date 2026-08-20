@@ -96,16 +96,21 @@ check('prices table: no min-width overflow, dual stack', () => {
   assert.match(css, /overflow-x:\s*hidden/);
   const fixes = read('assets/bugfixes.css');
   assert.match(fixes, /table-layout:\s*fixed/);
-  assert.match(fixes, /word-break:\s*normal/);
+  assert.match(fixes, /word-break:\s*keep-all/);
+  assert.match(fixes, /min-width:\s*min-content/);
   assert.equal(fixes.includes('overflow-wrap: anywhere'), false);
   assert.equal(fixes.includes('word-break: break-word'), false);
 });
 
-check('tab bar does not highlight Guide on /prices/', () => {
+check('tab bar highlights Prices, not Guide, on /prices/', () => {
   const loader = read('assets/booking-sheet-loader-CB6WQ4zm.js');
+  const fixes = read('assets/bugfixes.js');
   assert.equal(loader.includes('startsWith("/prices")?"/guide/"'), false);
   assert.equal(loader.includes('startsWith("/guide")||t.startsWith("/prices")?a="guide"'), false);
-  assert.match(loader, /startsWith\("\/guide"\)\?a="guide"/);
+  assert.match(loader, /id:"prices",path:"\/prices\/",i18n:"tabPrices"/);
+  assert.match(loader, /startsWith\("\/prices"\)\?a="prices"/);
+  assert.match(fixes, /highlightPricesTab/);
+  assert.match(fixes, /data-tab="prices"/);
 });
 
 check('mobile padding-bottom covers tab bar', () => {

@@ -60,12 +60,97 @@ function protectMessengerRefs() {
   });
 }
 
+const TAB_PRICES_LABEL = {
+  ru: 'Цены',
+  en: 'Prices',
+  de: 'Preise',
+  fr: 'Tarifs',
+  es: 'Precios',
+  th: 'ราคา',
+  zh: '价格',
+};
+
+const DOLLAR_ICON =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>';
+
+function pagePath() {
+  return location.pathname.replace(/^\/(en|de|fr|es|th|zh)(?=\/|$)/, '') || '/';
+}
+
+function langPrefix() {
+  const match = location.pathname.match(/^\/(en|de|fr|es|th|zh)(?=\/|$)/);
+  return match ? `/${match[1]}` : '';
+}
+
+function currentLang() {
+  const match = location.pathname.match(/^\/(en|de|fr|es|th|zh)(?=\/|$)/);
+  return match ? match[1] : document.documentElement.lang || 'ru';
+}
+
+function isPricesPath(path) {
+  return path === '/prices' || path.startsWith('/prices/');
+}
+
+function pricesHref() {
+  return `${langPrefix()}/prices/`;
+}
+
+function ensurePricesTab(bar) {
+  let item = bar.querySelector('[data-tab="prices"]');
+  if (item) return item;
+  const lang = currentLang();
+  const label = TAB_PRICES_LABEL[lang] || TAB_PRICES_LABEL.en;
+  item = document.createElement('a');
+  item.href = pricesHref();
+  item.className = 'tab-bar-item';
+  item.dataset.tab = 'prices';
+  item.setAttribute('aria-label', label);
+  item.innerHTML = `${DOLLAR_ICON}<span data-i18n="tabPrices">${label}</span>`;
+  const guide = bar.querySelector('[data-tab="guide"]');
+  if (guide) bar.insertBefore(item, guide);
+  else bar.appendChild(item);
+  return item;
+}
+
+function highlightPricesTab() {
+  const bar = document.querySelector('.tab-bar');
+  if (!bar) return false;
+  const onPrices = isPricesPath(pagePath());
+  const prices = ensurePricesTab(bar);
+  const guide = bar.querySelector('[data-tab="guide"]');
+  if (onPrices) {
+    bar.querySelectorAll('.tab-bar-item.active').forEach((el) => {
+      if (el !== prices) {
+        el.classList.remove('active');
+        el.removeAttribute('aria-current');
+      }
+    });
+    if (guide) {
+      guide.classList.remove('active');
+      guide.removeAttribute('aria-current');
+    }
+    prices.classList.add('active');
+    prices.setAttribute('aria-current', 'page');
+  }
+  return true;
+}
+
+function watchTabBar() {
+  if (highlightPricesTab()) return;
+  const observer = new MutationObserver(() => {
+    if (highlightPricesTab()) observer.disconnect();
+  });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     stripBrokenFleetPhotos();
     protectMessengerRefs();
+    watchTabBar();
   });
 } else {
   stripBrokenFleetPhotos();
   protectMessengerRefs();
+  watchTabBar();
 }

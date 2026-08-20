@@ -90,6 +90,11 @@ body:has(.tab-bar) .page-content {
   padding-bottom: calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 96px) !important;
 }
 
+.page-content:has(.sticky-bar),
+.page-content.has-detail-sticky {
+  padding-bottom: calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 168px) !important;
+}
+
 body:has(.tab-bar) .site-footer {
   margin-bottom: calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 24px);
 }
@@ -139,10 +144,16 @@ body:has(.tab-bar) .site-footer {
 .bike-spec-value {
   overflow: visible !important;
   text-overflow: unset !important;
-  white-space: normal !important;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  white-space: nowrap !important;
+  overflow-wrap: normal !important;
+  word-break: keep-all !important;
   max-width: none !important;
+}
+
+@media (min-width: 1024px) {
+  .bike-quick-specs {
+    grid-template-columns: repeat(4, minmax(min-content, 1fr)) !important;
+  }
 }
 
 /* 3. Broken photos: hide the img, keep the fallback */

@@ -1,0 +1,197 @@
+/* Production layout bugfixes — do not change approved visual direction
+   except to stop overflow, truncation, and overlap. */
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* 1–2. /prices/ at 375px: table may scroll inside the wrap; the page must not.
+   Do not use table-layout:fixed or overflow-wrap:anywhere on names. */
+.prices-table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.prices-table {
+  display: table;
+  min-width: 560px;
+  table-layout: auto;
+}
+
+.prices-table thead {
+  display: table-header-group;
+}
+
+.prices-table tbody {
+  display: table-row-group;
+}
+
+.prices-table tr {
+  display: table-row;
+}
+
+.prices-table th,
+.prices-table td {
+  display: table-cell;
+}
+
+.price-bike-name {
+  white-space: nowrap;
+}
+
+/* Keep <td> as table-cell. Flex on the cell collapses the 4 duration columns. */
+.price-val-dual {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.price-val-dual .price-usd-val,
+.price-val-dual .price-thb-val {
+  display: block;
+  white-space: nowrap;
+}
+
+/* 4. Mobile tab bar must not cover the last block */
+.page-content,
+main.page-content,
+.guide-article,
+.guide-loc-related,
+body:has(.tab-bar) .page-content {
+  padding-bottom: calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 96px) !important;
+}
+
+.page-content:has(.sticky-bar),
+.page-content.has-detail-sticky {
+  padding-bottom: calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 168px) !important;
+}
+
+body:has(.tab-bar) .site-footer {
+  margin-bottom: calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 24px);
+}
+
+@media (min-width: 1024px) {
+  /* Desktop has no tab bar */
+  .page-content,
+  main.page-content,
+  .guide-article,
+  .guide-loc-related,
+  body:has(.tab-bar) .page-content {
+    padding-bottom: 48px !important;
+  }
+
+  body:has(.tab-bar) .site-footer {
+    margin-bottom: 0;
+  }
+
+  /* 5. ~1280 sticky header / sticky gallery must not clip «Похожие байки» */
+  .page-content section:has(.similar-scroll) {
+    position: relative;
+    z-index: 3;
+    margin-top: 28px !important;
+    padding-top: calc(var(--topbar-h, 64px) + 12px) !important;
+    scroll-margin-top: calc(var(--topbar-h, 64px) + 16px);
+    background: var(--bg, #f5f3f0);
+  }
+
+  .page-content section:has(.similar-scroll) > .section-title,
+  .page-content section:has(.similar-scroll) > h2 {
+    overflow: visible !important;
+    scroll-margin-top: calc(var(--topbar-h, 64px) + 12px);
+  }
+}
+
+/* 6. Do not truncate «Автомобили» (or any spec value) */
+.bike-quick-specs {
+  min-width: 0;
+}
+
+.bike-spec-item {
+  min-width: 0;
+  overflow: visible !important;
+}
+
+.bike-spec-label,
+.bike-spec-value {
+  overflow: visible !important;
+  text-overflow: unset !important;
+  white-space: nowrap !important;
+  overflow-wrap: normal !important;
+  word-break: keep-all !important;
+  max-width: none !important;
+}
+
+@media (min-width: 1024px) {
+  .bike-quick-specs {
+    grid-template-columns: repeat(4, minmax(min-content, 1fr)) !important;
+  }
+}
+
+/* 3. Broken photos: hide the img, keep the fallback */
+.price-thumb.no-photo img,
+img[data-photo-missing='1'] {
+  display: none !important;
+}
+
+.photo-slide--placeholder img {
+  display: none !important;
+}
+
+/* /about/ at 375: wrap at word boundaries, do not clip mid-word */
+.page-content.about-page {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto;
+  padding: 24px 16px calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 96px) !important;
+  overflow-x: visible !important;
+}
+
+.about-page h1,
+.about-page p,
+.about-page ul,
+.about-page li {
+  overflow: visible !important;
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: normal !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+}
+
+.about-back {
+  font-size: 13px;
+  color: #6b6560;
+  margin-bottom: 12px;
+}
+
+.about-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.about-lead {
+  font-size: 16px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.about-facts {
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.about-links {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}

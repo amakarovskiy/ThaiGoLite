@@ -1,0 +1,1 @@
+function l(e){const n=Number(e);return Number.isInteger(n)&&n>=1&&n<=30?n:30}function c(e=globalThis.document){var s,a;const n=(a=(s=e==null?void 0:e.getElementById)==null?void 0:s.call(e,"calcSlider"))==null?void 0:a.value;return l(n)}export{c as g,l as n};

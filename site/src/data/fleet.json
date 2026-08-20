@@ -1,0 +1,1826 @@
+[
+  {
+    "id": "scoopy-110",
+    "name": "Honda Scoopy 110",
+    "cc": 110,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        400,
+        350,
+        300,
+        250,
+        5000
+      ],
+      "shoulder": [
+        400,
+        300,
+        250,
+        200,
+        4000
+      ],
+      "low": [
+        320,
+        260,
+        200,
+        130,
+        3000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "fino-125",
+    "name": "Yamaha Fino 125",
+    "cc": 125,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        400,
+        350,
+        300,
+        250,
+        5000
+      ],
+      "shoulder": [
+        400,
+        300,
+        250,
+        200,
+        4000
+      ],
+      "low": [
+        320,
+        260,
+        200,
+        130,
+        3000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "click-125",
+    "name": "Honda Click 125",
+    "cc": 125,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        400,
+        350,
+        300,
+        250,
+        5000
+      ],
+      "shoulder": [
+        400,
+        300,
+        250,
+        200,
+        4000
+      ],
+      "low": [
+        320,
+        260,
+        200,
+        130,
+        3000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "lead-125",
+    "name": "Honda Lead 125",
+    "cc": 125,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        450,
+        400,
+        300,
+        6000
+      ],
+      "shoulder": [
+        500,
+        400,
+        300,
+        200,
+        5000
+      ],
+      "low": [
+        450,
+        350,
+        250,
+        210,
+        4000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "filano",
+    "name": "Yamaha Filano",
+    "cc": 125,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        450,
+        400,
+        300,
+        6000
+      ],
+      "shoulder": [
+        500,
+        400,
+        300,
+        200,
+        5000
+      ],
+      "low": [
+        450,
+        350,
+        280,
+        210,
+        4000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "giorno-125",
+    "name": "Honda Giorno 125",
+    "cc": 125,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        450,
+        400,
+        300,
+        6000
+      ],
+      "shoulder": [
+        500,
+        400,
+        300,
+        200,
+        5000
+      ],
+      "low": [
+        450,
+        350,
+        280,
+        210,
+        4000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "click-160",
+    "name": "Honda Click 160",
+    "cc": 160,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        450,
+        400,
+        300,
+        6000
+      ],
+      "shoulder": [
+        500,
+        400,
+        300,
+        200,
+        5000
+      ],
+      "low": [
+        450,
+        350,
+        280,
+        210,
+        4000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "vespa-primavera",
+    "name": "Vespa Primavera 150 ABS",
+    "cc": 150,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        600,
+        450,
+        450,
+        350,
+        8000
+      ],
+      "shoulder": [
+        600,
+        500,
+        400,
+        250,
+        8000
+      ],
+      "low": [
+        600,
+        400,
+        300,
+        250,
+        6000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "pcx-150",
+    "name": "Honda PCX 150",
+    "cc": 150,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        450,
+        400,
+        300,
+        7000
+      ],
+      "shoulder": [
+        500,
+        400,
+        300,
+        250,
+        6000
+      ],
+      "low": [
+        450,
+        360,
+        290,
+        200,
+        4500
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "pcx-160",
+    "name": "Honda PCX 160",
+    "cc": 160,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        600,
+        500,
+        450,
+        400,
+        9000
+      ],
+      "shoulder": [
+        600,
+        500,
+        400,
+        250,
+        8000
+      ],
+      "low": [
+        500,
+        400,
+        350,
+        290,
+        5500
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "nmax-155",
+    "name": "Yamaha Nmax 155",
+    "cc": 155,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        600,
+        500,
+        450,
+        400,
+        9000
+      ],
+      "shoulder": [
+        600,
+        500,
+        400,
+        250,
+        8000
+      ],
+      "low": [
+        500,
+        400,
+        350,
+        290,
+        5500
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "adv-160",
+    "name": "Honda ADV 160 ABS",
+    "cc": 160,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        600,
+        500,
+        450,
+        400,
+        9000
+      ],
+      "shoulder": [
+        600,
+        500,
+        400,
+        250,
+        8000
+      ],
+      "low": [
+        500,
+        400,
+        350,
+        290,
+        5500
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "xmax-300-2022",
+    "name": "Yamaha Xmax 300 (2022)",
+    "cc": 300,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1100,
+        800,
+        700,
+        600,
+        16000
+      ],
+      "shoulder": [
+        900,
+        700,
+        600,
+        500,
+        12000
+      ],
+      "low": [
+        800,
+        700,
+        690,
+        580,
+        10000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "xmax-300-2024",
+    "name": "Yamaha Xmax 300 (2024)",
+    "cc": 300,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1200,
+        900,
+        800,
+        700,
+        17000
+      ],
+      "shoulder": [
+        1000,
+        800,
+        700,
+        600,
+        14000
+      ],
+      "low": [
+        900,
+        800,
+        690,
+        580,
+        13000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "forza-350-2024",
+    "name": "Honda Forza 350 (2024)",
+    "cc": 350,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1200,
+        900,
+        800,
+        700,
+        18000
+      ],
+      "shoulder": [
+        1000,
+        800,
+        700,
+        600,
+        14000
+      ],
+      "low": [
+        900,
+        800,
+        690,
+        580,
+        13000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "forza-350-2025",
+    "name": "Honda Forza 350 (2025)",
+    "cc": 350,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1200,
+        900,
+        800,
+        700,
+        18000
+      ],
+      "shoulder": [
+        1000,
+        800,
+        700,
+        600,
+        14000
+      ],
+      "low": [
+        900,
+        800,
+        690,
+        580,
+        13000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "adv-350",
+    "name": "Honda ADV 350",
+    "cc": 350,
+    "category": "scooter",
+    "type": "scooter",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1200,
+        900,
+        800,
+        700,
+        18000
+      ],
+      "shoulder": [
+        1000,
+        800,
+        700,
+        600,
+        14000
+      ],
+      "low": [
+        900,
+        800,
+        690,
+        580,
+        13000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "cbr-150-2021",
+    "name": "Honda CBR 150 (2021)",
+    "cc": 150,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        400,
+        350,
+        300,
+        7000
+      ],
+      "shoulder": [
+        500,
+        400,
+        300,
+        250,
+        5000
+      ],
+      "low": [
+        500,
+        350,
+        250,
+        200,
+        4000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "stallions-ct170i-2021",
+    "name": "Stallions CT170i (2021)",
+    "cc": 170,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        400,
+        350,
+        300,
+        7000
+      ],
+      "shoulder": [
+        400,
+        350,
+        250,
+        200,
+        5000
+      ],
+      "low": [
+        350,
+        300,
+        200,
+        150,
+        3000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "stallions-ct170i-2022",
+    "name": "Stallions CT170i (2022)",
+    "cc": 170,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        400,
+        350,
+        300,
+        7000
+      ],
+      "shoulder": [
+        400,
+        350,
+        250,
+        200,
+        5000
+      ],
+      "low": [
+        400,
+        350,
+        250,
+        200,
+        4000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "stallions-makina-170",
+    "name": "Stallions Makina 170",
+    "cc": 170,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        400,
+        350,
+        300,
+        7000
+      ],
+      "shoulder": [
+        400,
+        350,
+        250,
+        200,
+        5000
+      ],
+      "low": [
+        400,
+        350,
+        250,
+        200,
+        4000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "stallions-sm250",
+    "name": "Stallions SM250",
+    "cc": 250,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": false,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        400,
+        350,
+        300,
+        7000
+      ],
+      "shoulder": [
+        400,
+        350,
+        250,
+        200,
+        5000
+      ],
+      "low": [
+        400,
+        350,
+        300,
+        250,
+        5000
+      ]
+    },
+    "hasPhoto": false
+  },
+  {
+    "id": "benelli-tnt-300",
+    "name": "Benelli TNT 300",
+    "cc": 300,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        500,
+        400,
+        350,
+        300,
+        8000
+      ],
+      "shoulder": [
+        500,
+        400,
+        300,
+        250,
+        8000
+      ],
+      "low": [
+        500,
+        400,
+        300,
+        250,
+        7000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "cbr-150-2024",
+    "name": "Honda CBR 150 (2024)",
+    "cc": 150,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        600,
+        500,
+        450,
+        400,
+        9000
+      ],
+      "shoulder": [
+        600,
+        500,
+        400,
+        350,
+        8000
+      ],
+      "low": [
+        600,
+        400,
+        300,
+        250,
+        7000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "cb-150",
+    "name": "Honda CB 150",
+    "cc": 150,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "economy",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        600,
+        500,
+        450,
+        400,
+        9000
+      ],
+      "shoulder": [
+        600,
+        500,
+        350,
+        300,
+        8000
+      ],
+      "low": [
+        600,
+        400,
+        300,
+        250,
+        7000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "ktm-duke-200",
+    "name": "KTM Duke 200",
+    "cc": 200,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        600,
+        500,
+        450,
+        400,
+        9000
+      ],
+      "shoulder": [
+        800,
+        500,
+        400,
+        350,
+        9000
+      ],
+      "low": [
+        600,
+        400,
+        300,
+        250,
+        7000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "xsr-155",
+    "name": "Yamaha XSR 155",
+    "cc": 155,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        600,
+        500,
+        450,
+        400,
+        9000
+      ],
+      "shoulder": [
+        500,
+        400,
+        350,
+        300,
+        7000
+      ],
+      "low": [
+        600,
+        400,
+        300,
+        250,
+        7000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "mt-15",
+    "name": "Yamaha MT-15",
+    "cc": 155,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        600,
+        500,
+        450,
+        400,
+        9000
+      ],
+      "shoulder": [
+        500,
+        400,
+        350,
+        300,
+        7000
+      ],
+      "low": [
+        600,
+        400,
+        300,
+        250,
+        7000
+      ]
+    },
+    "hasPhoto": false
+  },
+  {
+    "id": "z300",
+    "name": "Kawasaki Z300",
+    "cc": 300,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        1000,
+        600,
+        500,
+        450,
+        12000
+      ],
+      "shoulder": [
+        900,
+        700,
+        500,
+        400,
+        11000
+      ],
+      "low": [
+        800,
+        700,
+        500,
+        400,
+        11000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "cbr-250rr",
+    "name": "Honda CBR250RR",
+    "cc": 250,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        1400,
+        1000,
+        900,
+        700,
+        16000
+      ],
+      "shoulder": [
+        1300,
+        900,
+        700,
+        600,
+        13000
+      ],
+      "low": [
+        1100,
+        800,
+        600,
+        550,
+        13000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "cbr-500r",
+    "name": "Honda CBR500R",
+    "cc": 500,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        1400,
+        1200,
+        900,
+        800,
+        18000
+      ],
+      "shoulder": [
+        1400,
+        1000,
+        800,
+        700,
+        16000
+      ],
+      "low": [
+        1200,
+        900,
+        700,
+        650,
+        15000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "rebel-500",
+    "name": "Honda Rebel 500",
+    "cc": 500,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        1400,
+        1000,
+        900,
+        800,
+        18000
+      ],
+      "shoulder": [
+        1400,
+        1000,
+        800,
+        700,
+        16000
+      ],
+      "low": [
+        1200,
+        900,
+        700,
+        650,
+        15000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "yzf-r3",
+    "name": "Yamaha YZF R3",
+    "cc": 321,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        1400,
+        1000,
+        900,
+        700,
+        16000
+      ],
+      "shoulder": [
+        1400,
+        1000,
+        900,
+        700,
+        16000
+      ],
+      "low": [
+        1100,
+        800,
+        600,
+        550,
+        13000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "z400",
+    "name": "Kawasaki Z400",
+    "cc": 400,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        1300,
+        700,
+        600,
+        550,
+        15000
+      ],
+      "shoulder": [
+        1100,
+        800,
+        600,
+        500,
+        12000
+      ],
+      "low": [
+        1000,
+        800,
+        600,
+        500,
+        12000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "vulcan-650s",
+    "name": "Kawasaki Vulcan 650S",
+    "cc": 650,
+    "category": "moto",
+    "type": "motorcycle",
+    "transmission": "manual",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": false,
+      "usb": false
+    },
+    "prices": {
+      "high": [
+        1600,
+        1100,
+        1000,
+        900,
+        20000
+      ],
+      "shoulder": [
+        1600,
+        1200,
+        900,
+        700,
+        18000
+      ],
+      "low": [
+        1400,
+        1000,
+        800,
+        700,
+        16000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "honda-city",
+    "name": "Honda City",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1400,
+        1200,
+        1000,
+        900,
+        16000
+      ],
+      "shoulder": [
+        1500,
+        1100,
+        900,
+        800,
+        15000
+      ],
+      "low": [
+        1300,
+        1000,
+        900,
+        800,
+        15000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "yaris-2023",
+    "name": "Toyota Yaris (2023)",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1600,
+        1300,
+        1100,
+        1000,
+        24000
+      ],
+      "shoulder": [
+        1500,
+        1200,
+        1000,
+        900,
+        18000
+      ],
+      "low": [
+        1300,
+        1100,
+        1000,
+        900,
+        18000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "yaris-2025",
+    "name": "Toyota Yaris (2025)",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1600,
+        1300,
+        1100,
+        1000,
+        24000
+      ],
+      "shoulder": [
+        1500,
+        1200,
+        1000,
+        900,
+        18000
+      ],
+      "low": [
+        1300,
+        1200,
+        1000,
+        900,
+        18000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "mazda-2",
+    "name": "Mazda 2",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1600,
+        1300,
+        1100,
+        1000,
+        24000
+      ],
+      "shoulder": [
+        1500,
+        1200,
+        1000,
+        900,
+        18000
+      ],
+      "low": [
+        1300,
+        1200,
+        1000,
+        900,
+        18000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "swift",
+    "name": "Suzuki Swift",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1600,
+        1300,
+        1100,
+        1000,
+        24000
+      ],
+      "shoulder": [
+        1500,
+        1200,
+        1000,
+        900,
+        18000
+      ],
+      "low": [
+        1300,
+        1200,
+        1000,
+        900,
+        18000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "mg-5",
+    "name": "MG 5",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "comfort",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        1700,
+        1500,
+        1200,
+        1100,
+        27000
+      ],
+      "shoulder": [
+        2000,
+        1500,
+        1200,
+        900,
+        18000
+      ],
+      "low": [
+        1300,
+        1200,
+        1000,
+        900,
+        18000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "veloz",
+    "name": "Toyota Veloz",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        2300,
+        2000,
+        1700,
+        1500,
+        40000
+      ],
+      "shoulder": [
+        2300,
+        1700,
+        1500,
+        1300,
+        34000
+      ],
+      "low": [
+        2000,
+        1500,
+        1300,
+        1100,
+        28000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "ranger-2020",
+    "name": "Ford Ranger (2020)",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        3000,
+        2500,
+        2000,
+        1500,
+        36000
+      ],
+      "shoulder": [
+        2500,
+        2000,
+        1800,
+        1400,
+        34000
+      ],
+      "low": [
+        3000,
+        2000,
+        1500,
+        1200,
+        22000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "ranger-2024",
+    "name": "Ford Ranger (2024)",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        3000,
+        2500,
+        2000,
+        1500,
+        36000
+      ],
+      "shoulder": [
+        2500,
+        2000,
+        1800,
+        1400,
+        34000
+      ],
+      "low": [
+        2000,
+        1500,
+        1300,
+        1100,
+        28000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "everest",
+    "name": "Ford Everest",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        3000,
+        2500,
+        2000,
+        1500,
+        36000
+      ],
+      "shoulder": [
+        2500,
+        2000,
+        1800,
+        1400,
+        34000
+      ],
+      "low": [
+        6000,
+        4000,
+        3000,
+        2500,
+        55000
+      ]
+    },
+    "hasPhoto": false
+  },
+  {
+    "id": "haval",
+    "name": "Haval H6",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        2000,
+        1700,
+        1600,
+        1500,
+        35000
+      ],
+      "shoulder": [
+        2000,
+        1700,
+        1600,
+        1500,
+        35000
+      ],
+      "low": [
+        2000,
+        1700,
+        1600,
+        1500,
+        35000
+      ]
+    },
+    "hasPhoto": false
+  },
+  {
+    "id": "mercedes-slk",
+    "name": "Mercedes SLK",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        6000,
+        5000,
+        3500,
+        3000,
+        65000
+      ],
+      "shoulder": [
+        6000,
+        4000,
+        3000,
+        2500,
+        60000
+      ],
+      "low": [
+        5000,
+        4000,
+        3000,
+        2500,
+        55000
+      ]
+    },
+    "hasPhoto": true
+  },
+  {
+    "id": "mercedes-c350e",
+    "name": "Mercedes C350e",
+    "cc": 0,
+    "category": "car",
+    "type": "car",
+    "transmission": "auto",
+    "budgetGroup": "premium",
+    "featureFlags": {
+      "abs": true,
+      "keyless": true,
+      "usb": true
+    },
+    "prices": {
+      "high": [
+        6000,
+        5000,
+        3500,
+        3000,
+        65000
+      ],
+      "shoulder": [
+        6000,
+        4000,
+        3000,
+        2500,
+        60000
+      ],
+      "low": [
+        5000,
+        3500,
+        2500,
+        2000,
+        50000
+      ]
+    },
+    "hasPhoto": true
+  }
+]

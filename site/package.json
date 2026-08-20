@@ -1,0 +1,15 @@
+{
+  "name": "thaigo-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "vite preview --host 0.0.0.0 --port 4173 --strictPort",
+    "preview": "vite preview --host 0.0.0.0 --port 4173 --strictPort",
+    "validate": "node scripts/build.mjs && node scripts/validate.mjs",
+    "validate:only": "node scripts/validate.mjs"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}

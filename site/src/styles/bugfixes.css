@@ -184,3 +184,61 @@ img[data-photo-missing='1'] {
 .photo-slide--placeholder img {
   display: none !important;
 }
+
+/* /about/ at 375: wrap at word boundaries, do not clip mid-word */
+.page-content.about-page {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto;
+  padding: 24px 16px calc(var(--tabbar-h, 60px) + env(safe-area-inset-bottom, 0px) + 96px) !important;
+  overflow-x: visible !important;
+}
+
+.about-page h1,
+.about-page p,
+.about-page ul,
+.about-page li {
+  overflow: visible !important;
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-break: normal !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+}
+
+.about-back {
+  font-size: 13px;
+  color: #6b6560;
+  margin-bottom: 12px;
+}
+
+.about-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.about-lead {
+  font-size: 16px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.about-facts {
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.about-links {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}

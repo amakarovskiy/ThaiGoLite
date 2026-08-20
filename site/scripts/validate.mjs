@@ -169,6 +169,19 @@ check('about pages exist in all 7 languages', () => {
   }
 });
 
+check('about page wraps at word boundaries', () => {
+  const css = read('assets/bugfixes.css');
+  const about = read('about/index.html');
+  assert.match(css, /\.page-content\.about-page/);
+  assert.match(css, /overflow-x:\s*visible/);
+  assert.match(css, /overflow-wrap:\s*break-word/);
+  assert.match(css, /word-break:\s*normal/);
+  assert.match(about, /about-lead/);
+  assert.match(about, /автомобилей на Пхукете/);
+  assert.match(about, /карточке модели и при бронировании/);
+  assert.equal(about.includes('founded'), false);
+});
+
 check('messenger links keep text without click IDs in bugfixes', () => {
   const js = read('assets/bugfixes.js');
   assert.match(js, /gclid/);

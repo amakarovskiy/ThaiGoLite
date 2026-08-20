@@ -282,12 +282,12 @@ ${hreflang}
 </head>
 <body>
   <div class="site-frame">
-    <main class="page-content about-page" style="padding:24px 20px 120px;max-width:640px;margin:0 auto">
-      <p style="font-size:13px;color:#6B6560;margin-bottom:12px"><a href="${aboutHref(lang, '/')}">${t.home}</a></p>
-      <h1 style="font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:12px">${t.title}</h1>
-      <p style="font-size:16px;line-height:1.55;margin-bottom:16px">${t.lead}</p>
-      <ul style="padding-left:18px;display:grid;gap:8px;font-size:15px;line-height:1.5">${facts}</ul>
-      <p style="margin-top:24px;display:flex;gap:16px;flex-wrap:wrap">
+    <main class="page-content about-page">
+      <p class="about-back"><a href="${aboutHref(lang, '/')}">${t.home}</a></p>
+      <h1 class="about-title">${t.title}</h1>
+      <p class="about-lead">${t.lead}</p>
+      <ul class="about-facts">${facts}</ul>
+      <p class="about-links">
         <a href="${aboutHref(lang, '/contacts/')}">${t.contacts}</a>
         <a href="${aboutHref(lang, '/prices/')}">${t.prices}</a>
       </p>

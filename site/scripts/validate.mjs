@@ -88,29 +88,30 @@ check('no-photo models listed, never invent images', () => {
   }
 });
 
-check('prices table: no min-width overflow, dual stack', () => {
+check('prices table: wrap scrolls, names nowrap, dual stack', () => {
   const css = `${read('assets/bikes-9TOdqJe5.css')}\n${read('assets/bugfixes.css')}`;
+  const fixes = read('assets/bugfixes.css');
   assert.match(css, /price-val-dual/);
   assert.match(css, /\.price-usd-val/);
   assert.match(css, /display:\s*block/);
-  assert.match(css, /overflow-x:\s*hidden/);
-  const fixes = read('assets/bugfixes.css');
-  assert.match(fixes, /table-layout:\s*fixed/);
-  assert.match(fixes, /word-break:\s*keep-all/);
-  assert.match(fixes, /min-width:\s*min-content/);
+  assert.match(fixes, /\.prices-table-wrap\s*\{[^}]*overflow-x:\s*auto/);
+  assert.match(fixes, /min-width:\s*560px/);
+  assert.match(fixes, /table-layout:\s*auto/);
+  assert.match(fixes, /display:\s*table-cell/);
+  assert.match(fixes, /\.price-bike-name\s*\{[^}]*white-space:\s*nowrap/);
+  assert.equal(fixes.includes('table-layout: fixed'), false);
   assert.equal(fixes.includes('overflow-wrap: anywhere'), false);
-  assert.equal(fixes.includes('word-break: break-word'), false);
 });
 
-check('tab bar highlights Prices, not Guide, on /prices/', () => {
+check('tab bar does not highlight Guide on /prices/', () => {
   const loader = read('assets/booking-sheet-loader-CB6WQ4zm.js');
   const fixes = read('assets/bugfixes.js');
   assert.equal(loader.includes('startsWith("/prices")?"/guide/"'), false);
   assert.equal(loader.includes('startsWith("/guide")||t.startsWith("/prices")?a="guide"'), false);
-  assert.match(loader, /id:"prices",path:"\/prices\/",i18n:"tabPrices"/);
-  assert.match(loader, /startsWith\("\/prices"\)\?a="prices"/);
-  assert.match(fixes, /highlightPricesTab/);
-  assert.match(fixes, /data-tab="prices"/);
+  assert.match(fixes, /function fixPricesTabBar/);
+  assert.match(fixes, /data-tab="guide"/);
+  assert.match(fixes, /remove\('active'\)/);
+  assert.match(fixes, /removeAttribute\('aria-current'\)/);
 });
 
 check('mobile padding-bottom covers tab bar', () => {

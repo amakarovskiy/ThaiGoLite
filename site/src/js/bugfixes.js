@@ -112,33 +112,24 @@ function ensurePricesTab(bar) {
   return item;
 }
 
-function highlightPricesTab() {
+function fixPricesTabBar() {
   const bar = document.querySelector('.tab-bar');
   if (!bar) return false;
-  const onPrices = isPricesPath(pagePath());
+  if (!isPricesPath(pagePath())) return true;
+  bar.querySelectorAll('[data-tab="guide"]').forEach((el) => {
+    el.classList.remove('active');
+    el.removeAttribute('aria-current');
+  });
   const prices = ensurePricesTab(bar);
-  const guide = bar.querySelector('[data-tab="guide"]');
-  if (onPrices) {
-    bar.querySelectorAll('.tab-bar-item.active').forEach((el) => {
-      if (el !== prices) {
-        el.classList.remove('active');
-        el.removeAttribute('aria-current');
-      }
-    });
-    if (guide) {
-      guide.classList.remove('active');
-      guide.removeAttribute('aria-current');
-    }
-    prices.classList.add('active');
-    prices.setAttribute('aria-current', 'page');
-  }
+  prices.classList.add('active');
+  prices.setAttribute('aria-current', 'page');
   return true;
 }
 
 function watchTabBar() {
-  if (highlightPricesTab()) return;
+  if (fixPricesTabBar()) return;
   const observer = new MutationObserver(() => {
-    if (highlightPricesTab()) observer.disconnect();
+    if (fixPricesTabBar()) observer.disconnect();
   });
   observer.observe(document.documentElement, { childList: true, subtree: true });
 }
